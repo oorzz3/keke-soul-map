@@ -1,19 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.3",
+    version: "v0.3.4",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.3",
-    status: "首頁總控台版面重整 × 三段式分區",
-    updatedNote: "v0.3.3 將首頁重整為本命與命盤核心、今日節奏、輔助提醒三段式總控台版面。"
+    cacheVersion: "v0.3.4",
+    status: "小貓龍蝦檢查瘦身 × 版本策略收束",
+    updatedNote: "v0.3.4 整理小貓龍蝦檢查腳本與版本規則，作為後續命盤詳情頁深化前的工程整理版。"
+  },
+  versionPolicy: {
+    productVersion: "v0.3.4",
+    cacheVersion: "v0.3.4",
+    dataVersion: "v0.2",
+    note: "產品版本標記功能進度，cacheVersion 用於 GitHub Pages 靜態資源刷新，dataVersion 標記資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.3",
+    currentVersion: "v0.3.4",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.3 保留 hash router，並以 dashboard zone 管理首頁三段式資訊層級。"
+    note: "v0.3.4 保留 hash router 與 dashboard zone，並收束版本策略與檢查腳本。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

@@ -31,8 +31,14 @@
 
 ## 檢查工具
 
-- `scripts/check-site.js`：小貓龍蝦檢查腳本，檢查必要檔案、靜態網站相容、版本同步、route / detail、active UX、既有實驗功能與高風險關鍵字。
+- `scripts/check-site.js`：小貓龍蝦檢查腳本，v0.3.4 起分為多個 group，例如 `version-sync`、`required-files`、`dashboard-structure`、`router-checks`、`detail-data-checks`、`almanac-deity-checks`、`risk-checks`、`docs-checks`。它是驗收輔助，不是正式測試框架。
 - `run-check-site.bat`：Windows 雙擊檢查入口，執行 `node scripts/check-site.js`。
+
+## v0.3.4 工程整理
+
+- `scripts/check-site.js`：整理為 helper + 多個 group，降低後續版本繼續堆疊零散字串檢查的負擔。
+- `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
+- 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
 ## v0.3.2.2 資訊層級整理
 

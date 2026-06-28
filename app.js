@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.3",
+  version: "v0.3.4",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.3",
-  status: "首頁總控台版面重整 × 三段式分區"
+  cacheVersion: "v0.3.4",
+  status: "小貓龍蝦檢查瘦身 × 版本策略收束"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 

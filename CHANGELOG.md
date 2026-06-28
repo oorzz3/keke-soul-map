@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.3.4｜小貓龍蝦檢查瘦身 × 版本策略收束
+
+- 重構 `scripts/check-site.js` 的檢查分組
+- 建立版本同步、必要檔案、首頁結構、router、detail data、lunar/deity、高風險與文件檢查分類
+- 補充版本策略說明
+- 保留首頁三段式總控台、hash router、詳情頁、lunar、神明生日與日期測試模式
+- 不新增 npm / API / 後端
+
 ## v0.3.3｜首頁總控台版面重整版
 
 - 首頁改為上層 / 中層 / 底層三段式 dashboard zone

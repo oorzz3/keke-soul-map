@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.3
+- 網站版本：v0.3.4
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.3
+- 靜態資源快取版本：v0.3.4
 
 ## 專案定位
 
@@ -17,6 +17,32 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.3.4 工程整理版
+
+v0.3.4 先整理工程工具，不新增命理內容，也不改首頁視覺。
+
+- 小貓龍蝦檢查改為分組輸出，讓後續驗收比較好讀
+- `scripts/check-site.js` 補上共用 helper，降低大量零散字串檢查的維護負擔
+- `data/site-data.js` 新增 `versionPolicy`
+- 保留首頁三段式總控台、hash router、detail pages、lunar、deity matcher、date test mode
+
+小貓龍蝦檢查分組：
+
+- `version-sync`
+- `required-files`
+- `dashboard-structure`
+- `router-checks`
+- `detail-data-checks`
+- `almanac-deity-checks`
+- `risk-checks`
+- `docs-checks`
+
+版本策略：
+
+- `productVersion`：標記功能與施工進度
+- `cacheVersion`：用於 GitHub Pages 靜態資源刷新
+- `dataVersion`：標記資料層結構版本
 
 ## v0.3.3 修正
 
@@ -129,8 +155,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.3 已將主要靜態資源引用更新為 `v=0.3.3`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.4 已將主要靜態資源引用更新為 `v=0.3.4`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.3 可開始逐步深化單一命盤詳情頁 mock，例如紫微斗數詳情頁，但仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.3.4 後可開始逐步深化單一命盤詳情頁 mock，例如紫微斗數詳情頁，但仍建議先維持 mock / planning，不急著接真正排盤演算法。
