@@ -140,9 +140,13 @@ function checkIndexContent() {
     { label: "神明生日", ok: html.includes("神明生日") },
     { label: "命樹", ok: html.includes("命樹") },
     { label: "style.css", ok: html.includes("style.css") },
+    { label: "style.css?v=0.2.1", ok: html.includes("style.css?v=0.2.1") },
     { label: "data/site-data.js", ok: html.includes("data/site-data.js") },
+    { label: "data/site-data.js?v=0.2.1", ok: html.includes("data/site-data.js?v=0.2.1") },
     { label: "KekeSoulData", ok: html.includes("KekeSoulData") },
-    { label: "app.js", ok: html.includes("app.js") }
+    { label: "app.js", ok: html.includes("app.js") },
+    { label: "app.js?v=0.2.1", ok: html.includes("app.js?v=0.2.1") },
+    { label: "v=0.2.1", ok: html.includes("v=0.2.1") }
   ];
 
   for (const item of requiredChecks) {
@@ -150,6 +154,52 @@ function checkIndexContent() {
       addResult("pass", `index.html 包含：${item.label}`, "已通過。");
     } else {
       addResult("fail", `index.html 缺少：${item.label}`, "首頁骨架可能偏離 v0.1 規格。");
+    }
+  }
+}
+
+function checkDataVersionContent() {
+  if (!exists("data/site-data.js")) {
+    addResult("fail", "data/site-data.js 版本資料檢查", "data/site-data.js 不存在，無法檢查。");
+    return;
+  }
+
+  const dataContent = readUtf8("data/site-data.js");
+  const requiredChecks = [
+    { label: "siteMeta 或 metadata", ok: dataContent.includes("siteMeta") || dataContent.includes("metadata") },
+    { label: "version", ok: dataContent.includes("version") },
+    { label: "v0.2.1", ok: dataContent.includes("v0.2.1") },
+    { label: "dataVersion", ok: dataContent.includes("dataVersion") },
+    { label: "cacheVersion", ok: dataContent.includes("cacheVersion") }
+  ];
+
+  for (const item of requiredChecks) {
+    if (item.ok) {
+      addResult("pass", `data/site-data.js 包含：${item.label}`, "已通過。");
+    } else {
+      addResult("fail", `data/site-data.js 缺少：${item.label}`, "版本資料中心不完整。");
+    }
+  }
+}
+
+function checkAppVersionRendering() {
+  if (!exists("app.js")) {
+    addResult("fail", "app.js 版本渲染檢查", "app.js 不存在，無法檢查。");
+    return;
+  }
+
+  const appContent = readUtf8("app.js");
+  const requiredChecks = [
+    { label: "讀取 siteMeta 或 metadata", ok: appContent.includes("siteMeta") || appContent.includes("metadata") },
+    { label: "渲染版本號", ok: appContent.includes("version-badge") || appContent.includes("versionMeta") || appContent.includes("version-meta") },
+    { label: "fallback v0.2.1", ok: appContent.includes("v0.2.1") }
+  ];
+
+  for (const item of requiredChecks) {
+    if (item.ok) {
+      addResult("pass", `app.js 版本檢查：${item.label}`, "已通過。");
+    } else {
+      addResult("fail", `app.js 版本檢查缺少：${item.label}`, "版本號渲染可能不完整。");
     }
   }
 }
@@ -277,7 +327,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.2.0.1 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.2.1 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);
@@ -298,6 +348,8 @@ function printResults() {
 checkRequiredFiles();
 checkRequiredFolders();
 checkIndexContent();
+checkDataVersionContent();
+checkAppVersionRendering();
 checkStaticCompatibility();
 checkHighRiskKeywords();
 checkNestedRepo();

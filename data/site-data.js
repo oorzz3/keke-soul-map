@@ -1,4 +1,12 @@
 window.KekeSoulData = {
+  siteMeta: {
+    appName: "科科命理宇宙站",
+    version: "v0.2.1",
+    dataVersion: "v0.2",
+    cacheVersion: "v0.2.1",
+    status: "資料模組化 × 版本顯示",
+    updatedNote: "版本號已顯示於網站畫面，方便確認 GitHub Pages 是否更新成功。"
+  },
   profile: {
     name: "科科",
     birthday: "1990/06/09",

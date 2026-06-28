@@ -137,6 +137,31 @@ a {
   font-size: 0.82rem;
 }
 
+.version-badge {
+  display: inline-grid;
+  min-height: 30px;
+  place-items: center;
+  padding: 5px 10px;
+  color: var(--cyan);
+  background: rgba(114, 215, 239, 0.08);
+  border: 1px solid rgba(114, 215, 239, 0.28);
+  border-radius: var(--radius);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.mobile-version {
+  width: fit-content;
+  min-height: 26px;
+  margin: 8px auto 0;
+  padding: 4px 9px;
+}
+
+.topbar-title .version-badge {
+  color: var(--cyan);
+}
+
 .desktop-actions {
   display: none;
 }
@@ -451,6 +476,37 @@ blockquote {
   width: 100%;
   min-height: 48px;
   border-color: rgba(114, 215, 239, 0.28);
+}
+
+.version-meta {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.version-meta div {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.version-meta dt,
+.version-meta dd {
+  margin: 0;
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.84rem;
+}
+
+.version-meta dt {
+  color: var(--muted);
+}
+
+.version-meta dd {
+  color: var(--cyan);
+  text-align: right;
 }
 
 .mobile-tabbar {

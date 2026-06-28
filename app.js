@@ -1,8 +1,15 @@
 const data = window.KekeSoulData;
+const fallbackSiteMeta = {
+  version: "v0.2.1",
+  dataVersion: "v0.2",
+  cacheVersion: "v0.2.1",
+  status: "資料模組化 × 版本顯示"
+};
 
 if (!data) {
   console.warn("KekeSoulData 未載入，首頁資料暫時無法渲染。");
 } else {
+  renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
   renderTodaySummary(data.todaySummary);
   renderNumerology(data.numerology);
@@ -31,6 +38,14 @@ function setHtml(selector, html) {
   }
 
   target.innerHTML = html;
+}
+
+function getSiteMeta() {
+  return data?.siteMeta || data?.metadata || fallbackSiteMeta;
+}
+
+function renderSiteMeta(siteMeta = fallbackSiteMeta) {
+  setHtml("#mobileVersionBadge", escapeHtml(siteMeta.version || fallbackSiteMeta.version));
 }
 
 function renderProfile(profile = {}) {
@@ -181,6 +196,7 @@ function renderSoulTree(soulTree = {}) {
 }
 
 function renderTools(tools = []) {
+  const siteMeta = getSiteMeta();
   const buttons = tools.map((label) => `
     <button type="button">${escapeHtml(label)}</button>
   `).join("");
@@ -191,10 +207,25 @@ function renderTools(tools = []) {
       <h2 id="tool-title">資料工具</h2>
     </div>
     <div class="tool-row">${buttons}</div>
+    <dl class="version-meta" aria-label="版本資訊">
+      <div>
+        <dt>目前版本</dt>
+        <dd>${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</dd>
+      </div>
+      <div>
+        <dt>資料層</dt>
+        <dd>${escapeHtml(siteMeta.dataVersion || fallbackSiteMeta.dataVersion)}</dd>
+      </div>
+      <div>
+        <dt>狀態</dt>
+        <dd>${escapeHtml(siteMeta.status || fallbackSiteMeta.status)}</dd>
+      </div>
+    </dl>
   `);
 
   setHtml("#topbarActions", tools.slice(0, 1).map((label) => `
     <button type="button">今日總覽</button>
+    <span class="version-badge">${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</span>
     <button type="button">${escapeHtml(label)}</button>
     <button type="button" class="profile-button">${escapeHtml(data.profile.name)}</button>
   `).join(""));
