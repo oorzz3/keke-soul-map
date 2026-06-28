@@ -3,11 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>科科命理宇宙站</title>
+  <meta
+    name="description"
+    content="科科命理宇宙站 v0.1，手機優先的靜態命盤首頁儀表板。"
+  />
+  <title>科科命理宇宙站｜Soul Map 命盤儀表板</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <h1>科科命理宇宙站</h1>
-  <p>小貓網站啟動成功 🐱</p>
-  <p>Soul Map 命盤儀表板 v0.0.1</p>
+  <div class="site-shell">
+    <aside class="desktop-sidebar" aria-label="主要導覽">
+      <a class="brand-mark" href="#top" aria-label="回到首頁">
+        <span class="brand-sigil" aria-hidden="true">✦</span>
+        <span>
+          <strong>科科命理宇宙站</strong>
+          <small>Soul Map</small>
+        </span>
+      </a>
+      <nav class="sidebar-nav" id="desktopNav"></nav>
+      <section class="sidebar-sync" aria-label="資料備份與同步">
+        <span class="sync-icon" aria-hidden="true">⌁</span>
+        <div>
+          <strong>資料備份與同步</strong>
+          <small>JSON / 匯入 / 備份紀錄</small>
+        </div>
+      </section>
+    </aside>
+
+    <div class="page-canvas">
+      <header class="topbar" id="top">
+        <button class="mobile-menu" type="button" aria-label="開啟導覽">☰</button>
+        <div class="topbar-title">
+          <p>從不同命理系統，看見同一個自己</p>
+          <h1>科科命理宇宙站</h1>
+          <span>Soul Map 命盤儀表板</span>
+        </div>
+        <div class="desktop-actions" aria-label="頂部工具列">
+          <button type="button">今日總覽</button>
+          <button type="button">匯出 JSON</button>
+          <button type="button" class="profile-button">科科</button>
+        </div>
+        <button class="mobile-bell" type="button" aria-label="今日提醒">◌</button>
+      </header>
+
+      <main class="dashboard" aria-label="科科命理宇宙站首頁儀表板">
+        <section class="hero-card" aria-labelledby="profile-title">
+          <div class="cosmic-disc" aria-hidden="true">
+            <span></span>
+          </div>
+          <div class="hero-copy">
+            <p class="eyebrow">本命檔案</p>
+            <h2 id="profile-title">科科</h2>
+            <div class="profile-meta">
+              <span>生日：1990/06/09</span>
+              <span>星座：雙子座</span>
+              <span>出生時辰：午時 11:00-13:00</span>
+            </div>
+            <p>
+              靈動好奇、思維敏捷，擅長連結與學習，生命課題在於專注與深化。
+            </p>
+          </div>
+        </section>
+
+        <section class="card today-card" aria-labelledby="today-title">
+          <div class="section-heading">
+            <p>今日科科</p>
+            <h2 id="today-title">專注與收斂</h2>
+          </div>
+          <div class="today-grid">
+            <article>
+              <span>適合做</span>
+              <p>整理資料、學習研究、寫筆記、靜心祈福</p>
+            </article>
+            <article>
+              <span>不宜做</span>
+              <p>衝動決策、情緒爭辯、同時開太多新坑</p>
+            </article>
+            <article>
+              <span>要小心</span>
+              <p>分心、晚睡、想很多但沒有落地</p>
+            </article>
+          </div>
+          <blockquote>先完成最重要的一件事，比什麼都強。</blockquote>
+        </section>
+
+        <section class="card numerology-card" aria-labelledby="life-number-title">
+          <div class="section-heading">
+            <p>生命靈數</p>
+            <h2 id="life-number-title">核心數字</h2>
+          </div>
+          <div class="life-number">7</div>
+          <div class="number-strip" aria-label="生命靈數明細">
+            <span><strong>7</strong>個人年</span>
+            <span><strong>4</strong>個人月</span>
+            <span><strong>2</strong>個人日</span>
+          </div>
+        </section>
+
+        <section class="card module-card" aria-labelledby="module-title">
+          <div class="section-heading inline-heading">
+            <div>
+              <p>命理模組</p>
+              <h2 id="module-title">入口卡</h2>
+            </div>
+            <span class="soft-tag">v0.1 靜態</span>
+          </div>
+          <div class="module-grid" id="moduleGrid"></div>
+        </section>
+
+        <section class="card almanac-card" aria-labelledby="almanac-title">
+          <div class="section-heading">
+            <p>今日農民曆</p>
+            <h2 id="almanac-title">2026/06/28</h2>
+          </div>
+          <dl class="detail-list">
+            <div>
+              <dt>農曆</dt>
+              <dd>五月十四</dd>
+            </div>
+            <div>
+              <dt>今日宜</dt>
+              <dd>祭祀、整理、學習</dd>
+            </div>
+            <div>
+              <dt>今日忌</dt>
+              <dd>衝動決策</dd>
+            </div>
+            <div>
+              <dt>吉時</dt>
+              <dd>辰時 07-09、巳時 09-11、申時 15-17</dd>
+            </div>
+            <div>
+              <dt>沖煞</dt>
+              <dd>展示資料</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="card deity-card" aria-labelledby="deity-title">
+          <div class="section-heading">
+            <p>今日神明生日</p>
+            <h2 id="deity-title">觀世音菩薩 佛辰</h2>
+          </div>
+          <dl class="detail-list compact">
+            <div>
+              <dt>農曆</dt>
+              <dd>五月十九</dd>
+            </div>
+            <div>
+              <dt>祈福方向</dt>
+              <dd>平安、慈悲、圓滿</dd>
+            </div>
+          </dl>
+          <p class="mock-note">這是 mock 展示資料，不代表真實當日資料。</p>
+        </section>
+
+        <section class="card tree-card" aria-labelledby="tree-title">
+          <div class="section-heading">
+            <p>命樹</p>
+            <h2 id="tree-title">多系統整合</h2>
+          </div>
+          <div class="tree-map" aria-label="命樹概念">
+            <span class="tree-node root">根：八字</span>
+            <span class="tree-node trunk">幹：日主 / 本命</span>
+            <span class="tree-node crown">枝葉：紫微、星盤、生命靈數、姓名學</span>
+          </div>
+          <p>
+            多元命理系統整合成一棵屬於科科的命理之樹，看見全貌，找到方向。
+          </p>
+        </section>
+
+        <section class="card tools-card" aria-labelledby="tool-title">
+          <div class="section-heading">
+            <p>底部工具區</p>
+            <h2 id="tool-title">資料工具</h2>
+          </div>
+          <div class="tool-row">
+            <button type="button">匯出 JSON</button>
+            <button type="button">匯入資料</button>
+            <button type="button">備份紀錄</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <nav class="mobile-tabbar" aria-label="手機底部導覽">
+    <a href="#top" aria-current="page">首頁</a>
+    <a href="#module-title">命盤</a>
+    <a href="#almanac-title">農曆</a>
+    <a href="#deity-title">占問</a>
+    <a href="#tool-title">我的</a>
+  </nav>
+
+  <script src="./app.js" defer></script>
 </body>
 </html>
