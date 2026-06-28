@@ -1,19 +1,19 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.2.2",
+    version: "v0.3.3",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.2.2",
-    status: "首頁資訊層級整理 × 輔助提醒 compact 化",
-    updatedNote: "v0.3.2.2 整理首頁資訊層級，縮小生命靈數節奏，並讓農民曆與神明生日成為 compact 輔助提醒。"
+    cacheVersion: "v0.3.3",
+    status: "首頁總控台版面重整 × 三段式分區",
+    updatedNote: "v0.3.3 將首頁重整為本命與命盤核心、今日節奏、輔助提醒三段式總控台版面。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.2.2",
+    currentVersion: "v0.3.3",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.2.2 保留 hash router，並整理首頁命盤核心、節奏摘要與輔助提醒的視覺層級。"
+    note: "v0.3.3 保留 hash router，並以 dashboard zone 管理首頁三段式資訊層級。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

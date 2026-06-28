@@ -46,3 +46,10 @@
 - `style.css`：修正 `.core-dashboard`、`.core-dashboard-grid`、`.core-module-card` 寬度規則，避免核心卡被壓成直排。
 - `app.js`：保留命盤核心總控台渲染、整合與工具、輔助提醒分組。
 - `scripts/check-site.js`：加入 v0.3.2.1 版本與核心卡寬度檢查。
+
+## v0.3.3 首頁總控台版面
+
+- `index.html`：dashboardView 內新增 dashboard-hero-zone、dashboard-rhythm-zone、dashboard-support-zone 三段式容器。
+- `app.js`：renderModules 收斂為命盤核心；renderSoulTree 透過 renderIntegrationSummary 顯示整合摘要。
+- `style.css`：新增 dashboard-layout、dashboard-zone 與 integration-summary 的總控台版面樣式。
+- `scripts/check-site.js`：加入 v0.3.3 dashboard zone 與整合摘要檢查。

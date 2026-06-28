@@ -3,8 +3,8 @@ const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
 const results = [];
-const expectedVersion = "0.3.2.2";
-const expectedVersionLabel = "v0.3.2.2";
+const expectedVersion = "0.3.3";
+const expectedVersionLabel = "v0.3.3";
 
 function addResult(level, title, detail) {
   results.push({ level, title, detail });
@@ -119,7 +119,7 @@ function checkRequiredFiles() {
     if (exists(file)) {
       addResult("pass", `必要檔案存在：${file}`, "檔案已找到。");
     } else {
-      addResult("fail", `必要檔案缺少：${file}`, "請確認 v0.3.2.2 必要檔案是否建立。");
+      addResult("fail", `必要檔案缺少：${file}`, "請確認 v0.3.3 必要檔案是否建立。");
     }
   }
 }
@@ -159,6 +159,10 @@ function checkIndexContent() {
     { label: "Soul Map", ok: html.includes("Soul Map") },
     { label: "dashboardView", ok: html.includes("dashboardView") },
     { label: "detailView", ok: html.includes("detailView") },
+    { label: "dashboard-layout", ok: html.includes("dashboard-layout") },
+    { label: "dashboard-hero-zone", ok: html.includes("dashboard-hero-zone") },
+    { label: "dashboard-rhythm-zone", ok: html.includes("dashboard-rhythm-zone") },
+    { label: "dashboard-support-zone", ok: html.includes("dashboard-support-zone") },
     { label: `style.css?v=${expectedVersion}`, ok: html.includes(`style.css?v=${expectedVersion}`) },
     { label: `vendor/lunar/lunar.js?v=${expectedVersion}`, ok: html.includes(`vendor/lunar/lunar.js?v=${expectedVersion}`) },
     { label: `features/almanac-engine.js?v=${expectedVersion}`, ok: html.includes(`features/almanac-engine.js?v=${expectedVersion}`) },
@@ -170,7 +174,7 @@ function checkIndexContent() {
     { label: `data/site-data.js?v=${expectedVersion}`, ok: html.includes(`data/site-data.js?v=${expectedVersion}`) },
     { label: `app.js?v=${expectedVersion}`, ok: html.includes(`app.js?v=${expectedVersion}`) },
     { label: `v=${expectedVersion}`, ok: html.includes(`v=${expectedVersion}`) }
-  ], "index.html 需要保留首頁容器、詳情頁容器與 v0.3.2.2 靜態資源引用。");
+  ], "index.html 需要保留首頁容器、詳情頁容器與 v0.3.3 靜態資源引用。");
 }
 
 function checkSiteDataContent() {
@@ -187,8 +191,8 @@ function checkSiteDataContent() {
     { label: "cacheVersion", ok: dataContent.includes("cacheVersion") },
     { label: "routeMeta", ok: dataContent.includes("routeMeta") },
     { label: "currentVersion", ok: dataContent.includes("currentVersion") },
-    { label: "首頁資訊層級整理", ok: dataContent.includes("首頁資訊層級整理") },
-    { label: "輔助提醒 compact 化", ok: dataContent.includes("輔助提醒 compact 化") },
+    { label: "首頁總控台版面重整", ok: dataContent.includes("首頁總控台版面重整") },
+    { label: "三段式分區", ok: dataContent.includes("三段式分區") },
     { label: "#/module/ziwei", ok: dataContent.includes("#/module/ziwei") },
     { label: "#/module/bazi", ok: dataContent.includes("#/module/bazi") },
     { label: "#/module/astrology", ok: dataContent.includes("#/module/astrology") },
@@ -202,7 +206,7 @@ function checkSiteDataContent() {
     { label: "#deity-title", ok: dataContent.includes("#deity-title") },
     { label: "dateTestMode", ok: dataContent.includes("dateTestMode") },
     { label: "testSeeds", ok: dataContent.includes("testSeeds") }
-  ], "data/site-data.js 需要包含 v0.3.2.2 版本資訊、routeMeta 與模組路由。");
+  ], "data/site-data.js 需要包含 v0.3.3 版本資訊、routeMeta 與模組路由。");
 }
 
 function checkDetailPagesDataContent() {
@@ -239,7 +243,7 @@ function checkDetailPagesDataContent() {
     { label: "mock", ok: content.includes("mock") },
     { label: "planning", ok: content.includes("planning") },
     { label: "sections", ok: content.includes("sections") }
-  ], "detail-pages-data.js 需要包含所有 v0.3.2.2 命盤詳情頁資料、導覽欄位與 dashboardPreview。");
+  ], "detail-pages-data.js 需要包含所有 v0.3.3 命盤詳情頁資料、導覽欄位與 dashboardPreview。");
 }
 
 function checkRouterContent() {
@@ -261,7 +265,7 @@ function checkRouterContent() {
     { label: "isDashboardRoute", ok: content.includes("isDashboardRoute") },
     { label: "#/dashboard", ok: content.includes("#/dashboard") },
     { label: "#/module/", ok: content.includes("#/module/") }
-  ], "router.js 需要提供 v0.3.2.2 route 解析與輔助函式。");
+  ], "router.js 需要提供 v0.3.3 route 解析與輔助函式。");
 }
 
 function checkAppRenderingContent() {
@@ -287,6 +291,8 @@ function checkAppRenderingContent() {
     { label: "生命靈數節奏", ok: appContent.includes("生命靈數節奏") },
     { label: "integration-result", ok: appContent.includes("integration-result") },
     { label: "compact-reminder", ok: appContent.includes("compact-reminder") },
+    { label: "renderIntegrationSummary", ok: appContent.includes("renderIntegrationSummary") },
+    { label: "getIntegrationPages", ok: appContent.includes("getIntegrationPages") },
     { label: "命盤總控台", ok: appContent.includes("命盤總控台") },
     { label: "整合與工具", ok: appContent.includes("整合與工具") },
     { label: "輔助提醒", ok: appContent.includes("輔助提醒") },
@@ -376,12 +382,19 @@ function checkStyleContent() {
     { label: "compact-reminder", ok: styleContent.includes("compact-reminder") },
     { label: "is-compact", ok: styleContent.includes("is-compact") },
     { label: "number-rhythm", ok: styleContent.includes("number-rhythm") },
+    { label: "dashboard-layout", ok: styleContent.includes("dashboard-layout") },
+    { label: "dashboard-zone", ok: styleContent.includes("dashboard-zone") },
+    { label: "dashboard-hero-zone", ok: styleContent.includes("dashboard-hero-zone") },
+    { label: "dashboard-rhythm-zone", ok: styleContent.includes("dashboard-rhythm-zone") },
+    { label: "dashboard-support-zone", ok: styleContent.includes("dashboard-support-zone") },
+    { label: "integration-summary", ok: styleContent.includes("integration-summary") },
+    { label: "integration-summary-item", ok: styleContent.includes("integration-summary-item") },
     { label: "auto-fit", ok: styleContent.includes("auto-fit") },
     { label: "minmax", ok: styleContent.includes("minmax") },
     { label: "min-width: 0", ok: styleContent.includes("min-width: 0") },
     { label: "word-break: keep-all", ok: styleContent.includes("word-break: keep-all") },
     { label: "core grid no repeat(5, 1fr)", ok: !/core-dashboard-grid[\\s\\S]{0,220}repeat\\(5, 1fr\\)/.test(styleContent) }
-  ], "style.css 需要包含 v0.3.2.2 router / detail UX 樣式。");
+  ], "style.css 需要包含 v0.3.3 router / detail UX 樣式。");
 }
 
 function checkDateTestModeContent() {
@@ -471,7 +484,7 @@ function checkFeatureRetentionContent() {
     { label: "KekeDeityMatcher", ok: matcherContent.includes("KekeDeityMatcher") },
     { label: "KekeDateTestMode", ok: testModeContent.includes("KekeDateTestMode") },
     { label: "KekeDeityBirthdays", ok: deityDataContent.includes("KekeDeityBirthdays") }
-  ], "v0.3.2.2 不應刪除 lunar、deity matcher 或 date test mode。");
+  ], "v0.3.3 不應刪除 lunar、deity matcher 或 date test mode。");
 }
 
 function checkStaticCompatibility() {
@@ -614,7 +627,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.3.2.2 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.3.3 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);

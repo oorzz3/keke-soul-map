@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.3.3｜首頁總控台版面重整版
+
+- 首頁改為上層 / 中層 / 底層三段式 dashboard zone
+- moduleCard 收斂為命盤核心入口
+- 整合工具摘要移到命樹卡，讀取 dashboardResult
+- 農民曆與神明生日維持 compact 輔助提醒
+- 保留 hash router、detail pages、lunar、神明生日與日期測試模式
+- 靜態資源快取參數更新為 v0.3.3
+
 ## v0.3.2.2｜首頁資訊層級整理版
 
 - 調整生命靈數卡為小節奏摘要

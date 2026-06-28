@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.2.2",
+  version: "v0.3.3",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.2.2",
-  status: "首頁資訊層級整理 × 輔助提醒 compact 化"
+  cacheVersion: "v0.3.3",
+  status: "首頁總控台版面重整 × 三段式分區"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -416,22 +416,17 @@ function renderNumerology(numerology = {}) {
 function renderModules(modules = []) {
   const currentModuleId = getCurrentModuleId();
   const coreModuleIds = ["ziwei", "bazi", "astrology", "numerology", "name"];
-  const secondaryModuleIds = ["luck", "yijing", "soul-tree", "database"];
-  const moduleGroups = modules.reduce((groups, item) => {
+  const coreModules = modules.reduce((items, item) => {
     const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
       ? window.KekeRouter.getRouteModuleId(item.href)
       : null;
 
     if (coreModuleIds.includes(moduleId)) {
-      groups.core.push({ item, moduleId });
-    } else if (secondaryModuleIds.includes(moduleId)) {
-      groups.secondary.push({ item, moduleId });
-    } else {
-      groups.support.push({ item, moduleId });
+      items.push({ item, moduleId });
     }
 
-    return groups;
-  }, { core: [], secondary: [], support: [] });
+    return items;
+  }, []);
 
   setHtml("#moduleCard", `
     <div class="section-heading inline-heading core-dashboard-head">
@@ -439,16 +434,12 @@ function renderModules(modules = []) {
         <p>命盤核心</p>
         <h2 id="module-title">命盤總控台</h2>
       </div>
-      <span class="soft-tag">總覽入口</span>
+      <span class="soft-tag">核心入口</span>
     </div>
-    <p class="module-intro">先從本命系統看見自己，再用每日提醒輔助行動。這一版是 mock / experiment / planning 首頁預覽，不代表正式排盤。</p>
+    <p class="module-intro">先從本命系統看見自己；紫微、八字、星盤、生命靈數、姓名學是首頁主軸，其餘提醒放到下方輔助區。</p>
     <div class="core-dashboard" id="moduleGrid">
       <div class="core-dashboard-grid">
-        ${moduleGroups.core.map(({ item, moduleId }) => renderCoreModuleCard(item, moduleId, currentModuleId)).join("")}
-      </div>
-      <div class="module-side-groups">
-        ${renderModuleLinkGroup("整合與工具", "module-secondary-list", moduleGroups.secondary, currentModuleId)}
-        ${renderModuleLinkGroup("輔助提醒", "module-support-list", moduleGroups.support, currentModuleId)}
+        ${coreModules.map(({ item, moduleId }) => renderCoreModuleCard(item, moduleId, currentModuleId)).join("")}
       </div>
     </div>
   `);
@@ -906,18 +897,60 @@ function renderDeityDay(deityDay = {}) {
   `);
 }
 
+function getIntegrationPages() {
+  const integrationIds = ["luck", "yijing", "soul-tree", "database"];
+  return integrationIds
+    .map((id) => getDetailPage(id))
+    .filter((page) => page && page.id);
+}
+
+function renderIntegrationSummary() {
+  const currentModuleId = getCurrentModuleId();
+  const pages = getIntegrationPages();
+
+  if (pages.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="integration-summary" aria-label="整合與工具摘要">
+      <div class="section-heading compact-heading">
+        <p>整合與工具</p>
+        <h3>目前結果摘要</h3>
+      </div>
+      <div class="integration-summary-grid">
+        ${pages.map((page) => {
+          const result = page.dashboardResult || {};
+          const isActive = currentModuleId === page.id;
+          return `
+            <a class="integration-summary-item${isActive ? " is-active" : ""}" href="${escapeHtml(page.route || getModuleRoute(page.id))}"${isActive ? ' aria-current="page"' : ""}>
+              <span class="module-icon" aria-hidden="true">${escapeHtml(page.icon || page.navLabel || "*")}</span>
+              <span>
+                <small>${escapeHtml(result.label || page.status || "planning")}</small>
+                <strong>${escapeHtml(page.title)}</strong>
+                <em>${escapeHtml(result.value || page.subtitle || page.summary)}</em>
+              </span>
+            </a>
+          `;
+        }).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderSoulTree(soulTree = {}) {
   setHtml("#treeCard", `
     <div class="section-heading">
       <p>命樹</p>
       <h2 id="tree-title">${escapeHtml(soulTree.title)}</h2>
     </div>
-    <div class="tree-map" aria-label="命樹概念">
+    <div class="tree-map" aria-label="命樹結構">
       <span class="tree-node root">${escapeHtml(soulTree.root)}</span>
       <span class="tree-node trunk">${escapeHtml(soulTree.trunk)}</span>
       <span class="tree-node crown">${escapeHtml(soulTree.crown)}</span>
     </div>
     <p>${escapeHtml(soulTree.description)}</p>
+    ${renderIntegrationSummary()}
   `);
 }
 
