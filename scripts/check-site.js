@@ -277,7 +277,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.2 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.2.0.1 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);

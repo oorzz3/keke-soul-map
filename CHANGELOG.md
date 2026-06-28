@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.0.1
+
+- 靜態資源快取修正版。
+- 為 `style.css`、`data/site-data.js`、`app.js` 加上版本參數。
+- 降低 GitHub Pages / 瀏覽器快取舊檔造成空卡片的機率。
+
 ## v0.2
 
 - 資料模組化版。

@@ -2,7 +2,7 @@
 
 ## 主要檔案
 
-- `index.html`：靜態網站入口，保留 header、shell、main 容器與各首頁卡片容器。
+- `index.html`：靜態網站入口，保留 header、shell、main 容器與各首頁卡片容器；載入 `style.css`、`data/site-data.js`、`app.js`，並以版本參數控制瀏覽器快取。
 - `style.css`：深色星夜視覺、卡片樣式、手機優先與桌機多欄響應式。
 - `app.js`：讀取 `window.KekeSoulData`，渲染首頁卡片、命理模組入口、底部工具與桌機側欄導覽。
 
