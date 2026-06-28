@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="科科命理宇宙站 v0.2.2，手機優先的靜態命盤首頁儀表板。"
+    content="科科命理宇宙站 v0.2.3，手機優先的 Soul Map 命盤儀表板。"
   />
   <title>科科命理宇宙站｜Soul Map 命盤儀表板</title>
-  <link rel="stylesheet" href="./style.css?v=0.2.2" />
+  <link rel="stylesheet" href="./style.css?v=0.2.3" />
 </head>
 <body>
   <div class="site-shell">
-    <aside class="desktop-sidebar" aria-label="主要導覽">
+    <aside class="desktop-sidebar" aria-label="桌機側欄導覽">
       <a class="brand-mark" href="#top" aria-label="回到首頁">
-        <span class="brand-sigil" aria-hidden="true">✦</span>
+        <span class="brand-sigil" aria-hidden="true">星</span>
         <span>
           <strong>科科命理宇宙站</strong>
           <small>Soul Map</small>
         </span>
       </a>
       <nav class="sidebar-nav" id="desktopNav"></nav>
-      <section class="sidebar-sync" aria-label="資料備份與同步">
-        <span class="sync-icon" aria-hidden="true">⌁</span>
+      <section class="sidebar-sync" aria-label="資料工具摘要">
+        <span class="sync-icon" aria-hidden="true">雲</span>
         <div>
           <strong>資料備份與同步</strong>
           <small>JSON / 匯入 / 備份紀錄</small>
@@ -37,10 +37,10 @@
           <p>從不同命理系統，看見同一個自己</p>
           <h1>科科命理宇宙站</h1>
           <span>Soul Map 命盤儀表板</span>
-          <span class="version-badge mobile-version" id="mobileVersionBadge">v0.2.2</span>
+          <span class="version-badge mobile-version" id="mobileVersionBadge">v0.2.3</span>
         </div>
-        <div class="desktop-actions" id="topbarActions" aria-label="頂部工具列"></div>
-        <button class="mobile-bell" type="button" aria-label="今日提醒">◌</button>
+        <div class="desktop-actions" id="topbarActions" aria-label="桌機工具列"></div>
+        <button class="mobile-bell" type="button" aria-label="提醒">鈴</button>
       </header>
 
       <main class="dashboard" aria-label="科科命理宇宙站首頁儀表板">
@@ -64,9 +64,11 @@
     <a href="#tool-title">我的</a>
   </nav>
 
-  <script src="./vendor/lunar/lunar.js?v=0.2.2"></script>
-  <script src="./features/almanac-engine.js?v=0.2.2"></script>
-  <script src="./data/site-data.js?v=0.2.2" data-source="KekeSoulData"></script>
-  <script src="./app.js?v=0.2.2" defer></script>
+  <script src="./vendor/lunar/lunar.js?v=0.2.3"></script>
+  <script src="./features/almanac-engine.js?v=0.2.3"></script>
+  <script src="./data/deity-birthdays.js?v=0.2.3"></script>
+  <script src="./features/deity-matcher.js?v=0.2.3"></script>
+  <script src="./data/site-data.js?v=0.2.3" data-source="KekeSoulData"></script>
+  <script src="./app.js?v=0.2.3" defer></script>
 </body>
 </html>

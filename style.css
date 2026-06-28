@@ -482,6 +482,12 @@ blockquote {
   border-color: rgba(255, 143, 143, 0.24);
 }
 
+.engine-status.is-empty {
+  color: var(--gold);
+  background: rgba(242, 193, 109, 0.09);
+  border-color: rgba(242, 193, 109, 0.24);
+}
+
 .source-tag {
   color: var(--cyan);
   background: rgba(114, 215, 239, 0.08);
@@ -523,6 +529,56 @@ blockquote {
 .engine-reason {
   margin-top: 6px;
   color: var(--muted);
+}
+
+.deity-panel {
+  background: rgba(242, 193, 109, 0.06);
+  border-color: rgba(242, 193, 109, 0.22);
+}
+
+.deity-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.deity-list article {
+  padding: 10px;
+  background: rgba(3, 12, 24, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+}
+
+.deity-list strong,
+.deity-list small,
+.deity-list p,
+.seed-note {
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+}
+
+.deity-list strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.deity-list small {
+  display: block;
+  color: var(--gold);
+  line-height: 1.45;
+}
+
+.deity-list p,
+.seed-note {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.seed-note {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 .tree-map {

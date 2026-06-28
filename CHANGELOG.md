@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.2.3｜神明生日資料表實驗版
+
+- 新增 `data/deity-birthdays.js` 神明生日 seed 資料表。
+- 新增 `features/deity-matcher.js`，依今日農曆月日比對神明生日資料表。
+- 更新 `features/almanac-engine.js`，回傳 `lunarMonth`、`lunarDay`、`lunarMonthText`、`lunarDayText`。
+- 今日神明生日卡保留原 mock 展示資料，並新增 seed 資料表實驗區。
+- 靜態資源快取參數更新為 `v0.2.3`。
+- 小貓龍蝦檢查腳本加入神明生日資料表與 matcher 檢查。
+
 ## v0.2.2｜lunar-javascript 農民曆引擎實驗版
 
 - 新增 `vendor/lunar/lunar.js` 與 `vendor/lunar/LICENSE`。
@@ -24,9 +33,9 @@
 ## v0.2
 
 - 資料模組化版。
-- 將首頁 mock data 抽出到 `data/site-data.js`。
-- 改由 `app.js` 讀取 `window.KekeSoulData` 並渲染首頁卡片。
-- 更新小貓龍蝦檢查腳本，納入 `data/site-data.js` 與資料掛載檢查。
+- 把首頁 mock data 抽出到 `data/site-data.js`。
+- 由 `app.js` 讀取 `window.KekeSoulData` 並渲染首頁卡片。
+- 更新小貓龍蝦檢查腳本，加入 `data/site-data.js` 檢查。
 
 ## v0.1.1
 
@@ -37,14 +46,13 @@
 ## v0.1
 
 - 建立手機優先首頁儀表板靜態版。
-- 完成本命摘要、今日科科摘要、生命靈數卡與命理模組入口。
+- 包含本命摘要、今日科科摘要、生命靈數、命理模組入口。
 - 新增今日農民曆 mock 卡、今日神明生日 mock 卡、命樹卡與資料工具區。
-- 建立 `data/`、`assets/`、`assets/images/`、`assets/icons/` 的靜態資料與素材預留位置。
+- 建立 `data/`、`assets/`、`assets/images/`、`assets/icons/` 資料夾。
 
 ## v0.0.3
 
-- 完成本機 clone。
-- 建立小丸施工通道。
+- 本機 clone / 小丸施工通道完成。
 
 ## v0.0.2
 

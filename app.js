@@ -1,9 +1,9 @@
 const data = window.KekeSoulData;
 const fallbackSiteMeta = {
-  version: "v0.2.2",
+  version: "v0.2.3",
   dataVersion: "v0.2",
-  cacheVersion: "v0.2.2",
-  status: "資料模組化 × lunar 農民曆實驗"
+  cacheVersion: "v0.2.3",
+  status: "資料模組化 × 神明生日資料表實驗"
 };
 
 if (!data) {
@@ -54,7 +54,7 @@ function renderProfile(profile = {}) {
       <span></span>
     </div>
     <div class="hero-copy">
-      <p class="eyebrow">本命檔案</p>
+      <p class="eyebrow">本命摘要</p>
       <h2 id="profile-title">${escapeHtml(profile.name)}</h2>
       <div class="profile-meta">
         <span>生日：${escapeHtml(profile.birthday)}</span>
@@ -69,7 +69,7 @@ function renderProfile(profile = {}) {
 function renderTodaySummary(summary = {}) {
   setHtml("#todayCard", `
     <div class="section-heading">
-      <p>${escapeHtml(summary.displayLabel || "今日科科")}</p>
+      <p>${escapeHtml(summary.label || summary.displayLabel || "今日科科摘要")}</p>
       <h2 id="today-title">${escapeHtml(summary.theme)}</h2>
     </div>
     <div class="today-grid">
@@ -97,7 +97,7 @@ function renderNumerology(numerology = {}) {
       <h2 id="life-number-title">核心數字</h2>
     </div>
     <div class="life-number">${escapeHtml(numerology.lifeNumber)}</div>
-    <div class="number-strip" aria-label="生命靈數明細">
+    <div class="number-strip" aria-label="生命靈數週期">
       <span><strong>${escapeHtml(numerology.personalYear)}</strong>個人年</span>
       <span><strong>${escapeHtml(numerology.personalMonth)}</strong>個人月</span>
       <span><strong>${escapeHtml(numerology.personalDay)}</strong>個人日</span>
@@ -121,7 +121,7 @@ function renderModules(modules = []) {
     <div class="section-heading inline-heading">
       <div>
         <p>命理模組</p>
-        <h2 id="module-title">入口卡</h2>
+        <h2 id="module-title">入口卡片</h2>
       </div>
       <span class="soft-tag">v0.2 資料層</span>
     </div>
@@ -167,6 +167,10 @@ function getAlmanacEngineResult() {
     return {
       source: "lunar-javascript",
       lunarText: "本次未取得",
+      lunarMonth: null,
+      lunarDay: null,
+      lunarMonthText: "本次未取得",
+      lunarDayText: "本次未取得",
       gzYear: "本次未取得",
       zodiac: "本次未取得",
       week: "本次未取得",
@@ -183,6 +187,10 @@ function getAlmanacEngineResult() {
     return {
       source: "lunar-javascript",
       lunarText: "本次未取得",
+      lunarMonth: null,
+      lunarDay: null,
+      lunarMonthText: "本次未取得",
+      lunarDayText: "本次未取得",
       gzYear: "本次未取得",
       zodiac: "本次未取得",
       week: "本次未取得",
@@ -226,6 +234,10 @@ function renderAlmanacEnginePanel(result = {}) {
           <dd>${escapeHtml(result.lunarText)}</dd>
         </div>
         <div>
+          <dt>農曆月日</dt>
+          <dd>${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}</dd>
+        </div>
+        <div>
           <dt>干支 / 生肖</dt>
           <dd>${escapeHtml(result.gzYear)} / ${escapeHtml(result.zodiac)}</dd>
         </div>
@@ -250,7 +262,83 @@ function renderAlmanacEnginePanel(result = {}) {
   `;
 }
 
+function getDeityMatchesResult() {
+  if (!window.KekeDeityMatcher || typeof window.KekeDeityMatcher.getTodayMatches !== "function") {
+    return {
+      status: "error",
+      lunarMonth: null,
+      lunarDay: null,
+      lunarMonthText: "本次未取得",
+      lunarDayText: "本次未取得",
+      matches: [],
+      message: "KekeDeityMatcher 未載入。"
+    };
+  }
+
+  try {
+    return window.KekeDeityMatcher.getTodayMatches();
+  } catch (error) {
+    return {
+      status: "error",
+      lunarMonth: null,
+      lunarDay: null,
+      lunarMonthText: "本次未取得",
+      lunarDayText: "本次未取得",
+      matches: [],
+      message: error && error.message ? error.message : "神明生日資料表比對失敗。"
+    };
+  }
+}
+
+function renderDeityMatcherPanel(result = {}) {
+  const status = result.status || "error";
+  const statusClass = status === "ok" ? "" : ` is-${escapeHtml(status)}`;
+  const lunarDate = result.lunarMonth && result.lunarDay
+    ? `${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`
+    : "本次未取得";
+  const seedNote = data?.deityMatcher?.note || "本版為神明生日 seed 資料表實驗，資料仍需人工校對。";
+  const matchItems = Array.isArray(result.matches) ? result.matches : [];
+
+  const matchHtml = matchItems.length > 0
+    ? `
+      <div class="deity-list">
+        ${matchItems.map((item) => `
+          <article>
+            <strong>${escapeHtml(item.title)}</strong>
+            <small>${escapeHtml(item.category)}｜${escapeHtml(item.sourceLevel)}</small>
+            <p>${escapeHtml(item.blessing)}</p>
+            <p>${escapeHtml(item.note)}</p>
+          </article>
+        `).join("")}
+      </div>
+    `
+    : `<p class="engine-empty">${escapeHtml(result.message || "今日未命中神明生日資料表。")}</p>`;
+
+  return `
+    <div class="engine-panel deity-panel">
+      <div class="engine-panel-head">
+        <strong>神明生日資料表實驗</strong>
+        <span class="engine-status deity-status${statusClass}">${escapeHtml(status)}</span>
+      </div>
+      <dl class="engine-list">
+        <div>
+          <dt>今日農曆</dt>
+          <dd>${lunarDate}</dd>
+        </div>
+        <div>
+          <dt>比對狀態</dt>
+          <dd>${escapeHtml(result.message || "本次未取得")}</dd>
+        </div>
+      </dl>
+      ${matchHtml}
+      <p class="seed-note">${escapeHtml(seedNote)}</p>
+    </div>
+  `;
+}
+
 function renderDeityDay(deityDay = {}) {
+  const deityMatchesResult = getDeityMatchesResult();
+
   setHtml("#deityCard", `
     <div class="section-heading">
       <p>今日神明生日</p>
@@ -267,6 +355,7 @@ function renderDeityDay(deityDay = {}) {
       </div>
     </dl>
     <p class="mock-note">${escapeHtml(deityDay.mockNote)}</p>
+    ${renderDeityMatcherPanel(deityMatchesResult)}
   `);
 }
 
@@ -276,7 +365,7 @@ function renderSoulTree(soulTree = {}) {
       <p>命樹</p>
       <h2 id="tree-title">${escapeHtml(soulTree.title)}</h2>
     </div>
-    <div class="tree-map" aria-label="命樹概念">
+    <div class="tree-map" aria-label="命樹結構">
       <span class="tree-node root">${escapeHtml(soulTree.root)}</span>
       <span class="tree-node trunk">${escapeHtml(soulTree.trunk)}</span>
       <span class="tree-node crown">${escapeHtml(soulTree.crown)}</span>

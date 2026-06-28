@@ -2,26 +2,28 @@
 
 ## 主要檔案
 
-- `index.html`：靜態網站入口，保留 header、shell、main 容器與各首頁卡片容器；引用帶版本參數的 `style.css`、`vendor/lunar/lunar.js`、`features/almanac-engine.js`、`data/site-data.js`、`app.js`。
-- `style.css`：深色星夜視覺、卡片樣式、手機優先與桌機多欄響應式。
-- `app.js`：讀取 `window.KekeSoulData`，渲染首頁卡片、命理模組入口、底部工具、桌機側欄導覽與版本號。
-- `features/almanac-engine.js`：農民曆實驗引擎包裝層，讀取 lunar-javascript 的 `Solar` 並回傳安全 fallback 結構。
+- `index.html`：靜態網站入口，保留 header、shell、main 容器與各卡片掛載點，並載入帶版本參數的靜態資源。
+- `style.css`：視覺風格、手機優先響應式、卡片與實驗資料小面板樣式。
+- `app.js`：讀取 `window.KekeSoulData`，渲染首頁卡片、版本號、lunar 實驗資料與神明生日資料表實驗區。
+- `features/almanac-engine.js`：農民曆實驗引擎包裝層，讀取 lunar-javascript 的 `Solar`，回傳今日農曆資料與農曆月日欄位。
+- `features/deity-matcher.js`：神明生日資料表匹配層，使用今日農曆月日比對 `KekeDeityBirthdays`。
 
-## 資料與素材
+## 資料層
 
-- `data/`：未來放命理 mock data、資料表或展示資料模組。
-- `data/site-data.js`：首頁 mock data 與未來命理資料層，目前掛載 `window.KekeSoulData`，並包含 `siteMeta` 版本資訊。
-- `assets/`：未來放圖片、icons 與其他靜態素材。
-- `assets/images/`：未來放首頁或模組圖片。
+- `data/site-data.js`：首頁 mock data、`siteMeta` 版本資訊、`almanacEngine` 與 `deityMatcher` 實驗設定。
+- `data/deity-birthdays.js`：神明生日 seed 資料表，欄位包含農曆月日、名稱、標題、分類、祈福方向、備註與 `sourceLevel`。
+- `data/`：未來可放命理 mock data、農民曆資料表、神明生日資料表與其他資料層檔案。
+- `assets/`：未來放圖片與 icons。
+- `assets/images/`：未來放首頁與模組圖片。
 - `assets/icons/`：未來放圖示素材。
 
 ## Vendor
 
 - `vendor/lunar/lunar.js`：lunar-javascript 單檔版。
-- `vendor/lunar/LICENSE`：授權文件。
-- `vendor/lunar/README.md`：來源與使用說明。
+- `vendor/lunar/LICENSE`：MIT 授權文件。
+- `vendor/lunar/README.md`：來源、授權與本專案使用方式說明。
 
 ## 檢查工具
 
-- `scripts/check-site.js`：小貓龍蝦檢查腳本，檢查靜態網站必要檔案、資料夾、首頁內容、偏航關鍵字與 GitHub Pages 相容性。
-- `run-check-site.bat`：Windows 雙擊檢查入口。
+- `scripts/check-site.js`：小貓龍蝦檢查腳本，只讀檔檢查必要檔案、必要資料夾、版本引用、lunar 接線、神明生日 seed 表、matcher、靜態網站相容性、高風險關鍵字與 UTF-8 可讀性。
+- `run-check-site.bat`：Windows 雙擊檢查入口，呼叫 `node scripts/check-site.js` 後暫停視窗。

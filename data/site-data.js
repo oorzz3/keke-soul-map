@@ -1,17 +1,23 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.2.2",
+    version: "v0.2.3",
     dataVersion: "v0.2",
-    cacheVersion: "v0.2.2",
-    status: "資料模組化 × lunar 農民曆實驗",
-    updatedNote: "版本號已顯示於網站畫面，並加入 lunar-javascript 農民曆實驗資料。"
+    cacheVersion: "v0.2.3",
+    status: "資料模組化 × 神明生日資料表實驗",
+    updatedNote: "神明生日 seed 資料表已接入實驗匹配層，資料仍需人工校對。"
   },
   almanacEngine: {
     enabled: true,
     mode: "experiment",
     source: "lunar-javascript",
     note: "本版為 lunar-javascript 實驗資料，暫不取代人工校對資料。"
+  },
+  deityMatcher: {
+    enabled: true,
+    mode: "experiment",
+    source: "data/deity-birthdays.js",
+    note: "本版為神明生日 seed 資料表實驗，資料仍需人工校對。"
   },
   profile: {
     name: "科科",
@@ -35,16 +41,16 @@ window.KekeSoulData = {
     personalDay: 2
   },
   modules: [
-    { title: "紫微斗數", note: "命宮、主星與人生主題", icon: "紫", href: "#module-title" },
+    { title: "紫微斗數", note: "命宮、主星與生命焦點", icon: "紫", href: "#module-title" },
     { title: "八字四柱", note: "年柱、月柱、日柱、時柱", icon: "八", href: "#module-title" },
-    { title: "西洋星盤", note: "太陽、月亮、上升摘要", icon: "星", href: "#module-title" },
-    { title: "生命靈數", note: "核心數字與年度節奏", icon: "數", href: "#life-number-title" },
-    { title: "姓名學", note: "總格、五格與名字氣質", icon: "名", href: "#module-title" },
-    { title: "流年 / 九運", note: "年度焦點與長期趨勢", icon: "運", href: "#today-title" },
-    { title: "農民曆", note: "今日宜忌與時辰提醒", icon: "曆", href: "#almanac-title" },
-    { title: "神明生日", note: "祈福方向與節日備忘", icon: "神", href: "#deity-title" },
-    { title: "易經占問", note: "靜態入口，待後續展開", icon: "易", href: "#deity-title" },
-    { title: "命樹", note: "整合多系統的生命地圖", icon: "樹", href: "#tree-title" },
+    { title: "西洋星盤", note: "太陽、月亮、上升與行星", icon: "星", href: "#module-title" },
+    { title: "生命靈數", note: "核心數字與個人週期", icon: "7", href: "#life-number-title" },
+    { title: "姓名學", note: "姓名、總格與五行氣質", icon: "名", href: "#module-title" },
+    { title: "流年 / 九運", note: "年度主題與大環境趨勢", icon: "運", href: "#today-title" },
+    { title: "農民曆", note: "今日宜忌與 lunar 實驗資料", icon: "曆", href: "#almanac-title" },
+    { title: "神明生日", note: "祈福方向與生日資料表", icon: "神", href: "#deity-title" },
+    { title: "易經占問", note: "問題入口與占問紀錄", icon: "易", href: "#deity-title" },
+    { title: "命樹", note: "整合多元命理系統", icon: "樹", href: "#tree-title" },
     { title: "資料庫 / 備份", note: "JSON、匯入與備份紀錄", icon: "庫", href: "#tool-title" }
   ],
   almanac: {
