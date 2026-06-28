@@ -1,11 +1,11 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.2.3",
+    version: "v0.2.4.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.2.3",
-    status: "資料模組化 × 神明生日資料表實驗",
-    updatedNote: "神明生日 seed 資料表已接入實驗匹配層，資料仍需人工校對。"
+    cacheVersion: "v0.2.4.1",
+    status: "資料模組化 × 日期測試模式修正",
+    updatedNote: "神明生日卡主結果已改由資料表比對結果渲染，回今日模式連結改為 index.html#deity-title。"
   },
   almanacEngine: {
     enabled: true,
@@ -19,6 +19,38 @@ window.KekeSoulData = {
     source: "data/deity-birthdays.js",
     note: "本版為神明生日 seed 資料表實驗，資料仍需人工校對。"
   },
+  dateTestMode: {
+    enabled: true,
+    mode: "query",
+    source: "URL query",
+    note: "可用 testLunarMonth 與 testLunarDay 測試神明生日資料表命中。"
+  },
+  testSeeds: [
+    {
+      label: "觀音佛辰",
+      lunarMonth: 2,
+      lunarDay: 19,
+      note: "測試觀世音菩薩佛辰命中"
+    },
+    {
+      label: "媽祖聖誕",
+      lunarMonth: 3,
+      lunarDay: 23,
+      note: "測試天上聖母媽祖聖誕命中"
+    },
+    {
+      label: "關聖帝君",
+      lunarMonth: 6,
+      lunarDay: 24,
+      note: "測試關聖帝君聖誕命中"
+    },
+    {
+      label: "今日模式",
+      lunarMonth: null,
+      lunarDay: null,
+      note: "回到今日農曆比對"
+    }
+  ],
   profile: {
     name: "科科",
     birthday: "1990/06/09",

@@ -93,6 +93,16 @@ function isTextFile(filePath) {
   return textExtensions.has(ext);
 }
 
+function addContentChecks(fileLabel, checks, missingDetail) {
+  for (const item of checks) {
+    if (item.ok) {
+      addResult("pass", `${fileLabel} 包含：${item.label}`, "檢查通過。");
+    } else {
+      addResult("fail", `${fileLabel} 缺少：${item.label}`, missingDetail);
+    }
+  }
+}
+
 function checkRequiredFiles() {
   const requiredFiles = [
     "index.html",
@@ -104,6 +114,7 @@ function checkRequiredFiles() {
     "vendor/lunar/LICENSE",
     "vendor/lunar/README.md",
     "features/almanac-engine.js",
+    "features/date-test-mode.js",
     "features/deity-matcher.js"
   ];
 
@@ -128,16 +139,6 @@ function checkRequiredFolders() {
   }
 }
 
-function addContentChecks(fileLabel, checks, missingDetail) {
-  for (const item of checks) {
-    if (item.ok) {
-      addResult("pass", `${fileLabel} 包含：${item.label}`, "檢查通過。");
-    } else {
-      addResult("fail", `${fileLabel} 缺少：${item.label}`, missingDetail);
-    }
-  }
-}
-
 function checkIndexContent() {
   if (!exists("index.html")) {
     addResult("fail", "index.html 無法檢查", "index.html 不存在。");
@@ -156,15 +157,16 @@ function checkIndexContent() {
     { label: "農民曆", ok: html.includes("農民曆") },
     { label: "神明生日", ok: html.includes("神明生日") },
     { label: "命樹", ok: html.includes("命樹") },
-    { label: "style.css?v=0.2.3", ok: html.includes("style.css?v=0.2.3") },
-    { label: "vendor/lunar/lunar.js?v=0.2.3", ok: html.includes("vendor/lunar/lunar.js?v=0.2.3") },
-    { label: "features/almanac-engine.js?v=0.2.3", ok: html.includes("features/almanac-engine.js?v=0.2.3") },
-    { label: "data/deity-birthdays.js?v=0.2.3", ok: html.includes("data/deity-birthdays.js?v=0.2.3") },
-    { label: "features/deity-matcher.js?v=0.2.3", ok: html.includes("features/deity-matcher.js?v=0.2.3") },
-    { label: "data/site-data.js?v=0.2.3", ok: html.includes("data/site-data.js?v=0.2.3") },
-    { label: "app.js?v=0.2.3", ok: html.includes("app.js?v=0.2.3") },
+    { label: "style.css?v=0.2.4.1", ok: html.includes("style.css?v=0.2.4.1") },
+    { label: "vendor/lunar/lunar.js?v=0.2.4.1", ok: html.includes("vendor/lunar/lunar.js?v=0.2.4.1") },
+    { label: "features/almanac-engine.js?v=0.2.4.1", ok: html.includes("features/almanac-engine.js?v=0.2.4.1") },
+    { label: "data/deity-birthdays.js?v=0.2.4.1", ok: html.includes("data/deity-birthdays.js?v=0.2.4.1") },
+    { label: "features/date-test-mode.js?v=0.2.4.1", ok: html.includes("features/date-test-mode.js?v=0.2.4.1") },
+    { label: "features/deity-matcher.js?v=0.2.4.1", ok: html.includes("features/deity-matcher.js?v=0.2.4.1") },
+    { label: "data/site-data.js?v=0.2.4.1", ok: html.includes("data/site-data.js?v=0.2.4.1") },
+    { label: "app.js?v=0.2.4.1", ok: html.includes("app.js?v=0.2.4.1") },
     { label: "KekeSoulData", ok: html.includes("KekeSoulData") },
-    { label: "v=0.2.3", ok: html.includes("v=0.2.3") }
+    { label: "v=0.2.4.1", ok: html.includes("v=0.2.4.1") }
   ], "首頁入口或靜態資源版本引用不完整。");
 }
 
@@ -178,14 +180,34 @@ function checkDataVersionContent() {
   addContentChecks("data/site-data.js", [
     { label: "siteMeta 或 metadata", ok: dataContent.includes("siteMeta") || dataContent.includes("metadata") },
     { label: "version", ok: dataContent.includes("version") },
-    { label: "v0.2.3", ok: dataContent.includes("v0.2.3") },
+    { label: "v0.2.4.1", ok: dataContent.includes("v0.2.4.1") },
     { label: "dataVersion", ok: dataContent.includes("dataVersion") },
     { label: "cacheVersion", ok: dataContent.includes("cacheVersion") },
     { label: "almanacEngine", ok: dataContent.includes("almanacEngine") },
-    { label: "lunar-javascript", ok: dataContent.includes("lunar-javascript") },
     { label: "deityMatcher", ok: dataContent.includes("deityMatcher") },
-    { label: "data/deity-birthdays.js", ok: dataContent.includes("data/deity-birthdays.js") }
-  ], "資料中心版本或實驗設定不完整。");
+    { label: "dateTestMode", ok: dataContent.includes("dateTestMode") },
+    { label: "testSeeds", ok: dataContent.includes("testSeeds") },
+    { label: "testLunarMonth", ok: dataContent.includes("testLunarMonth") },
+    { label: "testLunarDay", ok: dataContent.includes("testLunarDay") }
+  ], "資料中心版本、測試模式或 seed 設定不完整。");
+}
+
+function checkDateTestModeContent() {
+  if (!exists("features/date-test-mode.js")) {
+    addResult("fail", "features/date-test-mode.js 無法檢查", "features/date-test-mode.js 不存在。");
+    return;
+  }
+
+  const content = readUtf8("features/date-test-mode.js");
+  addContentChecks("features/date-test-mode.js", [
+    { label: "KekeDateTestMode", ok: content.includes("KekeDateTestMode") },
+    { label: "getTestLunarDate", ok: content.includes("getTestLunarDate") },
+    { label: "buildTestUrl", ok: content.includes("buildTestUrl") },
+    { label: "clearTestUrl", ok: content.includes("clearTestUrl") },
+    { label: "URLSearchParams", ok: content.includes("URLSearchParams") },
+    { label: "testLunarMonth", ok: content.includes("testLunarMonth") },
+    { label: "testLunarDay", ok: content.includes("testLunarDay") }
+  ], "日期測試模式包裝層不完整。");
 }
 
 function checkDeityBirthdaysContent() {
@@ -217,11 +239,38 @@ function checkAppRenderingContent() {
   addContentChecks("app.js", [
     { label: "讀取 siteMeta 或 metadata", ok: appContent.includes("siteMeta") || appContent.includes("metadata") },
     { label: "渲染版本號", ok: appContent.includes("version-badge") || appContent.includes("version-meta") },
-    { label: "fallback v0.2.3", ok: appContent.includes("v0.2.3") },
+    { label: "fallback v0.2.4.1", ok: appContent.includes("v0.2.4.1") },
     { label: "getDeityMatchesResult", ok: appContent.includes("getDeityMatchesResult") },
     { label: "renderDeityMatcherPanel", ok: appContent.includes("renderDeityMatcherPanel") },
-    { label: "KekeDeityMatcher", ok: appContent.includes("KekeDeityMatcher") }
-  ], "主程式渲染版本號或神明生日實驗區不完整。");
+    { label: "KekeDeityMatcher", ok: appContent.includes("KekeDeityMatcher") },
+    { label: "testLunarMonth", ok: appContent.includes("testLunarMonth") },
+    { label: "testLunarDay", ok: appContent.includes("testLunarDay") },
+    { label: "今日模式", ok: appContent.includes("今日模式") },
+    { label: "測試模式", ok: appContent.includes("測試模式") },
+    { label: "testSeeds", ok: appContent.includes("testSeeds") },
+    { label: "固定展示範例", ok: appContent.includes("固定展示範例") },
+    { label: "今日未命中神明生日資料表", ok: appContent.includes("今日未命中神明生日資料表") },
+    { label: "測試日期未命中神明生日資料表", ok: appContent.includes("測試日期未命中神明生日資料表") },
+    { label: "index.html#deity-title", ok: appContent.includes("index.html#deity-title") }
+  ], "主程式渲染版本號或日期測試模式 UI 不完整。");
+}
+
+function checkTodayModeLinkContent() {
+  const appContent = exists("app.js") ? readUtf8("app.js") : "";
+  const dateTestContent = exists("features/date-test-mode.js") ? readUtf8("features/date-test-mode.js") : "";
+  const combined = `${appContent}\n${dateTestContent}`;
+
+  if (combined.includes("./#deity-title")) {
+    addResult("fail", "回今日模式連結仍使用 ./#deity-title", "請改用 index.html#deity-title，避免 file:// 跳到資料夾索引。");
+  } else {
+    addResult("pass", "回今日模式連結不再使用 ./#deity-title", "檢查通過。");
+  }
+
+  if (combined.includes("index.html#deity-title")) {
+    addResult("pass", "回今日模式連結使用 index.html#deity-title", "檢查通過。");
+  } else {
+    addResult("fail", "回今日模式連結缺少 index.html#deity-title", "請確認測試入口能回到 index.html 的神明生日區塊。");
+  }
 }
 
 function checkAlmanacEngineContent() {
@@ -254,10 +303,15 @@ function checkDeityMatcherContent() {
     { label: "findByLunarDate", ok: matcherContent.includes("findByLunarDate") },
     { label: "getTodayMatches", ok: matcherContent.includes("getTodayMatches") },
     { label: "KekeAlmanacEngine", ok: matcherContent.includes("KekeAlmanacEngine") },
+    { label: "KekeDateTestMode", ok: matcherContent.includes("KekeDateTestMode") },
     { label: "KekeDeityBirthdays", ok: matcherContent.includes("KekeDeityBirthdays") },
     { label: "status", ok: matcherContent.includes("status") },
-    { label: "matches", ok: matcherContent.includes("matches") }
-  ], "神明生日 matcher 包裝層不完整。");
+    { label: "matches", ok: matcherContent.includes("matches") },
+    { label: "testMode", ok: matcherContent.includes("testMode") },
+    { label: "mode", ok: matcherContent.includes("mode") },
+    { label: "today", ok: matcherContent.includes("today") },
+    { label: "test", ok: matcherContent.includes("test") }
+  ], "神明生日 matcher 包裝層或測試模式支援不完整。");
 }
 
 function checkStaticCompatibility() {
@@ -362,6 +416,7 @@ function checkUtf8Readable() {
     "data/site-data.js",
     "data/deity-birthdays.js",
     "features/almanac-engine.js",
+    "features/date-test-mode.js",
     "features/deity-matcher.js",
     "scripts/check-site.js",
     "vendor/lunar/lunar.js",
@@ -397,7 +452,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.2.3 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.2.4.1 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);
@@ -419,8 +474,10 @@ checkRequiredFiles();
 checkRequiredFolders();
 checkIndexContent();
 checkDataVersionContent();
+checkDateTestModeContent();
 checkDeityBirthdaysContent();
 checkAppRenderingContent();
+checkTodayModeLinkContent();
 checkAlmanacEngineContent();
 checkDeityMatcherContent();
 checkStaticCompatibility();

@@ -1,9 +1,9 @@
 const data = window.KekeSoulData;
 const fallbackSiteMeta = {
-  version: "v0.2.3",
+  version: "v0.2.4.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.2.3",
-  status: "資料模組化 × 神明生日資料表實驗"
+  cacheVersion: "v0.2.4.1",
+  status: "資料模組化 × 日期測試模式修正"
 };
 
 if (!data) {
@@ -266,6 +266,9 @@ function getDeityMatchesResult() {
   if (!window.KekeDeityMatcher || typeof window.KekeDeityMatcher.getTodayMatches !== "function") {
     return {
       status: "error",
+      mode: "today",
+      testMode: false,
+      testMessage: "目前使用今日模式。",
       lunarMonth: null,
       lunarDay: null,
       lunarMonthText: "本次未取得",
@@ -280,6 +283,9 @@ function getDeityMatchesResult() {
   } catch (error) {
     return {
       status: "error",
+      mode: "today",
+      testMode: false,
+      testMessage: "目前使用今日模式。",
       lunarMonth: null,
       lunarDay: null,
       lunarMonthText: "本次未取得",
@@ -290,11 +296,72 @@ function getDeityMatchesResult() {
   }
 }
 
+function getTestLink(seed) {
+  if (!seed || !seed.lunarMonth || !seed.lunarDay) {
+    if (window.KekeDateTestMode && typeof window.KekeDateTestMode.clearTestUrl === "function") {
+      return window.KekeDateTestMode.clearTestUrl();
+    }
+
+    return "index.html#deity-title";
+  }
+
+  if (window.KekeDateTestMode && typeof window.KekeDateTestMode.buildTestUrl === "function") {
+    return window.KekeDateTestMode.buildTestUrl(seed.lunarMonth, seed.lunarDay);
+  }
+
+  return `index.html?testLunarMonth=${encodeURIComponent(seed.lunarMonth)}&testLunarDay=${encodeURIComponent(seed.lunarDay)}#deity-title`;
+}
+
+function getTestSeedLabel(seed) {
+  if (!seed || !seed.lunarMonth || !seed.lunarDay) {
+    return "回今日模式";
+  }
+
+  if (String(seed.label).includes("觀音")) {
+    return "觀音 2/19";
+  }
+
+  if (String(seed.label).includes("媽祖")) {
+    return "媽祖 3/23";
+  }
+
+  if (String(seed.label).includes("關聖")) {
+    return "關聖帝君 6/24";
+  }
+
+  return `${seed.label} ${seed.lunarMonth}/${seed.lunarDay}`;
+}
+
+function renderTestLinks() {
+  const testSeeds = Array.isArray(data?.testSeeds) ? data.testSeeds : [
+    { label: "觀音佛辰", lunarMonth: 2, lunarDay: 19 },
+    { label: "媽祖聖誕", lunarMonth: 3, lunarDay: 23 },
+    { label: "關聖帝君", lunarMonth: 6, lunarDay: 24 },
+    { label: "今日模式", lunarMonth: null, lunarDay: null }
+  ];
+
+  return `
+    <div class="test-mode-panel">
+      <strong>測試入口</strong>
+      <div class="test-link-row">
+        ${testSeeds.map((seed) => `
+          <a class="test-link" href="${escapeHtml(getTestLink(seed))}" title="${escapeHtml(seed.note || getTestSeedLabel(seed))}">
+            ${escapeHtml(getTestSeedLabel(seed))}
+          </a>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderDeityMatcherPanel(result = {}) {
   const status = result.status || "error";
   const statusClass = status === "ok" ? "" : ` is-${escapeHtml(status)}`;
+  const isTestMode = result.testMode === true || result.mode === "test";
+  const modeLabel = isTestMode ? "測試模式" : "今日模式";
+  const modeClass = isTestMode ? "is-test" : "is-today";
   const lunarDate = result.lunarMonth && result.lunarDay
-    ? `${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`
+    ? `${isTestMode ? "測試 " : ""}${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`
     : "本次未取得";
   const seedNote = data?.deityMatcher?.note || "本版為神明生日 seed 資料表實驗，資料仍需人工校對。";
   const matchItems = Array.isArray(result.matches) ? result.matches : [];
@@ -312,7 +379,7 @@ function renderDeityMatcherPanel(result = {}) {
         `).join("")}
       </div>
     `
-    : `<p class="engine-empty">${escapeHtml(result.message || "今日未命中神明生日資料表。")}</p>`;
+    : `<p class="engine-empty">${escapeHtml(result.message || "這個農曆日期未命中 seed 資料表。")}</p>`;
 
   return `
     <div class="engine-panel deity-panel">
@@ -320,42 +387,110 @@ function renderDeityMatcherPanel(result = {}) {
         <strong>神明生日資料表實驗</strong>
         <span class="engine-status deity-status${statusClass}">${escapeHtml(status)}</span>
       </div>
+      <div class="test-mode-line">
+        <span class="mode-tag ${modeClass}">${modeLabel}</span>
+        <span>${escapeHtml(result.testMessage || (isTestMode ? "目前使用測試模式。" : "目前使用今日模式。"))}</span>
+      </div>
       <dl class="engine-list">
         <div>
-          <dt>今日農曆</dt>
+          <dt>比對農曆</dt>
           <dd>${lunarDate}</dd>
         </div>
         <div>
-          <dt>比對狀態</dt>
+          <dt>比對結果</dt>
           <dd>${escapeHtml(result.message || "本次未取得")}</dd>
         </div>
       </dl>
       ${matchHtml}
+      ${renderTestLinks()}
       <p class="seed-note">${escapeHtml(seedNote)}</p>
+    </div>
+  `;
+}
+
+function formatDeityLunarDate(result = {}) {
+  const isTestMode = result.testMode === true || result.mode === "test";
+
+  if (result.lunarMonth && result.lunarDay) {
+    return `${isTestMode ? "測試" : "今日"} ${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`;
+  }
+
+  return "本次未取得";
+}
+
+function getDeitySummary(result = {}) {
+  const isTestMode = result.testMode === true || result.mode === "test";
+  const firstMatch = Array.isArray(result.matches) && result.matches.length > 0
+    ? result.matches[0]
+    : null;
+
+  if (result.status === "ok" && firstMatch) {
+    return {
+      title: firstMatch.title,
+      lunarDate: formatDeityLunarDate(result),
+      blessing: firstMatch.blessing || "平安、安定、圓滿"
+    };
+  }
+
+  if (result.status === "empty") {
+    return {
+      title: isTestMode ? "測試日期未命中神明生日資料表" : "今日未命中神明生日資料表",
+      lunarDate: formatDeityLunarDate(result),
+      blessing: "暫無命中，維持平常心。"
+    };
+  }
+
+  return {
+    title: "神明生日資料本次未取得",
+    lunarDate: "本次未取得",
+    blessing: "請檢查測試參數或資料載入狀態。"
+  };
+}
+
+function renderMockDeitySample(deityDay = {}) {
+  return `
+    <div class="mock-sample">
+      <strong>固定展示範例</strong>
+      <dl class="detail-list compact">
+        <div>
+          <dt>範例名稱</dt>
+          <dd>${escapeHtml(deityDay.title)}</dd>
+        </div>
+        <div>
+          <dt>範例農曆</dt>
+          <dd>${escapeHtml(deityDay.lunarDate)}</dd>
+        </div>
+        <div>
+          <dt>範例祈福方向</dt>
+          <dd>${escapeHtml(deityDay.blessing)}</dd>
+        </div>
+      </dl>
+      <p class="sample-note">${escapeHtml(deityDay.mockNote)}</p>
     </div>
   `;
 }
 
 function renderDeityDay(deityDay = {}) {
   const deityMatchesResult = getDeityMatchesResult();
+  const deitySummary = getDeitySummary(deityMatchesResult);
 
   setHtml("#deityCard", `
     <div class="section-heading">
       <p>今日神明生日</p>
-      <h2 id="deity-title">${escapeHtml(deityDay.title)}</h2>
+      <h2 id="deity-title">${escapeHtml(deitySummary.title)}</h2>
     </div>
-    <dl class="detail-list compact">
+    <dl class="detail-list compact deity-summary">
       <div>
-        <dt>農曆</dt>
-        <dd>${escapeHtml(deityDay.lunarDate)}</dd>
+        <dt>比對農曆</dt>
+        <dd>${deitySummary.lunarDate}</dd>
       </div>
       <div>
         <dt>祈福方向</dt>
-        <dd>${escapeHtml(deityDay.blessing)}</dd>
+        <dd>${escapeHtml(deitySummary.blessing)}</dd>
       </div>
     </dl>
-    <p class="mock-note">${escapeHtml(deityDay.mockNote)}</p>
     ${renderDeityMatcherPanel(deityMatchesResult)}
+    ${renderMockDeitySample(deityDay)}
   `);
 }
 
