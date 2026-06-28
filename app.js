@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.2.1",
+  version: "v0.3.2.2",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.2.1",
-  status: "命盤核心卡片寬度修正 × 總控台視覺靠近"
+  cacheVersion: "v0.3.2.2",
+  status: "首頁資訊層級整理 × 輔助提醒 compact 化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -396,12 +396,16 @@ function renderTodaySummary(summary = {}) {
 
 function renderNumerology(numerology = {}) {
   setHtml("#numerologyCard", `
-    <div class="section-heading">
-      <p>生命靈數</p>
-      <h2 id="life-number-title">核心數字</h2>
+    <div class="section-heading compact-heading">
+      <p>小節奏</p>
+      <h2 id="life-number-title">生命靈數節奏</h2>
     </div>
-    <div class="life-number">${escapeHtml(numerology.lifeNumber)}</div>
-    <div class="number-strip" aria-label="生命靈數摘要">
+    <div class="number-rhythm">
+      <span>生命靈數</span>
+      <strong class="life-number is-small">${escapeHtml(numerology.lifeNumber)}</strong>
+      <small>今日用來觀察行動節奏，不取代命盤核心。</small>
+    </div>
+    <div class="number-strip compact" aria-label="生命靈數節奏資料">
       <span><strong>${escapeHtml(numerology.personalYear)}</strong>個人年</span>
       <span><strong>${escapeHtml(numerology.personalMonth)}</strong>個人月</span>
       <span><strong>${escapeHtml(numerology.personalDay)}</strong>個人日</span>
@@ -487,13 +491,42 @@ function renderModuleLinkGroup(title, className, entries, currentModuleId) {
     return "";
   }
 
+  const isIntegrationGroup = className.includes("module-secondary-list");
+  const listClass = isIntegrationGroup ? "integration-result-list" : "";
+  const itemsHtml = entries.map(({ item, moduleId }) => isIntegrationGroup
+    ? renderIntegrationResultCard(item, moduleId, currentModuleId)
+    : renderCompactModuleLink(item, moduleId, currentModuleId)).join("");
+
   return `
     <section class="${className}">
       <h3 class="module-group-title">${escapeHtml(title)}</h3>
-      <div>
-        ${entries.map(({ item, moduleId }) => renderCompactModuleLink(item, moduleId, currentModuleId)).join("")}
+      <div class="${listClass}">
+        ${itemsHtml}
       </div>
     </section>
+  `;
+}
+
+function renderIntegrationResultCard(item = {}, moduleId, currentModuleId) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const result = detailPage.dashboardResult || {};
+  const isActive = currentModuleId && moduleId && moduleId === currentModuleId;
+  const className = [
+    "integration-result-card",
+    isActive ? "is-active" : ""
+  ].filter(Boolean).join(" ");
+
+  return `
+    <a class="${className}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon)}</span>
+      <span>
+        <small class="integration-result-label">${escapeHtml(result.label || detailPage.status || "planning")}</small>
+        <strong>${escapeHtml(item.title)}</strong>
+        <em class="integration-result-value">${escapeHtml(result.value || detailPage.subtitle || item.note)}</em>
+        <small>${escapeHtml(result.note || item.note || detailPage.summary)}</small>
+      </span>
+      <span class="module-arrow" aria-hidden="true">&gt;</span>
+    </a>
   `;
 }
 
@@ -521,35 +554,42 @@ function renderCompactModuleLink(item = {}, moduleId, currentModuleId) {
 function renderAlmanac(almanac = {}) {
   const engineResult = getAlmanacEngineResult();
   setHtml("#almanacCard", `
-    <div class="section-heading support-heading">
-      <p>輔助提醒</p>
-      <h2 id="almanac-title">今日時曆提醒</h2>
+    <div class="compact-reminder">
+      <div class="section-heading support-heading compact-heading">
+        <p>輔助提醒</p>
+        <h2 id="almanac-title">今日時曆提醒</h2>
+      </div>
+      <p class="support-copy">農民曆作為每日提醒參考，主軸仍是命盤核心。</p>
+      <div class="compact-reminder-grid">
+        <div>
+          <span>國曆</span>
+          <strong>${escapeHtml(almanac.solarDate)}</strong>
+        </div>
+        <div>
+          <span>農曆</span>
+          <strong>${escapeHtml(almanac.lunarDate)}</strong>
+        </div>
+        <div>
+          <span>今日宜</span>
+          <strong>${escapeHtml(almanac.good)}</strong>
+        </div>
+        <div>
+          <span>今日忌</span>
+          <strong>${escapeHtml(almanac.avoid)}</strong>
+        </div>
+      </div>
+      <dl class="detail-list compact support-detail is-muted">
+        <div>
+          <dt>吉時</dt>
+          <dd>${escapeHtml(almanac.luckyHours)}</dd>
+        </div>
+        <div>
+          <dt>沖煞</dt>
+          <dd>${escapeHtml(almanac.clash)}</dd>
+        </div>
+      </dl>
+      ${renderAlmanacEnginePanel(engineResult)}
     </div>
-    <p class="support-copy">農民曆輔助提醒，保留宜忌參考，不作為首頁主功能。</p>
-    <div class="almanac-date">${escapeHtml(almanac.solarDate)}</div>
-    <dl class="detail-list compact support-detail">
-      <div>
-        <dt>農曆</dt>
-        <dd>${escapeHtml(almanac.lunarDate)}</dd>
-      </div>
-      <div>
-        <dt>今日宜</dt>
-        <dd>${escapeHtml(almanac.good)}</dd>
-      </div>
-      <div>
-        <dt>今日忌</dt>
-        <dd>${escapeHtml(almanac.avoid)}</dd>
-      </div>
-      <div>
-        <dt>吉時</dt>
-        <dd>${escapeHtml(almanac.luckyHours)}</dd>
-      </div>
-      <div>
-        <dt>沖煞</dt>
-        <dd>${escapeHtml(almanac.clash)}</dd>
-      </div>
-    </dl>
-    ${renderAlmanacEnginePanel(engineResult)}
   `);
 }
 
@@ -598,55 +638,35 @@ function renderAlmanacEnginePanel(result = {}) {
 
   if (!isOk) {
     return `
-      <div class="engine-panel">
+      <div class="engine-panel is-compact">
         <div class="engine-panel-head">
           <strong>lunar 實驗資料</strong>
           <span class="engine-status is-error">error</span>
         </div>
-        <p class="engine-empty">lunar 實驗資料：本次未取得</p>
+        <p class="engine-empty">本次未取得 lunar 實驗資料。</p>
         <p class="engine-reason">原因：${escapeHtml(result.errorMessage || "本次未取得")}</p>
       </div>
     `;
   }
 
   return `
-    <div class="engine-panel">
+    <div class="engine-panel is-compact">
       <div class="engine-panel-head">
         <strong>lunar 實驗資料</strong>
         <span class="engine-status">ok</span>
       </div>
-      <dl class="engine-list">
+      <dl class="engine-list compact-engine-list">
         <div>
           <dt>來源</dt>
           <dd><span class="source-tag">${escapeHtml(result.source)}</span></dd>
         </div>
         <div>
-          <dt>今日農曆</dt>
+          <dt>農曆</dt>
           <dd>${escapeHtml(result.lunarText)}</dd>
         </div>
         <div>
-          <dt>農曆月日</dt>
-          <dd>${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}</dd>
-        </div>
-        <div>
-          <dt>干支 / 生肖</dt>
-          <dd>${escapeHtml(result.gzYear)} / ${escapeHtml(result.zodiac)}</dd>
-        </div>
-        <div>
-          <dt>星期</dt>
-          <dd>${escapeHtml(result.week)}</dd>
-        </div>
-        <div>
-          <dt>宜</dt>
-          <dd>${escapeHtml(result.yi)}</dd>
-        </div>
-        <div>
-          <dt>忌</dt>
-          <dd>${escapeHtml(result.ji)}</dd>
-        </div>
-        <div>
-          <dt>狀態</dt>
-          <dd>${escapeHtml(result.status)}</dd>
+          <dt>宜 / 忌</dt>
+          <dd>${escapeHtml(result.yi)} / ${escapeHtml(result.ji)}</dd>
         </div>
       </dl>
     </div>
@@ -732,7 +752,7 @@ function renderTestLinks() {
   ];
 
   return `
-    <div class="test-mode-panel">
+    <div class="test-mode-panel is-compact">
       <strong>測試入口</strong>
       <div class="test-link-row">
         ${testSeeds.map((seed) => `
@@ -752,43 +772,42 @@ function renderDeityMatcherPanel(result = {}) {
   const modeLabel = isTestMode ? "測試模式" : "今日模式";
   const modeClass = isTestMode ? "is-test" : "is-today";
   const lunarDate = result.lunarMonth && result.lunarDay
-    ? `${isTestMode ? "測試 " : ""}${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`
+    ? `${isTestMode ? "測試 " : ""}${escapeHtml(result.lunarMonthText)}月${escapeHtml(result.lunarDayText)}`
     : "本次未取得";
-  const seedNote = data?.deityMatcher?.note || "本版使用 seed 資料表做神明生日比對，資料表仍需人工校對與擴充。";
+  const seedNote = data?.deityMatcher?.note || "本版使用 seed 資料表測試命中，不代表資料表已完整。";
   const matchItems = Array.isArray(result.matches) ? result.matches : [];
 
   const matchHtml = matchItems.length > 0
     ? `
-      <div class="deity-list">
+      <div class="deity-list compact-deity-list">
         ${matchItems.map((item) => `
           <article>
             <strong>${escapeHtml(item.title)}</strong>
             <small>${escapeHtml(item.category)} / ${escapeHtml(item.sourceLevel)}</small>
             <p>${escapeHtml(item.blessing)}</p>
-            <p>${escapeHtml(item.note)}</p>
           </article>
         `).join("")}
       </div>
     `
-    : `<p class="engine-empty">${escapeHtml(result.message || "這個日期未命中 seed 資料表。")}</p>`;
+    : `<p class="engine-empty">${escapeHtml(result.message || "今日或測試日期未命中 seed 資料表。")}</p>`;
 
   return `
-    <div class="engine-panel deity-panel">
+    <div class="engine-panel deity-panel is-compact">
       <div class="engine-panel-head">
-        <strong>神明生日資料表實驗</strong>
+        <strong>神明生日資料表</strong>
         <span class="engine-status deity-status${statusClass}">${escapeHtml(status)}</span>
       </div>
       <div class="test-mode-line">
         <span class="mode-tag ${modeClass}">${modeLabel}</span>
         <span>${escapeHtml(result.testMessage || (isTestMode ? "目前使用測試模式。" : "目前使用今日模式。"))}</span>
       </div>
-      <dl class="engine-list">
+      <dl class="engine-list compact-engine-list">
         <div>
-          <dt>比對農曆</dt>
+          <dt>農曆</dt>
           <dd>${lunarDate}</dd>
         </div>
         <div>
-          <dt>比對結果</dt>
+          <dt>結果</dt>
           <dd>${escapeHtml(result.message || "本次未取得")}</dd>
         </div>
       </dl>
@@ -866,22 +885,24 @@ function renderDeityDay(deityDay = {}) {
   const deitySummary = getDeitySummary(deityMatchesResult);
 
   setHtml("#deityCard", `
-    <div class="section-heading">
-      <p>今日神明生日</p>
-      <h2 id="deity-title">${escapeHtml(deitySummary.title)}</h2>
+    <div class="compact-reminder deity-compact-reminder">
+      <div class="section-heading support-heading compact-heading">
+        <p>輔助提醒</p>
+        <h2 id="deity-title">${escapeHtml(deitySummary.title)}</h2>
+      </div>
+      <dl class="detail-list compact deity-summary">
+        <div>
+          <dt>農曆</dt>
+          <dd>${deitySummary.lunarDate}</dd>
+        </div>
+        <div>
+          <dt>祈福方向</dt>
+          <dd>${escapeHtml(deitySummary.blessing)}</dd>
+        </div>
+      </dl>
+      ${renderDeityMatcherPanel(deityMatchesResult)}
+      ${renderMockDeitySample(deityDay)}
     </div>
-    <dl class="detail-list compact deity-summary">
-      <div>
-        <dt>比對農曆</dt>
-        <dd>${deitySummary.lunarDate}</dd>
-      </div>
-      <div>
-        <dt>祈福方向</dt>
-        <dd>${escapeHtml(deitySummary.blessing)}</dd>
-      </div>
-    </dl>
-    ${renderDeityMatcherPanel(deityMatchesResult)}
-    ${renderMockDeitySample(deityDay)}
   `);
 }
 

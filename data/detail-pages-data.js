@@ -175,6 +175,11 @@ window.KekeDetailPages = {
     status: "planning",
     route: "#/module/luck",
     summary: "整理年度、九運與長週期趨勢，作為命盤核心之外的節奏參考。",
+    dashboardResult: {
+      label: "目前結果",
+      value: "流年節奏規劃中",
+      note: "先以 planning 資料顯示，未接入正式流年或九運計算。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -201,6 +206,11 @@ window.KekeDetailPages = {
     status: "planning",
     route: "#/module/yijing",
     summary: "作為提問與反思入口，未來可整理問題、卦象、解讀與後續紀錄。",
+    dashboardResult: {
+      label: "目前結果",
+      value: "占問入口規劃中",
+      note: "先保留問題、卦象與解讀欄位，尚未建立正式占問流程。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -227,6 +237,11 @@ window.KekeDetailPages = {
     status: "planning",
     route: "#/module/soul-tree",
     summary: "把八字、紫微、星盤、生命靈數與姓名學整合成一棵命理之樹。",
+    dashboardResult: {
+      label: "目前結果",
+      value: "命盤整合入口",
+      note: "根、幹、枝葉會整合紫微、八字、星盤、靈數與姓名學。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -253,6 +268,11 @@ window.KekeDetailPages = {
     status: "planning",
     route: "#/module/database",
     summary: "先規劃靜態資料與備份入口，未來再評估本機儲存與匯出匯入流程。",
+    dashboardResult: {
+      label: "目前結果",
+      value: "JSON 匯入匯出規劃中",
+      note: "未來放個人資料、備份紀錄與資料版本檢查。"
+    },
     sections: [
       {
         title: "這個系統看什麼",

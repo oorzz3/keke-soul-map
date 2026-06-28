@@ -34,6 +34,13 @@
 - `scripts/check-site.js`：小貓龍蝦檢查腳本，檢查必要檔案、靜態網站相容、版本同步、route / detail、active UX、既有實驗功能與高風險關鍵字。
 - `run-check-site.bat`：Windows 雙擊檢查入口，執行 `node scripts/check-site.js`。
 
+## v0.3.2.2 資訊層級整理
+
+- `app.js`：整理首頁資訊層級，加入 compact 輔助提醒與整合結果卡渲染。
+- `data/detail-pages-data.js`：luck / yijing / soul-tree / database 新增 dashboardResult 首頁結果摘要。
+- `style.css`：新增 number-rhythm、integration-result、compact-reminder 與 is-compact 樣式。
+- `scripts/check-site.js`：加入 v0.3.2.2 資訊層級與 compact 檢查。
+
 ## v0.3.2.1 版面修正
 
 - `style.css`：修正 `.core-dashboard`、`.core-dashboard-grid`、`.core-module-card` 寬度規則，避免核心卡被壓成直排。

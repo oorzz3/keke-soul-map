@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.3.2.2｜首頁資訊層級整理版
+
+- 調整生命靈數卡為小節奏摘要
+- 整合與工具加入 dashboardResult 目前結果摘要
+- 農民曆與神明生日改為 compact 輔助提醒
+- 保留 hash router、detail pages、lunar、deity matcher 與日期測試模式
+- 靜態資源快取參數更新為 v0.3.2.2
+
 ## v0.3.2.1｜命盤核心卡片寬度修正版
 
 - 修正首頁命盤核心卡片被擠壓成直排窄卡的問題
