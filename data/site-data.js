@@ -1,11 +1,18 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.2.5",
+    version: "v0.3.0",
     dataVersion: "v0.2",
-    cacheVersion: "v0.2.5",
-    status: "首頁主軸重排 × 命盤核心優先",
-    updatedNote: "首頁視覺重心改為命盤核心，農民曆與神明生日保留為每日輔助提醒。"
+    cacheVersion: "v0.3.0",
+    status: "命盤詳情頁骨架 × hash router",
+    updatedNote: "v0.3.0 起新增 hash router 與命盤詳情頁骨架，首頁仍保留命盤總控台。"
+  },
+  routeMeta: {
+    enabled: true,
+    mode: "hash",
+    homeRoutes: ["#/", "#/dashboard"],
+    detailPrefix: "#/module/",
+    note: "v0.3.0 起使用 hash router 管理首頁與命盤詳情頁。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
@@ -22,7 +29,7 @@ window.KekeSoulData = {
     enabled: true,
     mode: "experiment",
     source: "data/deity-birthdays.js",
-    note: "本版為神明生日 seed 資料表實驗，資料仍需人工校對。"
+    note: "本版使用 seed 資料表做神明生日比對，資料表仍需人工校對與擴充。"
   },
   dateTestMode: {
     enabled: true,
@@ -78,17 +85,72 @@ window.KekeSoulData = {
     personalDay: 2
   },
   modules: [
-    { title: "紫微斗數", note: "命宮、主星與生命焦點", icon: "紫", href: "#module-title" },
-    { title: "八字四柱", note: "年柱、月柱、日柱、時柱", icon: "八", href: "#module-title" },
-    { title: "西洋星盤", note: "太陽、月亮、上升與行星", icon: "星", href: "#module-title" },
-    { title: "生命靈數", note: "核心數字與個人週期", icon: "7", href: "#life-number-title" },
-    { title: "姓名學", note: "姓名、總格與五行氣質", icon: "名", href: "#module-title" },
-    { title: "流年 / 九運", note: "年度主題與大環境趨勢", icon: "運", href: "#today-title" },
-    { title: "農民曆", note: "今日宜忌與 lunar 實驗資料", icon: "曆", href: "#almanac-title" },
-    { title: "神明生日", note: "祈福方向與生日資料表", icon: "神", href: "#deity-title" },
-    { title: "易經占問", note: "問題入口與占問紀錄", icon: "易", href: "#deity-title" },
-    { title: "命樹", note: "整合多元命理系統", icon: "樹", href: "#tree-title" },
-    { title: "資料庫 / 備份", note: "JSON、匯入與備份紀錄", icon: "庫", href: "#tool-title" }
+    {
+      title: "紫微斗數",
+      note: "命宮、主星與人生主題",
+      icon: "紫",
+      href: "#/module/ziwei"
+    },
+    {
+      title: "八字四柱",
+      note: "年柱、月柱、日柱、時柱",
+      icon: "干",
+      href: "#/module/bazi"
+    },
+    {
+      title: "西洋星盤",
+      note: "太陽、月亮、上升與行星",
+      icon: "星",
+      href: "#/module/astrology"
+    },
+    {
+      title: "生命靈數",
+      note: "核心數字與年度節奏",
+      icon: "7",
+      href: "#/module/numerology"
+    },
+    {
+      title: "姓名學",
+      note: "姓名結構、五格與語感",
+      icon: "名",
+      href: "#/module/name"
+    },
+    {
+      title: "流年 / 九運",
+      note: "年度焦點與長週期節奏",
+      icon: "運",
+      href: "#/module/luck"
+    },
+    {
+      title: "農民曆",
+      note: "每日宜忌與 lunar 實驗資料",
+      icon: "曆",
+      href: "#almanac-title"
+    },
+    {
+      title: "神明生日",
+      note: "神明生日 seed 資料表實驗",
+      icon: "神",
+      href: "#deity-title"
+    },
+    {
+      title: "易經占問",
+      note: "占問入口與反思紀錄",
+      icon: "卦",
+      href: "#/module/yijing"
+    },
+    {
+      title: "命樹",
+      note: "多命盤系統整合入口",
+      icon: "樹",
+      href: "#/module/soul-tree"
+    },
+    {
+      title: "資料庫 / 備份",
+      note: "JSON、匯入與備份紀錄",
+      icon: "庫",
+      href: "#/module/database"
+    }
   ],
   almanac: {
     solarDate: "2026/06/28",

@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="科科命理宇宙站 v0.2.5，手機優先的 Soul Map 命盤儀表板。"
+    content="科科命理宇宙站 v0.3.0，手機優先的 Soul Map 命盤總控台。"
   />
-  <title>科科命理宇宙站｜Soul Map 命盤儀表板</title>
-  <link rel="stylesheet" href="./style.css?v=0.2.5" />
+  <title>科科命理宇宙站｜Soul Map 命盤總控台</title>
+  <link rel="stylesheet" href="./style.css?v=0.3.0" />
 </head>
 <body>
   <div class="site-shell">
-    <aside class="desktop-sidebar" aria-label="桌機側欄導覽">
-      <a class="brand-mark" href="#top" aria-label="回到首頁">
-        <span class="brand-sigil" aria-hidden="true">星</span>
+    <aside class="desktop-sidebar" aria-label="桌機側邊導覽">
+      <a class="brand-mark" href="#/dashboard" aria-label="回到總控台">
+        <span class="brand-sigil" aria-hidden="true">✶</span>
         <span>
           <strong>科科命理宇宙站</strong>
           <small>Soul Map</small>
         </span>
       </a>
       <nav class="sidebar-nav" id="desktopNav"></nav>
-      <section class="sidebar-sync" aria-label="資料工具摘要">
-        <span class="sync-icon" aria-hidden="true">雲</span>
+      <section class="sidebar-sync" aria-label="資料工具提示">
+        <span class="sync-icon" aria-hidden="true">☁</span>
         <div>
           <strong>資料備份與同步</strong>
           <small>JSON / 匯入 / 備份紀錄</small>
@@ -36,14 +36,14 @@
         <div class="topbar-title">
           <p>從不同命理系統，看見同一個自己</p>
           <h1>科科命理宇宙站</h1>
-          <span>Soul Map 命盤儀表板</span>
-          <span class="version-badge mobile-version" id="mobileVersionBadge">v0.2.5</span>
+          <span>Soul Map 命盤總控台</span>
+          <span class="version-badge mobile-version" id="mobileVersionBadge">v0.3.0</span>
         </div>
         <div class="desktop-actions" id="topbarActions" aria-label="桌機工具列"></div>
-        <button class="mobile-bell" type="button" aria-label="提醒">鈴</button>
+        <button class="mobile-bell" type="button" aria-label="提醒">◎</button>
       </header>
 
-      <main class="dashboard" aria-label="科科命理宇宙站首頁儀表板">
+      <main class="dashboard" id="dashboardView" aria-label="科科命理宇宙站首頁儀表板">
         <section id="profileCard" class="hero-card" aria-labelledby="profile-title" aria-label="本命摘要"></section>
         <section id="moduleCard" class="card module-card core-card is-primary" aria-labelledby="module-title" aria-label="命理模組入口"></section>
         <section id="todayCard" class="card today-card core-card" aria-labelledby="today-title" aria-label="今日科科摘要"></section>
@@ -53,23 +53,27 @@
         <section id="deityCard" class="card deity-card support-card compact-card" aria-labelledby="deity-title" aria-label="神明生日輔助提醒"></section>
         <section id="toolsCard" class="card tools-card support-card" aria-labelledby="tool-title" aria-label="資料工具區"></section>
       </main>
+
+      <main class="detail-view" id="detailView" aria-label="命盤詳情頁" hidden></main>
     </div>
   </div>
 
   <nav class="mobile-tabbar" aria-label="手機底部導覽">
-    <a href="#top" aria-current="page">首頁</a>
+    <a href="#/dashboard" aria-current="page">首頁</a>
     <a href="#module-title">命盤</a>
     <a href="#almanac-title">農曆</a>
     <a href="#deity-title">占問</a>
     <a href="#tool-title">我的</a>
   </nav>
 
-  <script src="./vendor/lunar/lunar.js?v=0.2.5"></script>
-  <script src="./features/almanac-engine.js?v=0.2.5"></script>
-  <script src="./data/deity-birthdays.js?v=0.2.5"></script>
-  <script src="./features/date-test-mode.js?v=0.2.5"></script>
-  <script src="./features/deity-matcher.js?v=0.2.5"></script>
-  <script src="./data/site-data.js?v=0.2.5" data-source="KekeSoulData"></script>
-  <script src="./app.js?v=0.2.5" defer></script>
+  <script src="./vendor/lunar/lunar.js?v=0.3.0"></script>
+  <script src="./features/almanac-engine.js?v=0.3.0"></script>
+  <script src="./data/deity-birthdays.js?v=0.3.0"></script>
+  <script src="./features/date-test-mode.js?v=0.3.0"></script>
+  <script src="./features/deity-matcher.js?v=0.3.0"></script>
+  <script src="./data/detail-pages-data.js?v=0.3.0"></script>
+  <script src="./features/router.js?v=0.3.0"></script>
+  <script src="./data/site-data.js?v=0.3.0" data-source="KekeSoulData"></script>
+  <script src="./app.js?v=0.3.0" defer></script>
 </body>
 </html>

@@ -1,24 +1,170 @@
-const data = window.KekeSoulData;
+const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.2.5",
+  version: "v0.3.0",
   dataVersion: "v0.2",
-  cacheVersion: "v0.2.5",
-  status: "首頁主軸重排 × 命盤核心優先"
+  cacheVersion: "v0.3.0",
+  status: "命盤詳情頁骨架 × hash router"
 };
 
-if (!data) {
-  console.warn("KekeSoulData 未載入，首頁資料暫時無法渲染。");
-} else {
+if (!window.KekeSoulData) {
+  console.warn("KekeSoulData 尚未載入，畫面會使用安全 fallback。");
+}
+
+initApp();
+
+function initApp() {
+  renderDashboardView();
+  handleRouteChange();
+
+  if (typeof window.addEventListener === "function") {
+    window.addEventListener("hashchange", handleRouteChange);
+  }
+}
+
+function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
   renderTodaySummary(data.todaySummary);
   renderNumerology(data.numerology);
   renderModules(data.modules);
+  renderSoulTree(data.soulTree);
   renderAlmanac(data.almanac);
   renderDeityDay(data.deityDay);
-  renderSoulTree(data.soulTree);
   renderTools(data.tools);
   renderDesktopNav(data);
+}
+
+function handleRouteChange() {
+  const route = window.KekeRouter && typeof window.KekeRouter.getCurrentRoute === "function"
+    ? window.KekeRouter.getCurrentRoute()
+    : { type: "dashboard", moduleId: null, hash: window.location.hash || "#/dashboard" };
+
+  if (route.type === "module") {
+    renderDetailView(route.moduleId);
+    return;
+  }
+
+  if (route.type === "unknown") {
+    renderNotFoundDetail(route.hash);
+    return;
+  }
+
+  showDashboard();
+  scrollAnchorIfNeeded(route.hash);
+}
+
+function showDashboard() {
+  const dashboard = document.querySelector("#dashboardView");
+  const detail = document.querySelector("#detailView");
+
+  if (dashboard) {
+    dashboard.hidden = false;
+  }
+
+  if (detail) {
+    detail.hidden = true;
+  }
+}
+
+function showDetail() {
+  const dashboard = document.querySelector("#dashboardView");
+  const detail = document.querySelector("#detailView");
+
+  if (dashboard) {
+    dashboard.hidden = true;
+  }
+
+  if (detail) {
+    detail.hidden = false;
+  }
+
+  if (typeof window.scrollTo === "function") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function scrollAnchorIfNeeded(hash) {
+  if (!hash || hash.startsWith("#/")) {
+    return;
+  }
+
+  const id = hash.slice(1);
+  const target = document.getElementById(id);
+
+  if (!target || typeof target.scrollIntoView !== "function") {
+    return;
+  }
+
+  window.setTimeout(() => {
+    target.scrollIntoView({ block: "start" });
+  }, 0);
+}
+
+function getDetailPage(moduleId) {
+  if (!window.KekeDetailPages || !moduleId) {
+    return null;
+  }
+
+  return window.KekeDetailPages[moduleId] || null;
+}
+
+function renderDetailView(moduleId) {
+  const page = getDetailPage(moduleId);
+
+  if (!page) {
+    renderNotFoundDetail(moduleId);
+    return;
+  }
+
+  showDetail();
+  setHtml("#detailView", renderDetailPage(page));
+}
+
+function renderDetailPage(page) {
+  const sections = Array.isArray(page.sections) ? page.sections : [];
+
+  return `
+    <article class="detail-shell">
+      <a class="detail-back" href="index.html#/dashboard">返回總控台</a>
+      <header class="detail-hero">
+        <span class="detail-status is-${escapeHtml(page.status || "planning")}">${escapeHtml(page.status || "planning")}</span>
+        <p class="eyebrow">命盤詳情頁</p>
+        <h2>${escapeHtml(page.title)}</h2>
+        <p class="detail-subtitle">${escapeHtml(page.subtitle)}</p>
+        <p>${escapeHtml(page.summary)}</p>
+      </header>
+      <div class="detail-grid">
+        ${sections.map((section) => `
+          <section class="detail-section">
+            <h3>${escapeHtml(section.title)}</h3>
+            <ul>
+              ${(Array.isArray(section.items) ? section.items : []).map((item) => `
+                <li>${escapeHtml(item)}</li>
+              `).join("")}
+            </ul>
+          </section>
+        `).join("")}
+      </div>
+      <p class="detail-note">目前為架構展示，尚未接入正式命理演算法。</p>
+    </article>
+  `;
+}
+
+function renderNotFoundDetail(moduleId) {
+  showDetail();
+  setHtml("#detailView", `
+    <article class="detail-shell route-not-found">
+      <a class="detail-back" href="index.html#/dashboard">返回總控台</a>
+      <header class="detail-hero">
+        <span class="detail-status is-planning">unknown</span>
+        <p class="eyebrow">命盤詳情頁</p>
+        <h2>找不到這個命盤詳情頁</h2>
+        <p class="detail-subtitle">目前沒有對應資料：${escapeHtml(moduleId || "未指定")}</p>
+        <p>請回到首頁總控台，從命盤核心入口重新選擇。</p>
+      </header>
+      <p class="detail-note">目前為架構展示，尚未接入正式命理演算法。</p>
+    </article>
+  `);
 }
 
 function escapeHtml(value) {
@@ -97,7 +243,7 @@ function renderNumerology(numerology = {}) {
       <h2 id="life-number-title">核心數字</h2>
     </div>
     <div class="life-number">${escapeHtml(numerology.lifeNumber)}</div>
-    <div class="number-strip" aria-label="生命靈數週期">
+    <div class="number-strip" aria-label="生命靈數摘要">
       <span><strong>${escapeHtml(numerology.personalYear)}</strong>個人年</span>
       <span><strong>${escapeHtml(numerology.personalMonth)}</strong>個人月</span>
       <span><strong>${escapeHtml(numerology.personalDay)}</strong>個人日</span>
@@ -114,7 +260,7 @@ function renderModules(modules = []) {
         <strong>${escapeHtml(item.title)}</strong>
         <small>${escapeHtml(item.note)}</small>
       </span>
-      <span class="module-arrow" aria-hidden="true">›</span>
+      <span class="module-arrow" aria-hidden="true">&gt;</span>
     </a>
   `).join("");
 
@@ -122,11 +268,11 @@ function renderModules(modules = []) {
     <div class="section-heading inline-heading">
       <div>
         <p>命盤核心</p>
-        <h2 id="module-title">入口卡片</h2>
+        <h2 id="module-title">命理模組入口</h2>
       </div>
       <span class="soft-tag">命盤核心</span>
     </div>
-    <p class="module-intro">先從本命系統看見自己，再用每日輔助提醒安排行動。</p>
+    <p class="module-intro">先從本命系統看見自己，再用每日提醒輔助行動。</p>
     <div class="module-grid" id="moduleGrid">${moduleItems}</div>
   `);
 }
@@ -138,7 +284,7 @@ function renderAlmanac(almanac = {}) {
       <p>輔助提醒</p>
       <h2 id="almanac-title">今日時曆提醒</h2>
     </div>
-    <p class="support-copy">農民曆輔助提醒，保留給每日行動參考。</p>
+    <p class="support-copy">農民曆輔助提醒，保留宜忌參考，不作為首頁主功能。</p>
     <div class="almanac-date">${escapeHtml(almanac.solarDate)}</div>
     <dl class="detail-list compact support-detail">
       <div>
@@ -181,7 +327,7 @@ function getAlmanacEngineResult() {
       yi: "本次未取得",
       ji: "本次未取得",
       status: "error",
-      errorMessage: "KekeAlmanacEngine 未載入。"
+      errorMessage: "KekeAlmanacEngine 尚未載入。"
     };
   }
 
@@ -278,7 +424,7 @@ function getDeityMatchesResult() {
       lunarMonthText: "本次未取得",
       lunarDayText: "本次未取得",
       matches: [],
-      message: "KekeDeityMatcher 未載入。"
+      message: "KekeDeityMatcher 尚未載入。"
     };
   }
 
@@ -295,7 +441,7 @@ function getDeityMatchesResult() {
       lunarMonthText: "本次未取得",
       lunarDayText: "本次未取得",
       matches: [],
-      message: error && error.message ? error.message : "神明生日資料表比對失敗。"
+      message: error && error.message ? error.message : "神明生日資料表讀取失敗。"
     };
   }
 }
@@ -318,7 +464,7 @@ function getTestLink(seed) {
 
 function getTestSeedLabel(seed) {
   if (!seed || !seed.lunarMonth || !seed.lunarDay) {
-    return "回今日模式";
+    return "今日模式";
   }
 
   if (String(seed.label).includes("觀音")) {
@@ -367,7 +513,7 @@ function renderDeityMatcherPanel(result = {}) {
   const lunarDate = result.lunarMonth && result.lunarDay
     ? `${isTestMode ? "測試 " : ""}${escapeHtml(result.lunarMonthText)}月 ${escapeHtml(result.lunarDayText)}`
     : "本次未取得";
-  const seedNote = data?.deityMatcher?.note || "本版為神明生日 seed 資料表實驗，資料仍需人工校對。";
+  const seedNote = data?.deityMatcher?.note || "本版使用 seed 資料表做神明生日比對，資料表仍需人工校對與擴充。";
   const matchItems = Array.isArray(result.matches) ? result.matches : [];
 
   const matchHtml = matchItems.length > 0
@@ -376,14 +522,14 @@ function renderDeityMatcherPanel(result = {}) {
         ${matchItems.map((item) => `
           <article>
             <strong>${escapeHtml(item.title)}</strong>
-            <small>${escapeHtml(item.category)}｜${escapeHtml(item.sourceLevel)}</small>
+            <small>${escapeHtml(item.category)} / ${escapeHtml(item.sourceLevel)}</small>
             <p>${escapeHtml(item.blessing)}</p>
             <p>${escapeHtml(item.note)}</p>
           </article>
         `).join("")}
       </div>
     `
-    : `<p class="engine-empty">${escapeHtml(result.message || "這個農曆日期未命中 seed 資料表。")}</p>`;
+    : `<p class="engine-empty">${escapeHtml(result.message || "這個日期未命中 seed 資料表。")}</p>`;
 
   return `
     <div class="engine-panel deity-panel">
@@ -432,7 +578,7 @@ function getDeitySummary(result = {}) {
     return {
       title: firstMatch.title,
       lunarDate: formatDeityLunarDate(result),
-      blessing: firstMatch.blessing || "平安、安定、圓滿"
+      blessing: firstMatch.blessing || "平安、慈悲、圓滿"
     };
   }
 
@@ -465,7 +611,7 @@ function renderMockDeitySample(deityDay = {}) {
           <dd>${escapeHtml(deityDay.lunarDate)}</dd>
         </div>
         <div>
-          <dt>範例祈福方向</dt>
+          <dt>範例祈福</dt>
           <dd>${escapeHtml(deityDay.blessing)}</dd>
         </div>
       </dl>
@@ -504,7 +650,7 @@ function renderSoulTree(soulTree = {}) {
       <p>命樹</p>
       <h2 id="tree-title">${escapeHtml(soulTree.title)}</h2>
     </div>
-    <div class="tree-map" aria-label="命樹結構">
+    <div class="tree-map" aria-label="命樹概念">
       <span class="tree-node root">${escapeHtml(soulTree.root)}</span>
       <span class="tree-node trunk">${escapeHtml(soulTree.trunk)}</span>
       <span class="tree-node crown">${escapeHtml(soulTree.crown)}</span>
@@ -541,19 +687,20 @@ function renderTools(tools = []) {
     </dl>
   `);
 
-  setHtml("#topbarActions", tools.slice(0, 1).map((label) => `
+  setHtml("#topbarActions", `
     <button type="button">今日總覽</button>
     <span class="version-badge">${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</span>
-    <button type="button">${escapeHtml(label)}</button>
-    <button type="button" class="profile-button">${escapeHtml(data.profile.name)}</button>
-  `).join(""));
+    <button type="button">${escapeHtml(tools[0] || "匯出 JSON")}</button>
+    <button type="button" class="profile-button">${escapeHtml(data?.profile?.name || "科科")}</button>
+  `);
 }
 
-function renderDesktopNav(siteData) {
+function renderDesktopNav(siteData = {}) {
+  const modules = Array.isArray(siteData.modules) ? siteData.modules : [];
   const navItems = [
-    { title: "首頁總覽", icon: "首", href: "#top" },
+    { title: "首頁總覽", icon: "首", href: "#/dashboard" },
     { title: "個人資料", icon: "人", href: "#profile-title" },
-    ...siteData.modules.map((item) => ({
+    ...modules.map((item) => ({
       title: item.title === "資料庫 / 備份" ? "資料庫" : item.title,
       icon: item.icon,
       href: item.href

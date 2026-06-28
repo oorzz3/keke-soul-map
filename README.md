@@ -2,125 +2,101 @@
 
 GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
-科科命理宇宙站是一個手機優先的命理宇宙站靜態首頁儀表板，用純 HTML / CSS / JavaScript 在 GitHub Pages 上運作。
+科科命理宇宙站是一個手機優先的命盤總控台靜態網站，使用純 HTML / CSS / JavaScript，可直接部署於 GitHub Pages。
 
 目前版本：
-- 網站版本：v0.2.5
+
+- 網站版本：v0.3.0
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.2.5
+- 靜態資源快取版本：v0.3.0
 
 ## 專案定位
 
-這個專案先建立命盤首頁骨架，逐步把 mock data、農民曆實驗資料、神明生日 seed 資料表拆到獨立資料層與功能包裝層。
+- 首頁 = 命盤總控台
+- 小卡片 = 各命理系統入口
+- 點進卡片 = 對應命盤詳情頁
+- 農民曆 / 神明生日 = 輔助提醒，不是主軸
+- 命樹 = 多命盤系統整合入口
 
-目前仍是實驗階段，不提供正式命理計算結果，也不取代人工校對資料。
+## v0.3.0 重點
+
+v0.3.0 新增 hash router 與命盤詳情頁骨架：
+
+- 新增 `features/router.js`
+- 新增 `data/detail-pages-data.js`
+- 新增 `dashboardView` / `detailView` 切換
+- 命盤核心卡片可進入詳情頁
+- 詳情頁顯示 `mock` / `experiment` / `planning` 狀態
+- 本版只做 mock / planning，不做真正命理演算法
+- 保留首頁總控台、lunar 農民曆實驗、神明生日資料表與日期測試模式
+
+路由範例：
+
+```text
+index.html#/module/ziwei
+index.html#/module/bazi
+index.html#/module/astrology
+index.html#/module/numerology
+```
+
+舊錨點仍保留，例如：
+
+```text
+index.html#deity-title
+index.html?testLunarMonth=2&testLunarDay=19#deity-title
+```
 
 ## 已完成功能
 
 - 本命摘要
 - 今日科科摘要
 - 生命靈數卡
-- 命理模組入口
+- 命盤核心入口
+- 命樹卡
 - 今日農民曆 mock 卡
-- lunar-javascript 農民曆引擎實驗資料
-- 今日神明生日 mock 卡
+- lunar-javascript 農民曆實驗資料
+- 今日神明生日 mock 範例
 - 神明生日 seed 資料表實驗
 - 日期測試模式
-- 命樹卡
 - 資料工具區
-- 網站版本號顯示
+- 版本號顯示
 - 小貓龍蝦檢查腳本
-
-## v0.2.5 重點
-
-v0.2.5 調整首頁主軸，讓命盤核心優先：
-
-- 首頁視覺重心改為命盤核心。
-- 命理模組入口與命樹提前，作為主要探索入口。
-- 農民曆與神明生日保留，但降為每日輔助提醒區。
-- lunar 實驗、神明生日資料表與日期測試模式都完整保留。
-
-## v0.2.4.1 重點
-
-v0.2.4.1 修正神明生日卡語意與本機連結：
-
-- 神明生日卡主內容改為優先顯示資料表比對結果。
-- 原本 `deityDay` mock 資料仍保留，但改放在「固定展示範例」區塊，避免看起來像今日或測試結果。
-- 「回今日模式」連結改為 `index.html#deity-title`，避免本機 `file://` 預覽跳到資料夾索引頁。
-
-## v0.2.4 重點
-
-v0.2.4 新增日期測試模式，方便不用等到指定農曆日期，也能測試神明生日 seed 資料表是否命中。
-
-可使用 URL query：
-
-```text
-?testLunarMonth=2&testLunarDay=19
-```
-
-範例：
-
-- `index.html?testLunarMonth=2&testLunarDay=19#deity-title`：測試觀世音菩薩佛辰。
-- `index.html?testLunarMonth=3&testLunarDay=23#deity-title`：測試天上聖母媽祖聖誕。
-- `index.html?testLunarMonth=6&testLunarDay=24#deity-title`：測試關聖帝君聖誕。
-
-注意：日期測試模式只影響神明生日 seed 資料表比對，不覆蓋今日農民曆 lunar 實驗資料，也不修改 mock 農民曆資料。
-
-## v0.2.3 重點
-
-v0.2.3 新增神明生日資料表實驗：
-
-- `data/deity-birthdays.js`：保存神明生日 seed 資料表。
-- `features/deity-matcher.js`：依今日農曆月日比對 seed 資料表。
-- `features/almanac-engine.js`：新增 `lunarMonth`、`lunarDay`、`lunarMonthText`、`lunarDayText`，供神明生日比對使用。
-- 今日神明生日卡保留原本 mock 展示資料，並新增「神明生日資料表實驗」小區塊。
-
-注意：seed 資料表只作為接線驗證，不代表完整宗教資料庫，也不代表真實當日資料。
-
-## lunar-javascript 實驗
-
-v0.2.2 起以單檔 vendor 方式導入 `lunar-javascript`：
-
-- `vendor/lunar/lunar.js`：官方單檔版。
-- `vendor/lunar/LICENSE`：MIT License。
-- `features/almanac-engine.js`：本專案自己的農民曆實驗包裝層。
-
-本專案不使用 npm、CDN、API、後端或資料庫。lunar 實驗資料只作為前端接線測試，暫不取代人工校對資料。
 
 ## 本機檢查方式
 
-可雙擊：
+雙擊：
 
 ```bat
 run-check-site.bat
 ```
 
-或在專案根目錄執行：
+或執行：
 
 ```bat
 node scripts/check-site.js
 ```
 
-## 快取提醒
-
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.2.5 已將 `style.css`、`vendor/lunar/lunar.js`、`features/almanac-engine.js`、`data/deity-birthdays.js`、`features/date-test-mode.js`、`features/deity-matcher.js`、`data/site-data.js`、`app.js` 的資源引用更新為 `v=0.2.5`。
-
 ## 目前限制
 
-- 全部首頁資料仍以 mock / seed 展示資料為主。
-- 尚未做完整命理演算法。
-- 尚未建立完整神明生日資料庫。
-- 日期測試模式只是測試工具，不代表資料表完整。
-- 尚未接後端、資料庫、API 或真實帳號。
-- 按鈕目前是靜態入口。
+- 詳情頁資料仍是 mock / planning 展示資料
+- 尚未做真正紫微斗數演算法
+- 尚未做真正八字排盤
+- 尚未做真正西洋星盤計算
+- 尚未接 API / 後端 / 資料庫
+- 按鈕與資料工具目前多為靜態入口
+- 神明生日 seed 資料表尚不完整，不代表正式民俗資料庫
 
 ## 協作規則
 
-- 小科寫規格。
-- 小丸施工。
-- 科科驗收。
-- 科科手動 commit / push。
+- 小科寫規格
+- 小丸施工
+- 科科驗收
+- 科科手動 commit / push
+
+## 快取提醒
+
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.0 已將主要靜態資源引用更新為 `v=0.3.0`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.2.5 可補更多神明生日 seed 資料與校對欄位；v0.3 再評估是否把農民曆與神明生日資料做成更清楚的資料表版本管理。
+v0.3.1 可強化詳情頁資料結構與 route/schema 檢查，再評估是否把不同命盤系統拆成更細的資料檔。
