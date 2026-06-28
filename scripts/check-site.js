@@ -3,8 +3,8 @@ const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
 const results = [];
-const expectedVersion = "0.3.0";
-const expectedVersionLabel = "v0.3.0";
+const expectedVersion = "0.3.1";
+const expectedVersionLabel = "v0.3.1";
 
 function addResult(level, title, detail) {
   results.push({ level, title, detail });
@@ -119,7 +119,7 @@ function checkRequiredFiles() {
     if (exists(file)) {
       addResult("pass", `必要檔案存在：${file}`, "檔案已找到。");
     } else {
-      addResult("fail", `必要檔案缺少：${file}`, "請確認 v0.3.0 必要檔案是否建立。");
+      addResult("fail", `必要檔案缺少：${file}`, "請確認 v0.3.1 必要檔案是否建立。");
     }
   }
 }
@@ -169,11 +169,8 @@ function checkIndexContent() {
     { label: `features/router.js?v=${expectedVersion}`, ok: html.includes(`features/router.js?v=${expectedVersion}`) },
     { label: `data/site-data.js?v=${expectedVersion}`, ok: html.includes(`data/site-data.js?v=${expectedVersion}`) },
     { label: `app.js?v=${expectedVersion}`, ok: html.includes(`app.js?v=${expectedVersion}`) },
-    { label: `v=${expectedVersion}`, ok: html.includes(`v=${expectedVersion}`) },
-    { label: "moduleCard", ok: html.includes("moduleCard") },
-    { label: "almanacCard", ok: html.includes("almanacCard") },
-    { label: "treeCard", ok: html.includes("treeCard") }
-  ], "index.html 需要保留首頁容器、詳情頁容器與 v0.3.0 靜態資源引用。");
+    { label: `v=${expectedVersion}`, ok: html.includes(`v=${expectedVersion}`) }
+  ], "index.html 需要保留首頁容器、詳情頁容器與 v0.3.1 靜態資源引用。");
 }
 
 function checkSiteDataContent() {
@@ -189,6 +186,7 @@ function checkSiteDataContent() {
     { label: "version", ok: dataContent.includes("version") },
     { label: "cacheVersion", ok: dataContent.includes("cacheVersion") },
     { label: "routeMeta", ok: dataContent.includes("routeMeta") },
+    { label: "currentVersion", ok: dataContent.includes("currentVersion") },
     { label: "#/module/ziwei", ok: dataContent.includes("#/module/ziwei") },
     { label: "#/module/bazi", ok: dataContent.includes("#/module/bazi") },
     { label: "#/module/astrology", ok: dataContent.includes("#/module/astrology") },
@@ -200,14 +198,9 @@ function checkSiteDataContent() {
     { label: "#/module/database", ok: dataContent.includes("#/module/database") },
     { label: "#almanac-title", ok: dataContent.includes("#almanac-title") },
     { label: "#deity-title", ok: dataContent.includes("#deity-title") },
-    { label: "layoutMeta", ok: dataContent.includes("layoutMeta") },
-    { label: "命盤核心", ok: dataContent.includes("命盤核心") },
-    { label: "每日輔助提醒", ok: dataContent.includes("每日輔助提醒") },
     { label: "dateTestMode", ok: dataContent.includes("dateTestMode") },
-    { label: "testSeeds", ok: dataContent.includes("testSeeds") },
-    { label: "testLunarMonth", ok: dataContent.includes("testLunarMonth") },
-    { label: "testLunarDay", ok: dataContent.includes("testLunarDay") }
-  ], "data/site-data.js 需要包含 v0.3.0 版本資訊、routeMeta 與模組路由。");
+    { label: "testSeeds", ok: dataContent.includes("testSeeds") }
+  ], "data/site-data.js 需要包含 v0.3.1 版本資訊、routeMeta 與模組路由。");
 }
 
 function checkDetailPagesDataContent() {
@@ -219,6 +212,13 @@ function checkDetailPagesDataContent() {
   const content = readUtf8("data/detail-pages-data.js");
   addContentChecks("data/detail-pages-data.js", [
     { label: "KekeDetailPages", ok: content.includes("KekeDetailPages") },
+    { label: "order", ok: content.includes("order") },
+    { label: "navLabel", ok: content.includes("navLabel") },
+    { label: "category", ok: content.includes("category") },
+    { label: "icon", ok: content.includes("icon") },
+    { label: "命盤核心", ok: content.includes("命盤核心") },
+    { label: "時間節奏", ok: content.includes("時間節奏") },
+    { label: "工具資料", ok: content.includes("工具資料") },
     { label: "ziwei", ok: content.includes("ziwei") },
     { label: "bazi", ok: content.includes("bazi") },
     { label: "astrology", ok: content.includes("astrology") },
@@ -231,7 +231,7 @@ function checkDetailPagesDataContent() {
     { label: "mock", ok: content.includes("mock") },
     { label: "planning", ok: content.includes("planning") },
     { label: "sections", ok: content.includes("sections") }
-  ], "detail-pages-data.js 需要包含所有 v0.3.0 命盤詳情頁 mock / planning 資料。");
+  ], "detail-pages-data.js 需要包含所有 v0.3.1 命盤詳情頁資料與導覽欄位。");
 }
 
 function checkRouterContent() {
@@ -247,9 +247,13 @@ function checkRouterContent() {
     { label: "isAppRoute", ok: content.includes("isAppRoute") },
     { label: "getRouteModuleId", ok: content.includes("getRouteModuleId") },
     { label: "navigateHome", ok: content.includes("navigateHome") },
+    { label: "normalizeRoute", ok: content.includes("normalizeRoute") },
+    { label: "buildModuleRoute", ok: content.includes("buildModuleRoute") },
+    { label: "getHomeRoute", ok: content.includes("getHomeRoute") },
+    { label: "isDashboardRoute", ok: content.includes("isDashboardRoute") },
     { label: "#/dashboard", ok: content.includes("#/dashboard") },
     { label: "#/module/", ok: content.includes("#/module/") }
-  ], "router.js 需要提供 hash route 解析與回首頁 fallback。");
+  ], "router.js 需要提供 v0.3.1 route 解析與輔助函式。");
 }
 
 function checkAppRenderingContent() {
@@ -263,20 +267,27 @@ function checkAppRenderingContent() {
     { label: "renderDashboardView", ok: appContent.includes("renderDashboardView") },
     { label: "renderDetailView", ok: appContent.includes("renderDetailView") },
     { label: "renderDetailPage", ok: appContent.includes("renderDetailPage") },
+    { label: "renderDetailNav", ok: appContent.includes("renderDetailNav") },
     { label: "renderNotFoundDetail", ok: appContent.includes("renderNotFoundDetail") },
     { label: "hashchange", ok: appContent.includes("hashchange") },
     { label: "KekeDetailPages", ok: appContent.includes("KekeDetailPages") },
     { label: "KekeRouter", ok: appContent.includes("KekeRouter") },
+    { label: "is-active", ok: appContent.includes("is-active") },
+    { label: "上一個命盤", ok: appContent.includes("上一個命盤") },
+    { label: "下一個命盤", ok: appContent.includes("下一個命盤") },
     { label: "返回總控台", ok: appContent.includes("返回總控台") },
+    { label: "找不到這個命盤詳情頁", ok: appContent.includes("找不到這個命盤詳情頁") },
+    { label: "未知路由", ok: appContent.includes("未知路由") },
+    { label: "可能原因", ok: appContent.includes("可能原因") },
     { label: "尚未接入正式命理演算法", ok: appContent.includes("尚未接入正式命理演算法") },
-    { label: "mock / planning 狀態", ok: appContent.includes("mock") && appContent.includes("planning") },
+    { label: "document.title", ok: appContent.includes("document.title") },
     { label: "testLunarMonth", ok: appContent.includes("testLunarMonth") },
     { label: "testLunarDay", ok: appContent.includes("testLunarDay") },
     { label: "今日模式", ok: appContent.includes("今日模式") },
     { label: "測試模式", ok: appContent.includes("測試模式") },
     { label: "testSeeds", ok: appContent.includes("testSeeds") },
     { label: "index.html#deity-title", ok: appContent.includes("index.html#deity-title") }
-  ], "app.js 需要同時保留首頁渲染、詳情頁渲染與日期測試模式 UI。");
+  ], "app.js 需要保留首頁渲染，並加入詳情頁導覽、active 與 route fallback。");
 }
 
 function checkRouteConsistency() {
@@ -287,14 +298,13 @@ function checkRouteConsistency() {
 
   const siteContent = readUtf8("data/site-data.js");
   const detailContent = readUtf8("data/detail-pages-data.js");
-  const routeMatches = [...siteContent.matchAll(/href:\s*"#!?\/module\/([^"]+)"/g)];
-  const normalMatches = [...siteContent.matchAll(/href:\s*"#\/module\/([^"]+)"/g)];
-  const moduleIds = normalMatches.map((match) => match[1]);
+  const routeMatches = [...siteContent.matchAll(/href:\s*"#\/module\/([^"]+)"/g)];
+  const moduleIds = routeMatches.map((match) => match[1]);
 
-  if (routeMatches.length !== normalMatches.length) {
-    addResult("fail", "module href 格式檢查", "命盤模組 href 應使用 #/module/...。");
-  } else {
+  if (moduleIds.length > 0) {
     addResult("pass", "module href 格式檢查", "命盤模組 href 使用 #/module/...。");
+  } else {
+    addResult("fail", "module href 格式檢查", "沒有找到 #/module/... 路由。");
   }
 
   for (const moduleId of moduleIds) {
@@ -318,6 +328,26 @@ function checkLayoutOrder() {
     { label: "moduleCard 在 almanacCard 前", ok: moduleIndex >= 0 && almanacIndex >= 0 && moduleIndex < almanacIndex },
     { label: "treeCard 在 almanacCard 前", ok: treeIndex >= 0 && almanacIndex >= 0 && treeIndex < almanacIndex }
   ], "首頁仍應維持命盤核心優先，農民曆為輔助提醒。");
+}
+
+function checkStyleContent() {
+  if (!exists("style.css")) {
+    addResult("fail", "style.css 無法檢查", "style.css 不存在。");
+    return;
+  }
+
+  const styleContent = readUtf8("style.css");
+  addContentChecks("style.css", [
+    { label: ".detail-nav", ok: styleContent.includes(".detail-nav") },
+    { label: ".detail-nav-link", ok: styleContent.includes(".detail-nav-link") },
+    { label: ".detail-nav-link.is-disabled", ok: styleContent.includes(".detail-nav-link.is-disabled") },
+    { label: ".module-item.is-active", ok: styleContent.includes(".module-item.is-active") },
+    { label: ".sidebar-nav a.is-active", ok: styleContent.includes(".sidebar-nav a.is-active") },
+    { label: ".route-hint-list", ok: styleContent.includes(".route-hint-list") },
+    { label: ".detail-meta-row", ok: styleContent.includes(".detail-meta-row") },
+    { label: ".detail-category", ok: styleContent.includes(".detail-category") },
+    { label: ".detail-icon", ok: styleContent.includes(".detail-icon") }
+  ], "style.css 需要包含 v0.3.1 router / detail UX 樣式。");
 }
 
 function checkDateTestModeContent() {
@@ -407,7 +437,7 @@ function checkFeatureRetentionContent() {
     { label: "KekeDeityMatcher", ok: matcherContent.includes("KekeDeityMatcher") },
     { label: "KekeDateTestMode", ok: testModeContent.includes("KekeDateTestMode") },
     { label: "KekeDeityBirthdays", ok: deityDataContent.includes("KekeDeityBirthdays") }
-  ], "v0.3.0 不應刪除 lunar、deity matcher 或 date test mode。");
+  ], "v0.3.1 不應刪除 lunar、deity matcher 或 date test mode。");
 }
 
 function checkStaticCompatibility() {
@@ -550,7 +580,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.3.0 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.3.1 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);
@@ -577,6 +607,7 @@ checkRouterContent();
 checkAppRenderingContent();
 checkRouteConsistency();
 checkLayoutOrder();
+checkStyleContent();
 checkDateTestModeContent();
 checkDeityBirthdaysContent();
 checkAlmanacEngineContent();

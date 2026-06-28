@@ -1,10 +1,11 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.0",
+  version: "v0.3.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.0",
-  status: "命盤詳情頁骨架 × hash router"
+  cacheVersion: "v0.3.1",
+  status: "路由體驗修正 × 詳情頁導覽強化"
 };
+const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
 if (!window.KekeSoulData) {
   console.warn("KekeSoulData 尚未載入，畫面會使用安全 fallback。");
@@ -34,13 +35,18 @@ function renderDashboardView() {
   renderDesktopNav(data);
 }
 
+function renderNavigationState() {
+  renderModules(data.modules);
+  renderDesktopNav(data);
+}
+
 function handleRouteChange() {
-  const route = window.KekeRouter && typeof window.KekeRouter.getCurrentRoute === "function"
-    ? window.KekeRouter.getCurrentRoute()
-    : { type: "dashboard", moduleId: null, hash: window.location.hash || "#/dashboard" };
+  const route = getCurrentRouteSafe();
+
+  renderNavigationState();
 
   if (route.type === "module") {
-    renderDetailView(route.moduleId);
+    renderDetailView(route.moduleId, route.hash);
     return;
   }
 
@@ -50,7 +56,24 @@ function handleRouteChange() {
   }
 
   showDashboard();
+  setDocumentTitle(dashboardTitle);
   scrollAnchorIfNeeded(route.hash);
+}
+
+function getCurrentRouteSafe() {
+  if (window.KekeRouter && typeof window.KekeRouter.getCurrentRoute === "function") {
+    return window.KekeRouter.getCurrentRoute();
+  }
+
+  const hash = window.location && typeof window.location.hash === "string"
+    ? window.location.hash
+    : "#/dashboard";
+
+  return {
+    type: hash.startsWith("#/module/") ? "module" : "dashboard",
+    moduleId: hash.startsWith("#/module/") ? hash.slice("#/module/".length) : null,
+    hash
+  };
 }
 
 function showDashboard() {
@@ -100,6 +123,12 @@ function scrollAnchorIfNeeded(hash) {
   }, 0);
 }
 
+function setDocumentTitle(title) {
+  if (typeof document !== "undefined" && typeof document.title === "string") {
+    document.title = title;
+  }
+}
+
 function getDetailPage(moduleId) {
   if (!window.KekeDetailPages || !moduleId) {
     return null;
@@ -108,26 +137,83 @@ function getDetailPage(moduleId) {
   return window.KekeDetailPages[moduleId] || null;
 }
 
-function renderDetailView(moduleId) {
+function getOrderedDetailPages() {
+  if (!window.KekeDetailPages) {
+    return [];
+  }
+
+  return Object.values(window.KekeDetailPages)
+    .filter((page) => page && page.id)
+    .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+}
+
+function getDetailNeighbors(page) {
+  const pages = getOrderedDetailPages();
+  const currentIndex = pages.findIndex((item) => item.id === page.id);
+
+  return {
+    prev: currentIndex > 0 ? pages[currentIndex - 1] : null,
+    next: currentIndex >= 0 && currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null
+  };
+}
+
+function getModuleRoute(moduleId) {
+  if (window.KekeRouter && typeof window.KekeRouter.buildModuleRoute === "function") {
+    return window.KekeRouter.buildModuleRoute(moduleId);
+  }
+
+  return moduleId ? `#/module/${moduleId}` : "#/dashboard";
+}
+
+function getHomeRoute() {
+  if (window.KekeRouter && typeof window.KekeRouter.getHomeRoute === "function") {
+    return window.KekeRouter.getHomeRoute();
+  }
+
+  return "#/dashboard";
+}
+
+function getCurrentModuleId() {
+  const route = getCurrentRouteSafe();
+  return route.type === "module" ? route.moduleId : null;
+}
+
+function isActiveHref(href) {
+  const route = getCurrentRouteSafe();
+
+  if (route.type === "module") {
+    return href === getModuleRoute(route.moduleId);
+  }
+
+  return href === getHomeRoute();
+}
+
+function renderDetailView(moduleId, routeHash) {
   const page = getDetailPage(moduleId);
 
   if (!page) {
-    renderNotFoundDetail(moduleId);
+    renderNotFoundDetail(routeHash || getModuleRoute(moduleId));
     return;
   }
 
   showDetail();
+  setDocumentTitle(`${page.title}｜科科命理宇宙站`);
   setHtml("#detailView", renderDetailPage(page));
 }
 
 function renderDetailPage(page) {
   const sections = Array.isArray(page.sections) ? page.sections : [];
+  const detailNav = renderDetailNav(page);
 
   return `
     <article class="detail-shell">
-      <a class="detail-back" href="index.html#/dashboard">返回總控台</a>
+      <a class="detail-back" href="${escapeHtml(getHomeRoute())}">返回總控台</a>
       <header class="detail-hero">
-        <span class="detail-status is-${escapeHtml(page.status || "planning")}">${escapeHtml(page.status || "planning")}</span>
+        <div class="detail-meta-row">
+          <span class="detail-icon" aria-hidden="true">${escapeHtml(page.icon || page.navLabel || page.title)}</span>
+          <span class="detail-category">${escapeHtml(page.category || "命盤核心")}</span>
+          <span class="detail-status is-${escapeHtml(page.status || "planning")}">${escapeHtml(page.status || "planning")}</span>
+        </div>
         <p class="eyebrow">命盤詳情頁</p>
         <h2>${escapeHtml(page.title)}</h2>
         <p class="detail-subtitle">${escapeHtml(page.subtitle)}</p>
@@ -146,25 +232,97 @@ function renderDetailPage(page) {
         `).join("")}
       </div>
       <p class="detail-note">目前為架構展示，尚未接入正式命理演算法。</p>
+      ${detailNav}
     </article>
   `;
 }
 
-function renderNotFoundDetail(moduleId) {
+function renderDetailNav(page) {
+  const { prev, next } = getDetailNeighbors(page);
+
+  return `
+    <nav class="detail-nav" aria-label="命盤詳情頁導覽">
+      ${prev ? `
+        <a class="detail-nav-link" href="${escapeHtml(getModuleRoute(prev.id))}">
+          <span>上一個命盤</span>
+          <strong>${escapeHtml(prev.title)}</strong>
+        </a>
+      ` : `
+        <span class="detail-nav-link is-disabled" aria-disabled="true">
+          <span>上一個命盤</span>
+          <strong>已是第一個</strong>
+        </span>
+      `}
+      <a class="detail-nav-link is-home" href="${escapeHtml(getHomeRoute())}">
+        <span>返回總控台</span>
+        <strong>首頁</strong>
+      </a>
+      ${next ? `
+        <a class="detail-nav-link" href="${escapeHtml(getModuleRoute(next.id))}">
+          <span>下一個命盤</span>
+          <strong>${escapeHtml(next.title)}</strong>
+        </a>
+      ` : `
+        <span class="detail-nav-link is-disabled" aria-disabled="true">
+          <span>下一個命盤</span>
+          <strong>已是最後一個</strong>
+        </span>
+      `}
+    </nav>
+  `;
+}
+
+function renderNotFoundDetail(routeHash) {
   showDetail();
+  setDocumentTitle("找不到命盤詳情頁｜科科命理宇宙站");
   setHtml("#detailView", `
     <article class="detail-shell route-not-found">
-      <a class="detail-back" href="index.html#/dashboard">返回總控台</a>
+      <a class="detail-back" href="${escapeHtml(getHomeRoute())}">返回總控台</a>
       <header class="detail-hero">
-        <span class="detail-status is-planning">unknown</span>
+        <div class="detail-meta-row">
+          <span class="detail-icon" aria-hidden="true">?</span>
+          <span class="detail-category">route fallback</span>
+          <span class="detail-status is-planning">unknown</span>
+        </div>
         <p class="eyebrow">命盤詳情頁</p>
         <h2>找不到這個命盤詳情頁</h2>
-        <p class="detail-subtitle">目前沒有對應資料：${escapeHtml(moduleId || "未指定")}</p>
-        <p>請回到首頁總控台，從命盤核心入口重新選擇。</p>
+        <p class="detail-subtitle">未知路由：${escapeHtml(routeHash || "未指定")}</p>
+        <p>這個頁面沒有白掉，代表 router fallback 正常運作。</p>
       </header>
+      <section class="detail-section">
+        <h3>可能原因</h3>
+        <ul>
+          <li>這個模組尚未建立</li>
+          <li>route id 拼字錯誤</li>
+          <li>detail data 尚未補上</li>
+        </ul>
+      </section>
+      ${renderAvailableDetailLinks()}
       <p class="detail-note">目前為架構展示，尚未接入正式命理演算法。</p>
     </article>
   `);
+}
+
+function renderAvailableDetailLinks() {
+  const pages = getOrderedDetailPages();
+
+  if (pages.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="detail-section">
+      <h3>目前可用詳情頁入口</h3>
+      <div class="route-hint-list">
+        ${pages.map((page) => `
+          <a href="${escapeHtml(getModuleRoute(page.id))}">
+            <span>${escapeHtml(page.icon || page.navLabel)}</span>
+            <strong>${escapeHtml(page.title)}</strong>
+          </a>
+        `).join("")}
+      </div>
+    </section>
+  `;
 }
 
 function escapeHtml(value) {
@@ -252,17 +410,30 @@ function renderNumerology(numerology = {}) {
 }
 
 function renderModules(modules = []) {
+  const currentModuleId = getCurrentModuleId();
   const coreModuleTitles = ["紫微斗數", "八字四柱", "西洋星盤", "生命靈數", "姓名學"];
-  const moduleItems = modules.map((item) => `
-    <a class="module-item${coreModuleTitles.includes(item.title) ? " is-core" : ""}" href="${escapeHtml(item.href)}">
-      <span class="module-icon" aria-hidden="true">${escapeHtml(item.icon)}</span>
-      <span>
-        <strong>${escapeHtml(item.title)}</strong>
-        <small>${escapeHtml(item.note)}</small>
-      </span>
-      <span class="module-arrow" aria-hidden="true">&gt;</span>
-    </a>
-  `).join("");
+  const moduleItems = modules.map((item) => {
+    const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
+      ? window.KekeRouter.getRouteModuleId(item.href)
+      : null;
+    const isActive = currentModuleId && moduleId === currentModuleId;
+    const className = [
+      "module-item",
+      coreModuleTitles.includes(item.title) ? "is-core" : "",
+      isActive ? "is-active" : ""
+    ].filter(Boolean).join(" ");
+
+    return `
+      <a class="${className}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+        <span class="module-icon" aria-hidden="true">${escapeHtml(item.icon)}</span>
+        <span>
+          <strong>${escapeHtml(item.title)}</strong>
+          <small>${escapeHtml(item.note)}</small>
+        </span>
+        <span class="module-arrow" aria-hidden="true">&gt;</span>
+      </a>
+    `;
+  }).join("");
 
   setHtml("#moduleCard", `
     <div class="section-heading inline-heading">
@@ -698,7 +869,7 @@ function renderTools(tools = []) {
 function renderDesktopNav(siteData = {}) {
   const modules = Array.isArray(siteData.modules) ? siteData.modules : [];
   const navItems = [
-    { title: "首頁總覽", icon: "首", href: "#/dashboard" },
+    { title: "首頁總覽", icon: "首", href: getHomeRoute() },
     { title: "個人資料", icon: "人", href: "#profile-title" },
     ...modules.map((item) => ({
       title: item.title === "資料庫 / 備份" ? "資料庫" : item.title,
@@ -707,12 +878,16 @@ function renderDesktopNav(siteData = {}) {
     }))
   ];
 
-  const links = navItems.map((item) => `
-    <a href="${escapeHtml(item.href)}">
-      <span aria-hidden="true">${escapeHtml(item.icon)}</span>
-      <span>${escapeHtml(item.title)}</span>
-    </a>
-  `).join("");
+  const links = navItems.map((item) => {
+    const isActive = isActiveHref(item.href);
+
+    return `
+      <a class="${isActive ? "is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+        <span aria-hidden="true">${escapeHtml(item.icon)}</span>
+        <span>${escapeHtml(item.title)}</span>
+      </a>
+    `;
+  }).join("");
 
   setHtml("#desktopNav", links);
 }

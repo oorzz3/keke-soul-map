@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.0
+- 網站版本：v0.3.1
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.0
+- 靜態資源快取版本：v0.3.1
 
 ## 專案定位
 
@@ -18,16 +18,15 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
 
-## v0.3.0 重點
+## v0.3.1 重點
 
-v0.3.0 新增 hash router 與命盤詳情頁骨架：
+v0.3.1 修正 v0.3.0 的路由與詳情頁使用體驗：
 
-- 新增 `features/router.js`
-- 新增 `data/detail-pages-data.js`
-- 新增 `dashboardView` / `detailView` 切換
-- 命盤核心卡片可進入詳情頁
-- 詳情頁顯示 `mock` / `experiment` / `planning` 狀態
-- 本版只做 mock / planning，不做真正命理演算法
+- 詳情頁加入「上一個命盤 / 返回總控台 / 下一個命盤」導覽
+- 側欄與模組卡新增目前 route active 狀態
+- route not found 頁面顯示未知路由、可能原因與可用詳情頁入口
+- hash router 新增 `normalizeRoute`、`buildModuleRoute`、`getHomeRoute`、`isDashboardRoute`
+- 本版仍只做 mock / planning，不做真正命理演算法
 - 保留首頁總控台、lunar 農民曆實驗、神明生日資料表與日期測試模式
 
 路由範例：
@@ -36,7 +35,7 @@ v0.3.0 新增 hash router 與命盤詳情頁骨架：
 index.html#/module/ziwei
 index.html#/module/bazi
 index.html#/module/astrology
-index.html#/module/numerology
+index.html#/module/database
 ```
 
 舊錨點仍保留，例如：
@@ -52,6 +51,8 @@ index.html?testLunarMonth=2&testLunarDay=19#deity-title
 - 今日科科摘要
 - 生命靈數卡
 - 命盤核心入口
+- 命盤詳情頁骨架
+- 詳情頁上一個 / 下一個導覽
 - 命樹卡
 - 今日農民曆 mock 卡
 - lunar-javascript 農民曆實驗資料
@@ -95,8 +96,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.0 已將主要靜態資源引用更新為 `v=0.3.0`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.1 已將主要靜態資源引用更新為 `v=0.3.1`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.1 可強化詳情頁資料結構與 route/schema 檢查，再評估是否把不同命盤系統拆成更細的資料檔。
+v0.3.2 可開始逐步深化單一命盤詳情頁 mock，例如紫微斗數詳情頁，但仍建議先維持 mock / planning，不急著接真正排盤演算法。

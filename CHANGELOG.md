@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.3.1｜路由與詳情頁體驗修正版
+
+- 強化 hash router 輔助函式
+- 詳情頁新增上一個 / 下一個命盤導覽
+- 側欄與模組卡新增 active 狀態
+- route not found 頁面強化
+- 保留首頁總控台、lunar、神明生日與日期測試模式
+
 ## v0.3.0｜hash router + 命盤詳情頁骨架 + 最小資料拆分
 
 - 新增 `features/router.js`

@@ -1,6 +1,10 @@
 window.KekeDetailPages = {
   ziwei: {
     id: "ziwei",
+    order: 1,
+    navLabel: "紫微",
+    icon: "紫",
+    category: "命盤核心",
     title: "紫微斗數",
     subtitle: "命宮、主星與人生主題",
     status: "mock",
@@ -23,6 +27,10 @@ window.KekeDetailPages = {
   },
   bazi: {
     id: "bazi",
+    order: 2,
+    navLabel: "八字",
+    icon: "干",
+    category: "命盤核心",
     title: "八字四柱",
     subtitle: "年柱、月柱、日柱與時柱",
     status: "mock",
@@ -45,6 +53,10 @@ window.KekeDetailPages = {
   },
   astrology: {
     id: "astrology",
+    order: 3,
+    navLabel: "星盤",
+    icon: "星",
+    category: "命盤核心",
     title: "西洋星盤",
     subtitle: "太陽、月亮、上升與行星落點",
     status: "mock",
@@ -67,6 +79,10 @@ window.KekeDetailPages = {
   },
   numerology: {
     id: "numerology",
+    order: 4,
+    navLabel: "靈數",
+    icon: "7",
+    category: "命盤核心",
     title: "生命靈數",
     subtitle: "核心數字與年度節奏",
     status: "experiment",
@@ -89,6 +105,10 @@ window.KekeDetailPages = {
   },
   name: {
     id: "name",
+    order: 5,
+    navLabel: "姓名",
+    icon: "名",
+    category: "命盤核心",
     title: "姓名學",
     subtitle: "姓名結構、五格與語感提示",
     status: "mock",
@@ -111,6 +131,10 @@ window.KekeDetailPages = {
   },
   luck: {
     id: "luck",
+    order: 6,
+    navLabel: "流年",
+    icon: "運",
+    category: "時間節奏",
     title: "流年 / 九運",
     subtitle: "年度主題與長週期節奏",
     status: "planning",
@@ -133,6 +157,10 @@ window.KekeDetailPages = {
   },
   yijing: {
     id: "yijing",
+    order: 7,
+    navLabel: "易經",
+    icon: "卦",
+    category: "時間節奏",
     title: "易經占問",
     subtitle: "問題、卦象與反思紀錄",
     status: "planning",
@@ -155,6 +183,10 @@ window.KekeDetailPages = {
   },
   "soul-tree": {
     id: "soul-tree",
+    order: 8,
+    navLabel: "命樹",
+    icon: "樹",
+    category: "命盤核心",
     title: "命樹",
     subtitle: "多命盤系統整合入口",
     status: "planning",
@@ -177,6 +209,10 @@ window.KekeDetailPages = {
   },
   database: {
     id: "database",
+    order: 9,
+    navLabel: "資料庫",
+    icon: "庫",
+    category: "工具資料",
     title: "資料庫 / 備份",
     subtitle: "資料匯出、匯入與備份紀錄",
     status: "planning",

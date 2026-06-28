@@ -11,6 +11,23 @@
     return typeof hash === "string" && hash.startsWith("#/");
   }
 
+  function isDashboardRoute(hash) {
+    const normalized = normalizeRoute(hash);
+    return normalized.type === "dashboard";
+  }
+
+  function getHomeRoute() {
+    return homeHash;
+  }
+
+  function buildModuleRoute(moduleId) {
+    if (typeof moduleId !== "string" || !/^[a-z0-9-]+$/.test(moduleId)) {
+      return homeHash;
+    }
+
+    return `${modulePrefix}${moduleId}`;
+  }
+
   function getRouteModuleId(route) {
     const hash = typeof route === "string" ? route : route && route.hash;
 
@@ -24,7 +41,43 @@
       .split("#")[0]
       .trim();
 
-    return moduleId || null;
+    return /^[a-z0-9-]+$/.test(moduleId) ? moduleId : null;
+  }
+
+  function normalizeRoute(hash) {
+    const routeHash = typeof hash === "string" ? hash : "";
+
+    if (!routeHash || routeHash === "#" || routeHash === "#/" || routeHash === homeHash) {
+      return {
+        type: "dashboard",
+        moduleId: null,
+        hash: routeHash || homeHash
+      };
+    }
+
+    if (!isAppRoute(routeHash)) {
+      return {
+        type: "dashboard",
+        moduleId: null,
+        hash: routeHash
+      };
+    }
+
+    const moduleId = getRouteModuleId(routeHash);
+
+    if (moduleId) {
+      return {
+        type: "module",
+        moduleId,
+        hash: routeHash
+      };
+    }
+
+    return {
+      type: "unknown",
+      moduleId: null,
+      hash: routeHash
+    };
   }
 
   function getCurrentRoute() {
@@ -32,37 +85,7 @@
       ? window.location.hash
       : homeHash;
 
-    if (!hash || hash === "#" || !isAppRoute(hash)) {
-      return {
-        type: "dashboard",
-        moduleId: null,
-        hash: hash || homeHash
-      };
-    }
-
-    if (hash === "#/" || hash === homeHash) {
-      return {
-        type: "dashboard",
-        moduleId: null,
-        hash
-      };
-    }
-
-    const moduleId = getRouteModuleId(hash);
-
-    if (moduleId) {
-      return {
-        type: "module",
-        moduleId,
-        hash
-      };
-    }
-
-    return {
-      type: "unknown",
-      moduleId: null,
-      hash
-    };
+    return normalizeRoute(hash);
   }
 
   function navigateHome() {
@@ -77,6 +100,10 @@
     getCurrentRoute,
     isAppRoute,
     navigateHome,
-    getRouteModuleId
+    getRouteModuleId,
+    normalizeRoute,
+    buildModuleRoute,
+    getHomeRoute,
+    isDashboardRoute
   };
 })();

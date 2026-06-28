@@ -1,18 +1,19 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.0",
+    version: "v0.3.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.0",
-    status: "命盤詳情頁骨架 × hash router",
-    updatedNote: "v0.3.0 起新增 hash router 與命盤詳情頁骨架，首頁仍保留命盤總控台。"
+    cacheVersion: "v0.3.1",
+    status: "路由體驗修正 × 詳情頁導覽強化",
+    updatedNote: "v0.3.1 強化詳情頁導覽、active 狀態與 route fallback。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
+    currentVersion: "v0.3.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.0 起使用 hash router 管理首頁與命盤詳情頁。"
+    note: "v0.3.1 強化詳情頁導覽、active 狀態與 route fallback。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
