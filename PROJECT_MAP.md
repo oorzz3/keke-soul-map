@@ -2,9 +2,10 @@
 
 ## 主要檔案
 
-- `index.html`：靜態網站入口，保留 header、shell、main 容器與各首頁卡片容器；引用帶版本參數的 `style.css`、`data/site-data.js`、`app.js`。
+- `index.html`：靜態網站入口，保留 header、shell、main 容器與各首頁卡片容器；引用帶版本參數的 `style.css`、`vendor/lunar/lunar.js`、`features/almanac-engine.js`、`data/site-data.js`、`app.js`。
 - `style.css`：深色星夜視覺、卡片樣式、手機優先與桌機多欄響應式。
 - `app.js`：讀取 `window.KekeSoulData`，渲染首頁卡片、命理模組入口、底部工具、桌機側欄導覽與版本號。
+- `features/almanac-engine.js`：農民曆實驗引擎包裝層，讀取 lunar-javascript 的 `Solar` 並回傳安全 fallback 結構。
 
 ## 資料與素材
 
@@ -13,6 +14,12 @@
 - `assets/`：未來放圖片、icons 與其他靜態素材。
 - `assets/images/`：未來放首頁或模組圖片。
 - `assets/icons/`：未來放圖示素材。
+
+## Vendor
+
+- `vendor/lunar/lunar.js`：lunar-javascript 單檔版。
+- `vendor/lunar/LICENSE`：授權文件。
+- `vendor/lunar/README.md`：來源與使用說明。
 
 ## 檢查工具
 

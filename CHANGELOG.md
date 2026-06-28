@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.2.2｜lunar-javascript 農民曆引擎實驗版
+
+- 新增 `vendor/lunar/lunar.js` 與 `vendor/lunar/LICENSE`。
+- 新增 `features/almanac-engine.js`。
+- 今日農民曆卡片新增 lunar 實驗資料區。
+- 保留原 mock 展示資料。
+- 小貓龍蝦檢查加入 lunar 與 vendor 檢查。
+
 ## v0.2.1｜版本號顯示 × 版本資料中心
 
 - 新增網站畫面版本號。

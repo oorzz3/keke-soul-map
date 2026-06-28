@@ -1,9 +1,9 @@
 const data = window.KekeSoulData;
 const fallbackSiteMeta = {
-  version: "v0.2.1",
+  version: "v0.2.2",
   dataVersion: "v0.2",
-  cacheVersion: "v0.2.1",
-  status: "資料模組化 × 版本顯示"
+  cacheVersion: "v0.2.2",
+  status: "資料模組化 × lunar 農民曆實驗"
 };
 
 if (!data) {
@@ -130,6 +130,7 @@ function renderModules(modules = []) {
 }
 
 function renderAlmanac(almanac = {}) {
+  const engineResult = getAlmanacEngineResult();
   setHtml("#almanacCard", `
     <div class="section-heading">
       <p>今日農民曆</p>
@@ -157,7 +158,96 @@ function renderAlmanac(almanac = {}) {
         <dd>${escapeHtml(almanac.clash)}</dd>
       </div>
     </dl>
+    ${renderAlmanacEnginePanel(engineResult)}
   `);
+}
+
+function getAlmanacEngineResult() {
+  if (!window.KekeAlmanacEngine || typeof window.KekeAlmanacEngine.getTodayAlmanac !== "function") {
+    return {
+      source: "lunar-javascript",
+      lunarText: "本次未取得",
+      gzYear: "本次未取得",
+      zodiac: "本次未取得",
+      week: "本次未取得",
+      yi: "本次未取得",
+      ji: "本次未取得",
+      status: "error",
+      errorMessage: "KekeAlmanacEngine 未載入。"
+    };
+  }
+
+  try {
+    return window.KekeAlmanacEngine.getTodayAlmanac();
+  } catch (error) {
+    return {
+      source: "lunar-javascript",
+      lunarText: "本次未取得",
+      gzYear: "本次未取得",
+      zodiac: "本次未取得",
+      week: "本次未取得",
+      yi: "本次未取得",
+      ji: "本次未取得",
+      status: "error",
+      errorMessage: error && error.message ? error.message : "lunar 實驗資料讀取失敗。"
+    };
+  }
+}
+
+function renderAlmanacEnginePanel(result = {}) {
+  const isOk = result.status === "ok";
+
+  if (!isOk) {
+    return `
+      <div class="engine-panel">
+        <div class="engine-panel-head">
+          <strong>lunar 實驗資料</strong>
+          <span class="engine-status is-error">error</span>
+        </div>
+        <p class="engine-empty">lunar 實驗資料：本次未取得</p>
+        <p class="engine-reason">原因：${escapeHtml(result.errorMessage || "本次未取得")}</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="engine-panel">
+      <div class="engine-panel-head">
+        <strong>lunar 實驗資料</strong>
+        <span class="engine-status">ok</span>
+      </div>
+      <dl class="engine-list">
+        <div>
+          <dt>來源</dt>
+          <dd><span class="source-tag">${escapeHtml(result.source)}</span></dd>
+        </div>
+        <div>
+          <dt>今日農曆</dt>
+          <dd>${escapeHtml(result.lunarText)}</dd>
+        </div>
+        <div>
+          <dt>干支 / 生肖</dt>
+          <dd>${escapeHtml(result.gzYear)} / ${escapeHtml(result.zodiac)}</dd>
+        </div>
+        <div>
+          <dt>星期</dt>
+          <dd>${escapeHtml(result.week)}</dd>
+        </div>
+        <div>
+          <dt>宜</dt>
+          <dd>${escapeHtml(result.yi)}</dd>
+        </div>
+        <div>
+          <dt>忌</dt>
+          <dd>${escapeHtml(result.ji)}</dd>
+        </div>
+        <div>
+          <dt>狀態</dt>
+          <dd>${escapeHtml(result.status)}</dd>
+        </div>
+      </dl>
+    </div>
+  `;
 }
 
 function renderDeityDay(deityDay = {}) {

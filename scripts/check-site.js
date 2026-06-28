@@ -98,7 +98,16 @@ function isTextFile(filePath) {
 }
 
 function checkRequiredFiles() {
-  const requiredFiles = ["index.html", "style.css", "app.js", "data/site-data.js"];
+  const requiredFiles = [
+    "index.html",
+    "style.css",
+    "app.js",
+    "data/site-data.js",
+    "vendor/lunar/lunar.js",
+    "vendor/lunar/LICENSE",
+    "vendor/lunar/README.md",
+    "features/almanac-engine.js"
+  ];
 
   for (const file of requiredFiles) {
     if (exists(file)) {
@@ -140,13 +149,15 @@ function checkIndexContent() {
     { label: "神明生日", ok: html.includes("神明生日") },
     { label: "命樹", ok: html.includes("命樹") },
     { label: "style.css", ok: html.includes("style.css") },
-    { label: "style.css?v=0.2.1", ok: html.includes("style.css?v=0.2.1") },
+    { label: "style.css?v=0.2.2", ok: html.includes("style.css?v=0.2.2") },
+    { label: "vendor/lunar/lunar.js?v=0.2.2", ok: html.includes("vendor/lunar/lunar.js?v=0.2.2") },
+    { label: "features/almanac-engine.js?v=0.2.2", ok: html.includes("features/almanac-engine.js?v=0.2.2") },
     { label: "data/site-data.js", ok: html.includes("data/site-data.js") },
-    { label: "data/site-data.js?v=0.2.1", ok: html.includes("data/site-data.js?v=0.2.1") },
+    { label: "data/site-data.js?v=0.2.2", ok: html.includes("data/site-data.js?v=0.2.2") },
     { label: "KekeSoulData", ok: html.includes("KekeSoulData") },
     { label: "app.js", ok: html.includes("app.js") },
-    { label: "app.js?v=0.2.1", ok: html.includes("app.js?v=0.2.1") },
-    { label: "v=0.2.1", ok: html.includes("v=0.2.1") }
+    { label: "app.js?v=0.2.2", ok: html.includes("app.js?v=0.2.2") },
+    { label: "v=0.2.2", ok: html.includes("v=0.2.2") }
   ];
 
   for (const item of requiredChecks) {
@@ -168,9 +179,11 @@ function checkDataVersionContent() {
   const requiredChecks = [
     { label: "siteMeta 或 metadata", ok: dataContent.includes("siteMeta") || dataContent.includes("metadata") },
     { label: "version", ok: dataContent.includes("version") },
-    { label: "v0.2.1", ok: dataContent.includes("v0.2.1") },
+    { label: "v0.2.2", ok: dataContent.includes("v0.2.2") },
     { label: "dataVersion", ok: dataContent.includes("dataVersion") },
-    { label: "cacheVersion", ok: dataContent.includes("cacheVersion") }
+    { label: "cacheVersion", ok: dataContent.includes("cacheVersion") },
+    { label: "almanacEngine", ok: dataContent.includes("almanacEngine") },
+    { label: "lunar-javascript", ok: dataContent.includes("lunar-javascript") }
   ];
 
   for (const item of requiredChecks) {
@@ -192,7 +205,7 @@ function checkAppVersionRendering() {
   const requiredChecks = [
     { label: "讀取 siteMeta 或 metadata", ok: appContent.includes("siteMeta") || appContent.includes("metadata") },
     { label: "渲染版本號", ok: appContent.includes("version-badge") || appContent.includes("versionMeta") || appContent.includes("version-meta") },
-    { label: "fallback v0.2.1", ok: appContent.includes("v0.2.1") }
+    { label: "fallback v0.2.2", ok: appContent.includes("v0.2.2") }
   ];
 
   for (const item of requiredChecks) {
@@ -200,6 +213,30 @@ function checkAppVersionRendering() {
       addResult("pass", `app.js 版本檢查：${item.label}`, "已通過。");
     } else {
       addResult("fail", `app.js 版本檢查缺少：${item.label}`, "版本號渲染可能不完整。");
+    }
+  }
+}
+
+function checkAlmanacEngineContent() {
+  if (!exists("features/almanac-engine.js")) {
+    addResult("fail", "features/almanac-engine.js 檢查", "features/almanac-engine.js 不存在，無法檢查。");
+    return;
+  }
+
+  const engineContent = readUtf8("features/almanac-engine.js");
+  const requiredChecks = [
+    { label: "KekeAlmanacEngine", ok: engineContent.includes("KekeAlmanacEngine") },
+    { label: "getTodayAlmanac", ok: engineContent.includes("getTodayAlmanac") },
+    { label: "Solar", ok: engineContent.includes("Solar") },
+    { label: "status", ok: engineContent.includes("status") },
+    { label: "errorMessage", ok: engineContent.includes("errorMessage") }
+  ];
+
+  for (const item of requiredChecks) {
+    if (item.ok) {
+      addResult("pass", `features/almanac-engine.js 包含：${item.label}`, "已通過。");
+    } else {
+      addResult("fail", `features/almanac-engine.js 缺少：${item.label}`, "農民曆實驗引擎包裝不完整。");
     }
   }
 }
@@ -244,6 +281,7 @@ function checkHighRiskKeywords() {
     path.join(rootDir, "index.html"),
     path.join(rootDir, "style.css"),
     path.join(rootDir, "app.js"),
+    ...walkFiles("features"),
     ...walkFiles("data"),
     ...walkFiles("assets")
   ];
@@ -297,7 +335,15 @@ function checkNestedRepo() {
 }
 
 function checkUtf8Readable() {
-  const mainFiles = ["index.html", "style.css", "app.js", "data/site-data.js"];
+  const mainFiles = [
+    "index.html",
+    "style.css",
+    "app.js",
+    "data/site-data.js",
+    "features/almanac-engine.js",
+    "vendor/lunar/README.md",
+    "vendor/lunar/LICENSE"
+  ];
 
   for (const file of mainFiles) {
     if (!exists(file)) {
@@ -327,7 +373,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.2.1 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.2.2 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);
@@ -350,6 +396,7 @@ checkRequiredFolders();
 checkIndexContent();
 checkDataVersionContent();
 checkAppVersionRendering();
+checkAlmanacEngineContent();
 checkStaticCompatibility();
 checkHighRiskKeywords();
 checkNestedRepo();

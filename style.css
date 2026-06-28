@@ -442,6 +442,89 @@ blockquote {
   line-height: 1.6;
 }
 
+.engine-panel {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(114, 215, 239, 0.06);
+  border: 1px solid rgba(114, 215, 239, 0.22);
+  border-radius: var(--radius);
+}
+
+.engine-panel-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.engine-panel-head strong {
+  font-size: 0.98rem;
+}
+
+.engine-status,
+.source-tag {
+  display: inline-grid;
+  min-height: 26px;
+  place-items: center;
+  padding: 4px 8px;
+  color: var(--green);
+  background: rgba(123, 220, 154, 0.09);
+  border: 1px solid rgba(123, 220, 154, 0.24);
+  border-radius: var(--radius);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.78rem;
+}
+
+.engine-status.is-error {
+  color: var(--rose);
+  background: rgba(255, 143, 143, 0.09);
+  border-color: rgba(255, 143, 143, 0.24);
+}
+
+.source-tag {
+  color: var(--cyan);
+  background: rgba(114, 215, 239, 0.08);
+  border-color: rgba(114, 215, 239, 0.22);
+}
+
+.engine-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.engine-list div {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.engine-list dt,
+.engine-list dd,
+.engine-empty,
+.engine-reason {
+  margin: 0;
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.engine-list dt {
+  color: var(--muted);
+}
+
+.engine-list dd,
+.engine-empty {
+  color: #eef5ff;
+}
+
+.engine-reason {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
 .tree-map {
   position: relative;
   display: grid;

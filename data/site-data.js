@@ -1,11 +1,17 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.2.1",
+    version: "v0.2.2",
     dataVersion: "v0.2",
-    cacheVersion: "v0.2.1",
-    status: "資料模組化 × 版本顯示",
-    updatedNote: "版本號已顯示於網站畫面，方便確認 GitHub Pages 是否更新成功。"
+    cacheVersion: "v0.2.2",
+    status: "資料模組化 × lunar 農民曆實驗",
+    updatedNote: "版本號已顯示於網站畫面，並加入 lunar-javascript 農民曆實驗資料。"
+  },
+  almanacEngine: {
+    enabled: true,
+    mode: "experiment",
+    source: "lunar-javascript",
+    note: "本版為 lunar-javascript 實驗資料，暫不取代人工校對資料。"
   },
   profile: {
     name: "科科",
