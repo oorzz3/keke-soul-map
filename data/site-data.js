@@ -1,11 +1,16 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.2.4.1",
+    version: "v0.2.5",
     dataVersion: "v0.2",
-    cacheVersion: "v0.2.4.1",
-    status: "資料模組化 × 日期測試模式修正",
-    updatedNote: "神明生日卡主結果已改由資料表比對結果渲染，回今日模式連結改為 index.html#deity-title。"
+    cacheVersion: "v0.2.5",
+    status: "首頁主軸重排 × 命盤核心優先",
+    updatedNote: "首頁視覺重心改為命盤核心，農民曆與神明生日保留為每日輔助提醒。"
+  },
+  layoutMeta: {
+    primaryFocus: "命盤核心",
+    secondaryFocus: "每日輔助提醒",
+    note: "首頁以命盤系統為主，農民曆與神明生日作為輔助提醒。"
   },
   almanacEngine: {
     enabled: true,

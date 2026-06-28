@@ -1,9 +1,9 @@
 const data = window.KekeSoulData;
 const fallbackSiteMeta = {
-  version: "v0.2.4.1",
+  version: "v0.2.5",
   dataVersion: "v0.2",
-  cacheVersion: "v0.2.4.1",
-  status: "資料模組化 × 日期測試模式修正"
+  cacheVersion: "v0.2.5",
+  status: "首頁主軸重排 × 命盤核心優先"
 };
 
 if (!data) {
@@ -106,8 +106,9 @@ function renderNumerology(numerology = {}) {
 }
 
 function renderModules(modules = []) {
+  const coreModuleTitles = ["紫微斗數", "八字四柱", "西洋星盤", "生命靈數", "姓名學"];
   const moduleItems = modules.map((item) => `
-    <a class="module-item" href="${escapeHtml(item.href)}">
+    <a class="module-item${coreModuleTitles.includes(item.title) ? " is-core" : ""}" href="${escapeHtml(item.href)}">
       <span class="module-icon" aria-hidden="true">${escapeHtml(item.icon)}</span>
       <span>
         <strong>${escapeHtml(item.title)}</strong>
@@ -120,11 +121,12 @@ function renderModules(modules = []) {
   setHtml("#moduleCard", `
     <div class="section-heading inline-heading">
       <div>
-        <p>命理模組</p>
+        <p>命盤核心</p>
         <h2 id="module-title">入口卡片</h2>
       </div>
-      <span class="soft-tag">v0.2 資料層</span>
+      <span class="soft-tag">命盤核心</span>
     </div>
+    <p class="module-intro">先從本命系統看見自己，再用每日輔助提醒安排行動。</p>
     <div class="module-grid" id="moduleGrid">${moduleItems}</div>
   `);
 }
@@ -132,11 +134,13 @@ function renderModules(modules = []) {
 function renderAlmanac(almanac = {}) {
   const engineResult = getAlmanacEngineResult();
   setHtml("#almanacCard", `
-    <div class="section-heading">
-      <p>今日農民曆</p>
-      <h2 id="almanac-title">${escapeHtml(almanac.solarDate)}</h2>
+    <div class="section-heading support-heading">
+      <p>輔助提醒</p>
+      <h2 id="almanac-title">今日時曆提醒</h2>
     </div>
-    <dl class="detail-list">
+    <p class="support-copy">農民曆輔助提醒，保留給每日行動參考。</p>
+    <div class="almanac-date">${escapeHtml(almanac.solarDate)}</div>
+    <dl class="detail-list compact support-detail">
       <div>
         <dt>農曆</dt>
         <dd>${escapeHtml(almanac.lunarDate)}</dd>

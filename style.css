@@ -187,6 +187,29 @@ a {
   padding: 16px;
 }
 
+.core-card {
+  border-color: rgba(114, 215, 239, 0.26);
+}
+
+.module-card.is-primary {
+  border-color: rgba(242, 193, 109, 0.46);
+  background:
+    linear-gradient(150deg, rgba(242, 193, 109, 0.075), rgba(114, 215, 239, 0.035)),
+    var(--panel-strong);
+}
+
+.support-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+    rgba(8, 20, 38, 0.78);
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.34);
+}
+
+.compact-card {
+  padding: 14px;
+}
+
 .hero-card {
   display: grid;
   gap: 16px;
@@ -367,6 +390,15 @@ blockquote {
   gap: 10px;
 }
 
+.module-intro,
+.support-copy {
+  margin: -4px 0 14px;
+  color: var(--muted);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
 .module-item {
   display: grid;
   grid-template-columns: 38px minmax(0, 1fr) 18px;
@@ -374,6 +406,17 @@ blockquote {
   align-items: center;
   min-height: 62px;
   padding: 10px;
+}
+
+.module-item.is-core {
+  border-color: rgba(242, 193, 109, 0.28);
+  background: rgba(242, 193, 109, 0.075);
+}
+
+.module-item.is-core .module-icon {
+  color: #06101d;
+  background: var(--gold);
+  border-color: rgba(242, 193, 109, 0.4);
 }
 
 .module-icon {
@@ -433,6 +476,31 @@ blockquote {
   margin-bottom: 12px;
 }
 
+.support-detail {
+  gap: 8px;
+}
+
+.support-detail div {
+  padding: 9px 10px;
+  background: rgba(3, 12, 24, 0.34);
+}
+
+.support-heading {
+  margin-bottom: 10px;
+}
+
+.support-heading h2 {
+  font-size: 1.12rem;
+}
+
+.almanac-date {
+  margin-bottom: 10px;
+  color: var(--gold);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .mock-note {
   padding: 10px 12px;
   color: #f3d6a4;
@@ -448,6 +516,23 @@ blockquote {
   background: rgba(114, 215, 239, 0.06);
   border: 1px solid rgba(114, 215, 239, 0.22);
   border-radius: var(--radius);
+}
+
+.compact-card .engine-panel {
+  padding: 10px;
+  background: rgba(114, 215, 239, 0.045);
+}
+
+.compact-card .engine-panel-head strong {
+  font-size: 0.9rem;
+}
+
+.compact-card .engine-list {
+  gap: 6px;
+}
+
+.compact-card .engine-list div {
+  grid-template-columns: 76px minmax(0, 1fr);
 }
 
 .engine-panel-head {
@@ -970,22 +1055,25 @@ blockquote {
     grid-template-columns: 170px minmax(0, 1fr);
   }
 
+  .module-card {
+    grid-column: span 6;
+    grid-row: span 2;
+  }
+
   .today-card {
-    grid-column: span 5;
+    grid-column: span 3;
   }
 
   .numerology-card {
     grid-column: span 3;
   }
 
-  .module-card {
-    grid-column: span 4;
-    grid-row: span 2;
+  .tree-card {
+    grid-column: span 6;
   }
 
   .almanac-card,
   .deity-card,
-  .tree-card,
   .tools-card {
     grid-column: span 4;
   }
@@ -1001,11 +1089,11 @@ blockquote {
 
 @media (min-width: 1320px) {
   .module-card {
-    grid-column: span 5;
+    grid-column: span 6;
   }
 
   .today-card {
-    grid-column: span 4;
+    grid-column: span 3;
   }
 
   .numerology-card {
