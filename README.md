@@ -1,4 +1,4 @@
-# 科科命理宇宙站 / keke-soul-map
+﻿# 科科命理宇宙站 / keke-soul-map
 
 GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.5
+- 網站版本：v0.3.6
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.5
+- 靜態資源快取版本：v0.3.6
 
 ## 專案定位
 
@@ -18,6 +18,18 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
 
+## v0.3.6 八字四柱詳情頁 mock 深化
+
+v0.3.6 深化 `index.html#/module/bazi`，先建立八字四柱詳情頁的 mock 資料與渲染骨架，仍不做真正八字排盤。
+
+- 新增 `baziProfile` 八字命盤摘要。
+- 新增 `pillarOverview`，規劃年柱、月柱、日柱、時柱欄位。
+- 新增 `fiveElementOverview`，保留木、火、土、金、水的 mock 分布欄位。
+- 新增 `tenGodOverview`，整理比劫、食傷、財星、官殺、印星的 planning 結構。
+- 新增八字解讀重點與資料狀態提醒。
+- `app.js` 新增 `renderBaziDetail` 與相關 renderer。
+- 尚未接入正式八字排盤演算法，內容不可視為正式命理判斷。
+- 保留紫微詳情頁、其他 mock 詳情頁、首頁總控台、hash router、lunar、神明生日與日期測試模式。
 ## v0.3.5 紫微斗數詳情頁 mock 深化
 
 v0.3.5 深化紫微斗數詳情頁 mock，讓 `index.html#/module/ziwei` 不只顯示通用 sections，而是先長出命盤內頁骨架。
@@ -168,8 +180,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.5 已將主要靜態資源引用更新為 `v=0.3.5`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.6 已將主要靜態資源引用更新為 `v=0.3.6`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.5 後可繼續微調紫微詳情頁資訊量，或逐步深化八字 / 星盤詳情頁 mock，但仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.3.6 後可繼續微調八字詳情頁資訊量，或逐步深化星盤 / 生命靈數 / 姓名學詳情頁 mock；仍建議先維持 mock / planning，不急著接真正排盤演算法。

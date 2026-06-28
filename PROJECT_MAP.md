@@ -1,4 +1,4 @@
-# PROJECT_MAP
+﻿# PROJECT_MAP
 
 ## 入口與畫面
 
@@ -40,6 +40,13 @@
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
+## v0.3.6 八字詳情頁 mock 深化
+
+- `data/detail-pages-data.js`：`bazi` 新增 `baziProfile`、`pillarOverview`、`fiveElementOverview`、`tenGodOverview`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderBaziDetail`、`renderBaziProfile`、`renderBaziPillarOverview`、`renderBaziFiveElements`、`renderBaziTenGodOverview`、`renderBaziInterpretation`、`renderBaziDataNotes`。
+- `style.css`：新增八字詳情頁樣式，包含四柱、五行、十神、解讀與資料提醒區塊。
+- `scripts/check-site.js`：加入八字詳情頁資料與 renderer 檢查。
+- 架構仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 ## v0.3.5 紫微詳情頁 mock 深化
 
 - `data/detail-pages-data.js`：`ziwei` 追加 `ziweiProfile`、`palaceOverview`、`interpretationBlocks`、`dataNotes`。

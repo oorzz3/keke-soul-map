@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.5",
+  version: "v0.3.6",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.5",
-  status: "紫微斗數詳情頁 mock 深化"
+  cacheVersion: "v0.3.6",
+  status: "八字四柱詳情頁 mock 深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -243,6 +243,10 @@ function renderSpecialDetailContent(page = {}) {
     return renderZiweiDetail(page);
   }
 
+  if (page.id === "bazi" && page.baziProfile) {
+    return renderBaziDetail(page);
+  }
+
   return "";
 }
 
@@ -353,6 +357,175 @@ function renderZiweiDataNotes(notes = []) {
 
   return `
     <section class="ziwei-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderBaziDetail(page = {}) {
+  return `
+    <section class="bazi-detail" aria-label="八字四柱 mock 詳情">
+      <div class="detail-note bazi-mock-note">本頁是 mock 八字骨架，不是正式命盤；尚未接入正式八字四柱排盤演算法。</div>
+      ${renderBaziProfile(page.baziProfile)}
+      ${renderBaziPillarOverview(page.pillarOverview)}
+      ${renderBaziFiveElements(page.fiveElementOverview)}
+      ${renderBaziTenGodOverview(page.tenGodOverview)}
+      ${renderBaziInterpretation(page.interpretationBlocks)}
+      ${renderBaziDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderBaziProfile(profile = {}) {
+  return `
+    <section class="bazi-profile-card">
+      <div class="section-heading compact-heading">
+        <p>八字命盤摘要</p>
+        <h3>${escapeHtml(profile.chartType || "八字四柱命盤骨架")}</h3>
+      </div>
+      <div class="bazi-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>日主</span>
+          <strong>${escapeHtml(profile.dayMaster || "日主待定")}</strong>
+        </div>
+        <div>
+          <span>月令</span>
+          <strong>${escapeHtml(profile.monthCommand || "月令待定")}</strong>
+        </div>
+        <div>
+          <span>觀察重點</span>
+          <strong>${escapeHtml(profile.structureFocus || "四柱與五行分布")}</strong>
+        </div>
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 八字骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderBaziPillarOverview(pillars = []) {
+  if (!Array.isArray(pillars) || pillars.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>四柱規劃</p>
+        <h3>年 / 月 / 日 / 時的資料骨架</h3>
+      </div>
+      <div class="bazi-pillar-grid">
+        ${pillars.map((pillar) => `
+          <article class="bazi-pillar-card">
+            <div class="bazi-card-head">
+              <strong>${escapeHtml(pillar.pillar)}</strong>
+              <span>${escapeHtml(pillar.role || "角色待定")}</span>
+            </div>
+            <p>${escapeHtml(pillar.theme)}</p>
+            <dl>
+              <div>
+                <dt>干支</dt>
+                <dd>${escapeHtml(pillar.stemBranch || "待建立")}</dd>
+              </div>
+              <div>
+                <dt>十神</dt>
+                <dd>${escapeHtml(pillar.tenGod || "待建立")}</dd>
+              </div>
+            </dl>
+            <small>${escapeHtml(pillar.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderBaziFiveElements(elements = []) {
+  if (!Array.isArray(elements) || elements.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>五行分布 mock</p>
+        <h3>木 / 火 / 土 / 金 / 水觀察欄位</h3>
+      </div>
+      <div class="bazi-five-elements">
+        ${elements.map((item) => `
+          <article class="bazi-element-card">
+            <div class="bazi-element-symbol">${escapeHtml(item.element)}</div>
+            <strong>${escapeHtml(item.status || "待計算")}</strong>
+            <p>${escapeHtml(item.meaning)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderBaziTenGodOverview(tenGods = []) {
+  if (!Array.isArray(tenGods) || tenGods.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>十神關係規劃</p>
+        <h3>比劫、食傷、財星、官殺、印星</h3>
+      </div>
+      <div class="bazi-ten-god-grid">
+        ${tenGods.map((god) => `
+          <article class="bazi-ten-god-card">
+            <span class="detail-status is-${escapeHtml(god.status || "planning")}">${escapeHtml(god.status || "planning")}</span>
+            <strong>${escapeHtml(god.name)}</strong>
+            <p>${escapeHtml(god.theme)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderBaziInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前只做 mock / planning 提示</h3>
+      </div>
+      <div class="bazi-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="bazi-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderBaziDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="bazi-data-notes">
       <h3>資料狀態提醒</h3>
       <ul>
         ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}

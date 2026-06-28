@@ -1,5 +1,13 @@
-# CHANGELOG
+﻿# CHANGELOG
 
+## v0.3.6｜八字四柱詳情頁 mock 深化
+
+- 深化 `bazi` detail data。
+- 新增八字命盤摘要、四柱規劃、五行分布、十神關係、解讀重點與資料狀態提醒。
+- `app.js` 新增八字專屬詳情頁 renderer。
+- 保留紫微詳情頁與其他命盤 mock / planning 詳情頁。
+- 保留首頁總控台、hash router、lunar、神明生日與日期測試模式。
+- 本版尚未接入正式八字排盤演算法。
 ## v0.3.5｜紫微斗數詳情頁 mock 深化
 
 - 深化 `ziwei` detail data

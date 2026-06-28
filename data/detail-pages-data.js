@@ -167,6 +167,130 @@ window.KekeDetailPages = {
       tags: ["日主", "五行", "十神"],
       note: "目前為 mock 首頁預覽，尚未接入正式八字排盤。"
     },
+    baziProfile: {
+      chartStatus: "mock",
+      chartType: "八字四柱命盤骨架",
+      dayMaster: "日主待定",
+      monthCommand: "月令待定",
+      structureFocus: "四柱與五行分布",
+      summary: "目前為 mock 八字骨架，用來規劃未來八字四柱詳情頁呈現方式。"
+    },
+    pillarOverview: [
+      {
+        pillar: "年柱",
+        role: "背景",
+        theme: "早年背景、家族脈絡與外在根基",
+        stemBranch: "待建立",
+        tenGod: "待建立",
+        note: "目前為 mock，未接正式干支推算。"
+      },
+      {
+        pillar: "月柱",
+        role: "環境",
+        theme: "成長環境、社會位置與月令氣勢",
+        stemBranch: "待建立",
+        tenGod: "待建立",
+        note: "欄位規劃中，未接節氣切月。"
+      },
+      {
+        pillar: "日柱",
+        role: "自我",
+        theme: "自我核心、日主與親密關係",
+        stemBranch: "待建立",
+        tenGod: "日主待定",
+        note: "欄位規劃中，未接日柱推算。"
+      },
+      {
+        pillar: "時柱",
+        role: "未來",
+        theme: "晚年走向、成果累積與未來延伸",
+        stemBranch: "待建立",
+        tenGod: "待建立",
+        note: "欄位規劃中，未接出生時辰換算。"
+      }
+    ],
+    fiveElementOverview: [
+      {
+        element: "木",
+        status: "待計算",
+        meaning: "生長、規劃、學習與伸展力",
+        note: "目前為 mock，未計算五行比例。"
+      },
+      {
+        element: "火",
+        status: "待計算",
+        meaning: "熱情、表達、曝光與行動力",
+        note: "目前為 mock。"
+      },
+      {
+        element: "土",
+        status: "待計算",
+        meaning: "穩定、承載、責任與整合力",
+        note: "目前為 mock。"
+      },
+      {
+        element: "金",
+        status: "待計算",
+        meaning: "規則、判斷、切割與執行力",
+        note: "目前為 mock。"
+      },
+      {
+        element: "水",
+        status: "待計算",
+        meaning: "流動、思考、資源與彈性",
+        note: "目前為 mock。"
+      }
+    ],
+    tenGodOverview: [
+      {
+        name: "比肩 / 劫財",
+        theme: "自我、同儕、競爭與主體性",
+        status: "planning"
+      },
+      {
+        name: "食神 / 傷官",
+        theme: "表達、創造、輸出與反骨感",
+        status: "planning"
+      },
+      {
+        name: "正財 / 偏財",
+        theme: "金錢、資源、現實掌握與流動",
+        status: "planning"
+      },
+      {
+        name: "正官 / 七殺",
+        theme: "規範、壓力、責任與行動紀律",
+        status: "planning"
+      },
+      {
+        name: "正印 / 偏印",
+        theme: "學習、保護、理解與內在支撐",
+        status: "planning"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "日主觀察",
+        level: "mock",
+        content: "目前只作為八字詳情頁展示用，未代表正式日主結果。"
+      },
+      {
+        title: "五行分布",
+        level: "planning",
+        content: "未來會依正式排盤結果整理五行比例、旺衰與平衡方向。"
+      },
+      {
+        title: "十神關係",
+        level: "planning",
+        content: "未來可整理比劫、食傷、財星、官殺、印星對人生主題的影響。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式八字四柱排盤演算法。",
+      "未來需補出生年月日時、節氣切月、日柱推算與真太陽時校正。",
+      "本頁內容不得視為正式命理判斷。"
+    ],
     sections: [
       {
         title: "這個系統看什麼",
