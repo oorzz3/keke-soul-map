@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.4
+- 網站版本：v0.3.5
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.4
+- 靜態資源快取版本：v0.3.5
 
 ## 專案定位
 
@@ -17,6 +17,19 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.3.5 紫微斗數詳情頁 mock 深化
+
+v0.3.5 深化紫微斗數詳情頁 mock，讓 `index.html#/module/ziwei` 不只顯示通用 sections，而是先長出命盤內頁骨架。
+
+- 新增紫微命盤摘要
+- 新增命宮 / 身宮 / 主星組合 mock 欄位
+- 新增十二宮位規劃
+- 新增解讀重點
+- 新增資料狀態提醒
+- 本版仍尚未接入正式演算法，不做真正紫微斗數排盤、星曜計算或出生時間推算
+- 其他命盤詳情頁仍維持既有 mock / planning
+- 首頁三段式 dashboard、hash router、lunar、deity matcher、date test mode 均保留
 
 ## v0.3.4 工程整理版
 
@@ -155,8 +168,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.4 已將主要靜態資源引用更新為 `v=0.3.4`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.5 已將主要靜態資源引用更新為 `v=0.3.5`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.4 後可開始逐步深化單一命盤詳情頁 mock，例如紫微斗數詳情頁，但仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.3.5 後可繼續微調紫微詳情頁資訊量，或逐步深化八字 / 星盤詳情頁 mock，但仍建議先維持 mock / planning，不急著接真正排盤演算法。

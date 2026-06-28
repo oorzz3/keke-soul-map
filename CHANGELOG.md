@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.3.5｜紫微斗數詳情頁 mock 深化
+
+- 深化 `ziwei` detail data
+- 新增紫微命盤摘要、十二宮位規劃、解讀重點與資料狀態提醒
+- `app.js` 支援紫微專屬詳情頁渲染
+- 保留其他命盤頁 mock / planning
+- 保留首頁總控台、hash router、lunar、神明生日與日期測試模式
+
 ## v0.3.4｜小貓龍蝦檢查瘦身 × 版本策略收束
 
 - 重構 `scripts/check-site.js` 的檢查分組

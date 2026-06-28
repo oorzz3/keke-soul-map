@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.3.4";
-const expectedVersionLabel = "v0.3.4";
+const expectedVersion = "0.3.5";
+const expectedVersionLabel = "v0.3.5";
 const results = [];
 let activeGroup = "general";
 
@@ -174,21 +174,21 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.3.4 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.3.5 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "cacheVersion v0.3.4", value: `cacheVersion: "${expectedVersionLabel}"` },
+    { label: "cacheVersion v0.3.5", value: `cacheVersion: "${expectedVersionLabel}"` },
     { label: "versionPolicy", value: "versionPolicy" }
-  ], "site-data.js 需要同步 v0.3.4 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.3.5 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.3.4", value: expectedVersionLabel },
-    { label: "fallback status", value: "小貓龍蝦檢查瘦身 × 版本策略收束" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.3.4。");
+    { label: "fallback v0.3.5", value: expectedVersionLabel },
+    { label: "fallback status", value: "紫微斗數詳情頁 mock 深化" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.3.5。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.3.4", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.3.5", value: `expectedVersion = "${expectedVersion}"` },
     { label: "檢查標題版本標籤", value: "expectedVersionLabel" },
     { label: "檢查標題小貓龍蝦", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -305,6 +305,7 @@ function checkRouter() {
 function checkDetailData() {
   const detailData = readText("data/detail-pages-data.js");
   const app = readText("app.js");
+  const style = readText("style.css");
   const routeIds = [
     "ziwei",
     "bazi",
@@ -321,18 +322,53 @@ function checkDetailData() {
     { label: "KekeDetailPages", value: "KekeDetailPages" },
     { label: "dashboardPreview", value: "dashboardPreview" },
     { label: "dashboardResult", value: "dashboardResult" },
+    { label: "ziweiProfile", value: "ziweiProfile" },
+    { label: "palaceOverview", value: "palaceOverview" },
+    { label: "interpretationBlocks", value: "interpretationBlocks" },
+    { label: "dataNotes", value: "dataNotes" },
+    { label: "命宮", value: "命宮" },
+    { label: "兄弟宮", value: "兄弟宮" },
+    { label: "夫妻宮", value: "夫妻宮" },
+    { label: "子女宮", value: "子女宮" },
+    { label: "財帛宮", value: "財帛宮" },
+    { label: "疾厄宮", value: "疾厄宮" },
+    { label: "遷移宮", value: "遷移宮" },
+    { label: "交友宮", value: "交友宮" },
+    { label: "官祿宮", value: "官祿宮" },
+    { label: "田宅宮", value: "田宅宮" },
+    { label: "福德宮", value: "福德宮" },
+    { label: "父母宮", value: "父母宮" },
     { label: "mock", value: "mock" },
     { label: "planning", value: "planning" },
     ...routeIds.map((id) => ({ label: id, value: id }))
-  ], "detail-pages-data.js 需要保留 9 個詳情頁 mock / planning 資料。");
+  ], "detail-pages-data.js 需要保留 9 個詳情頁 mock / planning 資料，並深化紫微斗數 mock 欄位。");
 
   checkIncludes("app.js", app, [
     { label: "KekeDetailPages", value: "KekeDetailPages" },
     { label: "renderDetailPage", value: "renderDetailPage" },
+    { label: "renderSpecialDetailContent", value: "renderSpecialDetailContent" },
+    { label: "renderZiweiDetail", value: "renderZiweiDetail" },
+    { label: "renderZiweiProfile", value: "renderZiweiProfile" },
+    { label: "renderZiweiPalaceOverview", value: "renderZiweiPalaceOverview" },
+    { label: "renderZiweiInterpretation", value: "renderZiweiInterpretation" },
+    { label: "renderZiweiDataNotes", value: "renderZiweiDataNotes" },
     { label: "renderNotFoundDetail", value: "renderNotFoundDetail" },
     { label: "尚未接入正式命理演算法", value: "尚未接入正式命理演算法" },
     { label: "找不到這個命盤詳情頁", value: "找不到這個命盤詳情頁" }
-  ], "app.js 需要保留詳情頁骨架與 route fallback。");
+  ], "app.js 需要保留詳情頁骨架、紫微專屬 renderer 與 route fallback。");
+
+  checkIncludes("style.css", style, [
+    { label: "ziwei-detail", value: "ziwei-detail" },
+    { label: "ziwei-profile-grid", value: "ziwei-profile-grid" },
+    { label: "ziwei-profile-card", value: "ziwei-profile-card" },
+    { label: "ziwei-star-list", value: "ziwei-star-list" },
+    { label: "ziwei-palace-grid", value: "ziwei-palace-grid" },
+    { label: "ziwei-palace-card", value: "ziwei-palace-card" },
+    { label: "ziwei-palace-stars", value: "ziwei-palace-stars" },
+    { label: "ziwei-interpretation-list", value: "ziwei-interpretation-list" },
+    { label: "ziwei-interpretation-card", value: "ziwei-interpretation-card" },
+    { label: "ziwei-data-notes", value: "ziwei-data-notes" }
+  ], "style.css 需要包含紫微詳情頁樣式。");
 
   if (detailData !== null && sitePathRoutesHaveDetailData(routeIds, detailData)) {
     addResult("pass", "module route 與 detail data 對應", "主要命盤 route 都有對應詳情頁資料。");
@@ -520,7 +556,8 @@ function checkDocs() {
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "工程整理版", value: "工程整理版" },
+    { label: "紫微斗數詳情頁 mock 深化", value: "紫微斗數詳情頁 mock 深化" },
+    { label: "尚未接入正式演算法", value: "尚未接入正式演算法" },
     { label: "version-sync", value: "version-sync" },
     { label: "required-files", value: "required-files" },
     { label: "dashboard-structure", value: "dashboard-structure" },
@@ -532,21 +569,22 @@ function checkDocs() {
     { label: "productVersion", value: "productVersion" },
     { label: "cacheVersion", value: "cacheVersion" },
     { label: "dataVersion", value: "dataVersion" }
-  ], "README.md 需要補充 v0.3.4 工程整理、檢查分組與版本策略。");
+  ], "README.md 需要補充 v0.3.5 紫微詳情頁 mock 深化與版本策略。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "小貓龍蝦檢查瘦身", value: "小貓龍蝦檢查瘦身" },
-    { label: "版本策略收束", value: "版本策略收束" }
-  ], "CHANGELOG.md 需要記錄 v0.3.4。");
+    { label: "紫微斗數詳情頁 mock 深化", value: "紫微斗數詳情頁 mock 深化" },
+    { label: "十二宮位規劃", value: "十二宮位規劃" }
+  ], "CHANGELOG.md 需要記錄 v0.3.5。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "scripts/check-site.js", value: "scripts/check-site.js" },
-    { label: "多個 group", value: "多個 group" },
-    { label: "versionPolicy", value: "versionPolicy" },
+    { label: "ziweiProfile", value: "ziweiProfile" },
+    { label: "palaceOverview", value: "palaceOverview" },
+    { label: "renderZiweiDetail", value: "renderZiweiDetail" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "PROJECT_MAP.md 需要補充 v0.3.4 檢查腳本與版本策略。");
+  ], "PROJECT_MAP.md 需要補充 v0.3.5 紫微詳情頁資料與 renderer。");
 }
 
 function checkUtf8Readable() {

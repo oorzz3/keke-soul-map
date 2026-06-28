@@ -1,25 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.4",
+    version: "v0.3.5",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.4",
-    status: "小貓龍蝦檢查瘦身 × 版本策略收束",
-    updatedNote: "v0.3.4 整理小貓龍蝦檢查腳本與版本規則，作為後續命盤詳情頁深化前的工程整理版。"
+    cacheVersion: "v0.3.5",
+    status: "紫微斗數詳情頁 mock 深化",
+    updatedNote: "v0.3.5 深化紫微斗數詳情頁 mock 結構，建立命盤摘要、命宮主星、十二宮位與解讀重點骨架。"
   },
   versionPolicy: {
-    productVersion: "v0.3.4",
-    cacheVersion: "v0.3.4",
+    productVersion: "v0.3.5",
+    cacheVersion: "v0.3.5",
     dataVersion: "v0.2",
     note: "產品版本標記功能進度，cacheVersion 用於 GitHub Pages 靜態資源刷新，dataVersion 標記資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.4",
+    currentVersion: "v0.3.5",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.4 保留 hash router 與 dashboard zone，並收束版本策略與檢查腳本。"
+    note: "v0.3.5 保留 hash router 與 dashboard zone，並深化紫微斗數 mock 詳情頁。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.4",
+  version: "v0.3.5",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.4",
-  status: "小貓龍蝦檢查瘦身 × 版本策略收束"
+  cacheVersion: "v0.3.5",
+  status: "紫微斗數詳情頁 mock 深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -231,9 +231,133 @@ function renderDetailPage(page) {
           </section>
         `).join("")}
       </div>
+      ${renderSpecialDetailContent(page)}
       <p class="detail-note">目前為架構展示，尚未接入正式命理演算法。</p>
       ${detailNav}
     </article>
+  `;
+}
+
+function renderSpecialDetailContent(page = {}) {
+  if (page.id === "ziwei" && page.ziweiProfile) {
+    return renderZiweiDetail(page);
+  }
+
+  return "";
+}
+
+function renderZiweiDetail(page = {}) {
+  return `
+    <section class="ziwei-detail" aria-label="紫微斗數 mock 詳情">
+      <div class="detail-note ziwei-mock-note">目前是 mock 命盤骨架，不是正式命盤；尚未接入正式紫微斗數排盤演算法。</div>
+      ${renderZiweiProfile(page.ziweiProfile)}
+      ${renderZiweiPalaceOverview(page.palaceOverview)}
+      ${renderZiweiInterpretation(page.interpretationBlocks)}
+      ${renderZiweiDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderZiweiProfile(profile = {}) {
+  const mainStars = Array.isArray(profile.mainStars) ? profile.mainStars : [];
+
+  return `
+    <section class="ziwei-profile-card">
+      <div class="section-heading compact-heading">
+        <p>紫微命盤摘要</p>
+        <h3>${escapeHtml(profile.chartType || "紫微斗數命盤骨架")}</h3>
+      </div>
+      <div class="ziwei-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>焦點宮位</span>
+          <strong>${escapeHtml(profile.palaceFocus || "命宮")}</strong>
+        </div>
+        <div>
+          <span>身宮</span>
+          <strong>${escapeHtml(profile.bodyPalace || "身宮待定")}</strong>
+        </div>
+      </div>
+      <div class="ziwei-star-list" aria-label="主星組合">
+        ${mainStars.map((star) => `<span>${escapeHtml(star)}</span>`).join("")}
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 命盤骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderZiweiPalaceOverview(palaces = []) {
+  if (!Array.isArray(palaces) || palaces.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>十二宮位規劃</p>
+        <h3>宮位、主題與 mock 星曜</h3>
+      </div>
+      <div class="ziwei-palace-grid">
+        ${palaces.map((palace) => {
+          const stars = Array.isArray(palace.mockStars) ? palace.mockStars : [];
+          return `
+            <article class="ziwei-palace-card">
+              <div>
+                <strong>${escapeHtml(palace.palace)}</strong>
+                <span>${escapeHtml(palace.category || "宮位規劃")}</span>
+              </div>
+              <p>${escapeHtml(palace.theme)}</p>
+              <div class="ziwei-palace-stars">
+                ${stars.map((star) => `<span>${escapeHtml(star)}</span>`).join("")}
+              </div>
+              <small>${escapeHtml(palace.note)}</small>
+            </article>
+          `;
+        }).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderZiweiInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前先放 mock / planning 方向</h3>
+      </div>
+      <div class="ziwei-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="ziwei-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderZiweiDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="ziwei-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
   `;
 }
 

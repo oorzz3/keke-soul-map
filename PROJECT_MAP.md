@@ -40,6 +40,14 @@
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
+## v0.3.5 紫微詳情頁 mock 深化
+
+- `data/detail-pages-data.js`：`ziwei` 追加 `ziweiProfile`、`palaceOverview`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderSpecialDetailContent`、`renderZiweiDetail`、`renderZiweiProfile`、`renderZiweiPalaceOverview`、`renderZiweiInterpretation`、`renderZiweiDataNotes`。
+- `style.css`：新增紫微詳情頁樣式，包含命盤摘要、十二宮位、解讀重點與資料狀態提醒。
+- `scripts/check-site.js`：新增紫微詳情頁資料、renderer 與樣式檢查。
+- 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
+
 ## v0.3.2.2 資訊層級整理
 
 - `app.js`：整理首頁資訊層級，加入 compact 輔助提醒與整合結果卡渲染。

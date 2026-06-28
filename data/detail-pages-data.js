@@ -17,6 +17,123 @@ window.KekeDetailPages = {
       tags: ["命宮", "主星", "十二宮"],
       note: "目前為 mock 首頁預覽，點入詳情頁可看欄位規劃。"
     },
+    ziweiProfile: {
+      chartStatus: "mock",
+      chartType: "紫微斗數命盤骨架",
+      palaceFocus: "命宮",
+      bodyPalace: "身宮待定",
+      mainStars: ["天府", "紫微待校", "武曲待校"],
+      summary: "目前為 mock 命盤骨架，用來規劃未來紫微斗數詳情頁呈現方式。"
+    },
+    palaceOverview: [
+      {
+        palace: "命宮",
+        category: "核心宮位",
+        theme: "自我性格與人生主軸",
+        mockStars: ["天府"],
+        note: "目前為 mock，未接正式星曜計算。"
+      },
+      {
+        palace: "兄弟宮",
+        category: "關係宮位",
+        theme: "手足、人際支援",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "夫妻宮",
+        category: "關係宮位",
+        theme: "伴侶關係與合作互動",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "子女宮",
+        category: "關係宮位",
+        theme: "子女、創造與照顧議題",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "財帛宮",
+        category: "事業財務",
+        theme: "金錢觀、資源流動與收入模式",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "疾厄宮",
+        category: "內在修養",
+        theme: "身心狀態、壓力與修復節奏",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "遷移宮",
+        category: "外在行動",
+        theme: "外出、移動與對外發展",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "交友宮",
+        category: "關係宮位",
+        theme: "朋友、團隊與社群連結",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "官祿宮",
+        category: "事業財務",
+        theme: "工作方向、職涯角色與成就感",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "田宅宮",
+        category: "內在修養",
+        theme: "居住環境、家庭基礎與安全感",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "福德宮",
+        category: "內在修養",
+        theme: "精神滋養、享受能力與內在安定",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      },
+      {
+        palace: "父母宮",
+        category: "關係宮位",
+        theme: "長輩、原生家庭與支持系統",
+        mockStars: ["待建立"],
+        note: "欄位規劃中。"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "命宮觀察",
+        level: "mock",
+        content: "目前只作為命盤詳情頁展示用，未代表正式命宮結果。"
+      },
+      {
+        title: "主星組合",
+        level: "planning",
+        content: "未來會依正式排盤結果整理主星、輔星與宮位互動。"
+      },
+      {
+        title: "行動提醒",
+        level: "planning",
+        content: "未來可將命盤主題轉成每日或年度行動提醒。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式紫微斗數排盤演算法。",
+      "未來需補出生年月日時、節氣、農曆換算與星曜配置規則。",
+      "本頁內容不得視為正式命理判斷。"
+    ],
     sections: [
       {
         title: "這個系統看什麼",
