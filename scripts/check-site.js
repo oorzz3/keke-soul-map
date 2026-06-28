@@ -98,7 +98,7 @@ function isTextFile(filePath) {
 }
 
 function checkRequiredFiles() {
-  const requiredFiles = ["index.html", "style.css", "app.js"];
+  const requiredFiles = ["index.html", "style.css", "app.js", "data/site-data.js"];
 
   for (const file of requiredFiles) {
     if (exists(file)) {
@@ -140,6 +140,8 @@ function checkIndexContent() {
     { label: "神明生日", ok: html.includes("神明生日") },
     { label: "命樹", ok: html.includes("命樹") },
     { label: "style.css", ok: html.includes("style.css") },
+    { label: "data/site-data.js", ok: html.includes("data/site-data.js") },
+    { label: "KekeSoulData", ok: html.includes("KekeSoulData") },
     { label: "app.js", ok: html.includes("app.js") }
   ];
 
@@ -245,7 +247,7 @@ function checkNestedRepo() {
 }
 
 function checkUtf8Readable() {
-  const mainFiles = ["index.html", "style.css", "app.js"];
+  const mainFiles = ["index.html", "style.css", "app.js", "data/site-data.js"];
 
   for (const file of mainFiles) {
     if (!exists(file)) {
@@ -275,7 +277,7 @@ function printResults() {
     high: "HIGH"
   };
 
-  console.log("科科命理宇宙站 v0.1.1 小貓龍蝦檢查");
+  console.log("科科命理宇宙站 v0.2 小貓龍蝦檢查");
   console.log("=".repeat(44));
   console.log(`通過數：${counts.pass}`);
   console.log(`警告數：${counts.warn}`);
