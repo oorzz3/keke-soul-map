@@ -1,24 +1,24 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.1",
+    version: "v0.3.2.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.1",
-    status: "路由體驗修正 × 詳情頁導覽強化",
-    updatedNote: "v0.3.1 強化詳情頁導覽、active 狀態與 route fallback。"
+    cacheVersion: "v0.3.2.1",
+    status: "命盤核心卡片寬度修正 × 總控台視覺靠近",
+    updatedNote: "v0.3.2.1 修正首頁命盤核心卡片寬度，避免核心卡被壓成直排牙籤卡。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.1",
+    currentVersion: "v0.3.2.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.1 強化詳情頁導覽、active 狀態與 route fallback。"
+    note: "v0.3.2.1 保留 hash router，並修正命盤核心入口卡片寬度。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
     secondaryFocus: "每日輔助提醒",
-    note: "首頁以命盤系統為主，農民曆與神明生日作為輔助提醒。"
+    note: "首頁以命盤核心總控台為主要視覺，農民曆與神明生日仍作為輔助提醒。"
   },
   almanacEngine: {
     enabled: true,

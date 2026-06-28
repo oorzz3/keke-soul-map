@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.1",
+  version: "v0.3.2.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.1",
-  status: "路由體驗修正 × 詳情頁導覽強化"
+  cacheVersion: "v0.3.2.1",
+  status: "命盤核心卡片寬度修正 × 總控台視覺靠近"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -411,41 +411,111 @@ function renderNumerology(numerology = {}) {
 
 function renderModules(modules = []) {
   const currentModuleId = getCurrentModuleId();
-  const coreModuleTitles = ["紫微斗數", "八字四柱", "西洋星盤", "生命靈數", "姓名學"];
-  const moduleItems = modules.map((item) => {
+  const coreModuleIds = ["ziwei", "bazi", "astrology", "numerology", "name"];
+  const secondaryModuleIds = ["luck", "yijing", "soul-tree", "database"];
+  const moduleGroups = modules.reduce((groups, item) => {
     const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
       ? window.KekeRouter.getRouteModuleId(item.href)
       : null;
-    const isActive = currentModuleId && moduleId === currentModuleId;
-    const className = [
-      "module-item",
-      coreModuleTitles.includes(item.title) ? "is-core" : "",
-      isActive ? "is-active" : ""
-    ].filter(Boolean).join(" ");
 
-    return `
-      <a class="${className}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
-        <span class="module-icon" aria-hidden="true">${escapeHtml(item.icon)}</span>
-        <span>
-          <strong>${escapeHtml(item.title)}</strong>
-          <small>${escapeHtml(item.note)}</small>
-        </span>
-        <span class="module-arrow" aria-hidden="true">&gt;</span>
-      </a>
-    `;
-  }).join("");
+    if (coreModuleIds.includes(moduleId)) {
+      groups.core.push({ item, moduleId });
+    } else if (secondaryModuleIds.includes(moduleId)) {
+      groups.secondary.push({ item, moduleId });
+    } else {
+      groups.support.push({ item, moduleId });
+    }
+
+    return groups;
+  }, { core: [], secondary: [], support: [] });
 
   setHtml("#moduleCard", `
-    <div class="section-heading inline-heading">
+    <div class="section-heading inline-heading core-dashboard-head">
       <div>
         <p>命盤核心</p>
-        <h2 id="module-title">命理模組入口</h2>
+        <h2 id="module-title">命盤總控台</h2>
       </div>
-      <span class="soft-tag">命盤核心</span>
+      <span class="soft-tag">總覽入口</span>
     </div>
-    <p class="module-intro">先從本命系統看見自己，再用每日提醒輔助行動。</p>
-    <div class="module-grid" id="moduleGrid">${moduleItems}</div>
+    <p class="module-intro">先從本命系統看見自己，再用每日提醒輔助行動。這一版是 mock / experiment / planning 首頁預覽，不代表正式排盤。</p>
+    <div class="core-dashboard" id="moduleGrid">
+      <div class="core-dashboard-grid">
+        ${moduleGroups.core.map(({ item, moduleId }) => renderCoreModuleCard(item, moduleId, currentModuleId)).join("")}
+      </div>
+      <div class="module-side-groups">
+        ${renderModuleLinkGroup("整合與工具", "module-secondary-list", moduleGroups.secondary, currentModuleId)}
+        ${renderModuleLinkGroup("輔助提醒", "module-support-list", moduleGroups.support, currentModuleId)}
+      </div>
+    </div>
   `);
+}
+
+function renderCoreModuleCard(item = {}, moduleId, currentModuleId) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const preview = detailPage.dashboardPreview || {};
+  const isActive = currentModuleId && moduleId === currentModuleId;
+  const status = detailPage.status || "planning";
+  const tags = Array.isArray(preview.tags) && preview.tags.length > 0
+    ? preview.tags
+    : [detailPage.navLabel || item.title, status];
+
+  return `
+    <a class="core-module-card${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <div class="core-module-head">
+        <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon)}</span>
+        <span>
+          <strong>${escapeHtml(item.title)}</strong>
+          <small>${escapeHtml(preview.headline || item.note)}</small>
+        </span>
+        <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      </div>
+      <div class="core-module-value">
+        <strong>${escapeHtml(preview.primaryValue || item.note)}</strong>
+        <span>${escapeHtml(preview.secondaryValue || "點入詳情頁查看規劃")}</span>
+      </div>
+      <div class="core-module-tags">
+        ${tags.map((tag) => `<span class="preview-tag">${escapeHtml(tag)}</span>`).join("")}
+      </div>
+      <p>${escapeHtml(preview.note || "目前為首頁預覽，詳細內容仍以 mock / planning 呈現。")}</p>
+      <span class="module-enter">進入詳情頁</span>
+    </a>
+  `;
+}
+
+function renderModuleLinkGroup(title, className, entries, currentModuleId) {
+  if (!Array.isArray(entries) || entries.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="${className}">
+      <h3 class="module-group-title">${escapeHtml(title)}</h3>
+      <div>
+        ${entries.map(({ item, moduleId }) => renderCompactModuleLink(item, moduleId, currentModuleId)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderCompactModuleLink(item = {}, moduleId, currentModuleId) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const isActive = currentModuleId && moduleId && moduleId === currentModuleId;
+  const className = [
+    "module-item",
+    moduleId ? "is-route" : "is-support",
+    isActive ? "is-active" : ""
+  ].filter(Boolean).join(" ");
+
+  return `
+    <a class="${className}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon)}</span>
+      <span>
+        <strong>${escapeHtml(item.title)}</strong>
+        <small>${escapeHtml(item.note)}</small>
+      </span>
+      <span class="module-arrow" aria-hidden="true">&gt;</span>
+    </a>
+  `;
 }
 
 function renderAlmanac(almanac = {}) {

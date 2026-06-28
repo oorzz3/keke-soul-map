@@ -10,6 +10,13 @@ window.KekeDetailPages = {
     status: "mock",
     route: "#/module/ziwei",
     summary: "以命宮、主星與十二宮位看見個人性格、人生課題與行動方向。",
+    dashboardPreview: {
+      headline: "命宮與主星",
+      primaryValue: "命宮 / 主星",
+      secondaryValue: "人生主題",
+      tags: ["命宮", "主星", "十二宮"],
+      note: "目前為 mock 首頁預覽，點入詳情頁可看欄位規劃。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -36,6 +43,13 @@ window.KekeDetailPages = {
     status: "mock",
     route: "#/module/bazi",
     summary: "以出生年月日時的四柱結構，整理日主、五行分布與生命節奏。",
+    dashboardPreview: {
+      headline: "四柱總覽",
+      primaryValue: "年 / 月 / 日 / 時",
+      secondaryValue: "五行分布",
+      tags: ["日主", "五行", "十神"],
+      note: "目前為 mock 首頁預覽，尚未接入正式八字排盤。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -62,6 +76,13 @@ window.KekeDetailPages = {
     status: "mock",
     route: "#/module/astrology",
     summary: "以星座、宮位與相位整理人格傾向、情緒模式與對外互動方式。",
+    dashboardPreview: {
+      headline: "星盤三軸",
+      primaryValue: "太陽 / 月亮 / 上升",
+      secondaryValue: "行星相位",
+      tags: ["太陽", "月亮", "上升"],
+      note: "目前為 mock 首頁預覽，尚未接入正式星盤計算。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -88,6 +109,13 @@ window.KekeDetailPages = {
     status: "experiment",
     route: "#/module/numerology",
     summary: "以生日數字整理生命主題、個人年、個人月與每日行動提醒。",
+    dashboardPreview: {
+      headline: "核心數字",
+      primaryValue: "生命靈數 7",
+      secondaryValue: "個人年 / 月 / 日",
+      tags: ["生命數", "節奏", "主題"],
+      note: "目前為 experiment 首頁預覽，數字仍作展示用途。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
@@ -114,6 +142,13 @@ window.KekeDetailPages = {
     status: "mock",
     route: "#/module/name",
     summary: "以姓名字形、筆畫與語感整理個人識別、能量感與使用情境。",
+    dashboardPreview: {
+      headline: "姓名氣質",
+      primaryValue: "科科",
+      secondaryValue: "字義與語感",
+      tags: ["姓名", "字義", "氣質"],
+      note: "目前為 mock 首頁預覽，尚未接入正式姓名學規則。"
+    },
     sections: [
       {
         title: "這個系統看什麼",
