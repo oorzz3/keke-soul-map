@@ -19,6 +19,7 @@
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
+- `CORE_DETAIL_SCHEMA.md`：五大核心詳情頁 schema 對照文件，記錄 route、data schema、renderer、CSS class 與安全線。
 
 ## 靜態資源
 
@@ -54,6 +55,25 @@
 - `astrology` -> `renderAstrologyDetail` -> `astrology-detail`
 - `numerology` -> `renderNumerologyDetail` -> `numerology-detail`
 - `name` -> `renderNameDetail` -> `name-detail`
+
+## v0.4.1 五大核心 schema 文件化
+
+- `CORE_DETAIL_SCHEMA.md`：五大核心詳情頁 schema 對照文件。
+- `data/detail-pages-data.js`：五大核心 mock / planning schema 來源。
+- `app.js`：五大核心 detail renderer 來源。
+- `style.css`：五大核心詳情頁樣式來源。
+- `scripts/check-site.js`：檢查 `CORE_DETAIL_SCHEMA.md` 是否存在與包含必要對照內容。
+- v0.4.x 階段以文件化與地基整理為主，不急著接正式演算法。
+
+五大核心對照小表：
+
+| route id | data profile | renderer | CSS |
+| --- | --- | --- | --- |
+| ziwei | ziweiProfile | renderZiweiDetail | ziwei-detail |
+| bazi | baziProfile | renderBaziDetail | bazi-detail |
+| astrology | astrologyProfile | renderAstrologyDetail | astrology-detail |
+| numerology | numerologyProfile | renderNumerologyDetail | numerology-detail |
+| name | nameProfile | renderNameDetail | name-detail |
 
 ## v0.3.9 姓名學詳情頁 mock 深化
 

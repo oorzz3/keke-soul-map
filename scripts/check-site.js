@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.4.0";
-const expectedVersionLabel = "v0.4.0";
+const expectedVersion = "0.4.1";
+const expectedVersionLabel = "v0.4.1";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.4.0 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.4.1 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "五大核心詳情頁節奏整理 × renderer 命名收束" },
+    { label: "siteMeta.status", value: "五大核心 schema 文件化 × 詳情頁對照表" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.4.0 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.4.1 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.4.0", value: expectedVersionLabel },
-    { label: "fallback status", value: "五大核心詳情頁節奏整理 × renderer 命名收束" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.4.0。");
+    { label: "fallback v0.4.1", value: expectedVersionLabel },
+    { label: "fallback status", value: "五大核心 schema 文件化 × 詳情頁對照表" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.4.1。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.4.0", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.4.1", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -177,6 +177,7 @@ function checkRequiredFilesAndFolders() {
     "vendor/lunar/lunar.js",
     "vendor/lunar/LICENSE",
     "vendor/lunar/README.md",
+    "CORE_DETAIL_SCHEMA.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"
@@ -407,7 +408,7 @@ function checkDetailData() {
       "renderNumerologyMeanings"
     ].forEach((oldName) => {
       const ok = !app.includes(oldName);
-      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "v0.4.0 已收束生命靈數 renderer 命名，app.js 不應再使用舊名稱。");
+      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "v0.4.1 已收束生命靈數 renderer 命名，app.js 不應再使用舊名稱。");
     });
   }
 
@@ -597,13 +598,14 @@ function checkDocs() {
   const readme = readText("README.md");
   const changelog = readText("CHANGELOG.md");
   const projectMap = readText("PROJECT_MAP.md");
+  const coreSchema = readText("CORE_DETAIL_SCHEMA.md");
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "五大核心詳情頁節奏整理", value: "五大核心詳情頁節奏整理" },
-    { label: "renderer 命名", value: "renderer 命名" },
+    { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
+    { label: "五大核心 schema 文件化", value: "五大核心 schema 文件化" },
     { label: "mock / planning", value: "mock / planning" },
-    { label: "仍未接入正式命理計算", value: "仍未接入正式命理計算" },
+    { label: "未新增正式命理計算", value: "未新增正式命理計算" },
     { label: "version-sync", value: "version-sync" },
     { label: "required-files", value: "required-files" },
     { label: "dashboard-structure", value: "dashboard-structure" },
@@ -615,22 +617,57 @@ function checkDocs() {
     { label: "productVersion", value: "productVersion" },
     { label: "cacheVersion", value: "cacheVersion" },
     { label: "dataVersion", value: "dataVersion" }
-  ], "README.md 需要補充 v0.4.0 五大核心詳情頁整理封章內容。");
+  ], "README.md 需要補充 v0.4.1 五大核心 schema 文件化內容。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "五大核心詳情頁節奏整理", value: "五大核心詳情頁節奏整理" },
-    { label: "renderer 命名", value: "renderer 命名" },
+    { label: "五大核心 schema 文件化", value: "五大核心 schema 文件化" },
+    { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "CHANGELOG.md 需要記錄 v0.4.0。");
+  ], "CHANGELOG.md 需要記錄 v0.4.1。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
+    { label: "五大核心對照小表", value: "五大核心對照小表" },
+    { label: "schema 對照文件", value: "schema 對照文件" },
+    { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
+  ], "PROJECT_MAP.md 需要補充 v0.4.1 五大核心 schema 文件與對照表。");
+
+  checkIncludes("CORE_DETAIL_SCHEMA.md", coreSchema, [
+    { label: "科科命理宇宙站", value: "科科命理宇宙站" },
+    { label: "五大核心詳情頁 Schema 對照表", value: "五大核心詳情頁 Schema 對照表" },
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "ziwei", value: "ziwei" },
+    { label: "bazi", value: "bazi" },
+    { label: "astrology", value: "astrology" },
+    { label: "numerology", value: "numerology" },
+    { label: "name", value: "name" },
+    { label: "ziweiProfile", value: "ziweiProfile" },
+    { label: "baziProfile", value: "baziProfile" },
+    { label: "astrologyProfile", value: "astrologyProfile" },
+    { label: "numerologyProfile", value: "numerologyProfile" },
+    { label: "nameProfile", value: "nameProfile" },
+    { label: "renderZiweiDetail", value: "renderZiweiDetail" },
+    { label: "renderBaziDetail", value: "renderBaziDetail" },
+    { label: "renderAstrologyDetail", value: "renderAstrologyDetail" },
+    { label: "renderNumerologyDetail", value: "renderNumerologyDetail" },
+    { label: "renderNameDetail", value: "renderNameDetail" },
+    { label: "ziwei-detail", value: "ziwei-detail" },
+    { label: "bazi-detail", value: "bazi-detail" },
+    { label: "astrology-detail", value: "astrology-detail" },
+    { label: "numerology-detail", value: "numerology-detail" },
+    { label: "name-detail", value: "name-detail" },
     { label: "renderNumerologyRhythmOverview", value: "renderNumerologyRhythmOverview" },
     { label: "renderNumerologyNumberMeanings", value: "renderNumerologyNumberMeanings" },
-    { label: "五大核心詳情頁對照表", value: "五大核心詳情頁對照表" },
-    { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "PROJECT_MAP.md 需要補充 v0.4.0 五大核心詳情頁整理與 renderer 命名收束。");
+    { label: "不提供改名建議", value: "不提供改名建議" },
+    { label: "mock", value: "mock" },
+    { label: "planning", value: "planning" },
+    { label: "experiment", value: "experiment" },
+    { label: "不接 API", value: "不接 API" },
+    { label: "不接資料庫", value: "不接資料庫" },
+    { label: "escapeHtml", value: "escapeHtml" }
+  ], "CORE_DETAIL_SCHEMA.md 需要包含五大核心 route / data schema / renderer / CSS 與安全線對照。");
 }
 
 function checkUtf8Readable() {
@@ -649,6 +686,7 @@ function checkUtf8Readable() {
     "vendor/lunar/lunar.js",
     "vendor/lunar/README.md",
     "vendor/lunar/LICENSE",
+    "CORE_DETAIL_SCHEMA.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"

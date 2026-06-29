@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.4.0
+- 網站版本：v0.4.1
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.4.0
+- 靜態資源快取版本：v0.4.1
 
 ## 專案定位
 
@@ -17,6 +17,16 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.4.1 五大核心 schema 文件化
+
+v0.4.1 新增 `CORE_DETAIL_SCHEMA.md`，把五大核心詳情頁的 route、data schema、renderer、CSS class 與 mock / planning / experiment 安全線整理成文件。
+
+- 五大核心詳情頁已完成 mock / planning 骨架。
+- 本版只做 schema 文件化，未新增正式命理計算。
+- `CORE_DETAIL_SCHEMA.md` 記錄紫微、八字、星盤、生命靈數、姓名學的必要欄位與 renderer 對照。
+- 目前不是正式算命工具，而是命理資料結構與頁面原型。
+- 純 HTML / CSS / JS 靜態網站邊界仍保留，不新增 npm / API / 後端。
 
 ## v0.4.0 五大核心詳情頁節奏整理
 
@@ -235,8 +245,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.4.0 已將主要靜態資源引用更新為 `v=0.4.0`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.4.1 已將主要靜態資源引用更新為 `v=0.4.1`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.4.0 後可評估五大核心詳情頁 renderer 是否需要共用 helper，或逐步準備資料 schema 文件化；仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.4.1 後可評估五大核心詳情頁 renderer 是否需要共用 helper，或逐步準備 app.js / check-site.js 的輕量拆分；仍建議先維持 mock / planning，不急著接真正排盤演算法。

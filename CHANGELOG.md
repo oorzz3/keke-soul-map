@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.4.1｜五大核心 schema 文件化 × 詳情頁對照表
+
+- 新增 `CORE_DETAIL_SCHEMA.md`。
+- 文件化五大核心詳情頁 route / data schema / renderer / CSS class 對照。
+- 文件化紫微、八字、星盤、生命靈數、姓名學必要欄位。
+- 文件化 mock / planning / experiment 安全線。
+- 保留首頁總控台、hash router、lunar、神明生日與日期測試模式。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.4.0｜五大核心詳情頁節奏整理 × renderer 命名收束
 
 - 收束生命靈數 renderer 命名。
