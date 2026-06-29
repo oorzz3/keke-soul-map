@@ -2145,7 +2145,7 @@ blockquote {
 
 .almanac-support-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .almanac-status-row {
@@ -2160,14 +2160,14 @@ blockquote {
 .almanac-date-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 7px;
 }
 
 .almanac-date-item {
   display: grid;
-  gap: 4px;
+  gap: 3px;
   min-width: 0;
-  padding: 10px;
+  padding: 8px;
   background: rgba(3, 12, 24, 0.42);
   border: 1px solid rgba(114, 215, 239, 0.16);
   border-radius: var(--radius);
@@ -2180,18 +2180,44 @@ blockquote {
 
 .almanac-date-item strong {
   color: var(--ink);
-  line-height: 1.45;
+  line-height: 1.35;
+}
+
+.almanac-mini-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.almanac-mini-row span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 7px 8px;
+  color: #dfe7f4;
+  background: rgba(3, 12, 24, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  line-height: 1.35;
+}
+
+.almanac-mini-row b {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .almanac-source-note,
+.almanac-compact-note,
 .almanac-experiment-note {
   margin: 0;
-  padding: 9px 10px;
+  padding: 7px 8px;
   color: #cfe3ee;
   background: rgba(114, 215, 239, 0.055);
   border: 1px solid rgba(114, 215, 239, 0.16);
   border-radius: var(--radius);
-  line-height: 1.6;
+  line-height: 1.45;
+  font-size: 0.84rem;
 }
 
 .almanac-safety-list {
@@ -2210,6 +2236,7 @@ blockquote {
   color: var(--gold);
 }
 
+.almanac-compact-note,
 .almanac-experiment-note {
   color: #dfe7f4;
   background: rgba(255, 255, 255, 0.045);
@@ -2217,7 +2244,8 @@ blockquote {
 }
 
 @media (max-width: 640px) {
-  .almanac-date-grid {
+  .almanac-date-grid,
+  .almanac-mini-row {
     grid-template-columns: 1fr;
   }
 }

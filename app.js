@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1",
+  version: "v0.5.1.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1",
-  status: "農民曆 support 區塊整理"
+  cacheVersion: "v0.5.1.1",
+  status: "農民曆 support card 瘦身補丁"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1722,7 +1722,10 @@ function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig
   const monthDay = engineOk && engineResult.lunarMonthText && engineResult.lunarDayText
     ? `${engineResult.lunarMonthText}月 ${engineResult.lunarDayText}`
     : "資料待建立";
-  const sourceLabel = engineResult.source || config.source || "lunar-javascript experiment";
+  const sourceLabel = engineResult.source ? "lunar experiment" : "lunar";
+  const rhythmLabel = resultText(engineResult.gzYear && engineResult.zodiac
+    ? `${engineResult.gzYear} / ${engineResult.zodiac}`
+    : engineResult.week ? `星期${engineResult.week}` : "");
 
   return `
     <div class="compact-reminder almanac-support-card">
@@ -1732,9 +1735,9 @@ function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig
       </div>
       <div class="almanac-status-row">
         <span class="source-tag">${escapeHtml(config.statusLabel)}</span>
-        <span>${escapeHtml(config.cardType)}</span>
+        <span>農曆摘要</span>
       </div>
-      <p class="support-copy">${escapeHtml(config.displayFocus)}</p>
+      <p class="support-copy">${escapeHtml(config.frontNote)}</p>
       <div class="almanac-date-grid">
         <div class="almanac-date-item">
           <span>今日陽曆</span>
@@ -1744,21 +1747,19 @@ function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig
           <span>今日農曆</span>
           <strong>${escapeHtml(lunarText || "本次未取得")}</strong>
         </div>
-        <div class="almanac-date-item">
-          <span>農曆月日</span>
-          <strong>${escapeHtml(monthDay)}</strong>
-        </div>
-        <div class="almanac-date-item">
-          <span>資料狀態</span>
-          <strong>${escapeHtml(engineOk ? "lunar 實驗資料已取得" : "本次未取得")}</strong>
-        </div>
       </div>
-      <p class="almanac-source-note">資料來源：${escapeHtml(sourceLabel)}；目前為 experiment。</p>
-      ${renderAlmanacSourceNotes(almanac, engineResult)}
-      ${renderAlmanacSafetyLines(config.safetyLines)}
-      <p class="almanac-experiment-note">今日只作為節奏參考，不作為重大決策依據。</p>
+      <div class="almanac-mini-row">
+        <span><b>月日</b>${escapeHtml(monthDay)}</span>
+        <span><b>節奏</b>${escapeHtml(rhythmLabel)}</span>
+      </div>
+      <p class="almanac-source-note">來源：${escapeHtml(sourceLabel)}</p>
+      <p class="almanac-compact-note">${escapeHtml(config.compactNote)}</p>
     </div>
   `;
+}
+
+function resultText(value) {
+  return value || "本次未取得";
 }
 
 function getAlmanacSupportConfig(config = {}) {
@@ -1766,6 +1767,8 @@ function getAlmanacSupportConfig(config = {}) {
     statusLabel: config.statusLabel || "experiment",
     cardType: config.cardType || "dashboard support card",
     displayFocus: config.displayFocus || "今日農曆 / 節氣資訊 / 資料狀態 / 溫和提醒",
+    frontNote: config.frontNote || "農曆摘要，輕量提醒。",
+    compactNote: config.compactNote || "今日只作節奏參考。",
     source: config.source || "features/almanac-engine.js + vendor/lunar/lunar.js",
     safetyLines: Array.isArray(config.safetyLines) && config.safetyLines.length > 0
       ? config.safetyLines

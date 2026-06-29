@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1";
-const expectedVersionLabel = "v0.5.1";
+const expectedVersion = "0.5.1.1";
+const expectedVersionLabel = "v0.5.1.1";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.1 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "農民曆 support 區塊整理" },
+    { label: "siteMeta.status", value: "農民曆 support card 瘦身補丁" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.5.1 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.5.1.1 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1", value: expectedVersionLabel },
-    { label: "fallback status", value: "農民曆 support 區塊整理" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1。");
+    { label: "fallback v0.5.1.1", value: expectedVersionLabel },
+    { label: "fallback status", value: "農民曆 support card 瘦身補丁" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.1。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.1", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -571,10 +571,16 @@ function checkAlmanacAndDeity() {
     { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
     { label: "renderAlmanacSourceNotes", value: "renderAlmanacSourceNotes" },
     { label: "renderAlmanacSafetyLines", value: "renderAlmanacSafetyLines" },
+    { label: "農民曆短提醒", value: "今日只作節奏參考" },
     { label: "experiment", value: "experiment" },
     { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
     { label: "不提供正式宜忌", value: "不提供正式宜忌" }
   ], "app.js 需要保留農民曆 support card render 與安全線。");
+
+  if (app !== null) {
+    const ok = !app.includes("renderAlmanacSafetyLines(config.safetyLines)");
+    addResult(ok ? "pass" : "fail", "農民曆前台不輸出大段安全線", ok ? "renderAlmanacSupportCard 未呼叫大段安全線列表。" : "農民曆卡片前台不應直接輸出 almanac-safety-list。");
+  }
 
   checkIncludes("style.css", style, [
     { label: "almanac-card", value: "almanac-card" },

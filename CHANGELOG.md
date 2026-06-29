@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.5.1.1｜農民曆 support card 瘦身補丁
+
+- 瘦身農民曆 support card。
+- 移除首頁大段安全線顯示。
+- 保留安全線於 metadata / schema / check-site。
+- 不新增農民曆 detail route。
+- 不改 `features/almanac-engine.js`。
+- 不改 `vendor/lunar/lunar.js`。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.5.1｜農民曆 support 區塊整理
 
 - 整理首頁農民曆 support card。

@@ -15,7 +15,7 @@
 
 ## 資料層
 
-- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata。
+- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.1 起補前台短文案。
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
@@ -106,6 +106,16 @@
 - `SUPPORT_MODULE_SCHEMA.md`：更新 almanac 狀態為 support整理 / experiment。
 - `scripts/check-site.js`：加入農民曆 support 檢查與禁止新增 almanac/deity route 檢查。
 - `almanac`、`deity`：仍維持 dashboard support / anchor，不新增 detail route。
+
+## v0.5.1.1 農民曆 support card 瘦身補丁
+
+- `app.js`：瘦身 `renderAlmanacSupportCard` 前台輸出，只保留日期摘要、兩個小欄位、短提醒與簡短來源。
+- `style.css`：壓縮農民曆 support card 間距與資訊格尺寸，保留短卡片掃讀節奏。
+- `data/site-data.js`：保留 `almanacSupport` metadata 與安全線，新增前台短文案。
+- `SUPPORT_MODULE_SCHEMA.md`：補充安全線保留在文件與檢查規則，不在首頁大段顯示。
+- `scripts/check-site.js`：保留安全線檢查，並檢查前台不再直接輸出 `almanac-safety-list`。
+- `features/almanac-engine.js`：未改農民曆 experiment 引擎。
+- `vendor/lunar/lunar.js`：未修改 vendor。
 
 ## v0.4.2 後半段模組 schema 文件化
 

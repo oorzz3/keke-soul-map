@@ -1,25 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1",
+    version: "v0.5.1.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1",
-    status: "農民曆 support 區塊整理",
-    updatedNote: "v0.5.1 整理首頁農民曆 support 區塊，補充今日農曆資訊、資料來源狀態、experiment 標示與安全線提醒，仍不新增農民曆 detail route。"
+    cacheVersion: "v0.5.1.1",
+    status: "農民曆 support card 瘦身補丁",
+    updatedNote: "v0.5.1.1 瘦身首頁農民曆 support card，將安全線保留於文件與檢查規則，前台只顯示今日農曆摘要與輕量資料狀態。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1",
-    cacheVersion: "v0.5.1",
+    productVersion: "v0.5.1.1",
+    cacheVersion: "v0.5.1.1",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1",
+    currentVersion: "v0.5.1.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並整理農民曆 support 區塊。"
+    note: "v0.5.1.1 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並瘦身農民曆 support card。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
@@ -41,6 +41,8 @@ window.KekeSoulData = {
     displayFocus: "今日農曆 / 節氣資訊 / 資料狀態 / 溫和提醒",
     source: "features/almanac-engine.js + vendor/lunar/lunar.js",
     statusLabel: "experiment",
+    frontNote: "農曆摘要，輕量提醒。",
+    compactNote: "今日只作節奏參考。",
     safetyLines: [
       "目前為 lunar-javascript 實驗資料。",
       "暫不取代人工校對資料。",
