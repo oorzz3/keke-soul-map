@@ -40,6 +40,13 @@
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
+## v0.3.9 姓名學詳情頁 mock 深化
+
+- `data/detail-pages-data.js`：`name` 新增 `nameProfile`、`nameStructureOverview`、`characterOverview`、`fiveGridOverview`、`soundMeaningOverview`、`usageScenarioOverview`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderNameDetail`、`renderNameProfile`、`renderNameStructureOverview`、`renderNameCharacterOverview`、`renderNameFiveGridOverview`、`renderNameSoundMeaningOverview`、`renderNameUsageScenarioOverview`、`renderNameInterpretation`、`renderNameDataNotes`。
+- `style.css`：新增姓名學詳情頁樣式，包含姓名結構、單字字卡、五格、音義語感、使用情境與資料狀態提醒。
+- `scripts/check-site.js`：新增姓名學詳情頁資料、renderer 與樣式檢查。
+
 ## v0.3.8 生命靈數詳情頁 mock 深化
 
 - `data/detail-pages-data.js`：`numerology` 新增 `numerologyProfile`、`coreNumberOverview`、`birthBreakdownDraft`、`rhythmOverview`、`numberMeaningOverview`、`actionNotes`、`interpretationBlocks`、`dataNotes`。

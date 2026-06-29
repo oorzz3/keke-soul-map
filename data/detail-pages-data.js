@@ -714,6 +714,163 @@ window.KekeDetailPages = {
         title: "未來要補",
         items: ["筆畫資料表", "五格摘要", "音義提示", "使用場景備註"]
       }
+    ],
+    nameProfile: {
+      chartStatus: "mock",
+      chartType: "姓名學命盤骨架",
+      displayName: "科科",
+      analysisFocus: "字形 / 筆畫 / 五格 / 音義 / 使用情境",
+      strokeStatus: "筆畫資料待正式校對",
+      summary: "目前為 mock 姓名學骨架，用來規劃未來姓名學詳情頁呈現方式。"
+    },
+    nameStructureOverview: [
+      {
+        part: "姓氏",
+        value: "待建立",
+        theme: "家族來源、識別基礎與正式姓名起點",
+        status: "planning",
+        note: "目前尚未接入正式個人姓名資料。"
+      },
+      {
+        part: "名字",
+        value: "科科",
+        theme: "日常識別、個人風格與他人記憶點",
+        status: "mock",
+        note: "目前為展示用 mock 名稱，不代表正式姓名學判斷。"
+      },
+      {
+        part: "暱稱 / 稱呼",
+        value: "科科",
+        theme: "親近感、互動語氣與社群辨識度",
+        status: "mock",
+        note: "未來可整理不同情境下的稱呼版本。"
+      }
+    ],
+    characterOverview: [
+      {
+        character: "科",
+        position: "名字第 1 字",
+        strokes: "待校對",
+        elementHint: "五行待定",
+        meaning: "知識、分類、條理與專業感的語意方向",
+        status: "mock",
+        note: "目前只做字義與欄位展示，未接正式筆畫或五行規則。"
+      },
+      {
+        character: "科",
+        position: "名字第 2 字",
+        strokes: "待校對",
+        elementHint: "五行待定",
+        meaning: "重複字形成親切、輕快與容易記住的稱呼感",
+        status: "mock",
+        note: "目前只做語感展示，未接正式姓名學計算。"
+      }
+    ],
+    fiveGridOverview: [
+      {
+        grid: "天格",
+        value: "待建立",
+        theme: "姓氏基礎、家族背景與外在起點",
+        status: "planning",
+        note: "未來需依正式姓名筆畫建立。"
+      },
+      {
+        grid: "人格",
+        value: "待建立",
+        theme: "主要個性、行動方式與核心識別",
+        status: "planning",
+        note: "未來需依正式姓名筆畫建立。"
+      },
+      {
+        grid: "地格",
+        value: "待建立",
+        theme: "早期經驗、人際互動與內在基礎",
+        status: "planning",
+        note: "未來需依正式姓名筆畫建立。"
+      },
+      {
+        grid: "外格",
+        value: "待建立",
+        theme: "外在人緣、社交印象與互動方式",
+        status: "planning",
+        note: "未來需依正式姓名筆畫建立。"
+      },
+      {
+        grid: "總格",
+        value: "待建立",
+        theme: "整體走向、長期累積與人生總結構",
+        status: "planning",
+        note: "未來需依正式姓名筆畫建立。"
+      }
+    ],
+    soundMeaningOverview: [
+      {
+        item: "字音",
+        theme: "讀音順口度、稱呼流暢度與記憶感",
+        status: "planning",
+        note: "目前只做觀察欄位，不做正式吉凶判定。"
+      },
+      {
+        item: "字義",
+        theme: "文字含義、象徵感與自我投射方向",
+        status: "planning",
+        note: "未來可整理每個字的語意來源與使用感。"
+      },
+      {
+        item: "字形",
+        theme: "視覺結構、平衡感與辨識度",
+        status: "planning",
+        note: "未來可整理字形複雜度與視覺印象。"
+      },
+      {
+        item: "語感",
+        theme: "他人聽到名字時的第一印象與親近感",
+        status: "mock",
+        note: "目前為 mock 語感觀察，不代表正式姓名學判斷。"
+      }
+    ],
+    usageScenarioOverview: [
+      {
+        scenario: "正式文件",
+        nameForm: "本名待建立",
+        theme: "身分識別、正式場合與法律文件使用",
+        status: "planning"
+      },
+      {
+        scenario: "日常稱呼",
+        nameForm: "科科",
+        theme: "朋友互動、日常對話與親近感",
+        status: "mock"
+      },
+      {
+        scenario: "社群品牌",
+        nameForm: "科科",
+        theme: "網路識別、記憶點與個人小宇宙形象",
+        status: "mock"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "姓名結構觀察",
+        level: "mock",
+        content: "目前只作為姓名學詳情頁展示用，未代表正式姓名學結果。"
+      },
+      {
+        title: "五格規劃",
+        level: "planning",
+        content: "未來可依正式姓名筆畫整理天格、人格、地格、外格與總格。"
+      },
+      {
+        title: "音義語感",
+        level: "planning",
+        content: "未來可整理名字在不同情境中的語感、辨識度與互動印象。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式姓名學計算。",
+      "尚未接入正式筆畫、五格、三才五行或吉凶規則。",
+      "本頁內容不得視為正式命理判斷，也不提供改名建議。"
     ]
   },
   luck: {

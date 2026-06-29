@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.8",
+  version: "v0.3.9",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.8",
-  status: "生命靈數詳情頁 mock 深化"
+  cacheVersion: "v0.3.9",
+  status: "姓名學詳情頁 mock 深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -253,6 +253,10 @@ function renderSpecialDetailContent(page = {}) {
 
   if (page.id === "numerology" && page.numerologyProfile) {
     return renderNumerologyDetail(page);
+  }
+
+  if (page.id === "name" && page.nameProfile) {
+    return renderNameDetail(page);
   }
 
   return "";
@@ -948,6 +952,231 @@ function renderNumerologyDataNotes(notes = []) {
 
   return `
     <section class="numerology-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderNameDetail(page = {}) {
+  return `
+    <section class="name-detail" aria-label="姓名學 mock 詳情">
+      <div class="detail-note name-mock-note">目前是 mock / planning 姓名學骨架，不是正式姓名學結果；尚未接入正式姓名學計算，也不提供改名建議。</div>
+      ${renderNameProfile(page.nameProfile)}
+      ${renderNameStructureOverview(page.nameStructureOverview)}
+      ${renderNameCharacterOverview(page.characterOverview)}
+      ${renderNameFiveGridOverview(page.fiveGridOverview)}
+      ${renderNameSoundMeaningOverview(page.soundMeaningOverview)}
+      ${renderNameUsageScenarioOverview(page.usageScenarioOverview)}
+      ${renderNameInterpretation(page.interpretationBlocks)}
+      ${renderNameDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderNameProfile(profile = {}) {
+  return `
+    <section class="name-profile-card">
+      <div class="section-heading compact-heading">
+        <p>姓名學摘要</p>
+        <h3>${escapeHtml(profile.chartType || "姓名學命盤骨架")}</h3>
+      </div>
+      <div class="name-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>顯示名稱</span>
+          <strong>${escapeHtml(profile.displayName || "待建立")}</strong>
+        </div>
+        <div>
+          <span>分析焦點</span>
+          <strong>${escapeHtml(profile.analysisFocus || "字形 / 筆畫 / 五格 / 音義")}</strong>
+        </div>
+        <div>
+          <span>筆畫狀態</span>
+          <strong>${escapeHtml(profile.strokeStatus || "筆畫資料待正式校對")}</strong>
+        </div>
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 姓名學骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderNameStructureOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>姓名結構規劃</p>
+        <h3>姓氏 / 名字 / 暱稱稱呼</h3>
+      </div>
+      <div class="name-structure-grid">
+        ${items.map((item) => `
+          <article class="name-structure-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <strong>${escapeHtml(item.part)}</strong>
+            <div>${escapeHtml(item.value || "待建立")}</div>
+            <p>${escapeHtml(item.theme)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameCharacterOverview(characters = []) {
+  if (!Array.isArray(characters) || characters.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>單字筆畫與字義草稿</p>
+        <h3>字形、筆畫與語意欄位</h3>
+      </div>
+      <div class="name-character-grid">
+        ${characters.map((item) => `
+          <article class="name-character-card">
+            <div class="name-character-symbol">${escapeHtml(item.character || "名")}</div>
+            <div>
+              <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+              <strong>${escapeHtml(item.position)}</strong>
+              <dl>
+                <div>
+                  <dt>筆畫</dt>
+                  <dd>${escapeHtml(item.strokes || "待校對")}</dd>
+                </div>
+                <div>
+                  <dt>五行</dt>
+                  <dd>${escapeHtml(item.elementHint || "五行待定")}</dd>
+                </div>
+              </dl>
+              <p>${escapeHtml(item.meaning)}</p>
+              <small>${escapeHtml(item.note)}</small>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameFiveGridOverview(grids = []) {
+  if (!Array.isArray(grids) || grids.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>五格規劃</p>
+        <h3>天格 / 人格 / 地格 / 外格 / 總格</h3>
+      </div>
+      <div class="name-five-grid">
+        ${grids.map((item) => `
+          <article class="name-five-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <strong>${escapeHtml(item.grid)}</strong>
+            <div>${escapeHtml(item.value || "待建立")}</div>
+            <p>${escapeHtml(item.theme)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameSoundMeaningOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>音義與語感觀察</p>
+        <h3>字音、字義、字形與語感</h3>
+      </div>
+      <div class="name-sound-grid">
+        ${items.map((item) => `
+          <article class="name-sound-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <strong>${escapeHtml(item.item)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameUsageScenarioOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>使用情境觀察</p>
+        <h3>正式身分、日常互動與社群識別</h3>
+      </div>
+      <div class="name-usage-grid">
+        ${items.map((item) => `
+          <article class="name-usage-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <strong>${escapeHtml(item.scenario)}</strong>
+            <div>${escapeHtml(item.nameForm || "待建立")}</div>
+            <p>${escapeHtml(item.theme)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前階段的 mock / planning 解讀方向</h3>
+      </div>
+      <div class="name-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="name-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNameDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="name-data-notes">
       <h3>資料狀態提醒</h3>
       <ul>
         ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
