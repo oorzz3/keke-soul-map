@@ -42,8 +42,8 @@
 
 ## v0.3.8 生命靈數詳情頁 mock 深化
 
-- `data/detail-pages-data.js`：`numerology` 新增 `numerologyProfile`、`coreNumberOverview`、`birthNumberBreakdown`、`cycleOverview`、`numberMeaningOverview`、`actionRhythm`、`interpretationBlocks`、`dataNotes`。
-- `app.js`：新增 `renderNumerologyDetail`、`renderNumerologyProfile`、`renderNumerologyCoreNumbers`、`renderNumerologyBirthBreakdown`、`renderNumerologyCycles`、`renderNumerologyMeanings`、`renderNumerologyActionRhythm`、`renderNumerologyInterpretation`、`renderNumerologyDataNotes`。
+- `data/detail-pages-data.js`：`numerology` 新增 `numerologyProfile`、`coreNumberOverview`、`birthBreakdownDraft`、`rhythmOverview`、`numberMeaningOverview`、`actionNotes`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderNumerologyDetail`、`renderNumerologyProfile`、`renderNumerologyCoreNumbers`、`renderNumerologyBirthBreakdown`、`renderNumerologyCycles`、`renderNumerologyMeanings`、`renderNumerologyActionNotes`、`renderNumerologyInterpretation`、`renderNumerologyDataNotes`。
 - `style.css`：新增生命靈數詳情頁樣式，包含核心數字、生日拆解、個人節奏、數字 1～9、行動節奏與資料狀態提醒。
 - `scripts/check-site.js`：新增生命靈數詳情頁資料、renderer 與樣式檢查。
 

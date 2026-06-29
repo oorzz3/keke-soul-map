@@ -752,10 +752,10 @@ function renderNumerologyDetail(page = {}) {
       <div class="detail-note numerology-mock-note">目前是 mock 靈數骨架，不是正式計算結果；尚未接入正式生命靈數計算。</div>
       ${renderNumerologyProfile(page.numerologyProfile)}
       ${renderNumerologyCoreNumbers(page.coreNumberOverview)}
-      ${renderNumerologyBirthBreakdown(page.birthNumberBreakdown)}
-      ${renderNumerologyCycles(page.cycleOverview)}
+      ${renderNumerologyBirthBreakdown(page.birthBreakdownDraft)}
+      ${renderNumerologyCycles(page.rhythmOverview)}
       ${renderNumerologyMeanings(page.numberMeaningOverview)}
-      ${renderNumerologyActionRhythm(page.actionRhythm)}
+      ${renderNumerologyActionNotes(page.actionNotes)}
       ${renderNumerologyInterpretation(page.interpretationBlocks)}
       ${renderNumerologyDataNotes(page.dataNotes)}
     </section>
@@ -893,8 +893,8 @@ function renderNumerologyMeanings(meanings = []) {
   `;
 }
 
-function renderNumerologyActionRhythm(actionRhythm = []) {
-  if (!Array.isArray(actionRhythm) || actionRhythm.length === 0) {
+function renderNumerologyActionNotes(actionNotes = []) {
+  if (!Array.isArray(actionNotes) || actionNotes.length === 0) {
     return "";
   }
 
@@ -905,7 +905,7 @@ function renderNumerologyActionRhythm(actionRhythm = []) {
         <h3>把數字轉成可執行提醒</h3>
       </div>
       <div class="numerology-action-list">
-        ${actionRhythm.map((item) => `
+        ${actionNotes.map((item) => `
           <article class="numerology-action-card">
             <span class="detail-status is-${escapeHtml(item.level || "planning")}">${escapeHtml(item.level || "planning")}</span>
             <strong>${escapeHtml(item.title)}</strong>

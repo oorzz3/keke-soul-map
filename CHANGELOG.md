@@ -3,6 +3,7 @@
 ## v0.3.8｜生命靈數詳情頁 mock 深化
 
 - 深化 `numerology` detail data。
+- 校正生命靈數 schema 欄位命名為 `birthBreakdownDraft`、`rhythmOverview`、`actionNotes`。
 - 新增生命靈數摘要、核心數字、生日拆解、個人節奏、數字意義、行動節奏、解讀重點與資料狀態提醒。
 - `app.js` 支援生命靈數專屬詳情頁渲染。
 - 保留紫微、八字、西洋星盤詳情頁。

@@ -540,7 +540,7 @@ window.KekeDetailPages = {
         note: "未來會依生日總和計算。"
       }
     ],
-    birthNumberBreakdown: [
+    birthBreakdownDraft: [
       {
         part: "年份",
         value: "待建立",
@@ -566,7 +566,7 @@ window.KekeDetailPages = {
         status: "planning"
       }
     ],
-    cycleOverview: [
+    rhythmOverview: [
       {
         cycle: "個人年",
         value: "待計算",
@@ -642,7 +642,7 @@ window.KekeDetailPages = {
         status: "planning"
       }
     ],
-    actionRhythm: [
+    actionNotes: [
       {
         title: "適合做什麼",
         level: "mock",
