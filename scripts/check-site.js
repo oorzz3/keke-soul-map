@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.4.1";
-const expectedVersionLabel = "v0.4.1";
+const expectedVersion = "0.4.2";
+const expectedVersionLabel = "v0.4.2";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.4.1 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.4.2 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "五大核心 schema 文件化 × 詳情頁對照表" },
+    { label: "siteMeta.status", value: "後半段模組 schema 文件化 × 通用詳情頁對照表" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.4.1 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.4.2 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.4.1", value: expectedVersionLabel },
-    { label: "fallback status", value: "五大核心 schema 文件化 × 詳情頁對照表" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.4.1。");
+    { label: "fallback v0.4.2", value: expectedVersionLabel },
+    { label: "fallback status", value: "後半段模組 schema 文件化 × 通用詳情頁對照表" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.4.2。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.4.1", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.4.2", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -178,6 +178,7 @@ function checkRequiredFilesAndFolders() {
     "vendor/lunar/LICENSE",
     "vendor/lunar/README.md",
     "CORE_DETAIL_SCHEMA.md",
+    "SUPPORT_MODULE_SCHEMA.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"
@@ -408,7 +409,7 @@ function checkDetailData() {
       "renderNumerologyMeanings"
     ].forEach((oldName) => {
       const ok = !app.includes(oldName);
-      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "v0.4.1 已收束生命靈數 renderer 命名，app.js 不應再使用舊名稱。");
+      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "v0.4.2 已收束生命靈數 renderer 命名，app.js 不應再使用舊名稱。");
     });
   }
 
@@ -599,13 +600,19 @@ function checkDocs() {
   const changelog = readText("CHANGELOG.md");
   const projectMap = readText("PROJECT_MAP.md");
   const coreSchema = readText("CORE_DETAIL_SCHEMA.md");
+  const supportSchema = readText("SUPPORT_MODULE_SCHEMA.md");
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
-    { label: "五大核心 schema 文件化", value: "五大核心 schema 文件化" },
-    { label: "mock / planning", value: "mock / planning" },
-    { label: "未新增正式命理計算", value: "未新增正式命理計算" },
+    { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
+    { label: "流年 / 九運", value: "流年 / 九運" },
+    { label: "農民曆", value: "農民曆" },
+    { label: "神明生日", value: "神明生日" },
+    { label: "易經占問", value: "易經占問" },
+    { label: "命樹", value: "命樹" },
+    { label: "資料庫", value: "資料庫" },
     { label: "version-sync", value: "version-sync" },
     { label: "required-files", value: "required-files" },
     { label: "dashboard-structure", value: "dashboard-structure" },
@@ -617,27 +624,40 @@ function checkDocs() {
     { label: "productVersion", value: "productVersion" },
     { label: "cacheVersion", value: "cacheVersion" },
     { label: "dataVersion", value: "dataVersion" }
-  ], "README.md 需要補充 v0.4.1 五大核心 schema 文件化內容。");
+  ], "README.md 需要補充 v0.4.2 後半段模組 schema 文件化內容。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "五大核心 schema 文件化", value: "五大核心 schema 文件化" },
-    { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
+    { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
+    { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "流年 / 九運", value: "流年 / 九運" },
+    { label: "農民曆", value: "農民曆" },
+    { label: "神明生日", value: "神明生日" },
+    { label: "易經占問", value: "易經占問" },
+    { label: "命樹", value: "命樹" },
+    { label: "資料庫", value: "資料庫" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "CHANGELOG.md 需要記錄 v0.4.1。");
+  ], "CHANGELOG.md 需要記錄 v0.4.2。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
-    { label: "五大核心對照小表", value: "五大核心對照小表" },
-    { label: "schema 對照文件", value: "schema 對照文件" },
+    { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
+    { label: "後半段對照小表", value: "後半段對照小表" },
+    { label: "流年 / 九運", value: "流年 / 九運" },
+    { label: "農民曆", value: "農民曆" },
+    { label: "神明生日", value: "神明生日" },
+    { label: "易經占問", value: "易經占問" },
+    { label: "命樹", value: "命樹" },
+    { label: "資料庫", value: "資料庫" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "PROJECT_MAP.md 需要補充 v0.4.1 五大核心 schema 文件與對照表。");
+  ], "PROJECT_MAP.md 需要補充 v0.4.2 後半段模組 schema 文件與對照表。");
 
   checkIncludes("CORE_DETAIL_SCHEMA.md", coreSchema, [
     { label: "科科命理宇宙站", value: "科科命理宇宙站" },
     { label: "五大核心詳情頁 Schema 對照表", value: "五大核心詳情頁 Schema 對照表" },
-    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "v0.4.1", value: "v0.4.1" },
     { label: "ziwei", value: "ziwei" },
     { label: "bazi", value: "bazi" },
     { label: "astrology", value: "astrology" },
@@ -668,6 +688,46 @@ function checkDocs() {
     { label: "不接資料庫", value: "不接資料庫" },
     { label: "escapeHtml", value: "escapeHtml" }
   ], "CORE_DETAIL_SCHEMA.md 需要包含五大核心 route / data schema / renderer / CSS 與安全線對照。");
+
+  checkIncludes("SUPPORT_MODULE_SCHEMA.md", supportSchema, [
+    { label: "科科命理宇宙站", value: "科科命理宇宙站" },
+    { label: "後半段模組 Schema 對照表", value: "後半段模組 Schema 對照表" },
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "流年 / 九運", value: "流年 / 九運" },
+    { label: "農民曆", value: "農民曆" },
+    { label: "神明生日", value: "神明生日" },
+    { label: "易經占問", value: "易經占問" },
+    { label: "命樹", value: "命樹" },
+    { label: "資料庫", value: "資料庫" },
+    { label: "luck", value: "luck" },
+    { label: "almanac", value: "almanac" },
+    { label: "deity", value: "deity" },
+    { label: "yijing", value: "yijing" },
+    { label: "soul-tree", value: "soul-tree" },
+    { label: "database", value: "database" },
+    { label: "#/module/luck", value: "#/module/luck" },
+    { label: "#almanac-title", value: "#almanac-title" },
+    { label: "#deity-title", value: "#deity-title" },
+    { label: "#/module/yijing", value: "#/module/yijing" },
+    { label: "#/module/soul-tree", value: "#/module/soul-tree" },
+    { label: "#/module/database", value: "#/module/database" },
+    { label: "data/detail-pages-data.js", value: "data/detail-pages-data.js" },
+    { label: "features/almanac-engine.js", value: "features/almanac-engine.js" },
+    { label: "vendor/lunar/lunar.js", value: "vendor/lunar/lunar.js" },
+    { label: "data/deity-birthdays.js", value: "data/deity-birthdays.js" },
+    { label: "features/deity-matcher.js", value: "features/deity-matcher.js" },
+    { label: "features/date-test-mode.js", value: "features/date-test-mode.js" },
+    { label: "renderDetailPage", value: "renderDetailPage" },
+    { label: "dashboard support card", value: "dashboard support card" },
+    { label: "planning", value: "planning" },
+    { label: "experiment", value: "experiment" },
+    { label: "seed", value: "seed" },
+    { label: "不接 API", value: "不接 API" },
+    { label: "不接資料庫", value: "不接資料庫" },
+    { label: "不提供正式命理判斷", value: "不提供正式命理判斷" },
+    { label: "不做神諭式斷言", value: "不做神諭式斷言" },
+    { label: "不儲存使用者個資", value: "不儲存使用者個資" }
+  ], "SUPPORT_MODULE_SCHEMA.md 需要包含後半段 route / anchor / data source / feature 與安全線對照。");
 }
 
 function checkUtf8Readable() {
@@ -687,6 +747,7 @@ function checkUtf8Readable() {
     "vendor/lunar/README.md",
     "vendor/lunar/LICENSE",
     "CORE_DETAIL_SCHEMA.md",
+    "SUPPORT_MODULE_SCHEMA.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"

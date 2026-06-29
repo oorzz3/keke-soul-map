@@ -20,6 +20,7 @@
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
 - `CORE_DETAIL_SCHEMA.md`：五大核心詳情頁 schema 對照文件，記錄 route、data schema、renderer、CSS class 與安全線。
+- `SUPPORT_MODULE_SCHEMA.md`：後半段模組 schema 對照文件，記錄 detail route 與 dashboard support card / anchor 的現況。
 
 ## 靜態資源
 
@@ -34,6 +35,15 @@
 
 - `scripts/check-site.js`：小貓龍蝦檢查腳本，v0.3.4 起分為多個 group，例如 `version-sync`、`required-files`、`dashboard-structure`、`router-checks`、`detail-data-checks`、`almanac-deity-checks`、`risk-checks`、`docs-checks`。它是驗收輔助，不是正式測試框架。
 - `run-check-site.bat`：Windows 雙擊檢查入口，執行 `node scripts/check-site.js`。
+
+## 後半段模組現況
+
+- `data/detail-pages-data.js`：五大核心與通用 detail route 的 mock / planning schema 來源。
+- `features/almanac-engine.js`：農民曆 experiment 引擎。
+- `data/deity-birthdays.js`：神明生日 seed 資料表。
+- `features/deity-matcher.js`：神明生日命中邏輯。
+- `features/date-test-mode.js`：日期測試模式。
+- 後半段模組目前包含 detail route 與 dashboard support card 兩種型態。
 
 ## v0.3.4 工程整理
 
@@ -74,6 +84,24 @@
 | astrology | astrologyProfile | renderAstrologyDetail | astrology-detail |
 | numerology | numerologyProfile | renderNumerologyDetail | numerology-detail |
 | name | nameProfile | renderNameDetail | name-detail |
+
+## v0.4.2 後半段模組 schema 文件化
+
+- `SUPPORT_MODULE_SCHEMA.md`：後半段模組 schema 對照文件。
+- `CORE_DETAIL_SCHEMA.md`：五大核心詳情頁 schema 對照文件，保留不刪。
+- `scripts/check-site.js`：檢查 `CORE_DETAIL_SCHEMA.md` 與 `SUPPORT_MODULE_SCHEMA.md` 是否存在與包含必要內容。
+- v0.4.x 階段以文件化與地基整理為主，v0.5.x 才開始深化後半段模組。
+
+後半段對照小表：
+
+| 模組 | route / anchor | data source | 型態 |
+| --- | --- | --- | --- |
+| luck（流年 / 九運） | #/module/luck | data/detail-pages-data.js | detail route |
+| almanac（農民曆） | #almanac-title | almanac-engine + lunar.js | dashboard support |
+| deity（神明生日） | #deity-title | deity-birthdays + deity-matcher | dashboard support |
+| yijing（易經占問） | #/module/yijing | data/detail-pages-data.js | detail route |
+| soul-tree（命樹） | #/module/soul-tree | data/detail-pages-data.js | detail route |
+| database（資料庫） | #/module/database | data/detail-pages-data.js | detail route |
 
 ## v0.3.9 姓名學詳情頁 mock 深化
 

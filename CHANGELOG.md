@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.4.2｜後半段模組 schema 文件化 × 通用詳情頁對照表
+
+- 新增 `SUPPORT_MODULE_SCHEMA.md`。
+- 文件化流年 / 九運、農民曆、神明生日、易經占問、命樹與資料庫目前定位。
+- 區分 detail route 與 dashboard support card / anchor。
+- 文件化 route / anchor、data source、renderer / feature、狀態與安全線。
+- 保留 `CORE_DETAIL_SCHEMA.md`。
+- 保留首頁總控台、hash router、lunar、神明生日與日期測試模式。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.4.1｜五大核心 schema 文件化 × 詳情頁對照表
 
 - 新增 `CORE_DETAIL_SCHEMA.md`。
