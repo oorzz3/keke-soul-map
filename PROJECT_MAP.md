@@ -4,7 +4,7 @@
 
 - `index.html`：GitHub Pages 靜態入口，包含 `dashboardView` 與 `detailView` 容器，並以版本參數載入 CSS、vendor、features、data 與 app。
 - `style.css`：深藍星夜視覺、手機優先響應式、主卡 / 輔助卡視覺層級、命盤核心預覽卡，以及詳情頁導覽、active 狀態與 route fallback 樣式。
-- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；`renderModules` 會把命盤核心轉成總控台式預覽卡，並負責 active 狀態、詳情頁導覽與 route fallback。
+- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；`renderModules` 會把命盤核心轉成總控台式預覽卡，並負責 active 狀態、詳情頁導覽、route fallback 與農民曆 support card render。
 
 ## 路由與功能
 
@@ -15,7 +15,7 @@
 
 ## 資料層
 
-- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、農民曆與神明生日實驗設定。
+- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata。
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
@@ -94,6 +94,17 @@
 - `scripts/check-site.js`：加入 luck data / renderer / style / support schema 檢查。
 - `CORE_DETAIL_SCHEMA.md`：保留五大核心 schema 文件，不為本版強制更新。
 - `yijing`、`soul-tree`、`database`：仍維持通用 detail page。
+- `almanac`、`deity`：仍維持 dashboard support / anchor，不新增 detail route。
+
+## v0.5.1 農民曆 support 區塊整理
+
+- `data/site-data.js`：新增或整理 `almanacSupport` metadata。
+- `app.js`：整理農民曆 support card render，包含 `renderAlmanacSupportCard`、`renderAlmanacSourceNotes`、`renderAlmanacSafetyLines`。
+- `style.css`：新增或整理農民曆 support card 樣式，包含 `almanac-support-card`、`almanac-date-grid`、`almanac-safety-list`。
+- `features/almanac-engine.js`：農民曆 experiment 引擎，原則不改正式演算法。
+- `vendor/lunar/lunar.js`：外部 lunar 程式庫，不修改 vendor。
+- `SUPPORT_MODULE_SCHEMA.md`：更新 almanac 狀態為 support整理 / experiment。
+- `scripts/check-site.js`：加入農民曆 support 檢查與禁止新增 almanac/deity route 檢查。
 - `almanac`、`deity`：仍維持 dashboard support / anchor，不新增 detail route。
 
 ## v0.4.2 後半段模組 schema 文件化

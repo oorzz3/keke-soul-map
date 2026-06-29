@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v0.5.1｜農民曆 support 區塊整理
+
+- 整理首頁農民曆 support card。
+- 補充 `almanacSupport` metadata。
+- 顯示今日農曆資訊、資料來源狀態、experiment 標示與安全線提醒。
+- 保留 `features/almanac-engine.js` 與 `vendor/lunar/lunar.js`。
+- 不新增農民曆 detail route。
+- 不提供正式農民曆吉凶斷言或正式宜忌判定。
+- `SUPPORT_MODULE_SCHEMA.md` 更新 almanac 狀態。
+- 保留五大核心詳情頁與流年 / 九運詳情頁。
+- 保留神明生日 anchor 與日期測試模式。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.5.0｜流年 / 九運 mock 詳情頁深化
 
 - 深化 `luck` detail data（luck detail data）。

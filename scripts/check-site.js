@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.0";
-const expectedVersionLabel = "v0.5.0";
+const expectedVersion = "0.5.1";
+const expectedVersionLabel = "v0.5.1";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.0 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "流年 / 九運 mock 詳情頁深化" },
+    { label: "siteMeta.status", value: "農民曆 support 區塊整理" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.5.0 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.5.1 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.0", value: expectedVersionLabel },
-    { label: "fallback status", value: "流年 / 九運 mock 詳情頁深化" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.0。");
+    { label: "fallback v0.5.1", value: expectedVersionLabel },
+    { label: "fallback status", value: "農民曆 support 區塊整理" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.0", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -512,6 +512,9 @@ function checkAlmanacAndDeity() {
   const deityData = readText("data/deity-birthdays.js");
   const html = readText("index.html");
   const siteData = readText("data/site-data.js");
+  const app = readText("app.js");
+  const style = readText("style.css");
+  const detailData = readText("data/detail-pages-data.js");
 
   checkIncludes("features/almanac-engine.js", engine, [
     { label: "KekeAlmanacEngine", value: "KekeAlmanacEngine" },
@@ -547,10 +550,61 @@ function checkAlmanacAndDeity() {
 
   checkIncludes("data/site-data.js", siteData, [
     { label: "almanacEngine", value: "almanacEngine" },
+    { label: "almanacSupport", value: "almanacSupport" },
+    { label: "#almanac-title", value: "#almanac-title" },
+    { label: "dashboard support card", value: "dashboard support card" },
+    { label: "experiment", value: "experiment" },
+    { label: "lunar-javascript", value: "lunar-javascript" },
+    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
+    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
+    { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "deityMatcher", value: "deityMatcher" },
     { label: "dateTestMode", value: "dateTestMode" },
     { label: "testSeeds", value: "testSeeds" }
   ], "site-data.js 需要保留輔助提醒設定。");
+
+  checkIncludes("app.js", app, [
+    { label: "almanacCard", value: "almanacCard" },
+    { label: "almanac-title", value: "almanac-title" },
+    { label: "KekeAlmanacEngine", value: "KekeAlmanacEngine" },
+    { label: "getTodayAlmanac", value: "getTodayAlmanac" },
+    { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
+    { label: "renderAlmanacSourceNotes", value: "renderAlmanacSourceNotes" },
+    { label: "renderAlmanacSafetyLines", value: "renderAlmanacSafetyLines" },
+    { label: "experiment", value: "experiment" },
+    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
+    { label: "不提供正式宜忌", value: "不提供正式宜忌" }
+  ], "app.js 需要保留農民曆 support card render 與安全線。");
+
+  checkIncludes("style.css", style, [
+    { label: "almanac-card", value: "almanac-card" },
+    { label: "support-card", value: "support-card" },
+    { label: "almanac-support-card", value: "almanac-support-card" },
+    { label: "almanac-date-grid", value: "almanac-date-grid" },
+    { label: "almanac-safety-list", value: "almanac-safety-list" }
+  ], "style.css 需要保留農民曆 support card 樣式。");
+
+  if (siteData !== null && detailData !== null) {
+    const routeScanTargets = [
+      { label: "data/site-data.js", content: siteData },
+      { label: "data/detail-pages-data.js", content: detailData }
+    ];
+
+    for (const target of routeScanTargets) {
+      ["#/module/almanac", "#/module/deity"].forEach((route) => {
+        const ok = !target.content.includes(route);
+        addResult(ok ? "pass" : "fail", `${target.label} 未新增 route：${route}`, ok ? "未發現正式 route。" : "農民曆 / 神明生日本版不可新增 detail route。");
+      });
+    }
+
+    [
+      { label: 'id: "almanac"', value: 'id: "almanac"' },
+      { label: 'id: "deity"', value: 'id: "deity"' }
+    ].forEach((check) => {
+      const ok = !detailData.includes(check.value);
+      addResult(ok ? "pass" : "fail", `data/detail-pages-data.js 未新增：${check.label}`, ok ? "未發現 detail data id。" : "本版不可新增農民曆 / 神明生日 detail data。");
+    });
+  }
 }
 
 function checkStaticCompatibility() {
@@ -646,6 +700,12 @@ function checkDocs() {
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
+    { label: "almanacSupport", value: "almanacSupport" },
+    { label: "不新增 #/module/almanac", value: "不新增 `#/module/almanac`" },
+    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
+    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
+    { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "mock detail", value: "mock detail" },
     { label: "不提供吉凶分數", value: "不提供吉凶分數" },
@@ -671,6 +731,11 @@ function checkDocs() {
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
+    { label: "almanacSupport", value: "almanacSupport" },
+    { label: "不新增農民曆 detail route", value: "不新增農民曆 detail route" },
+    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
+    { label: "正式宜忌判定", value: "正式宜忌判定" },
     { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
@@ -689,6 +754,11 @@ function checkDocs() {
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
+    { label: "almanacSupport", value: "almanacSupport" },
+    { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
+    { label: "almanac-support-card", value: "almanac-support-card" },
+    { label: "禁止新增 almanac/deity route", value: "禁止新增 almanac/deity route" },
     { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "luckProfile", value: "luckProfile" },
     { label: "renderLuckDetail", value: "renderLuckDetail" },
@@ -742,6 +812,14 @@ function checkDocs() {
     { label: "科科命理宇宙站", value: "科科命理宇宙站" },
     { label: "後半段模組 Schema 對照表", value: "後半段模組 Schema 對照表" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
+    { label: "almanacSupport", value: "almanacSupport" },
+    { label: "support整理", value: "support整理" },
+    { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
+    { label: "lunar-javascript", value: "lunar-javascript" },
+    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
+    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
+    { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "mock detail", value: "mock detail" },
     { label: "renderLuckDetail", value: "renderLuckDetail" },
     { label: "luckProfile", value: "luckProfile" },

@@ -1,6 +1,6 @@
 # 科科命理宇宙站｜後半段模組 Schema 對照表
 
-版本：v0.5.0
+版本：v0.5.1
 狀態：mock detail / planning / experiment / seed 文件化
 定位：本文件只記錄後半段模組目前結構與頁面對照，不代表正式命理計算、正式占問或正式資料庫功能已完成。
 
@@ -9,7 +9,7 @@
 | 模組 | 顯示名 | route / anchor | 類型 | data source | 主要 renderer / feature | 狀態 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 運 | 流年 / 九運 | #/module/luck | detail route | data/detail-pages-data.js | renderLuckDetail 專屬詳情頁 | mock detail |
-| 曆 | 農民曆 | #almanac-title | dashboard support card / anchor | features/almanac-engine.js + vendor/lunar/lunar.js | renderTodayCard / almanac card 相關 render | experiment |
+| 曆 | 農民曆 | #almanac-title | dashboard support card / anchor | features/almanac-engine.js + vendor/lunar/lunar.js + data/site-data.js | renderAlmanacSupportCard / almanac card 相關 render | support整理 / experiment |
 | 神 | 神明生日 | #deity-title | dashboard support card / anchor | data/deity-birthdays.js + features/deity-matcher.js | deity matcher / deity card 相關 render | seed |
 | 卦 | 易經占問 | #/module/yijing | detail route | data/detail-pages-data.js | renderDetailPage 通用詳情頁 | planning |
 | 樹 | 命樹 | #/module/soul-tree | detail route | data/detail-pages-data.js + dashboard tree card | renderDetailPage 通用詳情頁 / tree card | planning |
@@ -78,14 +78,19 @@
 - dashboard support card / anchor
 - anchor: #almanac-title
 - data source: features/almanac-engine.js + vendor/lunar/lunar.js + data/site-data.js
-- 狀態：experiment
+- 狀態：support整理 / experiment
+- v0.5.1 已開始農民曆 support 區塊整理
+- 仍是 dashboard support card / anchor
+- 不新增 #/module/almanac
 
 目前相關結構：
 
 - almanacEngine
+- almanacSupport
 - KekeAlmanacEngine
 - getTodayAlmanac
 - lunar-javascript
+- renderAlmanacSupportCard
 - test seeds 可能輔助日期驗收
 
 安全線：
@@ -93,12 +98,13 @@
 - 目前為 lunar-javascript 實驗資料
 - 暫不取代人工校對資料
 - 不提供正式農民曆吉凶斷言
+- 不提供正式宜忌、沖煞或時辰判定
 - 不新增正式農民曆資料庫
 
 後續深化方向：
 
-- v0.5.x 可整理農民曆詳情或 dashboard support 區塊
-- 先補資料狀態提醒與欄位對照，不急著做新 route
+- v0.5.1 已整理 dashboard support card
+- 先補資料狀態提醒、experiment 標示與安全線，不急著做新 route
 
 ## 神｜神明生日 deity
 
@@ -266,7 +272,7 @@
 ## v0.5.x 深化順序建議
 
 - v0.5.0 流年 / 九運 mock 深化（已啟動 luck）
-- v0.5.1 農民曆 support 區塊整理
+- v0.5.1 農民曆 support 區塊整理（已啟動）
 - v0.5.2 神明生日 support 區塊整理
 - v0.5.3 易經占問 mock 深化
 - v0.5.4 命樹整合頁 mock 深化

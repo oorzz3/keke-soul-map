@@ -1,25 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.0",
+    version: "v0.5.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.0",
-    status: "流年 / 九運 mock 詳情頁深化",
-    updatedNote: "v0.5.0 深化流年 / 九運 mock 詳情頁，建立年度節奏、九運週期、時間軸、主題整合、行動提醒與資料狀態骨架。"
+    cacheVersion: "v0.5.1",
+    status: "農民曆 support 區塊整理",
+    updatedNote: "v0.5.1 整理首頁農民曆 support 區塊，補充今日農曆資訊、資料來源狀態、experiment 標示與安全線提醒，仍不新增農民曆 detail route。"
   },
   versionPolicy: {
-    productVersion: "v0.5.0",
-    cacheVersion: "v0.5.0",
+    productVersion: "v0.5.1",
+    cacheVersion: "v0.5.1",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.0",
+    currentVersion: "v0.5.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.0 保留 hash router、dashboard zone、五大核心詳情頁與後半段模組，並深化流年 / 九運 mock 詳情頁。"
+    note: "v0.5.1 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並整理農民曆 support 區塊。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
@@ -31,6 +31,27 @@ window.KekeSoulData = {
     mode: "experiment",
     source: "lunar-javascript",
     note: "本版為 lunar-javascript 實驗資料，暫不取代人工校對資料。"
+  },
+  almanacSupport: {
+    enabled: true,
+    mode: "experiment",
+    anchor: "#almanac-title",
+    cardType: "dashboard support card",
+    displayName: "農民曆",
+    displayFocus: "今日農曆 / 節氣資訊 / 資料狀態 / 溫和提醒",
+    source: "features/almanac-engine.js + vendor/lunar/lunar.js",
+    statusLabel: "experiment",
+    safetyLines: [
+      "目前為 lunar-javascript 實驗資料。",
+      "暫不取代人工校對資料。",
+      "不提供正式農民曆吉凶斷言。",
+      "不提供正式宜忌、沖煞或時辰判定。"
+    ],
+    displayNotes: [
+      "首頁只顯示今日農民曆摘要與資料狀態。",
+      "本版不新增農民曆 detail route。",
+      "未來可再整理農民曆詳情或 support 區塊。"
+    ]
   },
   deityMatcher: {
     enabled: true,

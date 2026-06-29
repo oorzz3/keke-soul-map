@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.0",
+  version: "v0.5.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.0",
-  status: "流年 / 九運 mock 詳情頁深化"
+  cacheVersion: "v0.5.1",
+  status: "農民曆 support 區塊整理"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -29,7 +29,7 @@ function renderDashboardView() {
   renderNumerology(data.numerology);
   renderModules(data.modules);
   renderSoulTree(data.soulTree);
-  renderAlmanac(data.almanac);
+  renderAlmanac(data.almanac, data.almanacSupport);
   renderDeityDay(data.deityDay);
   renderTools(data.tools);
   renderDesktopNav(data);
@@ -1709,46 +1709,107 @@ function renderCompactModuleLink(item = {}, moduleId, currentModuleId) {
   `;
 }
 
-function renderAlmanac(almanac = {}) {
+function renderAlmanac(almanac = {}, supportConfig = {}) {
   const engineResult = getAlmanacEngineResult();
-  setHtml("#almanacCard", `
-    <div class="compact-reminder">
+  setHtml("#almanacCard", renderAlmanacSupportCard(almanac, engineResult, supportConfig));
+}
+
+function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig = {}) {
+  const config = getAlmanacSupportConfig(supportConfig);
+  const engineOk = engineResult.status === "ok";
+  const solarDate = engineOk ? engineResult.solarDate : almanac.solarDate;
+  const lunarText = engineOk ? engineResult.lunarText : almanac.lunarDate;
+  const monthDay = engineOk && engineResult.lunarMonthText && engineResult.lunarDayText
+    ? `${engineResult.lunarMonthText}月 ${engineResult.lunarDayText}`
+    : "資料待建立";
+  const sourceLabel = engineResult.source || config.source || "lunar-javascript experiment";
+
+  return `
+    <div class="compact-reminder almanac-support-card">
       <div class="section-heading support-heading compact-heading">
         <p>輔助提醒</p>
-        <h2 id="almanac-title">今日時曆提醒</h2>
+        <h2 id="almanac-title">農民曆小提醒</h2>
       </div>
-      <p class="support-copy">農民曆作為每日提醒參考，主軸仍是命盤核心。</p>
-      <div class="compact-reminder-grid">
-        <div>
-          <span>國曆</span>
-          <strong>${escapeHtml(almanac.solarDate)}</strong>
+      <div class="almanac-status-row">
+        <span class="source-tag">${escapeHtml(config.statusLabel)}</span>
+        <span>${escapeHtml(config.cardType)}</span>
+      </div>
+      <p class="support-copy">${escapeHtml(config.displayFocus)}</p>
+      <div class="almanac-date-grid">
+        <div class="almanac-date-item">
+          <span>今日陽曆</span>
+          <strong>${escapeHtml(solarDate || "本次未取得")}</strong>
         </div>
-        <div>
-          <span>農曆</span>
-          <strong>${escapeHtml(almanac.lunarDate)}</strong>
+        <div class="almanac-date-item">
+          <span>今日農曆</span>
+          <strong>${escapeHtml(lunarText || "本次未取得")}</strong>
         </div>
-        <div>
-          <span>今日宜</span>
-          <strong>${escapeHtml(almanac.good)}</strong>
+        <div class="almanac-date-item">
+          <span>農曆月日</span>
+          <strong>${escapeHtml(monthDay)}</strong>
         </div>
-        <div>
-          <span>今日忌</span>
-          <strong>${escapeHtml(almanac.avoid)}</strong>
+        <div class="almanac-date-item">
+          <span>資料狀態</span>
+          <strong>${escapeHtml(engineOk ? "lunar 實驗資料已取得" : "本次未取得")}</strong>
         </div>
       </div>
-      <dl class="detail-list compact support-detail is-muted">
-        <div>
-          <dt>吉時</dt>
-          <dd>${escapeHtml(almanac.luckyHours)}</dd>
-        </div>
-        <div>
-          <dt>沖煞</dt>
-          <dd>${escapeHtml(almanac.clash)}</dd>
-        </div>
-      </dl>
-      ${renderAlmanacEnginePanel(engineResult)}
+      <p class="almanac-source-note">資料來源：${escapeHtml(sourceLabel)}；目前為 experiment。</p>
+      ${renderAlmanacSourceNotes(almanac, engineResult)}
+      ${renderAlmanacSafetyLines(config.safetyLines)}
+      <p class="almanac-experiment-note">今日只作為節奏參考，不作為重大決策依據。</p>
     </div>
-  `);
+  `;
+}
+
+function getAlmanacSupportConfig(config = {}) {
+  return {
+    statusLabel: config.statusLabel || "experiment",
+    cardType: config.cardType || "dashboard support card",
+    displayFocus: config.displayFocus || "今日農曆 / 節氣資訊 / 資料狀態 / 溫和提醒",
+    source: config.source || "features/almanac-engine.js + vendor/lunar/lunar.js",
+    safetyLines: Array.isArray(config.safetyLines) && config.safetyLines.length > 0
+      ? config.safetyLines
+      : [
+        "目前為 lunar-javascript 實驗資料。",
+        "暫不取代人工校對資料。",
+        "不提供正式農民曆吉凶斷言。",
+        "不提供正式宜忌、沖煞或時辰判定。"
+      ]
+  };
+}
+
+function renderAlmanacSourceNotes(almanac = {}, result = {}) {
+  const notes = [
+    { label: "星期", value: result.week ? `星期${result.week}` : "本次未取得" },
+    { label: "干支 / 生肖", value: result.gzYear && result.zodiac ? `${result.gzYear} / ${result.zodiac}` : "本次未取得" },
+    { label: "展示資料", value: almanac.mockNote || "資料待建立" }
+  ];
+
+  return `
+    <dl class="detail-list compact support-detail is-muted">
+      ${notes.map((item) => `
+        <div>
+          <dt>${escapeHtml(item.label)}</dt>
+          <dd>${escapeHtml(item.value)}</dd>
+        </div>
+      `).join("")}
+    </dl>
+  `;
+}
+
+function renderAlmanacSafetyLines(lines = []) {
+  const safeLines = Array.isArray(lines) && lines.length > 0 ? lines : [
+    "目前為實驗資料。",
+    "暫不取代人工校對。",
+    "不提供正式吉凶斷言。",
+    "不提供正式宜忌判定。"
+  ];
+
+  return `
+    <ul class="almanac-safety-list" aria-label="農民曆資料安全線">
+      ${safeLines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
+    </ul>
+  `;
 }
 
 function getAlmanacEngineResult() {
