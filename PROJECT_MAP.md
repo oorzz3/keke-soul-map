@@ -40,6 +40,21 @@
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
+## v0.4.0 五大核心詳情頁節奏整理
+
+- `app.js`：五大核心 detail renderer 已完成，生命靈數 renderer 命名已收束為 `renderNumerologyRhythmOverview` 與 `renderNumerologyNumberMeanings`。
+- `scripts/check-site.js`：v0.4.0 起檢查五大核心詳情頁資料、renderer、樣式與舊 renderer 名稱殘留。
+- `data/detail-pages-data.js`：五大核心 mock / planning schema 保留，尚未接入正式命理計算。
+- `style.css`：五大核心詳情頁樣式保留，不做大視覺改版。
+
+五大核心詳情頁對照表：
+
+- `ziwei` -> `renderZiweiDetail` -> `ziwei-detail`
+- `bazi` -> `renderBaziDetail` -> `bazi-detail`
+- `astrology` -> `renderAstrologyDetail` -> `astrology-detail`
+- `numerology` -> `renderNumerologyDetail` -> `numerology-detail`
+- `name` -> `renderNameDetail` -> `name-detail`
+
 ## v0.3.9 姓名學詳情頁 mock 深化
 
 - `data/detail-pages-data.js`：`name` 新增 `nameProfile`、`nameStructureOverview`、`characterOverview`、`fiveGridOverview`、`soundMeaningOverview`、`usageScenarioOverview`、`interpretationBlocks`、`dataNotes`。
@@ -50,7 +65,7 @@
 ## v0.3.8 生命靈數詳情頁 mock 深化
 
 - `data/detail-pages-data.js`：`numerology` 新增 `numerologyProfile`、`coreNumberOverview`、`birthBreakdownDraft`、`rhythmOverview`、`numberMeaningOverview`、`actionNotes`、`interpretationBlocks`、`dataNotes`。
-- `app.js`：新增 `renderNumerologyDetail`、`renderNumerologyProfile`、`renderNumerologyCoreNumbers`、`renderNumerologyBirthBreakdown`、`renderNumerologyCycles`、`renderNumerologyMeanings`、`renderNumerologyActionNotes`、`renderNumerologyInterpretation`、`renderNumerologyDataNotes`。
+- `app.js`：新增 `renderNumerologyDetail`、`renderNumerologyProfile`、`renderNumerologyCoreNumbers`、`renderNumerologyBirthBreakdown`、`renderNumerologyRhythmOverview`、`renderNumerologyNumberMeanings`、`renderNumerologyActionNotes`、`renderNumerologyInterpretation`、`renderNumerologyDataNotes`。
 - `style.css`：新增生命靈數詳情頁樣式，包含核心數字、生日拆解、個人節奏、數字 1～9、行動節奏與資料狀態提醒。
 - `scripts/check-site.js`：新增生命靈數詳情頁資料、renderer 與樣式檢查。
 

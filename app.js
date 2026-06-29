@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.9",
+  version: "v0.4.0",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.9",
-  status: "姓名學詳情頁 mock 深化"
+  cacheVersion: "v0.4.0",
+  status: "五大核心詳情頁節奏整理 × renderer 命名收束"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -757,8 +757,8 @@ function renderNumerologyDetail(page = {}) {
       ${renderNumerologyProfile(page.numerologyProfile)}
       ${renderNumerologyCoreNumbers(page.coreNumberOverview)}
       ${renderNumerologyBirthBreakdown(page.birthBreakdownDraft)}
-      ${renderNumerologyCycles(page.rhythmOverview)}
-      ${renderNumerologyMeanings(page.numberMeaningOverview)}
+      ${renderNumerologyRhythmOverview(page.rhythmOverview)}
+      ${renderNumerologyNumberMeanings(page.numberMeaningOverview)}
       ${renderNumerologyActionNotes(page.actionNotes)}
       ${renderNumerologyInterpretation(page.interpretationBlocks)}
       ${renderNumerologyDataNotes(page.dataNotes)}
@@ -847,7 +847,7 @@ function renderNumerologyBirthBreakdown(breakdown = []) {
   `;
 }
 
-function renderNumerologyCycles(cycles = []) {
+function renderNumerologyRhythmOverview(cycles = []) {
   if (!Array.isArray(cycles) || cycles.length === 0) {
     return "";
   }
@@ -872,7 +872,7 @@ function renderNumerologyCycles(cycles = []) {
   `;
 }
 
-function renderNumerologyMeanings(meanings = []) {
+function renderNumerologyNumberMeanings(meanings = []) {
   if (!Array.isArray(meanings) || meanings.length === 0) {
     return "";
   }

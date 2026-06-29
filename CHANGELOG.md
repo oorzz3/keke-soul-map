@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.4.0｜五大核心詳情頁節奏整理 × renderer 命名收束
+
+- 收束生命靈數 renderer 命名。
+- 修正 `scripts/check-site.js` 過期檢查訊息。
+- 強化五大核心詳情頁 mock / planning 標示檢查。
+- 保留紫微、八字、西洋星盤、生命靈數、姓名學五大核心詳情頁。
+- 保留首頁總控台、hash router、lunar、神明生日與日期測試模式。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.3.9｜姓名學詳情頁 mock 深化
 
 - 深化 `name` detail data。
