@@ -1,4 +1,4 @@
-﻿# 科科命理宇宙站 / keke-soul-map
+# 科科命理宇宙站 / keke-soul-map
 
 GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.6
+- 網站版本：v0.3.7
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.6
+- 靜態資源快取版本：v0.3.7
 
 ## 專案定位
 
@@ -17,6 +17,20 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.3.7 西洋星盤詳情頁 mock 深化
+
+v0.3.7 深化 `index.html#/module/astrology`，先建立西洋星盤詳情頁的 mock 資料與渲染骨架，仍不做真正西洋星盤計算。
+
+- 新增 `astrologyProfile` 星盤摘要。
+- 新增 `axisOverview`，規劃太陽、月亮、上升三軸。
+- 新增 `planetOverview`，規劃水星、金星、火星、木星、土星。
+- 新增 `houseOverview`，保留十二宮位 planning 骨架。
+- 新增 `aspectOverview`，規劃合相、對分相、四分相、三分相、六分相。
+- 新增星盤解讀重點與資料狀態提醒。
+- `app.js` 新增 `renderAstrologyDetail` 與相關 renderer。
+- 尚未接入正式西洋星盤計算，內容不可視為正式命理判斷。
+- 保留紫微詳情頁、八字詳情頁、其他 mock 詳情頁、首頁總控台、hash router、lunar、神明生日與日期測試模式。
 
 ## v0.3.6 八字四柱詳情頁 mock 深化
 
@@ -180,8 +194,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.6 已將主要靜態資源引用更新為 `v=0.3.6`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.7 已將主要靜態資源引用更新為 `v=0.3.7`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.6 後可繼續微調八字詳情頁資訊量，或逐步深化星盤 / 生命靈數 / 姓名學詳情頁 mock；仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.3.7 後可繼續微調星盤詳情頁資訊量，或逐步深化生命靈數 / 姓名學詳情頁 mock；仍建議先維持 mock / planning，不急著接真正排盤演算法。

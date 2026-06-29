@@ -324,6 +324,143 @@ window.KekeDetailPages = {
       tags: ["太陽", "月亮", "上升"],
       note: "目前為 mock 首頁預覽，尚未接入正式星盤計算。"
     },
+    astrologyProfile: {
+      chartStatus: "mock",
+      chartType: "西洋星盤命盤骨架",
+      chartFocus: "太陽 / 月亮 / 上升三軸",
+      houseSystem: "宮位制待定",
+      birthLocation: "出生地待定",
+      summary: "目前為 mock 星盤骨架，用來規劃未來西洋星盤詳情頁呈現方式。"
+    },
+    axisOverview: [
+      {
+        axis: "太陽",
+        theme: "核心意志、自我認同與人生方向",
+        sign: "待建立",
+        house: "待建立",
+        note: "目前為 mock，未接正式行星位置計算。"
+      },
+      {
+        axis: "月亮",
+        theme: "情緒需求、安全感與內在反應",
+        sign: "待建立",
+        house: "待建立",
+        note: "欄位規劃中，未接正式星盤計算。"
+      },
+      {
+        axis: "上升",
+        theme: "外在呈現、第一印象與人生入口",
+        sign: "待建立",
+        house: "第一宮待定",
+        note: "欄位規劃中，未接出生時間與地點換算。"
+      }
+    ],
+    planetOverview: [
+      {
+        planet: "水星",
+        theme: "思考、溝通、學習與資訊處理",
+        sign: "待建立",
+        house: "待建立",
+        status: "planning"
+      },
+      {
+        planet: "金星",
+        theme: "喜好、關係、美感與價值感",
+        sign: "待建立",
+        house: "待建立",
+        status: "planning"
+      },
+      {
+        planet: "火星",
+        theme: "行動力、慾望、衝突與推進方式",
+        sign: "待建立",
+        house: "待建立",
+        status: "planning"
+      },
+      {
+        planet: "木星",
+        theme: "擴張、信念、機會與成長方向",
+        sign: "待建立",
+        house: "待建立",
+        status: "planning"
+      },
+      {
+        planet: "土星",
+        theme: "責任、限制、紀律與長期課題",
+        sign: "待建立",
+        house: "待建立",
+        status: "planning"
+      }
+    ],
+    houseOverview: [
+      { house: "第一宮", theme: "自我形象、外在呈現與人生入口", status: "planning" },
+      { house: "第二宮", theme: "金錢、資源、價值感與安全感", status: "planning" },
+      { house: "第三宮", theme: "溝通、學習、手足與短距離移動", status: "planning" },
+      { house: "第四宮", theme: "家庭、根基、內在安全與居住環境", status: "planning" },
+      { house: "第五宮", theme: "創造、戀愛、玩樂與自我表達", status: "planning" },
+      { house: "第六宮", theme: "工作日常、健康習慣與服務能力", status: "planning" },
+      { house: "第七宮", theme: "伴侶、合作、契約與一對一關係", status: "planning" },
+      { house: "第八宮", theme: "共享資源、深層連結、危機與轉化", status: "planning" },
+      { house: "第九宮", theme: "遠行、信念、高等學習與世界觀", status: "planning" },
+      { house: "第十宮", theme: "事業、名聲、社會位置與成就方向", status: "planning" },
+      { house: "第十一宮", theme: "朋友、社群、願景與團體連結", status: "planning" },
+      { house: "第十二宮", theme: "潛意識、隱藏課題、休息與靈性整合", status: "planning" }
+    ],
+    aspectOverview: [
+      {
+        aspect: "合相",
+        angle: "0°",
+        theme: "能量融合、主題集中與強化",
+        status: "planning"
+      },
+      {
+        aspect: "對分相",
+        angle: "180°",
+        theme: "拉扯、投射、關係鏡像與平衡",
+        status: "planning"
+      },
+      {
+        aspect: "四分相",
+        angle: "90°",
+        theme: "壓力、摩擦、挑戰與行動推力",
+        status: "planning"
+      },
+      {
+        aspect: "三分相",
+        angle: "120°",
+        theme: "流暢、天賦、自然支持與順手感",
+        status: "planning"
+      },
+      {
+        aspect: "六分相",
+        angle: "60°",
+        theme: "機會、協調、可培養的助力",
+        status: "planning"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "三軸觀察",
+        level: "mock",
+        content: "目前只作為星盤詳情頁展示用，未代表正式太陽、月亮或上升結果。"
+      },
+      {
+        title: "行星落點",
+        level: "planning",
+        content: "未來會依正式星盤結果整理行星所在星座、宮位與人格主題。"
+      },
+      {
+        title: "相位關係",
+        level: "planning",
+        content: "未來可整理主要相位形成的人格張力、天賦流動與行動提醒。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式西洋星盤計算。",
+      "未來需補出生年月日時、出生地、時區、宮位制與行星位置計算。",
+      "本頁內容不得視為正式命理判斷。"
+    ],
     sections: [
       {
         title: "這個系統看什麼",
@@ -339,6 +476,7 @@ window.KekeDetailPages = {
       }
     ]
   },
+
   numerology: {
     id: "numerology",
     order: 4,

@@ -1,30 +1,30 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.6",
+    version: "v0.3.7",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.6",
-    status: "八字四柱詳情頁 mock 深化",
-    updatedNote: "v0.3.6 深化八字四柱詳情頁 mock 結構，建立四柱、日主、五行分布、十神關係與資料狀態骨架。"
+    cacheVersion: "v0.3.7",
+    status: "西洋星盤詳情頁 mock 深化",
+    updatedNote: "v0.3.7 深化西洋星盤詳情頁 mock 結構，建立三軸、行星落點、十二宮位、相位關係與資料狀態骨架。"
   },
   versionPolicy: {
-    productVersion: "v0.3.6",
-    cacheVersion: "v0.3.6",
+    productVersion: "v0.3.7",
+    cacheVersion: "v0.3.7",
     dataVersion: "v0.2",
-    note: "產品版本標記功能進度，cacheVersion 用於 GitHub Pages 靜態資源刷新，dataVersion 標記資料層結構。"
+    note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.6",
+    currentVersion: "v0.3.7",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.6 保留 hash router 與 dashboard zone，並深化八字四柱 mock 詳情頁。"
+    note: "v0.3.7 保留 hash router 與 dashboard zone，並深化西洋星盤 mock 詳情頁。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",
     secondaryFocus: "每日輔助提醒",
-    note: "首頁以命盤核心總控台為主要視覺，農民曆與神明生日仍作為輔助提醒。"
+    note: "首頁以命盤系統為主，農民曆與神明生日作為輔助提醒。"
   },
   almanacEngine: {
     enabled: true,
@@ -34,9 +34,9 @@ window.KekeSoulData = {
   },
   deityMatcher: {
     enabled: true,
-    mode: "experiment",
+    mode: "seed",
     source: "data/deity-birthdays.js",
-    note: "本版使用 seed 資料表做神明生日比對，資料表仍需人工校對與擴充。"
+    note: "本版使用 seed 資料表測試命中，不代表資料表已完整。"
   },
   dateTestMode: {
     enabled: true,
@@ -79,6 +79,7 @@ window.KekeSoulData = {
   },
   todaySummary: {
     label: "今日科科摘要",
+    displayLabel: "今日科科摘要",
     theme: "專注與收斂",
     suitable: "整理資料、學習研究、寫筆記、靜心祈福",
     avoid: "衝動決策、情緒爭辯、同時開太多新坑",
@@ -94,43 +95,43 @@ window.KekeSoulData = {
   modules: [
     {
       title: "紫微斗數",
-      note: "命宮、主星與人生主題",
+      note: "命宮、十二宮位與主星",
       icon: "紫",
       href: "#/module/ziwei"
     },
     {
       title: "八字四柱",
-      note: "年柱、月柱、日柱、時柱",
+      note: "年、月、日、時與五行分布",
       icon: "干",
       href: "#/module/bazi"
     },
     {
       title: "西洋星盤",
-      note: "太陽、月亮、上升與行星",
+      note: "太陽、月亮、上升與行星相位",
       icon: "星",
       href: "#/module/astrology"
     },
     {
       title: "生命靈數",
-      note: "核心數字與年度節奏",
+      note: "生命數字與個人節奏",
       icon: "7",
       href: "#/module/numerology"
     },
     {
       title: "姓名學",
-      note: "姓名結構、五格與語感",
+      note: "姓名結構、五格與字義",
       icon: "名",
       href: "#/module/name"
     },
     {
       title: "流年 / 九運",
-      note: "年度焦點與長週期節奏",
+      note: "年度節奏與九運趨勢",
       icon: "運",
       href: "#/module/luck"
     },
     {
       title: "農民曆",
-      note: "每日宜忌與 lunar 實驗資料",
+      note: "每日輔助提醒與 lunar 實驗資料",
       icon: "曆",
       href: "#almanac-title"
     },
@@ -142,7 +143,7 @@ window.KekeSoulData = {
     },
     {
       title: "易經占問",
-      note: "占問入口與反思紀錄",
+      note: "占問入口與紀錄規劃",
       icon: "卦",
       href: "#/module/yijing"
     },
@@ -181,9 +182,5 @@ window.KekeSoulData = {
     crown: "枝葉：紫微、星盤、生命靈數、姓名學",
     description: "多元命理系統整合成一棵屬於科科的命理之樹，看見全貌，找到方向。"
   },
-  tools: [
-    "匯出 JSON",
-    "匯入資料",
-    "備份紀錄"
-  ]
+  tools: ["匯出 JSON", "匯入資料", "備份紀錄"]
 };

@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.6",
+  version: "v0.3.7",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.6",
-  status: "八字四柱詳情頁 mock 深化"
+  cacheVersion: "v0.3.7",
+  status: "西洋星盤詳情頁 mock 深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -245,6 +245,10 @@ function renderSpecialDetailContent(page = {}) {
 
   if (page.id === "bazi" && page.baziProfile) {
     return renderBaziDetail(page);
+  }
+
+  if (page.id === "astrology" && page.astrologyProfile) {
+    return renderAstrologyDetail(page);
   }
 
   return "";
@@ -526,6 +530,210 @@ function renderBaziDataNotes(notes = []) {
 
   return `
     <section class="bazi-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderAstrologyDetail(page = {}) {
+  return `
+    <section class="astrology-detail" aria-label="西洋星盤 mock 詳情">
+      <div class="detail-note astrology-mock-note">目前是 mock 星盤骨架，不是正式星盤；尚未接入正式西洋星盤計算。</div>
+      ${renderAstrologyProfile(page.astrologyProfile)}
+      ${renderAstrologyAxisOverview(page.axisOverview)}
+      ${renderAstrologyPlanetOverview(page.planetOverview)}
+      ${renderAstrologyHouseOverview(page.houseOverview)}
+      ${renderAstrologyAspectOverview(page.aspectOverview)}
+      ${renderAstrologyInterpretation(page.interpretationBlocks)}
+      ${renderAstrologyDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderAstrologyProfile(profile = {}) {
+  return `
+    <section class="astrology-profile-card">
+      <div class="section-heading compact-heading">
+        <p>星盤命盤摘要</p>
+        <h3>${escapeHtml(profile.chartType || "西洋星盤命盤骨架")}</h3>
+      </div>
+      <div class="astrology-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>觀察焦點</span>
+          <strong>${escapeHtml(profile.chartFocus || "太陽 / 月亮 / 上升三軸")}</strong>
+        </div>
+        <div>
+          <span>宮位制</span>
+          <strong>${escapeHtml(profile.houseSystem || "宮位制待定")}</strong>
+        </div>
+        <div>
+          <span>出生地</span>
+          <strong>${escapeHtml(profile.birthLocation || "出生地待定")}</strong>
+        </div>
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 星盤骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderAstrologyAxisOverview(axisOverview = []) {
+  if (!Array.isArray(axisOverview) || axisOverview.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>三軸規劃</p>
+        <h3>太陽 / 月亮 / 上升</h3>
+      </div>
+      <div class="astrology-axis-grid">
+        ${axisOverview.map((axis) => `
+          <article class="astrology-axis-card">
+            <div class="astrology-card-head">
+              <strong>${escapeHtml(axis.axis)}</strong>
+              <span>${escapeHtml(axis.sign || "待建立")}</span>
+            </div>
+            <p>${escapeHtml(axis.theme)}</p>
+            <dl>
+              <div>
+                <dt>星座</dt>
+                <dd>${escapeHtml(axis.sign || "待建立")}</dd>
+              </div>
+              <div>
+                <dt>宮位</dt>
+                <dd>${escapeHtml(axis.house || "待建立")}</dd>
+              </div>
+            </dl>
+            <small>${escapeHtml(axis.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderAstrologyPlanetOverview(planets = []) {
+  if (!Array.isArray(planets) || planets.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>行星落點規劃</p>
+        <h3>水星、金星、火星、木星、土星</h3>
+      </div>
+      <div class="astrology-planet-grid">
+        ${planets.map((planet) => `
+          <article class="astrology-planet-card">
+            <span class="detail-status is-${escapeHtml(planet.status || "planning")}">${escapeHtml(planet.status || "planning")}</span>
+            <strong>${escapeHtml(planet.planet)}</strong>
+            <p>${escapeHtml(planet.theme)}</p>
+            <dl>
+              <div>
+                <dt>星座</dt>
+                <dd>${escapeHtml(planet.sign || "待建立")}</dd>
+              </div>
+              <div>
+                <dt>宮位</dt>
+                <dd>${escapeHtml(planet.house || "待建立")}</dd>
+              </div>
+            </dl>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderAstrologyHouseOverview(houses = []) {
+  if (!Array.isArray(houses) || houses.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>十二宮位規劃</p>
+        <h3>人生場域與事件主題</h3>
+      </div>
+      <div class="astrology-house-grid">
+        ${houses.map((house) => `
+          <article class="astrology-house-card">
+            <span class="detail-status is-${escapeHtml(house.status || "planning")}">${escapeHtml(house.status || "planning")}</span>
+            <strong>${escapeHtml(house.house)}</strong>
+            <p>${escapeHtml(house.theme)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderAstrologyAspectOverview(aspects = []) {
+  if (!Array.isArray(aspects) || aspects.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>相位關係規劃</p>
+        <h3>能量流動、張力與協調</h3>
+      </div>
+      <div class="astrology-aspect-grid">
+        ${aspects.map((aspect) => `
+          <article class="astrology-aspect-card">
+            <div class="astrology-aspect-angle">${escapeHtml(aspect.angle)}</div>
+            <strong>${escapeHtml(aspect.aspect)}</strong>
+            <p>${escapeHtml(aspect.theme)}</p>
+            <span class="detail-status is-${escapeHtml(aspect.status || "planning")}">${escapeHtml(aspect.status || "planning")}</span>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderAstrologyInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前只做 mock / planning 提示</h3>
+      </div>
+      <div class="astrology-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="astrology-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderAstrologyDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="astrology-data-notes">
       <h3>資料狀態提醒</h3>
       <ul>
         ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}

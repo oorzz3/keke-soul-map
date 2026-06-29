@@ -1,4 +1,4 @@
-﻿# PROJECT_MAP
+# PROJECT_MAP
 
 ## 入口與畫面
 
@@ -39,6 +39,14 @@
 - `scripts/check-site.js`：整理為 helper + 多個 group，降低後續版本繼續堆疊零散字串檢查的負擔。
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
+
+## v0.3.7 西洋星盤詳情頁 mock 深化
+
+- `data/detail-pages-data.js`：`astrology` 新增 `astrologyProfile`、`axisOverview`、`planetOverview`、`houseOverview`、`aspectOverview`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderAstrologyDetail`、`renderAstrologyProfile`、`renderAstrologyAxisOverview`、`renderAstrologyPlanetOverview`、`renderAstrologyHouseOverview`、`renderAstrologyAspectOverview`、`renderAstrologyInterpretation`、`renderAstrologyDataNotes`。
+- `style.css`：新增西洋星盤詳情頁樣式，包含三軸、行星、宮位、相位、解讀與資料提醒區塊。
+- `scripts/check-site.js`：加入西洋星盤詳情頁資料與 renderer 檢查。
+- 架構仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
 ## v0.3.6 八字詳情頁 mock 深化
 

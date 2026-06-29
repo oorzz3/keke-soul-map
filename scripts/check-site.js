@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.3.6";
-const expectedVersionLabel = "v0.3.6";
+const expectedVersion = "0.3.7";
+const expectedVersionLabel = "v0.3.7";
 const results = [];
 let activeGroup = "general";
 
@@ -38,26 +38,14 @@ function pathExists(relativePath) {
 
 function checkFileExists(relativePath) {
   const fullPath = sitePath(relativePath);
-
-  if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) {
-    addResult("pass", `必要檔案存在：${relativePath}`, "檢查通過。");
-    return true;
-  }
-
-  addResult("fail", `必要檔案缺少：${relativePath}`, "請確認檔案仍在專案根目錄內。");
-  return false;
+  const ok = fs.existsSync(fullPath) && fs.statSync(fullPath).isFile();
+  addResult(ok ? "pass" : "fail", `必要檔案：${relativePath}`, ok ? "檢查通過。" : "檔案不存在。");
 }
 
 function checkFolderExists(relativePath) {
   const fullPath = sitePath(relativePath);
-
-  if (fs.existsSync(fullPath) && fs.statSync(fullPath).isDirectory()) {
-    addResult("pass", `必要資料夾存在：${relativePath}/`, "檢查通過。");
-    return true;
-  }
-
-  addResult("fail", `必要資料夾缺少：${relativePath}/`, "請確認資料夾仍保留。");
-  return false;
+  const ok = fs.existsSync(fullPath) && fs.statSync(fullPath).isDirectory();
+  addResult(ok ? "pass" : "fail", `必要資料夾：${relativePath}/`, ok ? "檢查通過。" : "資料夾不存在。");
 }
 
 function checkIncludes(fileLabel, content, checks, failMessage) {
@@ -67,11 +55,8 @@ function checkIncludes(fileLabel, content, checks, failMessage) {
   }
 
   for (const check of checks) {
-    if (content.includes(check.value)) {
-      addResult("pass", `${fileLabel} 包含：${check.label}`, "檢查通過。");
-    } else {
-      addResult("fail", `${fileLabel} 缺少：${check.label}`, failMessage);
-    }
+    const ok = content.includes(check.value);
+    addResult(ok ? "pass" : "fail", `${fileLabel} 包含：${check.label}`, ok ? "檢查通過。" : failMessage);
   }
 }
 
@@ -82,11 +67,8 @@ function checkRegex(fileLabel, content, checks, failMessage) {
   }
 
   for (const check of checks) {
-    if (check.pattern.test(content)) {
-      addResult("pass", `${fileLabel} 符合：${check.label}`, "檢查通過。");
-    } else {
-      addResult("fail", `${fileLabel} 不符合：${check.label}`, failMessage);
-    }
+    const ok = check.pattern.test(content);
+    addResult(ok ? "pass" : "fail", `${fileLabel} 符合：${check.label}`, ok ? "檢查通過。" : failMessage);
   }
 }
 
@@ -102,11 +84,9 @@ function walkFiles(startDir) {
     const fullPath = path.join(fullStart, entry.name);
 
     if (entry.isDirectory()) {
-      if (entry.name === ".git") {
-        continue;
+      if (entry.name !== ".git") {
+        files.push(...walkFiles(toSitePath(fullPath)));
       }
-
-      files.push(...walkFiles(toSitePath(fullPath)));
       continue;
     }
 
@@ -160,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.3.6 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.3.7 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "八字四柱詳情頁 mock 深化" },
+    { label: "siteMeta.status", value: "西洋星盤詳情頁 mock 深化" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.3.6 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.3.7 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.3.6", value: expectedVersionLabel },
-    { label: "fallback status", value: "八字四柱詳情頁 mock 深化" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.3.6。");
+    { label: "fallback v0.3.7", value: expectedVersionLabel },
+    { label: "fallback status", value: "西洋星盤詳情頁 mock 深化" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.3.7。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.3.6", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.3.7", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -202,15 +182,7 @@ function checkRequiredFilesAndFolders() {
     "PROJECT_MAP.md"
   ].forEach(checkFileExists);
 
-  [
-    "data",
-    "assets",
-    "assets/images",
-    "assets/icons",
-    "features",
-    "vendor",
-    "vendor/lunar"
-  ].forEach(checkFolderExists);
+  ["data", "assets", "assets/images", "assets/icons", "features", "vendor", "vendor/lunar"].forEach(checkFolderExists);
 }
 
 function checkDashboardStructure() {
@@ -244,18 +216,8 @@ function checkDashboardStructure() {
   const moduleIndex = html ? html.indexOf("moduleCard") : -1;
   const treeIndex = html ? html.indexOf("treeCard") : -1;
   const almanacIndex = html ? html.indexOf("almanacCard") : -1;
-
-  if (moduleIndex >= 0 && almanacIndex >= 0 && moduleIndex < almanacIndex) {
-    addResult("pass", "首頁順序：moduleCard 在 almanacCard 前", "命盤核心仍早於輔助提醒。");
-  } else {
-    addResult("fail", "首頁順序：moduleCard 在 almanacCard 前", "請確認命盤核心仍是主軸。");
-  }
-
-  if (treeIndex >= 0 && almanacIndex >= 0 && treeIndex < almanacIndex) {
-    addResult("pass", "首頁順序：treeCard 在 almanacCard 前", "命樹仍早於輔助提醒。");
-  } else {
-    addResult("fail", "首頁順序：treeCard 在 almanacCard 前", "請確認命樹仍在農民曆前。");
-  }
+  addResult(moduleIndex >= 0 && almanacIndex >= 0 && moduleIndex < almanacIndex ? "pass" : "fail", "首頁順序：moduleCard 在 almanacCard 前", "命盤核心需早於輔助提醒。");
+  addResult(treeIndex >= 0 && almanacIndex >= 0 && treeIndex < almanacIndex ? "pass" : "fail", "首頁順序：treeCard 在 almanacCard 前", "命樹需早於輔助提醒。");
 }
 
 function checkRouter() {
@@ -304,69 +266,74 @@ function checkDetailData() {
 
   checkIncludes("data/detail-pages-data.js", detailData, [
     { label: "KekeDetailPages", value: "KekeDetailPages" },
-    { label: "dashboardPreview", value: "dashboardPreview" },
-    { label: "dashboardResult", value: "dashboardResult" },
     { label: "ziweiProfile", value: "ziweiProfile" },
-    { label: "palaceOverview", value: "palaceOverview" },
     { label: "baziProfile", value: "baziProfile" },
-    { label: "pillarOverview", value: "pillarOverview" },
-    { label: "fiveElementOverview", value: "fiveElementOverview" },
-    { label: "tenGodOverview", value: "tenGodOverview" },
+    { label: "astrologyProfile", value: "astrologyProfile" },
+    { label: "axisOverview", value: "axisOverview" },
+    { label: "planetOverview", value: "planetOverview" },
+    { label: "houseOverview", value: "houseOverview" },
+    { label: "aspectOverview", value: "aspectOverview" },
     { label: "interpretationBlocks", value: "interpretationBlocks" },
     { label: "dataNotes", value: "dataNotes" },
-    { label: "年柱", value: "年柱" },
-    { label: "月柱", value: "月柱" },
-    { label: "日柱", value: "日柱" },
-    { label: "時柱", value: "時柱" },
-    { label: "木", value: "木" },
-    { label: "火", value: "火" },
-    { label: "土", value: "土" },
-    { label: "金", value: "金" },
-    { label: "水", value: "水" },
-    { label: "比肩", value: "比肩" },
-    { label: "劫財", value: "劫財" },
-    { label: "食神", value: "食神" },
-    { label: "傷官", value: "傷官" },
-    { label: "正財", value: "正財" },
-    { label: "偏財", value: "偏財" },
-    { label: "正官", value: "正官" },
-    { label: "七殺", value: "七殺" },
-    { label: "正印", value: "正印" },
-    { label: "偏印", value: "偏印" },
+    { label: "太陽", value: "太陽" },
+    { label: "月亮", value: "月亮" },
+    { label: "上升", value: "上升" },
+    { label: "水星", value: "水星" },
+    { label: "金星", value: "金星" },
+    { label: "火星", value: "火星" },
+    { label: "木星", value: "木星" },
+    { label: "土星", value: "土星" },
+    { label: "第一宮", value: "第一宮" },
+    { label: "第二宮", value: "第二宮" },
+    { label: "第三宮", value: "第三宮" },
+    { label: "第四宮", value: "第四宮" },
+    { label: "第五宮", value: "第五宮" },
+    { label: "第六宮", value: "第六宮" },
+    { label: "第七宮", value: "第七宮" },
+    { label: "第八宮", value: "第八宮" },
+    { label: "第九宮", value: "第九宮" },
+    { label: "第十宮", value: "第十宮" },
+    { label: "第十一宮", value: "第十一宮" },
+    { label: "第十二宮", value: "第十二宮" },
+    { label: "合相", value: "合相" },
+    { label: "對分相", value: "對分相" },
+    { label: "四分相", value: "四分相" },
+    { label: "三分相", value: "三分相" },
+    { label: "六分相", value: "六分相" },
     { label: "mock", value: "mock" },
     { label: "planning", value: "planning" },
     ...routeIds.map((id) => ({ label: id, value: id }))
-  ], "detail-pages-data.js 需要保留 9 個詳情頁與八字 mock 深化資料。");
+  ], "detail-pages-data.js 需要保留 9 個詳情頁與西洋星盤 mock 深化資料。");
 
   checkIncludes("app.js", app, [
-    { label: "KekeDetailPages", value: "KekeDetailPages" },
     { label: "renderSpecialDetailContent", value: "renderSpecialDetailContent" },
     { label: "renderZiweiDetail", value: "renderZiweiDetail" },
     { label: "renderBaziDetail", value: "renderBaziDetail" },
-    { label: "renderBaziProfile", value: "renderBaziProfile" },
-    { label: "renderBaziPillarOverview", value: "renderBaziPillarOverview" },
-    { label: "renderBaziFiveElements", value: "renderBaziFiveElements" },
-    { label: "renderBaziTenGodOverview", value: "renderBaziTenGodOverview" },
-    { label: "renderBaziInterpretation", value: "renderBaziInterpretation" },
-    { label: "renderBaziDataNotes", value: "renderBaziDataNotes" },
-    { label: "尚未接入正式命理演算法", value: "尚未接入正式命理演算法" },
-    { label: "尚未接入正式八字四柱排盤演算法", value: "尚未接入正式八字四柱排盤演算法" }
-  ], "app.js 需要保留特殊詳情頁 renderer 與 mock 提示。");
+    { label: "renderAstrologyDetail", value: "renderAstrologyDetail" },
+    { label: "renderAstrologyProfile", value: "renderAstrologyProfile" },
+    { label: "renderAstrologyAxisOverview", value: "renderAstrologyAxisOverview" },
+    { label: "renderAstrologyPlanetOverview", value: "renderAstrologyPlanetOverview" },
+    { label: "renderAstrologyHouseOverview", value: "renderAstrologyHouseOverview" },
+    { label: "renderAstrologyAspectOverview", value: "renderAstrologyAspectOverview" },
+    { label: "renderAstrologyInterpretation", value: "renderAstrologyInterpretation" },
+    { label: "renderAstrologyDataNotes", value: "renderAstrologyDataNotes" },
+    { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" }
+  ], "app.js 需要保留紫微、八字與西洋星盤專屬 renderer。");
 
   checkIncludes("style.css", style, [
     { label: "ziwei-detail", value: "ziwei-detail" },
-    { label: "ziwei-profile-card", value: "ziwei-profile-card" },
-    { label: "ziwei-palace-grid", value: "ziwei-palace-grid" },
-    { label: "ziwei-data-notes", value: "ziwei-data-notes" },
     { label: "bazi-detail", value: "bazi-detail" },
-    { label: "bazi-profile-card", value: "bazi-profile-card" },
-    { label: "bazi-pillar-grid", value: "bazi-pillar-grid" },
-    { label: "bazi-pillar-card", value: "bazi-pillar-card" },
-    { label: "bazi-five-elements", value: "bazi-five-elements" },
-    { label: "bazi-element-card", value: "bazi-element-card" },
-    { label: "bazi-ten-god-grid", value: "bazi-ten-god-grid" },
-    { label: "bazi-data-notes", value: "bazi-data-notes" }
-  ], "style.css 需要保留紫微與八字詳情頁樣式。");
+    { label: "astrology-detail", value: "astrology-detail" },
+    { label: "astrology-profile-card", value: "astrology-profile-card" },
+    { label: "astrology-axis-grid", value: "astrology-axis-grid" },
+    { label: "astrology-axis-card", value: "astrology-axis-card" },
+    { label: "astrology-planet-grid", value: "astrology-planet-grid" },
+    { label: "astrology-planet-card", value: "astrology-planet-card" },
+    { label: "astrology-house-grid", value: "astrology-house-grid" },
+    { label: "astrology-house-card", value: "astrology-house-card" },
+    { label: "astrology-aspect-grid", value: "astrology-aspect-grid" },
+    { label: "astrology-data-notes", value: "astrology-data-notes" }
+  ], "style.css 需要保留紫微、八字與西洋星盤詳情頁樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -426,11 +393,8 @@ function checkAlmanacAndDeity() {
 
 function checkStaticCompatibility() {
   ["package.json", "node_modules", "build", "dist", "server.js", ".github/workflows"].forEach((forbiddenPath) => {
-    if (pathExists(forbiddenPath)) {
-      addResult("fail", `靜態網站不應存在：${forbiddenPath}`, "本版仍需維持 GitHub Pages 純靜態。");
-    } else {
-      addResult("pass", `未發現禁止項目：${forbiddenPath}`, "檢查通過。");
-    }
+    const ok = !pathExists(forbiddenPath);
+    addResult(ok ? "pass" : "fail", `禁止項目：${forbiddenPath}`, ok ? "未發現。" : "本版仍需維持 GitHub Pages 純靜態。");
   });
 }
 
@@ -440,18 +404,14 @@ function checkNestedRepo() {
     .filter((folderPath) => path.basename(folderPath) === ".git")
     .map((folderPath) => path.dirname(folderPath));
 
-  if (fs.existsSync(nestedRoot)) {
-    addResult("fail", "發現巢狀專案資料夾", "存在 keke-soul-map/keke-soul-map。");
-  } else {
-    addResult("pass", "未發現巢狀專案資料夾", "檢查通過。");
-  }
+  addResult(fs.existsSync(nestedRoot) ? "fail" : "pass", "巢狀專案資料夾", fs.existsSync(nestedRoot) ? "存在 keke-soul-map/keke-soul-map。" : "未發現。");
 
   if (nestedGitFolders.length > 0) {
     for (const folderPath of nestedGitFolders) {
       addResult("fail", "子資料夾內發現 .git", `位置：${toSitePath(folderPath)}/.git`);
     }
   } else {
-    addResult("pass", "未發現子資料夾 .git", "檢查通過。");
+    addResult("pass", "子資料夾 .git", "未發現。");
   }
 }
 
@@ -504,17 +464,12 @@ function checkKeywordRisk() {
   }
 
   if (hits.length === 0) {
-    addResult("pass", "高風險關鍵字檢查通過", "未發現高風險關鍵字。");
+    addResult("pass", "高風險關鍵字", "未發現。");
     return;
   }
 
   for (const hit of hits) {
-    const title = hit.level === "warn" ? "提示關鍵字命中" : "高風險關鍵字命中";
-    const detail = hit.level === "warn"
-      ? `${hit.detail}；目前為既有靜態渲染或設定保留，列為提醒。`
-      : hit.detail;
-
-    addResult(hit.level, title, detail);
+    addResult(hit.level, hit.level === "warn" ? "提示關鍵字命中" : "高風險關鍵字命中", hit.level === "warn" ? `${hit.detail}；目前列為提醒。` : hit.detail);
   }
 }
 
@@ -525,8 +480,8 @@ function checkDocs() {
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "八字四柱詳情頁 mock 深化", value: "八字四柱詳情頁 mock 深化" },
-    { label: "尚未接入正式八字排盤演算法", value: "尚未接入正式八字排盤演算法" },
+    { label: "西洋星盤詳情頁 mock 深化", value: "西洋星盤詳情頁 mock 深化" },
+    { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" },
     { label: "version-sync", value: "version-sync" },
     { label: "required-files", value: "required-files" },
     { label: "dashboard-structure", value: "dashboard-structure" },
@@ -538,22 +493,21 @@ function checkDocs() {
     { label: "productVersion", value: "productVersion" },
     { label: "cacheVersion", value: "cacheVersion" },
     { label: "dataVersion", value: "dataVersion" }
-  ], "README.md 需要補充 v0.3.6 八字詳情頁 mock 深化。");
+  ], "README.md 需要補充 v0.3.7 西洋星盤詳情頁 mock 深化。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "八字四柱詳情頁 mock 深化", value: "八字四柱詳情頁 mock 深化" },
-    { label: "五行分布", value: "五行分布" }
-  ], "CHANGELOG.md 需要記錄 v0.3.6。");
+    { label: "西洋星盤詳情頁 mock 深化", value: "西洋星盤詳情頁 mock 深化" },
+    { label: "相位關係", value: "相位關係" }
+  ], "CHANGELOG.md 需要記錄 v0.3.7。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "scripts/check-site.js", value: "scripts/check-site.js" },
-    { label: "baziProfile", value: "baziProfile" },
-    { label: "pillarOverview", value: "pillarOverview" },
-    { label: "renderBaziDetail", value: "renderBaziDetail" },
+    { label: "astrologyProfile", value: "astrologyProfile" },
+    { label: "axisOverview", value: "axisOverview" },
+    { label: "renderAstrologyDetail", value: "renderAstrologyDetail" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "PROJECT_MAP.md 需要補充 v0.3.6 八字詳情頁資料與 renderer。");
+  ], "PROJECT_MAP.md 需要補充 v0.3.7 西洋星盤詳情頁資料與 renderer。");
 }
 
 function checkUtf8Readable() {
@@ -576,11 +530,7 @@ function checkUtf8Readable() {
     "CHANGELOG.md",
     "PROJECT_MAP.md"
   ].forEach((file) => {
-    if (readText(file) !== null) {
-      addResult("pass", `UTF-8 可讀：${file}`, "檢查通過。");
-    } else {
-      addResult("fail", `UTF-8 讀取失敗：${file}`, "主要文字檔需可用 UTF-8 讀取。");
-    }
+    addResult(readText(file) !== null ? "pass" : "fail", `UTF-8 可讀：${file}`, readText(file) !== null ? "檢查通過。" : "讀取失敗。");
   });
 }
 
@@ -605,8 +555,7 @@ function printResults() {
     const groupItems = results.filter((item) => item.group === group);
     const hasFail = groupItems.some((item) => item.level === "fail" || item.level === "high");
     const hasWarn = groupItems.some((item) => item.level === "warn");
-    const status = hasFail ? "fail" : hasWarn ? "warning" : "pass";
-    console.log(`- ${group}：${status}`);
+    console.log(`- ${group}：${hasFail ? "fail" : hasWarn ? "warning" : "pass"}`);
   }
 
   for (const group of groups) {
