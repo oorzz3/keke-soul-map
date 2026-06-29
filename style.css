@@ -175,10 +175,21 @@ a {
   align-items: start;
 }
 
+.dashboard-main-grid,
+.dashboard-blueprint-layout {
+  gap: 12px;
+}
+
 .dashboard-zone {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   min-width: 0;
+}
+
+.dashboard-core-cluster,
+.dashboard-rhythm-cluster,
+.dashboard-support-cluster {
+  align-items: stretch;
 }
 
 .dashboard-hero-zone {
@@ -213,7 +224,7 @@ a {
 }
 
 .card {
-  padding: 16px;
+  padding: 14px;
 }
 
 .detail-shell {
@@ -1738,7 +1749,7 @@ blockquote {
 
 .core-dashboard {
   display: grid;
-  gap: 14px;
+  gap: 10px;
   min-width: 0;
 }
 
@@ -1749,17 +1760,17 @@ blockquote {
 .core-dashboard-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 10px;
   min-width: 0;
 }
 
 .core-module-card {
   position: relative;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   min-width: 0;
-  min-height: 190px;
-  padding: 13px;
+  min-height: 154px;
+  padding: 12px;
   overflow: hidden;
   background:
     linear-gradient(145deg, rgba(114, 215, 239, 0.08), rgba(242, 193, 109, 0.045)),
@@ -1771,7 +1782,7 @@ blockquote {
 .core-module-card::after {
   position: absolute;
   inset: auto -20% -46% auto;
-  width: 150px;
+  width: 128px;
   aspect-ratio: 1;
   pointer-events: none;
   content: "";
@@ -1797,8 +1808,8 @@ blockquote {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 42px minmax(120px, 1fr) auto;
-  gap: 10px;
+  grid-template-columns: 38px minmax(120px, 1fr) auto;
+  gap: 9px;
   align-items: center;
   min-width: 0;
 }
@@ -1812,6 +1823,7 @@ blockquote {
   margin-top: 3px;
   color: var(--muted);
   font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.78rem;
   line-height: 1.35;
 }
 
@@ -1852,12 +1864,12 @@ blockquote {
   z-index: 1;
   display: grid;
   gap: 4px;
-  min-height: 56px;
+  min-height: 46px;
 }
 
 .core-module-value strong {
   color: var(--ink);
-  font-size: 1.28rem;
+  font-size: 1.16rem;
   line-height: 1.25;
   word-break: keep-all;
   overflow-wrap: normal;
@@ -1866,7 +1878,7 @@ blockquote {
 .core-module-value span {
   color: var(--cyan);
   font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   word-break: keep-all;
   overflow-wrap: normal;
 }
@@ -1905,6 +1917,67 @@ blockquote {
   color: var(--gold);
   background: rgba(242, 193, 109, 0.08);
   border: 1px solid rgba(242, 193, 109, 0.2);
+}
+
+.blueprint-summary-line {
+  margin: -4px 0 10px;
+  color: var(--muted);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.blueprint-short-card {
+  gap: 8px;
+}
+
+.compact-result,
+.compact-note {
+  margin: 0;
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  line-height: 1.55;
+}
+
+.compact-result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: baseline;
+  padding: 9px 10px;
+  color: var(--ink);
+  background: rgba(3, 12, 24, 0.42);
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+.compact-result span {
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.compact-note {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.blueprint-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blueprint-link-row a {
+  min-height: 30px;
+  padding: 6px 9px;
+  color: var(--cyan);
+  background: rgba(114, 215, 239, 0.07);
+  border: 1px solid rgba(114, 215, 239, 0.18);
+  border-radius: var(--radius);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .module-side-groups {
@@ -2105,7 +2178,7 @@ blockquote {
 
 .compact-reminder {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .compact-reminder-grid {
@@ -2167,7 +2240,7 @@ blockquote {
   display: grid;
   gap: 3px;
   min-width: 0;
-  padding: 8px;
+  padding: 8px 9px;
   background: rgba(3, 12, 24, 0.42);
   border: 1px solid rgba(114, 215, 239, 0.16);
   border-radius: var(--radius);
@@ -2180,7 +2253,29 @@ blockquote {
 
 .almanac-date-item strong {
   color: var(--ink);
+  font-size: 0.92rem;
   line-height: 1.35;
+}
+
+.deity-compact-reminder .test-mode-panel {
+  gap: 7px;
+  padding: 8px;
+  background: rgba(3, 12, 24, 0.34);
+}
+
+.deity-compact-reminder .test-mode-panel strong {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.deity-compact-reminder .test-link-row {
+  gap: 6px;
+}
+
+.deity-compact-reminder .test-link {
+  min-height: 28px;
+  padding: 5px 8px;
+  font-size: 0.78rem;
 }
 
 .almanac-mini-row {
@@ -2628,13 +2723,16 @@ blockquote {
 
 .tool-row {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .tool-row button {
   width: 100%;
-  min-height: 48px;
+  min-height: 38px;
+  padding: 7px 8px;
   border-color: rgba(114, 215, 239, 0.28);
+  font-size: 0.82rem;
 }
 
 .version-meta {

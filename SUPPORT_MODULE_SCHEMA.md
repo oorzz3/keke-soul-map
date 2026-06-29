@@ -1,6 +1,6 @@
 # 科科命理宇宙站｜後半段模組 Schema 對照表
 
-版本：v0.5.1.1
+版本：v0.5.1.2
 狀態：mock detail / planning / experiment / seed 文件化
 定位：本文件只記錄後半段模組目前結構與頁面對照，不代表正式命理計算、正式占問或正式資料庫功能已完成。
 
@@ -81,6 +81,7 @@
 - 狀態：support整理 / experiment
 - v0.5.1 已開始農民曆 support 區塊整理
 - v0.5.1.1 已將首頁農民曆 card 前台瘦身，安全線保留在文件與檢查規則，不在首頁大段顯示
+- v0.5.1.2 已配合首頁架構圖對齊與 Dashboard 密度收束，農民曆只保留濃縮摘要
 - 仍是 dashboard support card / anchor
 - 不新增 #/module/almanac
 
@@ -106,6 +107,7 @@
 
 - v0.5.1 已整理 dashboard support card
 - v0.5.1.1 已瘦身首頁顯示，前台只保留今日農曆摘要與輕量資料狀態
+- v0.5.1.2 首頁只顯示短卡摘要，完整安全線仍保留於 metadata、文件與檢查腳本
 - 先補資料狀態提醒、experiment 標示與安全線，不急著做新 route
 
 ## 神｜神明生日 deity
@@ -276,6 +278,7 @@
 - v0.5.0 流年 / 九運 mock 深化（已啟動 luck）
 - v0.5.1 農民曆 support 區塊整理（已啟動）
 - v0.5.1.1 農民曆 support card 瘦身補丁（已啟動）
+- v0.5.1.2 首頁架構圖對齊 × Dashboard 密度收束（已啟動）
 - v0.5.2 神明生日 support 區塊整理
 - v0.5.3 易經占問 mock 深化
 - v0.5.4 命樹整合頁 mock 深化

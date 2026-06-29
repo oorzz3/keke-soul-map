@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.5.1.1
+- 網站版本：v0.5.1.2
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.5.1.1
+- 靜態資源快取版本：v0.5.1.2
 
 ## 專案定位
 
@@ -17,6 +17,17 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.5.1.2 首頁架構圖對齊 × Dashboard 密度收束
+
+v0.5.1.2 依照命理宇宙站總控台參考圖，收束首頁 dashboard 的資訊密度。
+
+- 首頁主軸維持命盤核心優先，五大核心入口仍是主要視覺。
+- 首頁卡片只顯示濃縮摘要：標題、主結果 / 摘要、短提醒或狀態。
+- 農民曆與神明生日維持 dashboard support card / anchor，不新增 detail route。
+- 農民曆安全線、mock / experiment 說明保留於 `almanacSupport` metadata、`SUPPORT_MODULE_SCHEMA.md` 與 `scripts/check-site.js`。
+- `dashboardLayout` 記錄首頁架構圖對齊與密度收束規則。
+- 純 HTML / CSS / JS 靜態網站邊界仍保留。
 
 ## v0.5.1.1 農民曆 support card 瘦身補丁
 
@@ -289,7 +300,7 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.1 已將主要靜態資源引用更新為 `v=0.5.1.1`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.2 已將主要靜態資源引用更新為 `v=0.5.1.2`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 

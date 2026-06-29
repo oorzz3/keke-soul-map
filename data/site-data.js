@@ -1,25 +1,32 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1.1",
+    version: "v0.5.1.2",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1.1",
-    status: "農民曆 support card 瘦身補丁",
-    updatedNote: "v0.5.1.1 瘦身首頁農民曆 support card，將安全線保留於文件與檢查規則，前台只顯示今日農曆摘要與輕量資料狀態。"
+    cacheVersion: "v0.5.1.2",
+    status: "首頁架構圖對齊 × Dashboard 密度收束",
+    updatedNote: "v0.5.1.2 依照建構圖收束首頁 dashboard 版面，降低 support card 資訊密度，建立首頁卡片濃縮摘要規則。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1.1",
-    cacheVersion: "v0.5.1.1",
+    productVersion: "v0.5.1.2",
+    cacheVersion: "v0.5.1.2",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1.1",
+    currentVersion: "v0.5.1.2",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1.1 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並瘦身農民曆 support card。"
+    note: "v0.5.1.2 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依建構圖收束首頁資訊密度。"
+  },
+  dashboardLayout: {
+    mode: "blueprint",
+    version: "v0.5.1.2",
+    rule: "首頁只顯示濃縮摘要，詳情留給內頁。",
+    density: "最多三層資訊",
+    note: "首頁架構圖對齊，讓命盤核心優先，support card 維持短卡。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

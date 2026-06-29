@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.5.1.2｜首頁架構圖對齊 × Dashboard 密度收束
+
+- 首頁版面向命理宇宙站總控台參考圖靠近，維持命盤核心優先。
+- 新增 `dashboardLayout` metadata，記錄首頁濃縮摘要與最多三層資訊規則。
+- 農民曆、神明生日與資料工具收束為較短的 dashboard support card。
+- 首頁不顯示大段農民曆安全線，安全線仍保留於 metadata、文件與檢查腳本。
+- 不新增農民曆 / 神明生日 detail route。
+- 不改 router、lunar、deity matcher 或 date test mode。
+
 ## v0.5.1.1｜農民曆 support card 瘦身補丁
 
 - 瘦身農民曆 support card。

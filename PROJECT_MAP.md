@@ -3,8 +3,8 @@
 ## 入口與畫面
 
 - `index.html`：GitHub Pages 靜態入口，包含 `dashboardView` 與 `detailView` 容器，並以版本參數載入 CSS、vendor、features、data 與 app。
-- `style.css`：深藍星夜視覺、手機優先響應式、主卡 / 輔助卡視覺層級、命盤核心預覽卡，以及詳情頁導覽、active 狀態與 route fallback 樣式。
-- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；`renderModules` 會把命盤核心轉成總控台式預覽卡，並負責 active 狀態、詳情頁導覽、route fallback 與農民曆 support card render。
+- `style.css`：深藍星夜視覺、手機優先響應式、主卡 / 輔助卡視覺層級、命盤核心預覽卡、`dashboard-blueprint-layout` 密度收束，以及詳情頁導覽、active 狀態與 route fallback 樣式。
+- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；`renderModules` 會把命盤核心轉成總控台式預覽卡，並負責 active 狀態、詳情頁導覽、route fallback、農民曆 support card render 與首頁濃縮摘要。
 
 ## 路由與功能
 
@@ -15,7 +15,7 @@
 
 ## 資料層
 
-- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.1 起補前台短文案。
+- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、`dashboardLayout`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.2 起記錄首頁架構圖對齊與濃縮摘要規則。
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
@@ -44,6 +44,14 @@
 - `features/deity-matcher.js`：神明生日命中邏輯。
 - `features/date-test-mode.js`：日期測試模式。
 - 後半段模組目前包含 detail route 與 dashboard support card 兩種型態。
+
+## v0.5.1.2 首頁架構圖對齊 × Dashboard 密度收束
+
+- `index.html`：`dashboardView` 加上 `dashboard-main-grid` 與 `dashboard-blueprint-layout`，保留三段式 dashboard zone。
+- `style.css`：新增 / 調整 `dashboard-blueprint-layout`、`dashboard-core-cluster`、`dashboard-rhythm-cluster`、`dashboard-support-cluster`、`blueprint-short-card`、`compact-result`、`compact-note` 等首頁密度收束樣式。
+- `app.js`：首頁只渲染濃縮摘要，農民曆、神明生日與資料工具維持 support card，不在首頁展開大段安全線或 mock 範例。
+- `data/site-data.js`：新增 `dashboardLayout` metadata，記錄首頁最多三層資訊與命盤核心優先規則。
+- 農民曆與神明生日仍是 anchor，不新增 `#/module/almanac` 或 `#/module/deity`。
 
 ## v0.3.4 工程整理
 

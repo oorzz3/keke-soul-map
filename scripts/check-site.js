@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.1";
-const expectedVersionLabel = "v0.5.1.1";
+const expectedVersion = "0.5.1.2";
+const expectedVersionLabel = "v0.5.1.2";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,26 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.1 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.2 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "農民曆 support card 瘦身補丁" },
+    { label: "siteMeta.status", value: "首頁架構圖對齊 × Dashboard 密度收束" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
-    { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.5.1.1 版本資料與版本策略。");
+    { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
+    { label: "dashboardLayout", value: "dashboardLayout" },
+    { label: "首頁只顯示濃縮摘要", value: "首頁只顯示濃縮摘要" },
+    { label: "最多三層資訊", value: "最多三層資訊" }
+  ], "site-data.js 需要同步 v0.5.1.2 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.1", value: expectedVersionLabel },
-    { label: "fallback status", value: "農民曆 support card 瘦身補丁" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.1。");
+    { label: "fallback v0.5.1.2", value: expectedVersionLabel },
+    { label: "fallback status", value: "首頁架構圖對齊 × Dashboard 密度收束" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.2。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.1", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.2", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -202,9 +205,14 @@ function checkDashboardStructure() {
     { label: "dashboardView", value: "dashboardView" },
     { label: "detailView", value: "detailView" },
     { label: "dashboard-layout", value: "dashboard-layout" },
+    { label: "dashboard-main-grid", value: "dashboard-main-grid" },
+    { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
     { label: "dashboard-hero-zone", value: "dashboard-hero-zone" },
     { label: "dashboard-rhythm-zone", value: "dashboard-rhythm-zone" },
     { label: "dashboard-support-zone", value: "dashboard-support-zone" },
+    { label: "dashboard-core-cluster", value: "dashboard-core-cluster" },
+    { label: "dashboard-rhythm-cluster", value: "dashboard-rhythm-cluster" },
+    { label: "dashboard-support-cluster", value: "dashboard-support-cluster" },
     { label: "profileCard", value: "profileCard" },
     { label: "moduleCard", value: "moduleCard" },
     { label: "todayCard", value: "todayCard" },
@@ -494,8 +502,17 @@ function checkDetailData() {
     { label: "luck-timeline-card", value: "luck-timeline-card" },
     { label: "luck-theme-grid", value: "luck-theme-grid" },
     { label: "luck-action-grid", value: "luck-action-grid" },
-    { label: "luck-data-notes", value: "luck-data-notes" }
-  ], "style.css 需要保留五大核心詳情頁樣式與通用詳情頁樣式。");
+    { label: "luck-data-notes", value: "luck-data-notes" },
+    { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
+    { label: "dashboard-main-grid", value: "dashboard-main-grid" },
+    { label: "dashboard-core-cluster", value: "dashboard-core-cluster" },
+    { label: "dashboard-rhythm-cluster", value: "dashboard-rhythm-cluster" },
+    { label: "dashboard-support-cluster", value: "dashboard-support-cluster" },
+    { label: "blueprint-short-card", value: "blueprint-short-card" },
+    { label: "blueprint-summary-line", value: "blueprint-summary-line" },
+    { label: "compact-result", value: "compact-result" },
+    { label: "compact-note", value: "compact-note" }
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.2 dashboard 密度收束樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -553,6 +570,8 @@ function checkAlmanacAndDeity() {
     { label: "almanacSupport", value: "almanacSupport" },
     { label: "#almanac-title", value: "#almanac-title" },
     { label: "dashboard support card", value: "dashboard support card" },
+    { label: "dashboardLayout", value: "dashboardLayout" },
+    { label: "首頁只顯示濃縮摘要", value: "首頁只顯示濃縮摘要" },
     { label: "experiment", value: "experiment" },
     { label: "lunar-javascript", value: "lunar-javascript" },
     { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
@@ -569,6 +588,12 @@ function checkAlmanacAndDeity() {
     { label: "KekeAlmanacEngine", value: "KekeAlmanacEngine" },
     { label: "getTodayAlmanac", value: "getTodayAlmanac" },
     { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
+    { label: "renderDeityDay", value: "renderDeityDay" },
+    { label: "renderSoulTree", value: "renderSoulTree" },
+    { label: "renderTools", value: "renderTools" },
+    { label: "blueprint-short-card", value: "blueprint-short-card" },
+    { label: "compact-result", value: "compact-result" },
+    { label: "compact-note", value: "compact-note" },
     { label: "renderAlmanacSourceNotes", value: "renderAlmanacSourceNotes" },
     { label: "renderAlmanacSafetyLines", value: "renderAlmanacSafetyLines" },
     { label: "農民曆短提醒", value: "今日只作節奏參考" },
@@ -586,6 +611,9 @@ function checkAlmanacAndDeity() {
     { label: "almanac-card", value: "almanac-card" },
     { label: "support-card", value: "support-card" },
     { label: "almanac-support-card", value: "almanac-support-card" },
+    { label: "blueprint-short-card", value: "blueprint-short-card" },
+    { label: "compact-result", value: "compact-result" },
+    { label: "compact-note", value: "compact-note" },
     { label: "almanac-date-grid", value: "almanac-date-grid" },
     { label: "almanac-safety-list", value: "almanac-safety-list" }
   ], "style.css 需要保留農民曆 support card 樣式。");
@@ -704,6 +732,10 @@ function checkDocs() {
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
+    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "dashboardLayout", value: "dashboardLayout" },
+    { label: "首頁卡片只顯示濃縮摘要", value: "首頁卡片只顯示濃縮摘要" },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
@@ -737,6 +769,9 @@ function checkDocs() {
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
+    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "dashboardLayout", value: "dashboardLayout" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
     { label: "不新增農民曆 detail route", value: "不新增農民曆 detail route" },
@@ -758,6 +793,11 @@ function checkDocs() {
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
+    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "dashboardLayout", value: "dashboardLayout" },
+    { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
+    { label: "濃縮摘要", value: "濃縮摘要" },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
@@ -818,6 +858,9 @@ function checkDocs() {
     { label: "科科命理宇宙站", value: "科科命理宇宙站" },
     { label: "後半段模組 Schema 對照表", value: "後半段模組 Schema 對照表" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
+    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "濃縮摘要", value: "濃縮摘要" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
     { label: "support整理", value: "support整理" },
