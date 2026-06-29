@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.4.2",
+  version: "v0.5.0",
   dataVersion: "v0.2",
-  cacheVersion: "v0.4.2",
-  status: "後半段模組 schema 文件化 × 通用詳情頁對照表"
+  cacheVersion: "v0.5.0",
+  status: "流年 / 九運 mock 詳情頁深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -257,6 +257,10 @@ function renderSpecialDetailContent(page = {}) {
 
   if (page.id === "name" && page.nameProfile) {
     return renderNameDetail(page);
+  }
+
+  if (page.id === "luck" && page.luckProfile) {
+    return renderLuckDetail(page);
   }
 
   return "";
@@ -1177,6 +1181,221 @@ function renderNameDataNotes(notes = []) {
 
   return `
     <section class="name-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderLuckDetail(page = {}) {
+  return `
+    <section class="luck-detail" aria-label="流年 / 九運 mock 詳情">
+      <div class="detail-note luck-mock-note">目前是 mock / planning 流年與九運骨架，不是正式運勢判斷；尚未接入正式流年 / 九運計算，也不提供吉凶分數。</div>
+      ${renderLuckProfile(page.luckProfile)}
+      ${renderLuckAnnualCycleOverview(page.annualCycleOverview)}
+      ${renderLuckNineLuckOverview(page.nineLuckOverview)}
+      ${renderLuckTimelineOverview(page.timelineOverview)}
+      ${renderLuckThemeIntegration(page.themeIntegration)}
+      ${renderLuckActionNotes(page.actionNotes)}
+      ${renderLuckInterpretation(page.interpretationBlocks)}
+      ${renderLuckDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderLuckProfile(profile = {}) {
+  return `
+    <section class="luck-profile-card">
+      <div class="section-heading compact-heading">
+        <p>流年 / 九運摘要</p>
+        <h3>${escapeHtml(profile.chartType || "流年 / 九運節奏骨架")}</h3>
+      </div>
+      <div class="luck-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>年度</span>
+          <strong>${escapeHtml(profile.currentYear || "待建立")}</strong>
+        </div>
+        <div>
+          <span>九運週期</span>
+          <strong>${escapeHtml(profile.currentCycle || "待建立")}</strong>
+        </div>
+        <div>
+          <span>週期範圍</span>
+          <strong>${escapeHtml(profile.cycleRange || "待建立")}</strong>
+        </div>
+        <div class="is-wide">
+          <span>分析焦點</span>
+          <strong>${escapeHtml(profile.analysisFocus || "年度節奏 / 九運週期")}</strong>
+        </div>
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 流年與九運骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderLuckAnnualCycleOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>年度節奏規劃</p>
+        <h3>年度主題、關鍵字與提醒</h3>
+      </div>
+      <div class="luck-annual-grid">
+        ${items.map((item) => `
+          <article class="luck-annual-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <small>${escapeHtml(item.label)}</small>
+            <strong>${escapeHtml(item.value)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+            <em>${escapeHtml(item.note)}</em>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckNineLuckOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>九運週期規劃</p>
+        <h3>2024–2043 長週期觀察</h3>
+      </div>
+      <div class="luck-nine-grid">
+        ${items.map((item) => `
+          <article class="luck-nine-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <small>${escapeHtml(item.label)}</small>
+            <strong>${escapeHtml(item.value)}</strong>
+            <div>${escapeHtml(item.range || "待建立")}</div>
+            <p>${escapeHtml(item.theme)}</p>
+            <em>${escapeHtml(item.note)}</em>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckTimelineOverview(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>年度時間軸</p>
+        <h3>從九運開場到後段整合</h3>
+      </div>
+      <div class="luck-timeline">
+        ${items.map((item) => `
+          <article class="luck-timeline-card">
+            <span>${escapeHtml(item.period)}</span>
+            <strong>${escapeHtml(item.title)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+            <small class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckThemeIntegration(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>主題整合</p>
+        <h3>年度、九運與個人節奏的分層觀察</h3>
+      </div>
+      <div class="luck-theme-grid">
+        ${items.map((item) => `
+          <article class="luck-theme-card">
+            <span class="detail-status is-${escapeHtml(item.level || "planning")}">${escapeHtml(item.level || "planning")}</span>
+            <strong>${escapeHtml(item.title)}</strong>
+            <p>${escapeHtml(item.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckActionNotes(items = []) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>行動提醒</p>
+        <h3>把時間節奏轉成可觀察的提醒</h3>
+      </div>
+      <div class="luck-action-grid">
+        ${items.map((item) => `
+          <article class="luck-action-card">
+            <span class="detail-status is-${escapeHtml(item.level || "planning")}">${escapeHtml(item.level || "planning")}</span>
+            <strong>${escapeHtml(item.title)}</strong>
+            <p>${escapeHtml(item.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前階段的 mock / planning 解讀方向</h3>
+      </div>
+      <div class="luck-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="luck-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLuckDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="luck-data-notes">
       <h3>資料狀態提醒</h3>
       <ul>
         ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}

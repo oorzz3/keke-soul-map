@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.4.2";
-const expectedVersionLabel = "v0.4.2";
+const expectedVersion = "0.5.0";
+const expectedVersionLabel = "v0.5.0";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.4.2 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.0 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "後半段模組 schema 文件化 × 通用詳情頁對照表" },
+    { label: "siteMeta.status", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.4.2 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.5.0 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.4.2", value: expectedVersionLabel },
-    { label: "fallback status", value: "後半段模組 schema 文件化 × 通用詳情頁對照表" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.4.2。");
+    { label: "fallback v0.5.0", value: expectedVersionLabel },
+    { label: "fallback status", value: "流年 / 九運 mock 詳情頁深化" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.0。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.4.2", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.0", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -357,6 +357,23 @@ function checkDetailData() {
     { label: "日常稱呼", value: "日常稱呼" },
     { label: "社群品牌", value: "社群品牌" },
     { label: "不提供改名建議", value: "不提供改名建議" },
+    { label: "luckProfile", value: "luckProfile" },
+    { label: "annualCycleOverview", value: "annualCycleOverview" },
+    { label: "nineLuckOverview", value: "nineLuckOverview" },
+    { label: "timelineOverview", value: "timelineOverview" },
+    { label: "themeIntegration", value: "themeIntegration" },
+    { label: "流年 / 九運", value: "流年 / 九運" },
+    { label: "2026", value: "2026" },
+    { label: "九運", value: "九運" },
+    { label: "離火運", value: "離火運" },
+    { label: "2024–2043", value: "2024–2043" },
+    { label: "年度節奏", value: "年度節奏" },
+    { label: "九運週期", value: "九運週期" },
+    { label: "時間軸", value: "時間軸" },
+    { label: "主題整合", value: "主題整合" },
+    { label: "行動提醒", value: "行動提醒" },
+    { label: "不提供吉凶分數", value: "不提供吉凶分數" },
+    { label: "不得作為投資、健康、感情、工作或重大決策依據", value: "不得作為投資、健康、感情、工作或重大決策依據" },
     { label: "mock", value: "mock" },
     { label: "planning", value: "planning" },
     ...routeIds.map((id) => ({ label: id, value: id }))
@@ -392,6 +409,15 @@ function checkDetailData() {
     { label: "renderNameUsageScenarioOverview", value: "renderNameUsageScenarioOverview" },
     { label: "renderNameInterpretation", value: "renderNameInterpretation" },
     { label: "renderNameDataNotes", value: "renderNameDataNotes" },
+    { label: "renderLuckDetail", value: "renderLuckDetail" },
+    { label: "renderLuckProfile", value: "renderLuckProfile" },
+    { label: "renderLuckAnnualCycleOverview", value: "renderLuckAnnualCycleOverview" },
+    { label: "renderLuckNineLuckOverview", value: "renderLuckNineLuckOverview" },
+    { label: "renderLuckTimelineOverview", value: "renderLuckTimelineOverview" },
+    { label: "renderLuckThemeIntegration", value: "renderLuckThemeIntegration" },
+    { label: "renderLuckActionNotes", value: "renderLuckActionNotes" },
+    { label: "renderLuckInterpretation", value: "renderLuckInterpretation" },
+    { label: "renderLuckDataNotes", value: "renderLuckDataNotes" },
     { label: "紫微不是正式命盤", value: "不是正式命盤；尚未接入正式紫微斗數排盤演算法" },
     { label: "八字不是正式命盤", value: "不是正式命盤；尚未接入正式八字四柱排盤演算法" },
     { label: "星盤不是正式星盤", value: "不是正式星盤；尚未接入正式西洋星盤計算" },
@@ -400,7 +426,9 @@ function checkDetailData() {
     { label: "尚未接入正式姓名學計算", value: "尚未接入正式姓名學計算" },
     { label: "不提供改名建議", value: "不提供改名建議" },
     { label: "尚未接入正式生命靈數計算", value: "尚未接入正式生命靈數計算" },
-    { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" }
+    { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" },
+    { label: "尚未接入正式流年 / 九運計算", value: "尚未接入正式流年 / 九運計算" },
+    { label: "不提供吉凶分數", value: "不提供吉凶分數" }
   ], "app.js 需要保留五大核心專屬 detail renderer 與通用詳情頁 fallback。");
 
   if (app !== null) {
@@ -409,7 +437,7 @@ function checkDetailData() {
       "renderNumerologyMeanings"
     ].forEach((oldName) => {
       const ok = !app.includes(oldName);
-      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "v0.4.2 已收束生命靈數 renderer 命名，app.js 不應再使用舊名稱。");
+      addResult(ok ? "pass" : "fail", `舊 renderer 名稱不可殘留：${oldName}`, ok ? "未發現舊名稱。" : "生命靈數 renderer 命名已收束，app.js 不應再使用舊名稱。");
     });
   }
 
@@ -454,7 +482,19 @@ function checkDetailData() {
     { label: "name-five-card", value: "name-five-card" },
     { label: "name-sound-grid", value: "name-sound-grid" },
     { label: "name-usage-grid", value: "name-usage-grid" },
-    { label: "name-data-notes", value: "name-data-notes" }
+    { label: "name-data-notes", value: "name-data-notes" },
+    { label: "luck-detail", value: "luck-detail" },
+    { label: "luck-profile-card", value: "luck-profile-card" },
+    { label: "luck-profile-grid", value: "luck-profile-grid" },
+    { label: "luck-annual-grid", value: "luck-annual-grid" },
+    { label: "luck-annual-card", value: "luck-annual-card" },
+    { label: "luck-nine-grid", value: "luck-nine-grid" },
+    { label: "luck-nine-card", value: "luck-nine-card" },
+    { label: "luck-timeline", value: "luck-timeline" },
+    { label: "luck-timeline-card", value: "luck-timeline-card" },
+    { label: "luck-theme-grid", value: "luck-theme-grid" },
+    { label: "luck-action-grid", value: "luck-action-grid" },
+    { label: "luck-data-notes", value: "luck-data-notes" }
   ], "style.css 需要保留五大核心詳情頁樣式與通用詳情頁樣式。");
 
   if (detailData !== null) {
@@ -606,6 +646,9 @@ function checkDocs() {
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
+    { label: "mock detail", value: "mock detail" },
+    { label: "不提供吉凶分數", value: "不提供吉凶分數" },
     { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
     { label: "流年 / 九運", value: "流年 / 九運" },
     { label: "農民曆", value: "農民曆" },
@@ -628,8 +671,11 @@ function checkDocs() {
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "renderLuckDetail", value: "renderLuckDetail" },
+    { label: "luck detail data", value: "luck detail data" },
     { label: "流年 / 九運", value: "流年 / 九運" },
     { label: "農民曆", value: "農民曆" },
     { label: "神明生日", value: "神明生日" },
@@ -643,6 +689,9 @@ function checkDocs() {
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
     { label: "SUPPORT_MODULE_SCHEMA.md", value: "SUPPORT_MODULE_SCHEMA.md" },
+    { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
+    { label: "luckProfile", value: "luckProfile" },
+    { label: "renderLuckDetail", value: "renderLuckDetail" },
     { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
     { label: "後半段對照小表", value: "後半段對照小表" },
     { label: "流年 / 九運", value: "流年 / 九運" },
@@ -693,6 +742,17 @@ function checkDocs() {
     { label: "科科命理宇宙站", value: "科科命理宇宙站" },
     { label: "後半段模組 Schema 對照表", value: "後半段模組 Schema 對照表" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "mock detail", value: "mock detail" },
+    { label: "renderLuckDetail", value: "renderLuckDetail" },
+    { label: "luckProfile", value: "luckProfile" },
+    { label: "annualCycleOverview", value: "annualCycleOverview" },
+    { label: "nineLuckOverview", value: "nineLuckOverview" },
+    { label: "timelineOverview", value: "timelineOverview" },
+    { label: "themeIntegration", value: "themeIntegration" },
+    { label: "actionNotes", value: "actionNotes" },
+    { label: "不提供吉凶分數", value: "不提供吉凶分數" },
+    { label: "不新增 #/module/almanac", value: "不新增 #/module/almanac" },
+    { label: "不新增 #/module/deity", value: "不新增 #/module/deity" },
     { label: "流年 / 九運", value: "流年 / 九運" },
     { label: "農民曆", value: "農民曆" },
     { label: "神明生日", value: "神明生日" },

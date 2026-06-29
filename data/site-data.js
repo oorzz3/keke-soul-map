@@ -1,25 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.4.2",
+    version: "v0.5.0",
     dataVersion: "v0.2",
-    cacheVersion: "v0.4.2",
-    status: "後半段模組 schema 文件化 × 通用詳情頁對照表",
-    updatedNote: "v0.4.2 新增後半段模組 schema 文件，整理流年 / 九運、農民曆、神明生日、易經占問、命樹與資料庫的 route / anchor / data source / 狀態與後續深化方向。"
+    cacheVersion: "v0.5.0",
+    status: "流年 / 九運 mock 詳情頁深化",
+    updatedNote: "v0.5.0 深化流年 / 九運 mock 詳情頁，建立年度節奏、九運週期、時間軸、主題整合、行動提醒與資料狀態骨架。"
   },
   versionPolicy: {
-    productVersion: "v0.4.2",
-    cacheVersion: "v0.4.2",
+    productVersion: "v0.5.0",
+    cacheVersion: "v0.5.0",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.4.2",
+    currentVersion: "v0.5.0",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.4.2 保留 hash router、dashboard zone、五大核心詳情頁與後半段通用模組，並新增後半段模組 schema 對照文件。"
+    note: "v0.5.0 保留 hash router、dashboard zone、五大核心詳情頁與後半段模組，並深化流年 / 九運 mock 詳情頁。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

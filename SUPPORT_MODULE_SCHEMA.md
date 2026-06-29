@@ -1,14 +1,14 @@
 # 科科命理宇宙站｜後半段模組 Schema 對照表
 
-版本：v0.4.2
-狀態：planning / experiment / seed 文件化
+版本：v0.5.0
+狀態：mock detail / planning / experiment / seed 文件化
 定位：本文件只記錄後半段模組目前結構與頁面對照，不代表正式命理計算、正式占問或正式資料庫功能已完成。
 
 ## 後半段總表
 
 | 模組 | 顯示名 | route / anchor | 類型 | data source | 主要 renderer / feature | 狀態 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 運 | 流年 / 九運 | #/module/luck | detail route | data/detail-pages-data.js | renderDetailPage 通用詳情頁 | planning |
+| 運 | 流年 / 九運 | #/module/luck | detail route | data/detail-pages-data.js | renderLuckDetail 專屬詳情頁 | mock detail |
 | 曆 | 農民曆 | #almanac-title | dashboard support card / anchor | features/almanac-engine.js + vendor/lunar/lunar.js | renderTodayCard / almanac card 相關 render | experiment |
 | 神 | 神明生日 | #deity-title | dashboard support card / anchor | data/deity-birthdays.js + features/deity-matcher.js | deity matcher / deity card 相關 render | seed |
 | 卦 | 易經占問 | #/module/yijing | detail route | data/detail-pages-data.js | renderDetailPage 通用詳情頁 | planning |
@@ -30,8 +30,9 @@
 - detail route
 - route: #/module/luck
 - data source: data/detail-pages-data.js
-- renderer: renderDetailPage 通用詳情頁
-- 狀態：planning
+- renderer: renderLuckDetail 專屬詳情頁
+- 狀態：mock detail / mock planning
+- v0.5.0 已開始 mock 詳情頁深化
 
 目前必要欄位：
 
@@ -47,18 +48,28 @@
 - summary
 - dashboardResult 或 dashboardPreview
 - sections
+- luckProfile
+- annualCycleOverview
+- nineLuckOverview
+- timelineOverview
+- themeIntegration
+- actionNotes
+- interpretationBlocks
+- dataNotes
+- renderLuckDetail
 
 安全線：
 
-- 目前只做 planning 架構
+- 目前只做 mock / planning 架構
 - 尚未接入正式流年 / 九運計算
 - 不提供正式運勢判斷
 - 不提供吉凶分數
+- 不作為投資、健康、感情、工作或重大決策依據
 
 後續深化方向：
 
-- v0.5.0 可先深化流年 / 九運 mock 詳情頁
-- 建立年度節奏、九運主題、時間軸與資料狀態提醒
+- v0.5.0 已深化流年 / 九運 mock detail
+- 已建立年度節奏、九運週期、時間軸、主題整合、行動提醒與資料狀態提醒
 
 ## 曆｜農民曆 almanac
 
@@ -244,7 +255,9 @@
 - 後半段模組分成 detail route 與 dashboard support card / anchor。
 - detail route 模組目前走 #/module/...。
 - 農民曆與神明生日目前走首頁 support card 與 anchor，不新增 detail route。
-- 所有後半段模組目前都是 planning / experiment / seed。
+- 不新增 #/module/almanac。
+- 不新增 #/module/deity。
+- 後半段模組目前分布在 mock detail / planning / experiment / seed。
 - 不接 API、不接資料庫、不讀取使用者個資。
 - 不提供正式命理判斷、正式占問結果、宗教斷言或吉凶分數。
 - 日期測試模式只用於神明生日 seed 命中驗收，不代表正式日曆功能。
@@ -252,7 +265,7 @@
 
 ## v0.5.x 深化順序建議
 
-- v0.5.0 流年 / 九運 mock 深化
+- v0.5.0 流年 / 九運 mock 深化（已啟動 luck）
 - v0.5.1 農民曆 support 區塊整理
 - v0.5.2 神明生日 support 區塊整理
 - v0.5.3 易經占問 mock 深化

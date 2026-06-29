@@ -85,6 +85,17 @@
 | numerology | numerologyProfile | renderNumerologyDetail | numerology-detail |
 | name | nameProfile | renderNameDetail | name-detail |
 
+## v0.5.0 流年 / 九運 mock 詳情頁深化
+
+- `data/detail-pages-data.js`：`luck` 新增 `luckProfile`、`annualCycleOverview`、`nineLuckOverview`、`timelineOverview`、`themeIntegration`、`actionNotes`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 luck 專屬 detail renderer，包含 `renderLuckDetail`、`renderLuckProfile`、`renderLuckAnnualCycleOverview`、`renderLuckNineLuckOverview`、`renderLuckTimelineOverview`、`renderLuckThemeIntegration`、`renderLuckActionNotes`、`renderLuckInterpretation`、`renderLuckDataNotes`。
+- `style.css`：新增 luck 詳情頁樣式，呈現年度節奏、九運週期、時間軸、主題整合、行動提醒與資料狀態提醒。
+- `SUPPORT_MODULE_SCHEMA.md`：更新 luck 狀態為 mock detail / mock planning，文件版本更新為 v0.5.0。
+- `scripts/check-site.js`：加入 luck data / renderer / style / support schema 檢查。
+- `CORE_DETAIL_SCHEMA.md`：保留五大核心 schema 文件，不為本版強制更新。
+- `yijing`、`soul-tree`、`database`：仍維持通用 detail page。
+- `almanac`、`deity`：仍維持 dashboard support / anchor，不新增 detail route。
+
 ## v0.4.2 後半段模組 schema 文件化
 
 - `SUPPORT_MODULE_SCHEMA.md`：後半段模組 schema 對照文件。

@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.4.2
+- 網站版本：v0.5.0
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.4.2
+- 靜態資源快取版本：v0.5.0
 
 ## 專案定位
 
@@ -17,6 +17,17 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.5.0 流年 / 九運 mock 詳情頁深化
+
+v0.5.0 開始後半段第一個模組深化：`#/module/luck` 從通用 detail page 升級為流年 / 九運 mock detail page。
+
+- `SUPPORT_MODULE_SCHEMA.md` 已更新為 v0.5.0，標記 luck 進入 mock detail。
+- 新增流年 / 九運摘要、年度節奏、九運週期、年度時間軸、主題整合、行動提醒、解讀重點與資料狀態提醒。
+- 本版仍未接入正式流年 / 九運計算。
+- 不提供正式運勢判斷，不提供吉凶分數。
+- 農民曆與神明生日仍是 dashboard support card / anchor，沒有新增 detail route。
+- 純 HTML / CSS / JS 靜態網站邊界仍保留，不新增 npm / API / 後端。
 
 ## v0.4.2 後半段模組 schema 文件化
 
@@ -256,8 +267,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.4.2 已將主要靜態資源引用更新為 `v=0.4.2`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.0 已將主要靜態資源引用更新為 `v=0.5.0`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.4.2 後可從流年 / 九運 mock 深化開始評估 v0.5.x；仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.5.0 後可評估農民曆 support 區塊整理或神明生日 support 區塊整理；仍建議先維持 mock / planning，不急著接真正排盤演算法。

@@ -881,14 +881,162 @@ window.KekeDetailPages = {
     category: "時間節奏",
     title: "流年 / 九運",
     subtitle: "年度主題與長週期節奏",
-    status: "planning",
+    status: "mock",
     route: "#/module/luck",
     summary: "整理年度、九運與長週期趨勢，作為命盤核心之外的節奏參考。",
     dashboardResult: {
       label: "目前結果",
-      value: "流年節奏規劃中",
-      note: "先以 planning 資料顯示，未接入正式流年或九運計算。"
+      value: "2026 年度節奏觀察",
+      note: "以 mock detail 資料顯示年度節奏與九運週期，未接入正式流年或九運計算。"
     },
+    luckProfile: {
+      chartStatus: "mock",
+      chartType: "流年 / 九運節奏骨架",
+      currentYear: "2026",
+      currentCycle: "九運・離火運",
+      cycleRange: "2024–2043",
+      analysisFocus: "年度節奏 / 九運週期 / 主題整合 / 行動方向",
+      summary: "目前為 mock 流年與九運骨架，用來規劃未來時間節奏詳情頁呈現方式。"
+    },
+    annualCycleOverview: [
+      {
+        label: "年度主題",
+        value: "2026 丙午火馬年",
+        theme: "外在節奏偏向啟動、曝光、熱度與快速變化。",
+        status: "mock",
+        note: "目前為展示用 mock 年度主題，不代表正式流年判斷。"
+      },
+      {
+        label: "年度關鍵字",
+        value: "熱度 / 轉換 / 推進",
+        theme: "適合整理方向、調整節奏，避免只被外部變動牽著走。",
+        status: "planning",
+        note: "未來需接入正式年度資料與校對規則。"
+      },
+      {
+        label: "年度提醒",
+        value: "先穩住節奏，再追求突破",
+        theme: "把年度節奏轉成可觀察、可調整的生活提醒。",
+        status: "planning",
+        note: "目前只做提醒文案骨架。"
+      }
+    ],
+    nineLuckOverview: [
+      {
+        label: "九運週期",
+        value: "九運・離火運",
+        range: "2024–2043",
+        theme: "火、光、影像、科技、文化、注意力與快速傳播。",
+        status: "mock",
+        note: "目前為九運 mock 主題展示，未接正式風水或命理判定。"
+      },
+      {
+        label: "週期位置",
+        value: "九運初期",
+        range: "2024–2028",
+        theme: "新週期建立期，適合觀察趨勢、建立新工具與新敘事。",
+        status: "planning",
+        note: "未來可細分初期、中段與後段。"
+      },
+      {
+        label: "長期提醒",
+        value: "避免只追熱點",
+        range: "2024–2043",
+        theme: "在變動快速的週期中，保留自己的資料、判斷與節奏。",
+        status: "planning",
+        note: "目前只做長週期提醒骨架。"
+      }
+    ],
+    timelineOverview: [
+      {
+        period: "2024–2025",
+        title: "九運開場",
+        theme: "新週期開始，適合整理工具、學習新系統與建立基礎。",
+        status: "planning"
+      },
+      {
+        period: "2026",
+        title: "年度聚焦",
+        theme: "以 mock 方式標示為火馬年節奏觀察點，未代表正式流年。",
+        status: "mock"
+      },
+      {
+        period: "2027–2028",
+        title: "節奏校正",
+        theme: "觀察哪些方向值得持續，哪些只是短期熱度。",
+        status: "planning"
+      },
+      {
+        period: "2029–2034",
+        title: "中段展開",
+        theme: "未來可補九運中段主題，目前只保留時間軸位置。",
+        status: "planning"
+      },
+      {
+        period: "2035–2043",
+        title: "後段整合",
+        theme: "未來可補九運後段整理與收束方向。",
+        status: "planning"
+      }
+    ],
+    themeIntegration: [
+      {
+        title: "年度 × 九運",
+        level: "mock",
+        content: "目前先以年度節奏與九運週期做雙層觀察，避免把單一年份解讀成全部趨勢。"
+      },
+      {
+        title: "外在變動 × 個人節奏",
+        level: "planning",
+        content: "未來可將流年 / 九運與五大核心命盤主題交叉整理，但本版不做正式整合。"
+      },
+      {
+        title: "提醒 × 行動",
+        level: "planning",
+        content: "流年頁未來可把時間節奏轉成年度提醒、季度提醒與行動方向。"
+      }
+    ],
+    actionNotes: [
+      {
+        title: "適合觀察",
+        level: "mock",
+        content: "觀察哪些外部趨勢只是熱度，哪些真正影響自己的長期方向。"
+      },
+      {
+        title: "適合整理",
+        level: "planning",
+        content: "整理年度目標、工具系統、資料紀錄與可持續節奏。"
+      },
+      {
+        title: "避免誤用",
+        level: "planning",
+        content: "不要把 mock 年度提醒當成正式運勢，也不要用來做重大決策。"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "流年觀察",
+        level: "mock",
+        content: "目前只作為流年 / 九運詳情頁展示用，未代表正式流年推算結果。"
+      },
+      {
+        title: "九運規劃",
+        level: "planning",
+        content: "未來可依正式資料整理九運週期、時間軸與長期主題。"
+      },
+      {
+        title: "時間節奏整合",
+        level: "planning",
+        content: "未來可與五大核心命盤、農民曆與提醒系統交叉整理，但本版不做正式演算法。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式流年 / 九運計算。",
+      "尚未接入正式大運、小運、飛星、風水或年度資料校對規則。",
+      "本頁內容不得視為正式運勢判斷，也不提供吉凶分數。",
+      "本頁內容不得作為投資、健康、感情、工作或重大決策依據。"
+    ],
     sections: [
       {
         title: "這個系統看什麼",

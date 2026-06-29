@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.5.0｜流年 / 九運 mock 詳情頁深化
+
+- 深化 `luck` detail data（luck detail data）。
+- 新增流年 / 九運摘要、年度節奏、九運週期、年度時間軸、主題整合、行動提醒、解讀重點與資料狀態提醒。
+- `app.js` 支援 luck 專屬詳情頁渲染，新增 `renderLuckDetail`。
+- `style.css` 新增 luck 詳情頁樣式。
+- `SUPPORT_MODULE_SCHEMA.md` 更新 luck 狀態與 v0.5.0 文件。
+- 保留五大核心詳情頁。
+- 保留農民曆與神明生日 dashboard support anchor。
+- 保留易經、命樹、資料庫通用詳情頁。
+- 維持純 HTML / CSS / JS 靜態網站。
+
 ## v0.4.2｜後半段模組 schema 文件化 × 通用詳情頁對照表
 
 - 新增 `SUPPORT_MODULE_SCHEMA.md`。

@@ -1207,6 +1207,170 @@ a {
   line-height: 1.6;
 }
 
+.luck-detail {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.luck-mock-note {
+  border-color: rgba(242, 193, 109, 0.3);
+  background: rgba(242, 193, 109, 0.08);
+}
+
+.luck-profile-card,
+.luck-annual-card,
+.luck-nine-card,
+.luck-timeline-card,
+.luck-theme-card,
+.luck-action-card,
+.luck-interpretation-card,
+.luck-data-notes {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(8, 22, 38, 0.74);
+  box-shadow: var(--shadow-soft);
+}
+
+.luck-profile-card {
+  padding: 16px;
+}
+
+.luck-profile-card p,
+.luck-annual-card p,
+.luck-annual-card em,
+.luck-nine-card p,
+.luck-nine-card em,
+.luck-timeline-card p,
+.luck-theme-card p,
+.luck-action-card p,
+.luck-interpretation-card p,
+.luck-data-notes li {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.luck-profile-grid,
+.luck-annual-grid,
+.luck-nine-grid,
+.luck-timeline,
+.luck-theme-grid,
+.luck-action-grid,
+.luck-interpretation-list {
+  display: grid;
+  gap: 12px;
+}
+
+.luck-profile-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  margin: 12px 0;
+}
+
+.luck-profile-grid .is-wide {
+  grid-column: 1 / -1;
+}
+
+.luck-annual-grid,
+.luck-nine-grid,
+.luck-theme-grid,
+.luck-action-grid,
+.luck-interpretation-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.luck-timeline {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+}
+
+.luck-profile-grid div,
+.luck-annual-card,
+.luck-nine-card,
+.luck-timeline-card,
+.luck-theme-card,
+.luck-action-card,
+.luck-interpretation-card {
+  padding: 13px;
+}
+
+.luck-profile-grid div {
+  border: 1px solid rgba(242, 193, 109, 0.14);
+  border-radius: var(--radius);
+  background: rgba(4, 16, 28, 0.46);
+}
+
+.luck-profile-grid span,
+.luck-annual-card small,
+.luck-nine-card small,
+.luck-timeline-card span,
+.luck-nine-card div {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.luck-profile-grid strong,
+.luck-annual-card strong,
+.luck-nine-card strong,
+.luck-timeline-card strong,
+.luck-theme-card strong,
+.luck-action-card strong,
+.luck-interpretation-card strong,
+.luck-data-notes h3 {
+  color: var(--text);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+}
+
+.luck-annual-card,
+.luck-nine-card,
+.luck-timeline-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.luck-annual-card::before,
+.luck-nine-card::before,
+.luck-timeline-card::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(135deg, rgba(242, 193, 109, 0.13), transparent 42%);
+}
+
+.luck-annual-card > *,
+.luck-nine-card > *,
+.luck-timeline-card > * {
+  position: relative;
+}
+
+.luck-annual-card strong,
+.luck-nine-card strong,
+.luck-timeline-card span {
+  color: var(--gold);
+}
+
+.luck-timeline-card {
+  border-left: 3px solid rgba(242, 193, 109, 0.48);
+}
+
+.luck-data-notes {
+  padding: 15px;
+}
+
+.luck-data-notes h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.luck-data-notes ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
 .route-not-found {
   border-color: rgba(255, 143, 143, 0.28);
 }
