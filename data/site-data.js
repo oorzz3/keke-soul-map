@@ -1,25 +1,25 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.3.7",
+    version: "v0.3.8",
     dataVersion: "v0.2",
-    cacheVersion: "v0.3.7",
-    status: "西洋星盤詳情頁 mock 深化",
-    updatedNote: "v0.3.7 深化西洋星盤詳情頁 mock 結構，建立三軸、行星落點、十二宮位、相位關係與資料狀態骨架。"
+    cacheVersion: "v0.3.8",
+    status: "生命靈數詳情頁 mock 深化",
+    updatedNote: "v0.3.8 深化生命靈數詳情頁 mock 結構，建立核心數字、生日拆解、個人節奏、數字意義與資料狀態骨架。"
   },
   versionPolicy: {
-    productVersion: "v0.3.7",
-    cacheVersion: "v0.3.7",
+    productVersion: "v0.3.8",
+    cacheVersion: "v0.3.8",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.3.7",
+    currentVersion: "v0.3.8",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.3.7 保留 hash router 與 dashboard zone，並深化西洋星盤 mock 詳情頁。"
+    note: "v0.3.8 保留 hash router 與 dashboard zone，並深化生命靈數 mock 詳情頁。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

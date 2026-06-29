@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.3.7
+- 網站版本：v0.3.8
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.3.7
+- 靜態資源快取版本：v0.3.8
 
 ## 專案定位
 
@@ -17,6 +17,20 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.3.8 生命靈數詳情頁 mock 深化
+
+v0.3.8 深化 `index.html#/module/numerology`，先建立生命靈數詳情頁的 mock 資料與渲染骨架，仍不做正式生命靈數計算。
+
+- 新增 `numerologyProfile` 靈數摘要。
+- 新增 `coreNumberOverview`，規劃生命靈數、生日數與命運數。
+- 新增 `birthNumberBreakdown`，保留年份、月份、日期、總和拆解欄位。
+- 新增 `cycleOverview`，規劃個人年、個人月與個人日節奏。
+- 新增 `numberMeaningOverview`，整理數字 1～9 的意義對照。
+- 新增行動節奏、解讀重點與資料狀態提醒。
+- `app.js` 新增 `renderNumerologyDetail` 與相關 renderer。
+- 尚未接入正式生命靈數計算，內容不可視為正式命理判斷。
+- 保留紫微、八字、西洋星盤詳情頁、其他 mock 詳情頁、首頁總控台、hash router、lunar、神明生日與日期測試模式。
 
 ## v0.3.7 西洋星盤詳情頁 mock 深化
 
@@ -194,8 +208,8 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.7 已將主要靜態資源引用更新為 `v=0.3.7`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.3.8 已將主要靜態資源引用更新為 `v=0.3.8`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 
-v0.3.7 後可繼續微調星盤詳情頁資訊量，或逐步深化生命靈數 / 姓名學詳情頁 mock；仍建議先維持 mock / planning，不急著接真正排盤演算法。
+v0.3.8 後可繼續微調生命靈數詳情頁資訊量，或逐步深化姓名學詳情頁 mock；仍建議先維持 mock / planning，不急著接真正排盤演算法。

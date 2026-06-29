@@ -40,6 +40,13 @@
 - `data/site-data.js`：`siteMeta` 與 `versionPolicy` 管理產品版本、快取版本與資料版本。
 - 本專案仍維持純 HTML / CSS / JS 靜態網站，不新增 npm / API / 後端。
 
+## v0.3.8 生命靈數詳情頁 mock 深化
+
+- `data/detail-pages-data.js`：`numerology` 新增 `numerologyProfile`、`coreNumberOverview`、`birthNumberBreakdown`、`cycleOverview`、`numberMeaningOverview`、`actionRhythm`、`interpretationBlocks`、`dataNotes`。
+- `app.js`：新增 `renderNumerologyDetail`、`renderNumerologyProfile`、`renderNumerologyCoreNumbers`、`renderNumerologyBirthBreakdown`、`renderNumerologyCycles`、`renderNumerologyMeanings`、`renderNumerologyActionRhythm`、`renderNumerologyInterpretation`、`renderNumerologyDataNotes`。
+- `style.css`：新增生命靈數詳情頁樣式，包含核心數字、生日拆解、個人節奏、數字 1～9、行動節奏與資料狀態提醒。
+- `scripts/check-site.js`：新增生命靈數詳情頁資料、renderer 與樣式檢查。
+
 ## v0.3.7 西洋星盤詳情頁 mock 深化
 
 - `data/detail-pages-data.js`：`astrology` 新增 `astrologyProfile`、`axisOverview`、`planetOverview`、`houseOverview`、`aspectOverview`、`interpretationBlocks`、`dataNotes`。

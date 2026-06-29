@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.3.7";
-const expectedVersionLabel = "v0.3.7";
+const expectedVersion = "0.3.8";
+const expectedVersionLabel = "v0.3.8";
 const results = [];
 let activeGroup = "general";
 
@@ -140,23 +140,23 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.3.7 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.3.8 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "西洋星盤詳情頁 mock 深化" },
+    { label: "siteMeta.status", value: "生命靈數詳情頁 mock 深化" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` }
-  ], "site-data.js 需要同步 v0.3.7 版本資料與版本策略。");
+  ], "site-data.js 需要同步 v0.3.8 版本資料與版本策略。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.3.7", value: expectedVersionLabel },
-    { label: "fallback status", value: "西洋星盤詳情頁 mock 深化" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.3.7。");
+    { label: "fallback v0.3.8", value: expectedVersionLabel },
+    { label: "fallback status", value: "生命靈數詳情頁 mock 深化" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.3.8。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.3.7", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.3.8", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -273,6 +273,12 @@ function checkDetailData() {
     { label: "planetOverview", value: "planetOverview" },
     { label: "houseOverview", value: "houseOverview" },
     { label: "aspectOverview", value: "aspectOverview" },
+    { label: "numerologyProfile", value: "numerologyProfile" },
+    { label: "coreNumberOverview", value: "coreNumberOverview" },
+    { label: "birthNumberBreakdown", value: "birthNumberBreakdown" },
+    { label: "cycleOverview", value: "cycleOverview" },
+    { label: "numberMeaningOverview", value: "numberMeaningOverview" },
+    { label: "actionRhythm", value: "actionRhythm" },
     { label: "interpretationBlocks", value: "interpretationBlocks" },
     { label: "dataNotes", value: "dataNotes" },
     { label: "太陽", value: "太陽" },
@@ -300,6 +306,30 @@ function checkDetailData() {
     { label: "四分相", value: "四分相" },
     { label: "三分相", value: "三分相" },
     { label: "六分相", value: "六分相" },
+    { label: "生命靈數", value: "生命靈數" },
+    { label: "生日數", value: "生日數" },
+    { label: "命運數", value: "命運數" },
+    { label: "個人年", value: "個人年" },
+    { label: "個人月", value: "個人月" },
+    { label: "個人日", value: "個人日" },
+    { label: "1", value: 'number: "1"' },
+    { label: "2", value: 'number: "2"' },
+    { label: "3", value: 'number: "3"' },
+    { label: "4", value: 'number: "4"' },
+    { label: "5", value: 'number: "5"' },
+    { label: "6", value: 'number: "6"' },
+    { label: "7", value: 'number: "7"' },
+    { label: "8", value: 'number: "8"' },
+    { label: "9", value: 'number: "9"' },
+    { label: "探索", value: "探索" },
+    { label: "開始", value: "開始" },
+    { label: "合作", value: "合作" },
+    { label: "表達", value: "表達" },
+    { label: "穩定", value: "穩定" },
+    { label: "變化", value: "變化" },
+    { label: "照顧", value: "照顧" },
+    { label: "力量", value: "力量" },
+    { label: "完成", value: "完成" },
     { label: "mock", value: "mock" },
     { label: "planning", value: "planning" },
     ...routeIds.map((id) => ({ label: id, value: id }))
@@ -317,6 +347,16 @@ function checkDetailData() {
     { label: "renderAstrologyAspectOverview", value: "renderAstrologyAspectOverview" },
     { label: "renderAstrologyInterpretation", value: "renderAstrologyInterpretation" },
     { label: "renderAstrologyDataNotes", value: "renderAstrologyDataNotes" },
+    { label: "renderNumerologyDetail", value: "renderNumerologyDetail" },
+    { label: "renderNumerologyProfile", value: "renderNumerologyProfile" },
+    { label: "renderNumerologyCoreNumbers", value: "renderNumerologyCoreNumbers" },
+    { label: "renderNumerologyBirthBreakdown", value: "renderNumerologyBirthBreakdown" },
+    { label: "renderNumerologyCycles", value: "renderNumerologyCycles" },
+    { label: "renderNumerologyMeanings", value: "renderNumerologyMeanings" },
+    { label: "renderNumerologyActionRhythm", value: "renderNumerologyActionRhythm" },
+    { label: "renderNumerologyInterpretation", value: "renderNumerologyInterpretation" },
+    { label: "renderNumerologyDataNotes", value: "renderNumerologyDataNotes" },
+    { label: "尚未接入正式生命靈數計算", value: "尚未接入正式生命靈數計算" },
     { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" }
   ], "app.js 需要保留紫微、八字與西洋星盤專屬 renderer。");
 
@@ -332,7 +372,15 @@ function checkDetailData() {
     { label: "astrology-house-grid", value: "astrology-house-grid" },
     { label: "astrology-house-card", value: "astrology-house-card" },
     { label: "astrology-aspect-grid", value: "astrology-aspect-grid" },
-    { label: "astrology-data-notes", value: "astrology-data-notes" }
+    { label: "astrology-data-notes", value: "astrology-data-notes" },
+    { label: "numerology-detail", value: "numerology-detail" },
+    { label: "numerology-profile-card", value: "numerology-profile-card" },
+    { label: "numerology-core-grid", value: "numerology-core-grid" },
+    { label: "numerology-core-card", value: "numerology-core-card" },
+    { label: "numerology-number-badge", value: "numerology-number-badge" },
+    { label: "numerology-cycle-grid", value: "numerology-cycle-grid" },
+    { label: "numerology-meaning-grid", value: "numerology-meaning-grid" },
+    { label: "numerology-data-notes", value: "numerology-data-notes" }
   ], "style.css 需要保留紫微、八字與西洋星盤詳情頁樣式。");
 
   if (detailData !== null) {
@@ -480,8 +528,8 @@ function checkDocs() {
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "西洋星盤詳情頁 mock 深化", value: "西洋星盤詳情頁 mock 深化" },
-    { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" },
+    { label: "生命靈數詳情頁 mock 深化", value: "生命靈數詳情頁 mock 深化" },
+    { label: "尚未接入正式生命靈數計算", value: "尚未接入正式生命靈數計算" },
     { label: "version-sync", value: "version-sync" },
     { label: "required-files", value: "required-files" },
     { label: "dashboard-structure", value: "dashboard-structure" },
@@ -493,21 +541,21 @@ function checkDocs() {
     { label: "productVersion", value: "productVersion" },
     { label: "cacheVersion", value: "cacheVersion" },
     { label: "dataVersion", value: "dataVersion" }
-  ], "README.md 需要補充 v0.3.7 西洋星盤詳情頁 mock 深化。");
+  ], "README.md 需要補充 v0.3.8 生命靈數詳情頁 mock 深化。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "西洋星盤詳情頁 mock 深化", value: "西洋星盤詳情頁 mock 深化" },
-    { label: "相位關係", value: "相位關係" }
-  ], "CHANGELOG.md 需要記錄 v0.3.7。");
+    { label: "生命靈數詳情頁 mock 深化", value: "生命靈數詳情頁 mock 深化" },
+    { label: "個人節奏", value: "個人節奏" }
+  ], "CHANGELOG.md 需要記錄 v0.3.8。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "astrologyProfile", value: "astrologyProfile" },
-    { label: "axisOverview", value: "axisOverview" },
-    { label: "renderAstrologyDetail", value: "renderAstrologyDetail" },
+    { label: "numerologyProfile", value: "numerologyProfile" },
+    { label: "coreNumberOverview", value: "coreNumberOverview" },
+    { label: "renderNumerologyDetail", value: "renderNumerologyDetail" },
     { label: "純 HTML / CSS / JS", value: "純 HTML / CSS / JS" }
-  ], "PROJECT_MAP.md 需要補充 v0.3.7 西洋星盤詳情頁資料與 renderer。");
+  ], "PROJECT_MAP.md 需要補充 v0.3.8 生命靈數詳情頁資料與 renderer。");
 }
 
 function checkUtf8Readable() {

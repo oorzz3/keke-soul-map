@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.3.7",
+  version: "v0.3.8",
   dataVersion: "v0.2",
-  cacheVersion: "v0.3.7",
-  status: "西洋星盤詳情頁 mock 深化"
+  cacheVersion: "v0.3.8",
+  status: "生命靈數詳情頁 mock 深化"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -249,6 +249,10 @@ function renderSpecialDetailContent(page = {}) {
 
   if (page.id === "astrology" && page.astrologyProfile) {
     return renderAstrologyDetail(page);
+  }
+
+  if (page.id === "numerology" && page.numerologyProfile) {
+    return renderNumerologyDetail(page);
   }
 
   return "";
@@ -734,6 +738,216 @@ function renderAstrologyDataNotes(notes = []) {
 
   return `
     <section class="astrology-data-notes">
+      <h3>資料狀態提醒</h3>
+      <ul>
+        ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderNumerologyDetail(page = {}) {
+  return `
+    <section class="numerology-detail" aria-label="生命靈數 mock 詳情">
+      <div class="detail-note numerology-mock-note">目前是 mock 靈數骨架，不是正式計算結果；尚未接入正式生命靈數計算。</div>
+      ${renderNumerologyProfile(page.numerologyProfile)}
+      ${renderNumerologyCoreNumbers(page.coreNumberOverview)}
+      ${renderNumerologyBirthBreakdown(page.birthNumberBreakdown)}
+      ${renderNumerologyCycles(page.cycleOverview)}
+      ${renderNumerologyMeanings(page.numberMeaningOverview)}
+      ${renderNumerologyActionRhythm(page.actionRhythm)}
+      ${renderNumerologyInterpretation(page.interpretationBlocks)}
+      ${renderNumerologyDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function renderNumerologyProfile(profile = {}) {
+  return `
+    <section class="numerology-profile-card">
+      <div class="section-heading compact-heading">
+        <p>靈數命盤摘要</p>
+        <h3>${escapeHtml(profile.chartType || "生命靈數命盤骨架")}</h3>
+      </div>
+      <div class="numerology-profile-grid">
+        <div>
+          <span>狀態</span>
+          <strong>${escapeHtml(profile.chartStatus || "mock")}</strong>
+        </div>
+        <div>
+          <span>核心數字</span>
+          <strong>${escapeHtml(profile.coreNumber || "待建立")}</strong>
+        </div>
+        <div>
+          <span>節奏焦點</span>
+          <strong>${escapeHtml(profile.rhythmFocus || "個人年 / 個人月 / 個人日")}</strong>
+        </div>
+        <div>
+          <span>生日來源</span>
+          <strong>${escapeHtml(profile.birthDateSource || "生日資料待正式校對")}</strong>
+        </div>
+      </div>
+      <p>${escapeHtml(profile.summary || "目前為 mock 靈數骨架。")}</p>
+    </section>
+  `;
+}
+
+function renderNumerologyCoreNumbers(coreNumbers = []) {
+  if (!Array.isArray(coreNumbers) || coreNumbers.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>核心數字</p>
+        <h3>生命靈數 / 生日數 / 命運數</h3>
+      </div>
+      <div class="numerology-core-grid">
+        ${coreNumbers.map((item) => `
+          <article class="numerology-core-card ${item.value === "7" ? "is-featured" : ""}">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <div class="numerology-number-badge">${escapeHtml(item.value || "待建立")}</div>
+            <strong>${escapeHtml(item.label)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyBirthBreakdown(breakdown = []) {
+  if (!Array.isArray(breakdown) || breakdown.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>生日數字拆解規劃</p>
+        <h3>年份 / 月份 / 日期 / 總和</h3>
+      </div>
+      <div class="numerology-breakdown-grid">
+        ${breakdown.map((item) => `
+          <article class="numerology-breakdown-card">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <strong>${escapeHtml(item.part)}</strong>
+            <div>${escapeHtml(item.value || "待建立")}</div>
+            <p>${escapeHtml(item.meaning)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyCycles(cycles = []) {
+  if (!Array.isArray(cycles) || cycles.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>個人節奏</p>
+        <h3>個人年 / 個人月 / 個人日</h3>
+      </div>
+      <div class="numerology-cycle-grid">
+        ${cycles.map((item) => `
+          <article class="numerology-cycle-card">
+            <span class="detail-status is-mock">${escapeHtml(item.value || "待計算")}</span>
+            <strong>${escapeHtml(item.cycle)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+            <small>${escapeHtml(item.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyMeanings(meanings = []) {
+  if (!Array.isArray(meanings) || meanings.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>數字 1～9 意義對照</p>
+        <h3>九個數字的主題語彙</h3>
+      </div>
+      <div class="numerology-meaning-grid">
+        ${meanings.map((item) => `
+          <article class="numerology-meaning-card ${item.number === "7" ? "is-featured" : ""}">
+            <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
+            <div class="numerology-number-badge">${escapeHtml(item.number)}</div>
+            <strong>${escapeHtml(item.keyword)}</strong>
+            <p>${escapeHtml(item.theme)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyActionRhythm(actionRhythm = []) {
+  if (!Array.isArray(actionRhythm) || actionRhythm.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>行動節奏提示</p>
+        <h3>把數字轉成可執行提醒</h3>
+      </div>
+      <div class="numerology-action-list">
+        ${actionRhythm.map((item) => `
+          <article class="numerology-action-card">
+            <span class="detail-status is-${escapeHtml(item.level || "planning")}">${escapeHtml(item.level || "planning")}</span>
+            <strong>${escapeHtml(item.title)}</strong>
+            <p>${escapeHtml(item.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyInterpretation(blocks = []) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  return `
+    <section>
+      <div class="section-heading compact-heading">
+        <p>解讀重點</p>
+        <h3>目前階段的 mock / planning 解讀方向</h3>
+      </div>
+      <div class="numerology-interpretation-list">
+        ${blocks.map((block) => `
+          <article class="numerology-interpretation-card">
+            <span class="detail-status is-${escapeHtml(block.level || "planning")}">${escapeHtml(block.level || "planning")}</span>
+            <strong>${escapeHtml(block.title)}</strong>
+            <p>${escapeHtml(block.content)}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderNumerologyDataNotes(notes = []) {
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="numerology-data-notes">
       <h3>資料狀態提醒</h3>
       <ul>
         ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}

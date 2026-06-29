@@ -508,6 +508,179 @@ window.KekeDetailPages = {
         title: "未來要補",
         items: ["生日數字計算", "年度節奏說明", "行動建議文案", "資料校對標籤"]
       }
+    ],
+    numerologyProfile: {
+      chartStatus: "mock",
+      chartType: "生命靈數命盤骨架",
+      coreNumber: "7",
+      rhythmFocus: "個人年 / 個人月 / 個人日",
+      birthDateSource: "生日資料待正式校對",
+      summary: "目前為 mock 靈數骨架，用來規劃未來生命靈數詳情頁呈現方式。"
+    },
+    coreNumberOverview: [
+      {
+        label: "生命靈數",
+        value: "7",
+        theme: "探索、分析、內在理解與獨處充電",
+        status: "mock",
+        note: "目前為展示用 mock 數字，不代表正式計算結果。"
+      },
+      {
+        label: "生日數",
+        value: "待建立",
+        theme: "出生日期中的直覺天賦與外在表現",
+        status: "planning",
+        note: "未來會依生日拆解。"
+      },
+      {
+        label: "命運數",
+        value: "待建立",
+        theme: "人生主題、長期方向與核心課題",
+        status: "planning",
+        note: "未來會依生日總和計算。"
+      }
+    ],
+    birthNumberBreakdown: [
+      {
+        part: "年份",
+        value: "待建立",
+        meaning: "時代背景與長期生命底色",
+        status: "planning"
+      },
+      {
+        part: "月份",
+        value: "待建立",
+        meaning: "情緒節奏、反應模式與環境感受",
+        status: "planning"
+      },
+      {
+        part: "日期",
+        value: "待建立",
+        meaning: "日常表現、直覺行動與個人特色",
+        status: "planning"
+      },
+      {
+        part: "總和",
+        value: "待建立",
+        meaning: "生命主題與整體走向",
+        status: "planning"
+      }
+    ],
+    cycleOverview: [
+      {
+        cycle: "個人年",
+        value: "待計算",
+        theme: "年度主題、外部節奏與大方向",
+        note: "目前為 mock，未接正式個人年計算。"
+      },
+      {
+        cycle: "個人月",
+        value: "待計算",
+        theme: "當月任務、行動節奏與調整方向",
+        note: "目前為 mock。"
+      },
+      {
+        cycle: "個人日",
+        value: "待計算",
+        theme: "今日提醒、互動方式與短節奏",
+        note: "目前為 mock。"
+      }
+    ],
+    numberMeaningOverview: [
+      {
+        number: "1",
+        keyword: "開始",
+        theme: "主動、開創、自我定位",
+        status: "planning"
+      },
+      {
+        number: "2",
+        keyword: "合作",
+        theme: "關係、協調、感受力",
+        status: "planning"
+      },
+      {
+        number: "3",
+        keyword: "表達",
+        theme: "創意、溝通、呈現",
+        status: "planning"
+      },
+      {
+        number: "4",
+        keyword: "穩定",
+        theme: "規劃、秩序、執行",
+        status: "planning"
+      },
+      {
+        number: "5",
+        keyword: "變化",
+        theme: "自由、移動、嘗試",
+        status: "planning"
+      },
+      {
+        number: "6",
+        keyword: "照顧",
+        theme: "責任、家庭、平衡",
+        status: "planning"
+      },
+      {
+        number: "7",
+        keyword: "探索",
+        theme: "分析、內省、研究",
+        status: "mock"
+      },
+      {
+        number: "8",
+        keyword: "力量",
+        theme: "資源、管理、成果",
+        status: "planning"
+      },
+      {
+        number: "9",
+        keyword: "完成",
+        theme: "整合、放下、視野",
+        status: "planning"
+      }
+    ],
+    actionRhythm: [
+      {
+        title: "適合做什麼",
+        level: "mock",
+        content: "目前僅作為節奏區塊展示，未來可依個人日整理行動提醒。"
+      },
+      {
+        title: "需要留意什麼",
+        level: "planning",
+        content: "未來可依數字節奏提醒過度消耗、拖延或衝動。"
+      },
+      {
+        title: "今日一句話",
+        level: "planning",
+        content: "未來可把個人日轉成簡短提醒，用於首頁今日摘要。"
+      }
+    ],
+    interpretationBlocks: [
+      {
+        title: "核心數字觀察",
+        level: "mock",
+        content: "目前只作為生命靈數詳情頁展示用，未代表正式生命靈數結果。"
+      },
+      {
+        title: "個人節奏",
+        level: "planning",
+        content: "未來會依正式計算結果整理個人年、個人月與個人日。"
+      },
+      {
+        title: "行動提醒",
+        level: "planning",
+        content: "未來可將數字節奏轉成每日可執行的提醒。"
+      }
+    ],
+    dataNotes: [
+      "本頁目前為 mock / planning 架構。",
+      "尚未接入正式生命靈數計算。",
+      "未來需補生日資料校對、生日數字拆解、個人年 / 月 / 日規則。",
+      "本頁內容不得視為正式命理判斷。"
     ]
   },
   name: {

@@ -822,6 +822,183 @@ a {
   line-height: 1.6;
 }
 
+.numerology-detail {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.numerology-mock-note {
+  border-color: rgba(114, 215, 239, 0.24);
+}
+
+.numerology-profile-card,
+.numerology-core-card,
+.numerology-breakdown-card,
+.numerology-cycle-card,
+.numerology-meaning-card,
+.numerology-action-card,
+.numerology-interpretation-card,
+.numerology-data-notes {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(8, 22, 38, 0.74);
+  box-shadow: var(--shadow-soft);
+}
+
+.numerology-profile-card {
+  padding: 16px;
+}
+
+.numerology-profile-card p,
+.numerology-core-card p,
+.numerology-core-card small,
+.numerology-breakdown-card p,
+.numerology-cycle-card p,
+.numerology-cycle-card small,
+.numerology-meaning-card p,
+.numerology-action-card p,
+.numerology-interpretation-card p,
+.numerology-data-notes li {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.numerology-core-card small,
+.numerology-cycle-card small {
+  display: block;
+  margin-top: 8px;
+}
+
+.numerology-profile-grid,
+.numerology-core-grid,
+.numerology-breakdown-grid,
+.numerology-cycle-grid,
+.numerology-meaning-grid,
+.numerology-action-list,
+.numerology-interpretation-list {
+  display: grid;
+  gap: 12px;
+}
+
+.numerology-profile-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  margin: 12px 0;
+}
+
+.numerology-core-grid,
+.numerology-cycle-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+}
+
+.numerology-breakdown-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+}
+
+.numerology-meaning-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 132px), 1fr));
+}
+
+.numerology-action-list,
+.numerology-interpretation-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.numerology-profile-grid div,
+.numerology-core-card,
+.numerology-breakdown-card,
+.numerology-cycle-card,
+.numerology-meaning-card,
+.numerology-action-card,
+.numerology-interpretation-card {
+  padding: 13px;
+}
+
+.numerology-profile-grid div {
+  border: 1px solid rgba(114, 215, 239, 0.14);
+  border-radius: var(--radius);
+  background: rgba(4, 16, 28, 0.46);
+}
+
+.numerology-profile-grid span,
+.numerology-breakdown-card div {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.numerology-profile-grid strong,
+.numerology-core-card strong,
+.numerology-breakdown-card strong,
+.numerology-cycle-card strong,
+.numerology-meaning-card strong,
+.numerology-action-card strong,
+.numerology-interpretation-card strong,
+.numerology-data-notes h3 {
+  color: var(--text);
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+}
+
+.numerology-core-card,
+.numerology-meaning-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.numerology-core-card::before,
+.numerology-meaning-card::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(circle at 18% 8%, rgba(242, 193, 109, 0.16), transparent 42%);
+  opacity: 0.65;
+}
+
+.numerology-core-card > *,
+.numerology-meaning-card > * {
+  position: relative;
+}
+
+.numerology-core-card.is-featured,
+.numerology-meaning-card.is-featured {
+  border-color: rgba(242, 193, 109, 0.42);
+  background: linear-gradient(145deg, rgba(242, 193, 109, 0.12), rgba(8, 22, 38, 0.82));
+}
+
+.numerology-number-badge {
+  display: grid;
+  width: 48px;
+  aspect-ratio: 1;
+  place-items: center;
+  margin: 10px 0;
+  color: #06101d;
+  background: var(--gold);
+  border-radius: 999px;
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  box-shadow: 0 0 26px rgba(242, 193, 109, 0.2);
+}
+
+.numerology-data-notes {
+  padding: 15px;
+}
+
+.numerology-data-notes h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.numerology-data-notes ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
 .route-not-found {
   border-color: rgba(255, 143, 143, 0.28);
 }
