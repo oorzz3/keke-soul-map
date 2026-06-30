@@ -6,9 +6,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.5.1.2
+- 網站版本：v0.5.1.3
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.5.1.2
+- 靜態資源快取版本：v0.5.1.3
 
 ## 專案定位
 
@@ -17,6 +17,17 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 點進卡片 = 對應命盤詳情頁
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
+
+## v0.5.1.3 首頁 Blueprint 視覺二修
+
+v0.5.1.3 依照首頁建構圖重排 dashboard 骨架，從「內容瘦身」推進到實際視覺結構調整。
+
+- 首頁改以 `dashboard-hero-band`、`dashboard-core-grid`、`dashboard-rhythm-row`、`dashboard-support-strip` 四段呈現。
+- 本命摘要改成橫向 hero band，五大命盤核心維持主視覺。
+- 今日摘要、生命靈數與命樹保留為中卡節奏區。
+- 農民曆、神明生日與資料工具短卡化，只保留首頁必要摘要。
+- 農民曆 / 神明生日仍是 support / anchor，不新增 `#/module/almanac` 或 `#/module/deity`。
+- 本版仍是純 HTML / CSS / JS，未新增 npm、API、後端或資料庫。
 
 ## v0.5.1.2 首頁架構圖對齊 × Dashboard 密度收束
 
@@ -300,7 +311,7 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.2 已將主要靜態資源引用更新為 `v=0.5.1.2`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.3 已將主要靜態資源引用更新為 `v=0.5.1.3`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 

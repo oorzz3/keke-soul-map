@@ -186,12 +186,6 @@ a {
   min-width: 0;
 }
 
-.dashboard-core-cluster,
-.dashboard-rhythm-cluster,
-.dashboard-support-cluster {
-  align-items: stretch;
-}
-
 .dashboard-hero-zone {
   position: relative;
 }
@@ -3231,5 +3225,442 @@ blockquote {
 
   .core-dashboard-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+/* v0.5.1.3 Blueprint visual pass */
+.dashboard-blueprint-layout {
+  gap: 14px;
+}
+
+.dashboard-hero-band,
+.dashboard-core-grid,
+.dashboard-rhythm-row,
+.dashboard-support-strip {
+  display: grid;
+  min-width: 0;
+}
+
+.blueprint-hero-card,
+.blueprint-core-panel,
+.blueprint-medium-card,
+.blueprint-visual-card,
+.blueprint-support-card {
+  border-color: rgba(230, 190, 116, 0.18);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.18);
+}
+
+.blueprint-hero-card {
+  display: grid;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+}
+
+.hero-focus-strip {
+  display: grid;
+  gap: 10px;
+}
+
+.hero-focus-strip article {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px;
+  background: rgba(3, 12, 24, 0.36);
+  border: 1px solid rgba(114, 215, 239, 0.12);
+  border-radius: var(--radius);
+}
+
+.hero-focus-strip span,
+.blueprint-medium-body span,
+.support-card-head,
+.support-card-head p {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.hero-focus-strip strong {
+  color: var(--gold);
+  font-size: 1.02rem;
+}
+
+.hero-focus-strip small {
+  color: #dfe7f4;
+  line-height: 1.55;
+}
+
+.blueprint-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.blueprint-chip-row span,
+.blueprint-chip-row a {
+  display: inline-grid;
+  min-height: 26px;
+  place-items: center;
+  padding: 4px 9px;
+  color: var(--cyan);
+  text-decoration: none;
+  background: rgba(114, 215, 239, 0.08);
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: calc(var(--radius) - 2px);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.blueprint-core-panel {
+  padding: 16px;
+}
+
+.blueprint-core-panel .core-dashboard {
+  display: block;
+}
+
+.core-dashboard-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.blueprint-core-card {
+  min-height: 116px;
+  padding: 11px;
+  background:
+    radial-gradient(circle at 100% 100%, rgba(114, 215, 239, 0.15), transparent 34%),
+    rgba(3, 12, 24, 0.34);
+  border-color: rgba(114, 215, 239, 0.16);
+}
+
+.blueprint-core-card .core-module-head {
+  align-items: flex-start;
+}
+
+.blueprint-core-card .core-module-value {
+  display: grid;
+  gap: 3px;
+  min-height: auto;
+  margin-top: 6px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.blueprint-core-card .core-module-value strong {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.blueprint-core-card .module-enter {
+  width: fit-content;
+  min-height: 24px;
+  margin-top: 4px;
+  padding: 3px 8px;
+  color: var(--gold);
+  background: rgba(242, 193, 109, 0.1);
+  border: 1px solid rgba(242, 193, 109, 0.18);
+  border-radius: calc(var(--radius) - 3px);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.blueprint-medium-card,
+.blueprint-support-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.blueprint-medium-body {
+  display: grid;
+  gap: 8px;
+}
+
+.blueprint-medium-body p,
+.support-main,
+.support-subline {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.blueprint-medium-body p {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  background: rgba(3, 12, 24, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.blueprint-number-focus {
+  min-height: auto;
+  padding: 10px 12px;
+}
+
+.blueprint-summary-line {
+  margin: 0;
+  color: #f3d6a4;
+  line-height: 1.65;
+}
+
+.soul-tree-visual {
+  position: relative;
+  display: grid;
+  min-height: 136px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(114, 215, 239, 0.13);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 50% 52%, rgba(242, 193, 109, 0.18), transparent 20%),
+    radial-gradient(circle at 35% 42%, rgba(123, 220, 154, 0.12), transparent 30%),
+    rgba(3, 12, 24, 0.32);
+}
+
+.soul-tree-visual strong {
+  display: grid;
+  width: 74px;
+  height: 74px;
+  place-items: center;
+  color: var(--gold);
+  text-align: center;
+  border: 1px solid rgba(242, 193, 109, 0.34);
+  border-radius: 999px;
+  background: rgba(4, 19, 38, 0.82);
+  box-shadow: 0 0 26px rgba(242, 193, 109, 0.18);
+}
+
+.tree-orbit {
+  position: absolute;
+  padding: 4px 8px;
+  color: var(--cyan);
+  background: rgba(3, 12, 24, 0.74);
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.tree-orbit.is-root {
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tree-orbit.is-ziwei {
+  top: 16px;
+  left: 18%;
+}
+
+.tree-orbit.is-star {
+  top: 16px;
+  right: 18%;
+}
+
+.tree-orbit.is-number {
+  right: 12%;
+  bottom: 28px;
+}
+
+.support-card-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.support-card-head p,
+.support-card-head span {
+  margin: 0;
+}
+
+.blueprint-support-card h2 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.support-main {
+  color: #f3d6a4;
+  font-weight: 800;
+}
+
+.support-subline {
+  color: var(--cyan);
+  font-size: 0.9rem;
+}
+
+.blueprint-short-card .almanac-date-grid,
+.blueprint-short-card .detail-list,
+.blueprint-short-card .mock-sample {
+  display: none;
+}
+
+.blueprint-support-card .tool-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 719px) {
+  .dashboard-blueprint-layout,
+  .dashboard-hero-band,
+  .dashboard-core-grid,
+  .dashboard-rhythm-row,
+  .dashboard-support-strip,
+  .blueprint-hero-card,
+  .hero-focus-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .blueprint-core-card {
+    min-height: 124px;
+  }
+
+  .blueprint-hero-card {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .blueprint-hero-card .cosmic-disc {
+    width: 112px;
+    height: 112px;
+  }
+
+  .hero-focus-strip {
+    gap: 7px;
+  }
+
+  .hero-focus-strip article {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+  }
+
+  .hero-focus-strip small {
+    display: none;
+  }
+}
+
+@media (min-width: 720px) {
+  .dashboard-core-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .core-dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-rhythm-row,
+  .dashboard-support-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-rhythm-row > .tree-card,
+  .dashboard-support-strip > .tools-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1060px) {
+  .site-shell {
+    width: min(100%, 1640px);
+    grid-template-columns: 212px minmax(0, 1fr);
+  }
+
+  .desktop-sidebar {
+    padding: 16px 12px;
+    background: rgba(1, 10, 21, 0.74);
+  }
+
+  .brand-mark {
+    padding: 8px 4px 14px;
+  }
+
+  .sidebar-nav {
+    gap: 6px;
+  }
+
+  .sidebar-nav a {
+    min-height: 38px;
+    padding: 8px 10px;
+  }
+
+  .sidebar-sync {
+    margin-top: 18px;
+  }
+
+  .page-canvas {
+    padding: 18px 18px 36px;
+  }
+
+  .topbar {
+    position: relative;
+    top: auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    margin-bottom: 10px;
+    padding: 0 0 8px;
+    background: transparent;
+    border: 0;
+  }
+
+  .dashboard-blueprint-layout {
+    gap: 14px;
+  }
+
+  .dashboard-hero-band,
+  .dashboard-core-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-hero-zone > .blueprint-hero-card,
+  .blueprint-hero-card {
+    grid-template-columns: 128px minmax(0, 1fr) minmax(360px, 0.95fr);
+    min-height: 190px;
+    padding: 14px 18px;
+  }
+
+  .blueprint-hero-card .cosmic-disc {
+    width: 108px;
+    height: 108px;
+  }
+
+  .hero-focus-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .core-dashboard-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dashboard-rhythm-row {
+    grid-template-columns: minmax(260px, 0.88fr) minmax(210px, 0.56fr) minmax(360px, 1.12fr);
+  }
+
+  .dashboard-rhythm-row > .tree-card {
+    grid-column: auto;
+  }
+
+  .dashboard-support-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dashboard-support-strip > .tools-card {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1320px) {
+  .page-canvas {
+    max-width: 1280px;
+  }
+
+  .core-dashboard-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .blueprint-core-card {
+    min-height: 116px;
   }
 }

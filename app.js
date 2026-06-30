@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1.2",
+  version: "v0.5.1.3",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1.2",
-  status: "首頁架構圖對齊 × Dashboard 密度收束"
+  cacheVersion: "v0.5.1.3",
+  status: "首頁 Blueprint 視覺二修"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -2214,4 +2214,242 @@ function renderDesktopNav(siteData = {}) {
   }).join("");
 
   setHtml("#desktopNav", links);
+}
+
+/* v0.5.1.3 blueprint visual pass: homepage renderer overrides. */
+function renderProfile(profile = {}) {
+  const summary = data?.todaySummary || {};
+  const name = profile.name || data?.profile?.name || "科科";
+  const birthday = profile.birthday || "1990/06/09";
+  const zodiac = profile.zodiac || "雙子座";
+  const birthTime = profile.birthTime || "午時 11:00-13:00";
+  const todayTheme = summary.theme || "專注與收斂";
+  const todayQuote = summary.quote || "先完成最重要的一件事。";
+
+  setHtml("#profileCard", `
+    <div class="cosmic-disc" aria-hidden="true">
+      <span></span>
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">本命摘要</p>
+      <h2 id="profile-title">${escapeHtml(name)}</h2>
+      <div class="profile-meta blueprint-chip-row">
+        <span>生日：${escapeHtml(birthday)}</span>
+        <span>星座：${escapeHtml(zodiac)}</span>
+        <span>出生時辰：${escapeHtml(birthTime)}</span>
+      </div>
+      <p>${escapeHtml(profile.summary)}</p>
+    </div>
+    <div class="hero-focus-strip" aria-label="首頁三個重點">
+      <article>
+        <span>本命主題</span>
+        <strong>學習 × 連結</strong>
+        <small>以知識輸出世界</small>
+      </article>
+      <article>
+        <span>年度焦點</span>
+        <strong>深化專長</strong>
+        <small>累積深度與價值</small>
+      </article>
+      <article>
+        <span>今日提醒</span>
+        <strong>${escapeHtml(todayTheme)}</strong>
+        <small>${escapeHtml(todayQuote)}</small>
+      </article>
+    </div>
+  `);
+}
+
+function renderTodaySummary(summary = {}) {
+  setHtml("#todayCard", `
+    <div class="section-heading compact-heading">
+      <p>${escapeHtml(summary.label || summary.displayLabel || "今日科科摘要")}</p>
+      <h2 id="today-title">${escapeHtml(summary.theme)}</h2>
+    </div>
+    <div class="blueprint-medium-body">
+      <p><span>適合做</span>${escapeHtml(summary.suitable)}</p>
+      <p><span>先留意</span>${escapeHtml(summary.caution || summary.avoid)}</p>
+    </div>
+    <p class="blueprint-summary-line">${escapeHtml(summary.quote)}</p>
+  `);
+}
+
+function renderNumerology(numerology = {}) {
+  setHtml("#numerologyCard", `
+    <div class="section-heading compact-heading">
+      <p>小節奏</p>
+      <h2 id="life-number-title">生命靈數節奏</h2>
+    </div>
+    <div class="number-rhythm blueprint-number-focus">
+      <span>生命靈數</span>
+      <strong class="life-number is-small">${escapeHtml(numerology.lifeNumber)}</strong>
+      <small>今日用來觀察行動節奏，不取代命盤核心。</small>
+    </div>
+    <div class="number-strip compact blueprint-chip-row" aria-label="生命靈數節奏摘要">
+      <span><strong>${escapeHtml(numerology.personalYear)}</strong>個人年</span>
+      <span><strong>${escapeHtml(numerology.personalMonth)}</strong>個人月</span>
+      <span><strong>${escapeHtml(numerology.personalDay)}</strong>個人日</span>
+    </div>
+  `);
+}
+
+function renderModules(modules = []) {
+  const currentModuleId = getCurrentModuleId();
+  const coreModuleIds = ["ziwei", "bazi", "astrology", "numerology", "name"];
+  const coreModules = modules.reduce((items, item) => {
+    const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
+      ? window.KekeRouter.getRouteModuleId(item.href)
+      : null;
+
+    if (coreModuleIds.includes(moduleId)) {
+      items.push({ item, moduleId });
+    }
+
+    return items;
+  }, []);
+
+  setHtml("#moduleCard", `
+    <div class="section-heading inline-heading core-dashboard-head">
+      <div>
+        <p>命盤核心</p>
+        <h2 id="module-title">命盤總控台</h2>
+      </div>
+      <span class="soft-tag">核心入口</span>
+    </div>
+    <p class="module-intro blueprint-summary-line">五大本命系統先看見自己；每日提醒放到下方輔助區。</p>
+    <div class="core-dashboard" id="moduleGrid">
+      <div class="core-dashboard-grid">
+        ${coreModules.map(({ item, moduleId }) => renderCoreModuleCard(item, moduleId, currentModuleId)).join("")}
+      </div>
+    </div>
+  `);
+}
+
+function renderCoreModuleCard(item = {}, moduleId, currentModuleId) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const preview = detailPage.dashboardPreview || {};
+  const isActive = currentModuleId && moduleId === currentModuleId;
+  const status = detailPage.status || "planning";
+
+  return `
+    <a class="core-module-card blueprint-core-card${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <div class="core-module-head">
+        <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon)}</span>
+        <span>
+          <strong>${escapeHtml(item.title)}</strong>
+          <small>${escapeHtml(preview.headline || item.note)}</small>
+        </span>
+        <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      </div>
+      <div class="core-module-value">
+        <strong>${escapeHtml(preview.primaryValue || item.note)}</strong>
+        <span>${escapeHtml(preview.secondaryValue || "進入詳情頁規劃")}</span>
+      </div>
+      <span class="module-enter">進入詳情頁</span>
+    </a>
+  `;
+}
+
+function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig = {}) {
+  const config = getAlmanacSupportConfig(supportConfig);
+  const engineOk = engineResult.status === "ok";
+  const solarDate = engineOk ? engineResult.solarDate : almanac.solarDate;
+  const lunarText = engineOk ? engineResult.lunarText : almanac.lunarDate;
+  const lunarMonthDay = engineOk && engineResult.lunarMonthText && engineResult.lunarDayText
+    ? `${engineResult.lunarMonthText}月 ${engineResult.lunarDayText}`
+    : almanac.lunarDate || "本次未取得";
+  const rhythmLabel = resultText(engineResult.gzYear && engineResult.zodiac
+    ? `${engineResult.gzYear} / ${engineResult.zodiac}`
+    : engineResult.week ? `星期${engineResult.week}` : "");
+
+  return `
+    <div class="compact-reminder almanac-support-card blueprint-short-card">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(config.statusLabel)}</span>
+        <p>輔助提醒</p>
+      </div>
+      <h2 id="almanac-title">農民曆小提醒</h2>
+      <p class="support-main">${escapeHtml(solarDate || "本次未取得")}｜${escapeHtml(lunarText || "本次未取得")}</p>
+      <p class="support-subline">${escapeHtml(lunarMonthDay)}｜${escapeHtml(rhythmLabel)}</p>
+      <p class="compact-note">今日只作節奏參考；來源：lunar experiment</p>
+    </div>
+  `;
+}
+
+function renderDeityDay(deityDay = {}) {
+  const deityMatchesResult = getDeityMatchesResult();
+  const deitySummary = getDeitySummary(deityMatchesResult);
+  const isTestMode = deityMatchesResult.testMode === true || deityMatchesResult.mode === "test";
+  const modeLabel = isTestMode ? "測試模式" : "今日模式";
+  const status = deityMatchesResult.status || "error";
+  const emptyTitle = isTestMode ? "測試日期未命中神明生日資料表" : "今日未命中神明生日資料表";
+  const displayTitle = status === "ok" ? deitySummary.title : emptyTitle;
+
+  setHtml("#deityCard", `
+    <div class="compact-reminder deity-compact-reminder blueprint-short-card">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(status)}</span>
+        <p>${escapeHtml(modeLabel)}</p>
+      </div>
+      <h2 id="deity-title">${escapeHtml(displayTitle)}</h2>
+      <p class="support-main">${deitySummary.lunarDate}</p>
+      <p class="compact-note">${escapeHtml(deitySummary.blessing)}</p>
+      <div class="blueprint-chip-row test-link-row" aria-label="神明生日測試入口">
+        <a href="index.html?testLunarMonth=2&testLunarDay=19#deity-title">觀音 2/19</a>
+        <a href="index.html?testLunarMonth=3&testLunarDay=23#deity-title">媽祖 3/23</a>
+        <a href="index.html?testLunarMonth=6&testLunarDay=24#deity-title">關聖帝君 6/24</a>
+        <a href="index.html#deity-title">今日模式</a>
+      </div>
+      <p class="sample-note">固定展示範例：${escapeHtml(deityDay.title)}｜${escapeHtml(deityDay.lunarDate)}</p>
+    </div>
+  `);
+}
+
+function renderSoulTree(soulTree = {}) {
+  const integrationPages = getIntegrationPages().slice(0, 4);
+
+  setHtml("#treeCard", `
+    <div class="section-heading">
+      <p>命樹</p>
+      <h2 id="tree-title">${escapeHtml(soulTree.title)}</h2>
+    </div>
+    <div class="soul-tree-visual" aria-label="命樹視覺摘要">
+      <span class="tree-orbit is-root">根：八字</span>
+      <span class="tree-orbit is-ziwei">紫微</span>
+      <span class="tree-orbit is-star">星盤</span>
+      <span class="tree-orbit is-number">靈數</span>
+      <strong>日主<br>本命</strong>
+    </div>
+    <p class="compact-note">${escapeHtml(soulTree.description)}</p>
+    <div class="blueprint-chip-row" aria-label="整合入口">
+      ${integrationPages.map((page) => `
+        <a href="${escapeHtml(page.route || getModuleRoute(page.id))}">${escapeHtml(page.navLabel || page.title)}</a>
+      `).join("")}
+    </div>
+  `);
+}
+
+function renderTools(tools = []) {
+  const siteMeta = getSiteMeta();
+  const buttons = tools.map((label) => `
+    <button type="button">${escapeHtml(label)}</button>
+  `).join("");
+
+  setHtml("#toolsCard", `
+    <div class="support-card-head">
+      <span>底部工具區</span>
+      <p>${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</p>
+    </div>
+    <h2 id="tool-title">資料工具</h2>
+    <div class="tool-row">${buttons}</div>
+    <p class="support-main">目前版本 ${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}｜資料層 ${escapeHtml(siteMeta.dataVersion || fallbackSiteMeta.dataVersion)}</p>
+    <p class="compact-note">${escapeHtml(siteMeta.status || fallbackSiteMeta.status)}</p>
+  `);
+
+  setHtml("#topbarActions", `
+    <button type="button">今日總覽</button>
+    <span class="version-badge">${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</span>
+    <button type="button">${escapeHtml(tools[0] || "匯出 JSON")}</button>
+    <button type="button" class="profile-button">${escapeHtml(data?.profile?.name || "科科")}</button>
+  `);
 }

@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.2";
-const expectedVersionLabel = "v0.5.1.2";
+const expectedVersion = "0.5.1.3";
+const expectedVersionLabel = "v0.5.1.3";
 const results = [];
 let activeGroup = "general";
 
@@ -140,26 +140,29 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.2 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.3 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "首頁架構圖對齊 × Dashboard 密度收束" },
+    { label: "siteMeta.status", value: "首頁 Blueprint 視覺二修" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
     { label: "dashboardLayout", value: "dashboardLayout" },
-    { label: "首頁只顯示濃縮摘要", value: "首頁只顯示濃縮摘要" },
-    { label: "最多三層資訊", value: "最多三層資訊" }
-  ], "site-data.js 需要同步 v0.5.1.2 版本資料、版本策略與 dashboardLayout。");
+    { label: "blueprint-visual-pass", value: "blueprint-visual-pass" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" }
+  ], "site-data.js 需要同步 v0.5.1.3 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.2", value: expectedVersionLabel },
-    { label: "fallback status", value: "首頁架構圖對齊 × Dashboard 密度收束" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.2。");
+    { label: "fallback v0.5.1.3", value: expectedVersionLabel },
+    { label: "fallback status", value: "首頁 Blueprint 視覺二修" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.3。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.2", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.3", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -207,12 +210,13 @@ function checkDashboardStructure() {
     { label: "dashboard-layout", value: "dashboard-layout" },
     { label: "dashboard-main-grid", value: "dashboard-main-grid" },
     { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" },
     { label: "dashboard-hero-zone", value: "dashboard-hero-zone" },
     { label: "dashboard-rhythm-zone", value: "dashboard-rhythm-zone" },
     { label: "dashboard-support-zone", value: "dashboard-support-zone" },
-    { label: "dashboard-core-cluster", value: "dashboard-core-cluster" },
-    { label: "dashboard-rhythm-cluster", value: "dashboard-rhythm-cluster" },
-    { label: "dashboard-support-cluster", value: "dashboard-support-cluster" },
     { label: "profileCard", value: "profileCard" },
     { label: "moduleCard", value: "moduleCard" },
     { label: "todayCard", value: "todayCard" },
@@ -505,14 +509,18 @@ function checkDetailData() {
     { label: "luck-data-notes", value: "luck-data-notes" },
     { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
     { label: "dashboard-main-grid", value: "dashboard-main-grid" },
-    { label: "dashboard-core-cluster", value: "dashboard-core-cluster" },
-    { label: "dashboard-rhythm-cluster", value: "dashboard-rhythm-cluster" },
-    { label: "dashboard-support-cluster", value: "dashboard-support-cluster" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" },
+    { label: "blueprint-hero-card", value: "blueprint-hero-card" },
+    { label: "blueprint-core-card", value: "blueprint-core-card" },
+    { label: "blueprint-medium-card", value: "blueprint-medium-card" },
+    { label: "blueprint-support-card", value: "blueprint-support-card" },
     { label: "blueprint-short-card", value: "blueprint-short-card" },
     { label: "blueprint-summary-line", value: "blueprint-summary-line" },
-    { label: "compact-result", value: "compact-result" },
     { label: "compact-note", value: "compact-note" }
-  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.2 dashboard 密度收束樣式。");
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.3 blueprint 視覺二修樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -732,8 +740,11 @@ function checkDocs() {
 
   checkIncludes("README.md", readme, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
-    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "首頁 Blueprint 視覺二修", value: "首頁 Blueprint 視覺二修" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" },
     { label: "dashboardLayout", value: "dashboardLayout" },
     { label: "首頁卡片只顯示濃縮摘要", value: "首頁卡片只顯示濃縮摘要" },
     { label: "CORE_DETAIL_SCHEMA.md", value: "CORE_DETAIL_SCHEMA.md" },
@@ -769,8 +780,11 @@ function checkDocs() {
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
-    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "首頁 Blueprint 視覺二修", value: "首頁 Blueprint 視覺二修" },
+    { label: "hero band", value: "hero band" },
+    { label: "core grid", value: "core grid" },
+    { label: "rhythm row", value: "rhythm row" },
+    { label: "support strip", value: "support strip" },
     { label: "dashboardLayout", value: "dashboardLayout" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
@@ -793,8 +807,11 @@ function checkDocs() {
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
-    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "首頁 Blueprint 視覺二修", value: "首頁 Blueprint 視覺二修" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" },
     { label: "dashboardLayout", value: "dashboardLayout" },
     { label: "dashboard-blueprint-layout", value: "dashboard-blueprint-layout" },
     { label: "濃縮摘要", value: "濃縮摘要" },
@@ -858,8 +875,8 @@ function checkDocs() {
     { label: "科科命理宇宙站", value: "科科命理宇宙站" },
     { label: "後半段模組 Schema 對照表", value: "後半段模組 Schema 對照表" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "首頁架構圖對齊", value: "首頁架構圖對齊" },
-    { label: "Dashboard 密度收束", value: "Dashboard 密度收束" },
+    { label: "首頁 Blueprint 視覺二修", value: "首頁 Blueprint 視覺二修" },
+    { label: "短卡化", value: "短卡化" },
     { label: "濃縮摘要", value: "濃縮摘要" },
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
