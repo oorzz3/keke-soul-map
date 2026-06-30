@@ -1,3 +1,11 @@
+## v0.5.1.6｜首頁核心五卡辨識度小修
+
+- 五大核心命盤卡片新增識別用 mini visual。
+- 紫微、八字、西洋星盤、生命靈數與姓名學各有不同卡片視覺提示。
+- 保留 v0.5.1.5 收束後的唯一首頁 renderer，不新增重複 render 區塊。
+- 不改首頁整體 layout，不改 hero band、節奏列、support strip 或 bottom insight strip。
+- 不改 router、農民曆、神明生日、日期測試模式或 detail data schema。
+
 ## v0.5.1.5｜首頁 render 重複區塊清理
 
 - 清理 app.js 內 v0.5.1.4 之後殘留的重複首頁 renderer。

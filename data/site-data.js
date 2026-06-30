@@ -1,29 +1,29 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1.5",
+    version: "v0.5.1.6",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1.5",
-    status: "首頁 render 重複區塊清理",
-    updatedNote: "v0.5.1.5 清理 v0.5.1.4 production prototype 移植後殘留的重複 renderer 區塊，保留唯一生效的首頁 render 版本，降低後續維護與檢查誤判風險。"
+    cacheVersion: "v0.5.1.6",
+    status: "首頁核心五卡辨識度小修",
+    updatedNote: "v0.5.1.6 在 v0.5.1.5 穩定首頁 renderer 基礎上，為五大核心命盤卡片補上識別用 mini visual，讓紫微、八字、星盤、生命靈數與姓名學更容易一眼分辨，同時不改首頁整體布局。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1.5",
-    cacheVersion: "v0.5.1.5",
+    productVersion: "v0.5.1.6",
+    cacheVersion: "v0.5.1.6",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1.5",
+    currentVersion: "v0.5.1.6",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1.5 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
+    note: "v0.5.1.6 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
   },
   dashboardLayout: {
-    mode: "production-prototype-stable-cleanup",
-    version: "v0.5.1.5",
+    mode: "core-five-card-visual-pass",
+    version: "v0.5.1.6",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,7 @@ window.KekeSoulData = {
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.5.1.5 將首頁收束為 hero band、core grid、rhythm row、support strip 與 bottom insight strip。"
+    note: "v0.5.1.6 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只補強五大核心卡辨識度。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

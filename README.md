@@ -1,3 +1,9 @@
+## v0.5.1.6 首頁核心五卡辨識度小修
+
+目前版本：v0.5.1.6。
+
+v0.5.1.6 在 v0.5.1.5 穩定首頁 renderer 基礎上，為五大核心命盤卡片補上識別用 mini visual。紫微、八字、西洋星盤、生命靈數與姓名學現在各自有不同的小視覺提示，但首頁整體 layout、hero band、節奏列、support strip、router、農民曆與神明生日流程都維持不變。
+
 ## v0.5.1.5 首頁 render 重複區塊清理
 
 目前版本：v0.5.1.5。
@@ -8,7 +14,7 @@ v0.5.1.5 清理 v0.5.1.4 production prototype 移植後殘留的重複首頁 ren
 
 ## v0.5.1.4 首頁 production prototype 移植
 
-目前版本：v0.5.1.5。
+目前版本：v0.5.1.6。
 
 v0.5.1.4 依據首頁 production prototype v2 移植視覺骨架，重整 hero band、core grid、rhythm row、support strip 與 bottom insight strip。首頁保留五大核心命盤與既有 hash router，農民曆與神明生日維持 support 短卡，不新增 `#/module/almanac` 或 `#/module/deity`。
 
@@ -20,9 +26,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.5.1.5
+- 網站版本：v0.5.1.6
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.5.1.5
+- 靜態資源快取版本：v0.5.1.6
 
 ## 專案定位
 
@@ -325,7 +331,7 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.5 已將主要靜態資源引用更新為 `v=0.5.1.5`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.6 已將主要靜態資源引用更新為 `v=0.5.1.6`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 

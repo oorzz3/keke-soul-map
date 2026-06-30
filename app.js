@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1.5",
+  version: "v0.5.1.6",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1.5",
-  status: "首頁 render 重複區塊清理"
+  cacheVersion: "v0.5.1.6",
+  status: "首頁核心五卡辨識度小修"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1624,7 +1624,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.5.1.5 production prototype stable cleanup. */
+/* v0.5.1.6 core five card visual pass. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1725,9 +1725,11 @@ function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = 
   const isActive = currentModuleId && moduleId === currentModuleId;
   const status = detailPage.status || "planning";
   const summary = preview.secondaryValue || preview.headline || item.note || "目前為 mock / planning 詳情頁。";
+  const moduleClass = isPrimary && moduleId ? ` is-module-${escapeHtml(moduleId)}` : "";
+  const visual = isPrimary ? renderCoreModuleVisual(moduleId, item, detailPage, preview) : "";
 
   return `
-    <a class="core-module-card blueprint-core-card production-core-card ${isPrimary ? "is-primary-core" : "is-secondary-core"}${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+    <a class="core-module-card blueprint-core-card production-core-card ${isPrimary ? "is-primary-core" : "is-secondary-core"}${moduleClass}${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
       <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon || "✦")}</span>
       <span class="core-card-copy">
         <small>${escapeHtml(preview.label || detailPage.category || (isPrimary ? "命盤主軸" : "延伸系統"))}</small>
@@ -1735,9 +1737,106 @@ function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = 
         <em>${escapeHtml(summary)}</em>
       </span>
       <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      ${visual}
       <span class="module-enter">進入詳情頁</span>
     </a>
   `;
+}
+
+function renderCoreModuleVisual(moduleId, item = {}, detailPage = {}, preview = {}) {
+  if (moduleId === "ziwei") {
+    const palaceLabels = ["命", "兄", "夫", "子", "科", "財", "疾", "遷", "福"];
+
+    return `
+      <span class="module-visual ziwei-visual" aria-label="紫微斗數 mini 宮位示意">
+        <span class="ziwei-palace-mini" aria-hidden="true">
+          ${palaceLabels.map((label) => `<i>${escapeHtml(label)}</i>`).join("")}
+        </span>
+        <span class="module-visual-copy">
+          <strong>${escapeHtml(preview.primaryValue || "命宮 / 主星")}</strong>
+          <small>宮位與主題</small>
+        </span>
+      </span>
+    `;
+  }
+
+  if (moduleId === "bazi") {
+    const pillars = ["年", "月", "日", "時"];
+
+    return `
+      <span class="module-visual bazi-visual" aria-label="八字四柱 mini 四柱示意">
+        <span class="bazi-pillar-mini" aria-hidden="true">
+          ${pillars.map((pillar) => `
+            <i>
+              <small>${escapeHtml(pillar)}</small>
+              <strong>${pillar === "日" ? "主" : "柱"}</strong>
+            </i>
+          `).join("")}
+        </span>
+        <span class="module-visual-copy">
+          <strong>${escapeHtml(preview.primaryValue || "年 / 月 / 日 / 時")}</strong>
+          <small>五行分布</small>
+        </span>
+      </span>
+    `;
+  }
+
+  if (moduleId === "astrology") {
+    return `
+      <span class="module-visual astrology-visual" aria-label="西洋星盤 mini 軸線示意">
+        <span class="astrology-orbit-mini" aria-hidden="true">
+          <i class="orbit-ring"></i>
+          <b class="orbit-dot is-sun">太</b>
+          <b class="orbit-dot is-moon">月</b>
+          <b class="orbit-dot is-rise">升</b>
+        </span>
+        <span class="module-visual-copy">
+          <strong>${escapeHtml(preview.primaryValue || "太陽 / 月亮 / 上升")}</strong>
+          <small>行星相位</small>
+        </span>
+      </span>
+    `;
+  }
+
+  if (moduleId === "numerology") {
+    return `
+      <span class="module-visual numerology-visual" aria-label="生命靈數 mini 數字示意">
+        <span class="numerology-main-number" aria-hidden="true">${escapeHtml(preview.primaryValue || "7")}</span>
+        <span class="numerology-mini-strip" aria-hidden="true">
+          <i>年</i>
+          <i>月</i>
+          <i>日</i>
+        </span>
+        <span class="module-visual-copy">
+          <strong>${escapeHtml(preview.secondaryValue || item.title || "生命靈數")}</strong>
+          <small>節奏與主題</small>
+        </span>
+      </span>
+    `;
+  }
+
+  if (moduleId === "name") {
+    const nameText = (detailPage.title || item.title || "科科").replace(/\s/g, "").slice(0, 4) || "科科";
+
+    return `
+      <span class="module-visual name-visual" aria-label="姓名學 mini 字形示意">
+        <span class="name-glyph-grid" aria-hidden="true">
+          ${Array.from(nameText).map((glyph) => `<i>${escapeHtml(glyph)}</i>`).join("")}
+        </span>
+        <span class="name-mini-tags" aria-hidden="true">
+          <i>字音</i>
+          <i>氣質</i>
+          <i>字形</i>
+        </span>
+        <span class="module-visual-copy">
+          <strong>${escapeHtml(preview.primaryValue || "字義與語感")}</strong>
+          <small>姓名氣質</small>
+        </span>
+      </span>
+    `;
+  }
+
+  return "";
 }
 
 function renderTodaySummary(summary = {}) {

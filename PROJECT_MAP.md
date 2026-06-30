@@ -1,3 +1,10 @@
+## v0.5.1.6 core five card visual pass
+
+- `app.js`：`renderCoreModuleCard` 只為五大核心卡插入 `renderCoreModuleVisual`，延伸模組與 support 卡不受影響。
+- `style.css`：新增 `module-visual`、`ziwei-visual`、`bazi-visual`、`astrology-visual`、`numerology-visual`、`name-visual`，補強五張核心卡辨識度。
+- `data/site-data.js`：`dashboardLayout.mode` 更新為 `core-five-card-visual-pass`。
+- `scripts/check-site.js`：新增五卡 mini visual 檢查，並保留首頁 renderer 唯一性檢查。
+
 ## v0.5.1.5 render cleanup
 
 - `app.js`：首頁 renderer 收束為唯一一組 production prototype render，避免 v0.5.1.4 移植後的重複函式陰影。
