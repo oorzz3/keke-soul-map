@@ -1,29 +1,29 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1.6",
+    version: "v0.5.1.7",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1.6",
-    status: "首頁核心五卡辨識度小修",
-    updatedNote: "v0.5.1.6 在 v0.5.1.5 穩定首頁 renderer 基礎上，為五大核心命盤卡片補上識別用 mini visual，讓紫微、八字、星盤、生命靈數與姓名學更容易一眼分辨，同時不改首頁整體布局。"
+    cacheVersion: "v0.5.1.7",
+    status: "五大核心輸入資料欄位鎖定",
+    updatedNote: "v0.5.1.7 鎖定五大核心命盤未來正式運算所需的共用輸入欄位、各核心欄位需求與資料完整度狀態，作為 v0.6.x 生命靈數與後續命盤運算接入前置基底。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1.6",
-    cacheVersion: "v0.5.1.6",
+    productVersion: "v0.5.1.7",
+    cacheVersion: "v0.5.1.7",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1.6",
+    currentVersion: "v0.5.1.7",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1.6 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
+    note: "v0.5.1.7 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
   },
   dashboardLayout: {
-    mode: "core-five-card-visual-pass",
-    version: "v0.5.1.6",
+    mode: "core-input-schema-lock",
+    version: "v0.5.1.7",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,116 @@ window.KekeSoulData = {
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.5.1.6 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只補強五大核心卡辨識度。"
+    note: "v0.5.1.7 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只新增五大核心輸入資料狀態。"
+  },
+  coreInputProfile: {
+    ownerLabel: "科科",
+    dataStatus: "seed",
+    privacyMode: "local-static",
+    source: "manual seed",
+    updatedAt: "2026-07-01",
+    personal: {
+      displayName: "科科",
+      givenName: "科",
+      familyName: "",
+      fullName: "科科",
+      gender: "male",
+      note: "目前為本機靜態 seed 資料，不含正式會員或資料庫儲存。"
+    },
+    birth: {
+      solarDate: "1990-06-09",
+      solarDateDisplay: "1990/06/09",
+      birthTimeLabel: "午時",
+      birthTimeRange: "11:00-13:00",
+      birthHour24: 11,
+      birthMinute: 0,
+      timeAccuracy: "range",
+      timezone: "Asia/Taipei",
+      calendarType: "solar",
+      lunarDate: null,
+      lunarDateStatus: "future",
+      locationLabel: "Taiwan",
+      latitude: null,
+      longitude: null,
+      locationAccuracy: "country"
+    },
+    calculationReadiness: {
+      numerology: "ready",
+      name: "partial",
+      bazi: "partial",
+      ziwei: "partial",
+      astrology: "partial"
+    }
+  },
+  coreInputSchema: {
+    version: "v0.5.1.7",
+    purpose: "五大核心命盤運算前置欄位鎖定",
+    sharedFields: [
+      "displayName",
+      "fullName",
+      "gender",
+      "solarDate",
+      "birthTimeLabel",
+      "birthTimeRange",
+      "timezone",
+      "calendarType",
+      "locationLabel"
+    ],
+    optionalFields: [
+      "birthHour24",
+      "birthMinute",
+      "lunarDate",
+      "latitude",
+      "longitude"
+    ],
+    privacyLines: [
+      "本版僅使用靜態 seed 資料。",
+      "本版不儲存使用者個資。",
+      "本版不提供登入、會員或雲端同步。",
+      "未來若加入表單，需另開資料安全線。"
+    ]
+  },
+  coreCalculationRequirements: {
+    numerology: {
+      label: "生命靈數",
+      status: "ready",
+      requiredFields: ["solarDate"],
+      optionalFields: ["displayName"],
+      nextStep: "v0.6.0 可優先接入正式生日數字計算。",
+      blockedBy: []
+    },
+    name: {
+      label: "姓名學",
+      status: "partial",
+      requiredFields: ["fullName"],
+      optionalFields: ["gender"],
+      nextStep: "需先決定筆畫資料來源、繁簡字規則與五格算法版本。",
+      blockedBy: ["strokeTable", "nameRuleVersion"]
+    },
+    bazi: {
+      label: "八字四柱",
+      status: "partial",
+      requiredFields: ["solarDate", "birthTimeRange", "timezone"],
+      optionalFields: ["locationLabel"],
+      nextStep: "需確認節氣換算、日柱計算與時辰規則。",
+      blockedBy: ["solarTermEngine", "dayPillarAlgorithm"]
+    },
+    ziwei: {
+      label: "紫微斗數",
+      status: "partial",
+      requiredFields: ["solarDate", "birthTimeRange", "gender"],
+      optionalFields: ["lunarDate"],
+      nextStep: "需確認農曆轉換、命宮身宮與主星安星規則。",
+      blockedBy: ["lunarConversion", "ziweiStarRules"]
+    },
+    astrology: {
+      label: "西洋星盤",
+      status: "partial",
+      requiredFields: ["solarDate", "birthTimeRange", "timezone"],
+      optionalFields: ["latitude", "longitude", "locationLabel"],
+      nextStep: "需確認星曆資料、經緯度與宮位制。",
+      blockedBy: ["ephemeris", "geoCoordinates", "houseSystem"]
+    }
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

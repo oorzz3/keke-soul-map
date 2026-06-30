@@ -1,3 +1,14 @@
+## v0.5.1.7 五大核心輸入資料欄位鎖定
+
+目前版本：v0.5.1.7。
+
+v0.5.1.7 鎖定五大核心命盤未來正式運算所需的共用輸入欄位、各核心欄位需求與資料完整度狀態。首頁只輕量顯示 `seed`、`local-static` 與 ready / partial 狀態，不新增表單、不儲存使用者個資、不接 API / 後端 / 資料庫，也不開始正式命盤運算。
+
+- 新增 `coreInputProfile`：五大核心共用輸入 seed。
+- 新增 `coreInputSchema`：欄位用途、共用欄位、選填欄位與安全線。
+- 新增 `coreCalculationRequirements`：五大核心各自 requiredFields / optionalFields / blockedBy / readiness。
+- `numerology` 標記為 `ready`；`ziwei`、`bazi`、`astrology`、`name` 標記為 `partial`。
+
 ## v0.5.1.6 首頁核心五卡辨識度小修
 
 目前版本：v0.5.1.6。
@@ -14,7 +25,7 @@ v0.5.1.5 清理 v0.5.1.4 production prototype 移植後殘留的重複首頁 ren
 
 ## v0.5.1.4 首頁 production prototype 移植
 
-目前版本：v0.5.1.6。
+目前版本：v0.5.1.7。
 
 v0.5.1.4 依據首頁 production prototype v2 移植視覺骨架，重整 hero band、core grid、rhythm row、support strip 與 bottom insight strip。首頁保留五大核心命盤與既有 hash router，農民曆與神明生日維持 support 短卡，不新增 `#/module/almanac` 或 `#/module/deity`。
 
@@ -26,9 +37,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 目前版本：
 
-- 網站版本：v0.5.1.6
+- 網站版本：v0.5.1.7
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.5.1.6
+- 靜態資源快取版本：v0.5.1.7
 
 ## 專案定位
 
@@ -331,7 +342,7 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.6 已將主要靜態資源引用更新為 `v=0.5.1.6`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.7 已將主要靜態資源引用更新為 `v=0.5.1.7`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 

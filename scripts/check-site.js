@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.6";
-const expectedVersionLabel = "v0.5.1.6";
+const expectedVersion = "0.5.1.7";
+const expectedVersionLabel = "v0.5.1.7";
 const results = [];
 let activeGroup = "general";
 
@@ -140,29 +140,29 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.6 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.7 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "首頁核心五卡辨識度小修" },
+    { label: "siteMeta.status", value: "五大核心輸入資料欄位鎖定" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
     { label: "dashboardLayout", value: "dashboardLayout" },
-    { label: "core-five-card-visual-pass", value: "core-five-card-visual-pass" },
+    { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "dashboard-hero-band", value: "dashboard-hero-band" },
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.5.1.6 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.5.1.7 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.6", value: expectedVersionLabel },
-    { label: "fallback status", value: "首頁核心五卡辨識度小修" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.6。");
+    { label: "fallback v0.5.1.7", value: expectedVersionLabel },
+    { label: "fallback status", value: "五大核心輸入資料欄位鎖定" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.7。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.6", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.7", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -520,7 +520,7 @@ function checkDetailData() {
     { label: "blueprint-short-card", value: "blueprint-short-card" },
     { label: "blueprint-summary-line", value: "blueprint-summary-line" },
     { label: "compact-note", value: "compact-note" }
-  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.6 blueprint 視覺二修樣式。");
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.7 blueprint 視覺二修樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -683,6 +683,7 @@ function checkKeywordRisk() {
     { keyword: "vite", level: "high" },
     { keyword: "import React", level: "high" },
     { keyword: "createApp", level: "high" },
+    { keyword: "official", level: "high" },
     { keyword: "eval(", level: "high" },
     { keyword: "localStorage", level: "warn" },
     { keyword: "innerHTML", level: "warn" }
@@ -939,10 +940,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "首頁核心五卡辨識度小修", value: "首頁核心五卡辨識度小修" },
-    { label: "core-five-card-visual-pass", value: "core-five-card-visual-pass" },
+    { label: "五大核心輸入資料欄位鎖定", value: "五大核心輸入資料欄位鎖定" },
+    { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.5.1.6 核心五卡辨識度小修。");
+  ], "site-data.js 需要標記 v0.5.1.7 五大核心輸入資料欄位鎖定。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -961,7 +962,7 @@ function checkProductionPrototypeImport() {
   ], "app.js 需要輸出 production prototype 首頁 render 與 support 短卡。");
 
   checkIncludes("style.css", style, [
-    { label: "v0.5.1.6 core five card visual pass", value: "v0.5.1.6 core five card visual pass" },
+    { label: "v0.5.1.7 core five card visual pass", value: "v0.5.1.7 core five card visual pass" },
     { label: "production-core-grid", value: "production-core-grid" },
     { label: "production-core-card", value: "production-core-card" },
     { label: "module-visual", value: "module-visual" },
@@ -1041,6 +1042,72 @@ function checkProductionPrototypeImport() {
   }
 }
 
+function checkCoreInputSchema() {
+  const siteData = readText("data/site-data.js");
+  const app = readText("app.js");
+  const style = readText("style.css");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: "coreInputProfile", value: "coreInputProfile" },
+    { label: "coreInputSchema", value: "coreInputSchema" },
+    { label: "coreCalculationRequirements", value: "coreCalculationRequirements" },
+    { label: "calculationReadiness", value: "calculationReadiness" },
+    { label: "privacyMode", value: "privacyMode" },
+    { label: "local-static", value: "local-static" },
+    { label: "manual seed", value: "manual seed" },
+    { label: "solarDate", value: "solarDate" },
+    { label: "birthTimeRange", value: "birthTimeRange" },
+    { label: "timezone", value: "timezone" },
+    { label: "calendarType", value: "calendarType" },
+    { label: "numerology", value: "numerology" },
+    { label: "ziwei", value: "ziwei" },
+    { label: "bazi", value: "bazi" },
+    { label: "astrology", value: "astrology" },
+    { label: "name", value: "name" },
+    { label: "requiredFields", value: "requiredFields" },
+    { label: "optionalFields", value: "optionalFields" },
+    { label: "blockedBy", value: "blockedBy" },
+    { label: "ready", value: "ready" },
+    { label: "partial", value: "partial" },
+    { label: "本版僅使用靜態 seed 資料", value: "本版僅使用靜態 seed 資料" },
+    { label: "本版不儲存使用者個資", value: "本版不儲存使用者個資" }
+  ], "site-data.js 需要包含五大核心輸入資料欄位、schema、需求與安全線。");
+
+  checkIncludes("app.js", app, [
+    { label: "getCoreInputProfile", value: "getCoreInputProfile" },
+    { label: "getCoreCalculationRequirement", value: "getCoreCalculationRequirement" },
+    { label: "getCoreReadinessLabel", value: "getCoreReadinessLabel" },
+    { label: "renderCoreRequirementBadge", value: "renderCoreRequirementBadge" },
+    { label: "readiness-chip", value: "readiness-chip" },
+    { label: "input-status-chip", value: "input-status-chip" },
+    { label: "五大核心資料已鎖定", value: "五大核心資料已鎖定" }
+  ], "app.js 需要以輕量 chip 顯示五大核心輸入資料狀態。");
+
+  checkIncludes("style.css", style, [
+    { label: "input-status-chip", value: "input-status-chip" },
+    { label: "input-status-row", value: "input-status-row" },
+    { label: "readiness-chip", value: "readiness-chip" },
+    { label: "is-ready", value: "is-ready" },
+    { label: "is-partial", value: "is-partial" },
+    { label: "is-missing", value: "is-missing" },
+    { label: "is-future", value: "is-future" }
+  ], "style.css 需要包含輸入資料狀態 chip 樣式。");
+
+  [
+    { label: "data/site-data.js", content: siteData },
+    { label: "app.js", content: app }
+  ].forEach((target) => {
+    if (target.content === null) {
+      return;
+    }
+
+    ["official", "正式演算法", "localStorage.setItem", "fetch("].forEach((forbidden) => {
+      const ok = !target.content.includes(forbidden);
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現本版禁止內容。" : "本版只鎖定輸入欄位，不應新增正式運算、fetch 或 localStorage 個資寫入。");
+    });
+  });
+}
+
 function checkUtf8Readable() {
   [
     "index.html",
@@ -1113,6 +1180,7 @@ runGroup("router-checks", checkRouter);
 runGroup("detail-data-checks", checkDetailData);
 runGroup("almanac-deity-checks", checkAlmanacAndDeity);
 runGroup("production-prototype-checks", checkProductionPrototypeImport);
+runGroup("core-input-checks", checkCoreInputSchema);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();
   checkNestedRepo();

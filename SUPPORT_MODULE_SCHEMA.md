@@ -1,3 +1,12 @@
+## v0.5.1.7 core input schema lock
+
+版本：v0.5.1.7
+
+- 本版新增五大核心輸入欄位 schema，但不改後半段 support route / anchor。
+- 農民曆與神明生日仍維持 support 短卡 / anchor。
+- 不新增 `#/module/almanac` 或 `#/module/deity`。
+- 不接 API、不接後端、不接資料庫、不新增個資儲存。
+
 ## v0.5.1.6 support boundary unchanged
 
 版本：v0.5.1.6
@@ -24,7 +33,7 @@
 - 首頁神明生日只保留今日 / 測試命中摘要與祈福方向，不顯示測試入口與固定 mock 範例。
 - 不新增 `#/module/almanac` 或 `#/module/deity`。
 
-版本：v0.5.1.6
+版本：v0.5.1.7
 狀態：mock detail / planning / experiment / seed 文件化
 定位：本文件只記錄後半段模組目前結構與頁面對照，不代表正式命理計算、正式占問或正式資料庫功能已完成。
 

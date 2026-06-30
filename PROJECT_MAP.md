@@ -1,3 +1,10 @@
+## v0.5.1.7 core input schema lock
+
+- `data/site-data.js`：新增 `coreInputProfile`、`coreInputSchema`、`coreCalculationRequirements`，鎖定五大核心輸入欄位與 ready / partial 狀態。
+- `app.js`：新增 `getCoreInputProfile`、`getCoreCalculationRequirement`、`getCoreReadinessLabel`、`renderCoreRequirementBadge`，首頁只顯示輕量資料狀態 chip。
+- `style.css`：新增 `input-status-chip` 與 `readiness-chip` 狀態樣式，不重排首頁。
+- `scripts/check-site.js`：新增 `core-input-checks`，檢查輸入 schema、安全線與禁止 route / API / localStorage 個資寫入。
+
 ## v0.5.1.6 core five card visual pass
 
 - `app.js`：`renderCoreModuleCard` 只為五大核心卡插入 `renderCoreModuleVisual`，延伸模組與 support 卡不受影響。
@@ -35,7 +42,7 @@
 
 ## 資料層
 
-- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、`dashboardLayout`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.4 起記錄首頁 Blueprint 視覺二修與四段 dashboard 骨架。
+- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、`dashboardLayout`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.4 起記錄首頁 Blueprint 視覺二修與四段 dashboard 骨架，v0.5.1.7 起包含五大核心輸入欄位 schema。
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。

@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1.6",
+  version: "v0.5.1.7",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1.6",
-  status: "首頁核心五卡辨識度小修"
+  cacheVersion: "v0.5.1.7",
+  status: "五大核心輸入資料欄位鎖定"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1624,7 +1624,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.5.1.6 core five card visual pass. */
+/* v0.5.1.7 core input schema lock. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1639,12 +1639,51 @@ function renderDashboardView() {
   renderDesktopNav(data);
 }
 
+function getCoreInputProfile() {
+  return data?.coreInputProfile || {};
+}
+
+function getCoreCalculationRequirement(moduleId) {
+  if (!moduleId || !data?.coreCalculationRequirements) {
+    return null;
+  }
+
+  return data.coreCalculationRequirements[moduleId] || null;
+}
+
+function getCoreReadinessLabel(status) {
+  const labels = {
+    ready: "ready",
+    partial: "partial",
+    missing: "missing",
+    future: "future"
+  };
+
+  return labels[status] || "missing";
+}
+
+function renderCoreRequirementBadge(moduleId) {
+  const requirement = getCoreCalculationRequirement(moduleId);
+  const status = requirement?.status || getCoreInputProfile()?.calculationReadiness?.[moduleId] || "";
+
+  if (!status) {
+    return "";
+  }
+
+  const label = getCoreReadinessLabel(status);
+
+  return `<span class="readiness-chip is-${escapeHtml(label)}">${escapeHtml(label)}</span>`;
+}
+
 function renderProfile(profile = {}) {
   const summary = data?.todaySummary || {};
+  const inputProfile = getCoreInputProfile();
   const name = profile.name || data?.profile?.name || "科科";
   const birthday = profile.birthday || "1990/06/09";
   const zodiac = profile.zodiac || "雙子座";
   const birthTime = profile.birthTime || "午時 11:00-13:00";
+  const dataStatus = inputProfile.dataStatus || "seed";
+  const privacyMode = inputProfile.privacyMode || "local-static";
 
   setHtml("#profileCard", `
     <div class="prototype-hero-profile">
@@ -1656,6 +1695,11 @@ function renderProfile(profile = {}) {
           <span>生日：${escapeHtml(birthday)}</span>
           <span>星座：${escapeHtml(zodiac)}</span>
           <span>出生時辰：${escapeHtml(birthTime)}</span>
+        </div>
+        <div class="input-status-row" aria-label="五大核心輸入資料狀態">
+          <span class="input-status-chip">${escapeHtml(dataStatus)}</span>
+          <span class="input-status-chip">${escapeHtml(privacyMode)}</span>
+          <span class="input-status-chip">五大核心資料已鎖定</span>
         </div>
         <p>${escapeHtml(profile.summary || "靈動好奇、思維敏捷，擅長連結與學習，生命課題在於專注與深化。")}</p>
       </div>
@@ -1727,6 +1771,7 @@ function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = 
   const summary = preview.secondaryValue || preview.headline || item.note || "目前為 mock / planning 詳情頁。";
   const moduleClass = isPrimary && moduleId ? ` is-module-${escapeHtml(moduleId)}` : "";
   const visual = isPrimary ? renderCoreModuleVisual(moduleId, item, detailPage, preview) : "";
+  const readiness = isPrimary ? renderCoreRequirementBadge(moduleId) : "";
 
   return `
     <a class="core-module-card blueprint-core-card production-core-card ${isPrimary ? "is-primary-core" : "is-secondary-core"}${moduleClass}${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
@@ -1735,6 +1780,7 @@ function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = 
         <small>${escapeHtml(preview.label || detailPage.category || (isPrimary ? "命盤主軸" : "延伸系統"))}</small>
         <strong>${escapeHtml(item.title || detailPage.title)}</strong>
         <em>${escapeHtml(summary)}</em>
+        ${readiness}
       </span>
       <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
       ${visual}

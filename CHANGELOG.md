@@ -1,3 +1,12 @@
+## v0.5.1.7｜五大核心輸入資料欄位鎖定
+
+- 新增 `coreInputProfile`，作為五大核心命盤未來運算共用輸入 seed。
+- 新增 `coreInputSchema`，記錄共用欄位、選填欄位與資料安全線。
+- 新增 `coreCalculationRequirements`，鎖定五大核心 requiredFields / optionalFields / blockedBy / readiness。
+- 首頁本命摘要與五大核心卡只輕量顯示 seed / local-static / ready / partial 狀態。
+- 保留 v0.5.1.6 五大核心 mini visual，不重排首頁。
+- 不新增表單、localStorage 個資寫入、API、後端、資料庫或正式命盤運算。
+
 ## v0.5.1.6｜首頁核心五卡辨識度小修
 
 - 五大核心命盤卡片新增識別用 mini visual。

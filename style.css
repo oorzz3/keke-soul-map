@@ -1592,6 +1592,27 @@ a {
   font-size: 0.86rem;
 }
 
+.input-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -4px 0 12px;
+}
+
+.input-status-chip {
+  display: inline-grid;
+  min-height: 24px;
+  place-items: center;
+  padding: 4px 8px;
+  color: #9fe8ff;
+  background: rgba(114, 215, 239, 0.08);
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
 .hero-copy p:last-child,
 .tree-card p {
   margin: 0;
@@ -3665,7 +3686,7 @@ blockquote {
   }
 }
 
-/* v0.5.1.6 core five card visual pass */
+/* v0.5.1.7 core five card visual pass */
 .site-shell {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -3882,6 +3903,48 @@ blockquote {
   color: var(--cyan);
   font-size: 0.72rem;
   font-weight: 800;
+}
+
+.readiness-chip {
+  display: inline-grid;
+  width: fit-content;
+  min-height: 20px;
+  place-items: center;
+  padding: 3px 7px;
+  color: #9fe8ff;
+  background: rgba(114, 215, 239, 0.08);
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.readiness-chip.is-ready {
+  color: #9af0c8;
+  background: rgba(92, 230, 183, 0.1);
+  border-color: rgba(92, 230, 183, 0.24);
+}
+
+.readiness-chip.is-partial {
+  color: #f6dfb1;
+  background: rgba(242, 193, 109, 0.1);
+  border-color: rgba(242, 193, 109, 0.24);
+}
+
+.readiness-chip.is-missing {
+  color: #f0a8a8;
+  background: rgba(240, 128, 128, 0.08);
+  border-color: rgba(240, 128, 128, 0.2);
+}
+
+.readiness-chip.is-future {
+  color: #a9c6ff;
+  background: rgba(112, 143, 255, 0.08);
+  border-color: rgba(112, 143, 255, 0.2);
 }
 
 .ziwei-visual {
