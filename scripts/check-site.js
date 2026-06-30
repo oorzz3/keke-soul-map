@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.3";
-const expectedVersionLabel = "v0.5.1.3";
+const expectedVersion = "0.5.1.4";
+const expectedVersionLabel = "v0.5.1.4";
 const results = [];
 let activeGroup = "general";
 
@@ -140,29 +140,29 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.3 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.4 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "首頁 Blueprint 視覺二修" },
+    { label: "siteMeta.status", value: "首頁 production prototype 移植" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
     { label: "dashboardLayout", value: "dashboardLayout" },
-    { label: "blueprint-visual-pass", value: "blueprint-visual-pass" },
+    { label: "production-prototype-import", value: "production-prototype-import" },
     { label: "dashboard-hero-band", value: "dashboard-hero-band" },
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.5.1.3 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.5.1.4 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.3", value: expectedVersionLabel },
-    { label: "fallback status", value: "首頁 Blueprint 視覺二修" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.3。");
+    { label: "fallback v0.5.1.4", value: expectedVersionLabel },
+    { label: "fallback status", value: "首頁 production prototype 移植" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.4。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.3", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.4", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -520,7 +520,7 @@ function checkDetailData() {
     { label: "blueprint-short-card", value: "blueprint-short-card" },
     { label: "blueprint-summary-line", value: "blueprint-summary-line" },
     { label: "compact-note", value: "compact-note" }
-  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.3 blueprint 視覺二修樣式。");
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.4 blueprint 視覺二修樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -934,6 +934,81 @@ function checkDocs() {
   ], "SUPPORT_MODULE_SCHEMA.md 需要包含後半段 route / anchor / data source / feature 與安全線對照。");
 }
 
+function checkProductionPrototypeImport() {
+  const html = readText("index.html");
+  const app = readText("app.js");
+  const style = readText("style.css");
+  const siteData = readText("data/site-data.js");
+  const detailData = readText("data/detail-pages-data.js");
+
+  checkIncludes("index.html", html, [
+    { label: "bottomInsightStrip", value: "bottomInsightStrip" },
+    { label: "dashboard-bottom-strip", value: "dashboard-bottom-strip" },
+    { label: "dashboard-hero-band", value: "dashboard-hero-band" },
+    { label: "dashboard-core-grid", value: "dashboard-core-grid" },
+    { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
+    { label: "dashboard-support-strip", value: "dashboard-support-strip" }
+  ], "index.html 需要保留 production prototype 首頁五段骨架。");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: "首頁 production prototype 移植", value: "首頁 production prototype 移植" },
+    { label: "production-prototype-import", value: "production-prototype-import" },
+    { label: "bottomInsightStrip", value: "bottomInsightStrip" }
+  ], "site-data.js 需要標記 v0.5.1.4 production prototype 移植。");
+
+  checkIncludes("app.js", app, [
+    { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
+    { label: "renderBottomInsightStrip", value: "renderBottomInsightStrip" },
+    { label: "renderSoulTreeVisual", value: "renderSoulTreeVisual" },
+    { label: "production-support-short", value: "production-support-short" },
+    { label: "bottomInsightStrip", value: "bottomInsightStrip" },
+    { label: "今日未命中神明生日資料表", value: "今日未命中神明生日資料表" },
+    { label: "農民曆小提醒", value: "農民曆小提醒" }
+  ], "app.js 需要輸出 production prototype 首頁 render 與 support 短卡。");
+
+  checkIncludes("style.css", style, [
+    { label: "v0.5.1.4 production prototype import", value: "v0.5.1.4 production prototype import" },
+    { label: "production-core-grid", value: "production-core-grid" },
+    { label: "production-core-card", value: "production-core-card" },
+    { label: "production-focus-strip", value: "production-focus-strip" },
+    { label: "production-tree-visual", value: "production-tree-visual" },
+    { label: "production-support-short", value: "production-support-short" },
+    { label: "bottom-insight-grid", value: "bottom-insight-grid" },
+    { label: "bottom-insight-card", value: "bottom-insight-card" }
+  ], "style.css 需要包含 production prototype 視覺移植樣式。");
+
+  if (app !== null) {
+    const finalDeityStart = app.lastIndexOf("function renderDeityDay");
+    const finalDeityEnd = app.indexOf("function renderTools", finalDeityStart);
+    const finalDeity = finalDeityStart >= 0 && finalDeityEnd > finalDeityStart
+      ? app.slice(finalDeityStart, finalDeityEnd)
+      : "";
+    addResult(!finalDeity.includes("test-link-row") ? "pass" : "fail", "神明生日首頁短卡不顯示測試入口", "最後生效的 renderDeityDay 不應輸出 test-link-row。");
+    addResult(!finalDeity.includes("固定展示範例") && !finalDeity.includes("sample-note") ? "pass" : "fail", "神明生日首頁短卡不顯示固定 mock 範例", "最後生效的 renderDeityDay 不應輸出固定展示範例或 sample-note。");
+
+    const finalAlmanacStart = app.lastIndexOf("function renderAlmanacSupportCard");
+    const finalAlmanacEnd = app.indexOf("function renderDeityDay", finalAlmanacStart);
+    const finalAlmanac = finalAlmanacStart >= 0 && finalAlmanacEnd > finalAlmanacStart
+      ? app.slice(finalAlmanacStart, finalAlmanacEnd)
+      : "";
+    addResult(!finalAlmanac.includes("almanac-safety-list") ? "pass" : "fail", "農民曆首頁短卡不輸出安全線列表", "最後生效的 renderAlmanacSupportCard 不應輸出 almanac-safety-list。");
+  }
+
+  for (const target of [
+    { label: "data/site-data.js", content: siteData },
+    { label: "data/detail-pages-data.js", content: detailData }
+  ]) {
+    if (target.content === null) {
+      continue;
+    }
+
+    ["#/module/almanac", "#/module/deity", 'id: "almanac"', 'id: "deity"'].forEach((forbidden) => {
+      const ok = !target.content.includes(forbidden);
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "維持 support anchor，不新增輔助模組詳情頁。" : "不應新增農民曆或神明生日 detail route。");
+    });
+  }
+}
+
 function checkUtf8Readable() {
   [
     "index.html",
@@ -1005,6 +1080,7 @@ runGroup("dashboard-structure", checkDashboardStructure);
 runGroup("router-checks", checkRouter);
 runGroup("detail-data-checks", checkDetailData);
 runGroup("almanac-deity-checks", checkAlmanacAndDeity);
+runGroup("production-prototype-checks", checkProductionPrototypeImport);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();
   checkNestedRepo();

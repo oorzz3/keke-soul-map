@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1.3",
+  version: "v0.5.1.4",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1.3",
-  status: "首頁 Blueprint 視覺二修"
+  cacheVersion: "v0.5.1.4",
+  status: "首頁 production prototype 移植"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -2190,6 +2190,285 @@ function renderTools(tools = []) {
   `);
 }
 
+/* v0.5.1.4 production prototype import: homepage renderer overrides. */
+function renderDashboardView() {
+  renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
+  renderProfile(data.profile);
+  renderModules(data.modules);
+  renderTodaySummary(data.todaySummary);
+  renderNumerology(data.numerology);
+  renderSoulTree(data.soulTree);
+  renderAlmanac(data.almanac, data.almanacSupport);
+  renderDeityDay(data.deityDay);
+  renderTools(data.tools);
+  renderBottomInsightStrip();
+  renderDesktopNav(data);
+}
+
+function renderProfile(profile = {}) {
+  const summary = data?.todaySummary || {};
+  const name = profile.name || data?.profile?.name || "科科";
+  const birthday = profile.birthday || "1990/06/09";
+  const zodiac = profile.zodiac || "雙子座";
+  const birthTime = profile.birthTime || "午時 11:00-13:00";
+
+  setHtml("#profileCard", `
+    <div class="prototype-hero-profile">
+      <div class="cosmic-disc production-disc" aria-hidden="true"><span></span></div>
+      <div class="hero-copy production-hero-copy">
+        <p class="eyebrow">本命摘要</p>
+        <h2 id="profile-title">${escapeHtml(name)} <span class="version-pill">本命檔案</span></h2>
+        <div class="profile-meta blueprint-chip-row">
+          <span>生日：${escapeHtml(birthday)}</span>
+          <span>星座：${escapeHtml(zodiac)}</span>
+          <span>出生時辰：${escapeHtml(birthTime)}</span>
+        </div>
+        <p>${escapeHtml(profile.summary || "靈動好奇、思維敏捷，擅長連結與學習，生命課題在於專注與深化。")}</p>
+      </div>
+    </div>
+    ${renderHeroFocusStrip(summary)}
+  `);
+}
+
+function renderHeroFocusStrip(summary = {}) {
+  return `
+    <div class="hero-focus-strip production-focus-strip" aria-label="首頁快速洞察">
+      <article>
+        <span>本命主題</span>
+        <strong>學習 × 連結</strong>
+        <small>以知識連結世界，以清楚創造理解。</small>
+      </article>
+      <article>
+        <span>年度焦點</span>
+        <strong>深化專長</strong>
+        <small>專注主軸，累積深度與價值。</small>
+      </article>
+      <article>
+        <span>今日提醒</span>
+        <strong>${escapeHtml(summary.theme || "專注與收斂")}</strong>
+        <small>${escapeHtml(summary.quote || "先完成最重要的一件事，比什麼都強。")}</small>
+      </article>
+    </div>
+  `;
+}
+
+function renderModules(modules = []) {
+  const currentModuleId = getCurrentModuleId();
+  const primaryIds = ["ziwei", "bazi", "astrology", "numerology", "name"];
+  const secondaryIds = ["luck", "yijing", "database"];
+  const routeModules = modules.reduce((items, item) => {
+    const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
+      ? window.KekeRouter.getRouteModuleId(item.href)
+      : null;
+
+    if (primaryIds.includes(moduleId) || secondaryIds.includes(moduleId)) {
+      items.push({ item, moduleId, isPrimary: primaryIds.includes(moduleId) });
+    }
+
+    return items;
+  }, []);
+
+  setHtml("#moduleCard", `
+    <div class="section-heading inline-heading core-dashboard-head production-core-head">
+      <div>
+        <p>命盤核心</p>
+        <h2 id="module-title">命盤總控台</h2>
+      </div>
+      <span class="soft-tag">核心入口</span>
+    </div>
+    <p class="module-intro blueprint-summary-line">先從五大本命系統看見自己；輔助提醒放到下方，讓首頁保持命盤總控台節奏。</p>
+    <div class="core-dashboard production-core-dashboard" id="moduleGrid">
+      <div class="core-dashboard-grid production-core-grid">
+        ${routeModules.map(({ item, moduleId, isPrimary }) => renderCoreModuleCard(item, moduleId, currentModuleId, isPrimary)).join("")}
+      </div>
+    </div>
+  `);
+}
+
+function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = true) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const preview = detailPage.dashboardPreview || {};
+  const isActive = currentModuleId && moduleId === currentModuleId;
+  const status = detailPage.status || "planning";
+  const summary = preview.secondaryValue || preview.headline || item.note || "目前為 mock / planning 詳情頁。";
+
+  return `
+    <a class="core-module-card blueprint-core-card production-core-card ${isPrimary ? "is-primary-core" : "is-secondary-core"}${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon || "✦")}</span>
+      <span class="core-card-copy">
+        <small>${escapeHtml(preview.label || detailPage.category || (isPrimary ? "命盤主軸" : "延伸系統"))}</small>
+        <strong>${escapeHtml(item.title || detailPage.title)}</strong>
+        <em>${escapeHtml(summary)}</em>
+      </span>
+      <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      <span class="module-enter">進入詳情頁</span>
+    </a>
+  `;
+}
+
+function renderTodaySummary(summary = {}) {
+  setHtml("#todayCard", `
+    <div class="section-heading compact-heading">
+      <p>${escapeHtml(summary.label || summary.displayLabel || "今日科科摘要")}</p>
+      <h2 id="today-title">${escapeHtml(summary.theme || "專注與收斂")}</h2>
+    </div>
+    <div class="today-short-lines">
+      <p><span>適合</span>${escapeHtml(summary.suitable || "整理資料、學習研究、寫筆記、靜心祈福")}</p>
+      <p><span>小心</span>${escapeHtml(summary.caution || "分心、晚睡、想很多但沒有落地")}</p>
+    </div>
+    <p class="blueprint-summary-line">${escapeHtml(summary.quote || "先完成最重要的一件事，比什麼都強。")}</p>
+  `);
+}
+
+function renderNumerology(numerology = {}) {
+  setHtml("#numerologyCard", `
+    <div class="section-heading compact-heading">
+      <p>小節奏</p>
+      <h2 id="life-number-title">生命靈數節奏</h2>
+    </div>
+    <div class="number-rhythm blueprint-number-focus production-number-focus">
+      <span>生命靈數</span>
+      <strong class="life-number is-small">${escapeHtml(numerology.lifeNumber || 7)}</strong>
+      <small>今日用來觀察行動節奏，不取代命盤核心。</small>
+    </div>
+    <div class="number-strip compact blueprint-chip-row" aria-label="生命靈數節奏">
+      <span><strong>${escapeHtml(numerology.personalYear || 7)}</strong>個人年</span>
+      <span><strong>${escapeHtml(numerology.personalMonth || 4)}</strong>個人月</span>
+      <span><strong>${escapeHtml(numerology.personalDay || 2)}</strong>個人日</span>
+    </div>
+  `);
+}
+
+function renderSoulTree(soulTree = {}) {
+  setHtml("#treeCard", `
+    <div class="soul-tree-card-shell">
+      ${renderSoulTreeVisual()}
+      <div class="soul-tree-copy">
+        <div class="section-heading">
+          <p>命樹</p>
+          <h2 id="tree-title">${escapeHtml(soulTree.title || "多系統整合")}</h2>
+        </div>
+        <p class="compact-note">${escapeHtml(soulTree.description || "多元命理系統整合成一棵屬於科科的命理之樹，看見全貌，找到方向。")}</p>
+        <div class="blueprint-chip-row">
+          <a href="#/module/ziwei">紫微</a>
+          <a href="#/module/astrology">星盤</a>
+          <a href="#/module/numerology">生命靈數</a>
+          <a href="#/module/soul-tree">命樹</a>
+        </div>
+      </div>
+    </div>
+  `);
+}
+
+function renderSoulTreeVisual() {
+  return `
+    <div class="soul-tree-visual production-tree-visual" aria-label="命樹整合視覺">
+      <span class="tree-orbit is-root">根：八字</span>
+      <span class="tree-orbit is-ziwei">紫微</span>
+      <span class="tree-orbit is-star">星盤</span>
+      <span class="tree-orbit is-number">靈數</span>
+      <strong>日主<br>本命</strong>
+    </div>
+  `;
+}
+
+function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig = {}) {
+  const engineOk = engineResult.status === "ok";
+  const solarDate = engineOk ? engineResult.solarDate : almanac.solarDate;
+  const lunarText = engineOk ? engineResult.lunarText : almanac.lunarDate;
+  const yi = engineOk ? engineResult.yi : almanac.good;
+  const shortLine = yi && yi !== "本次未取得" ? `今日宜：${yi}` : "今日只作節奏參考。";
+
+  return `
+    <div class="compact-reminder almanac-support-card blueprint-short-card production-support-short">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(supportConfig.statusLabel || "experiment")}</span>
+        <p>輔助提醒</p>
+      </div>
+      <h2 id="almanac-title">農民曆小提醒</h2>
+      <p class="support-main">${escapeHtml(solarDate || "本次未取得")}｜${escapeHtml(lunarText || "本次未取得")}</p>
+      <p class="compact-note">${escapeHtml(shortLine)}</p>
+    </div>
+  `;
+}
+
+function renderDeityDay(deityDay = {}) {
+  const result = getDeityMatchesResult();
+  const summary = getDeitySummary(result);
+  const isTestMode = result.testMode === true || result.mode === "test";
+  const status = result.status || "error";
+  const title = status === "ok"
+    ? summary.title
+    : isTestMode
+      ? "測試日期未命中神明生日資料表"
+      : "今日未命中神明生日資料表";
+
+  setHtml("#deityCard", `
+    <div class="compact-reminder deity-compact-reminder blueprint-short-card production-support-short">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(status)}</span>
+        <p>${escapeHtml(isTestMode ? "測試模式" : "今日模式")}</p>
+      </div>
+      <h2 id="deity-title">${escapeHtml(title)}</h2>
+      <p class="support-main">${summary.lunarDate}</p>
+      <p class="compact-note">${escapeHtml(summary.blessing || deityDay.blessing || "暫無命中，維持平常心。")}</p>
+    </div>
+  `);
+}
+
+function renderTools(tools = []) {
+  const siteMeta = getSiteMeta();
+  const buttons = tools.map((label) => `
+    <button type="button">${escapeHtml(label)}</button>
+  `).join("");
+
+  setHtml("#toolsCard", `
+    <div class="support-card-head">
+      <span>底部工具區</span>
+      <p>${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</p>
+    </div>
+    <h2 id="tool-title">資料工具</h2>
+    <div class="tool-row">${buttons}</div>
+    <p class="support-main">目前版本 ${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}｜資料層 ${escapeHtml(siteMeta.dataVersion || fallbackSiteMeta.dataVersion)}</p>
+    <p class="compact-note">${escapeHtml(siteMeta.status || fallbackSiteMeta.status)}</p>
+  `);
+
+  setHtml("#topbarActions", `
+    <button type="button">今日總覽</button>
+    <span class="version-badge">${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</span>
+    <button type="button">${escapeHtml(tools[0] || "匯出 JSON")}</button>
+    <button type="button" class="profile-button">${escapeHtml(data?.profile?.name || "科科")}</button>
+  `);
+}
+
+function renderBottomInsightStrip() {
+  setHtml("#bottomInsightStrip", `
+    <section class="bottom-insight-grid" aria-label="今日靈性儀表板">
+      <article id="blessingCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">鈴</span>
+        <div>
+          <strong>今日提醒</strong>
+          <p>少即是多，先完成最重要的一件事。</p>
+        </div>
+      </article>
+      <article id="weeklyThemeCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">星</span>
+        <div>
+          <strong>本週主題</strong>
+          <p>建立穩定作息，累積長期價值。</p>
+        </div>
+      </article>
+      <article id="prayerNoteCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">筆</span>
+        <div>
+          <strong>祈福筆記</strong>
+          <p>記錄今天的願望與新的理解。</p>
+        </div>
+      </article>
+    </section>
+  `);
+}
+
 function renderDesktopNav(siteData = {}) {
   const modules = Array.isArray(siteData.modules) ? siteData.modules : [];
   const navItems = [
@@ -2216,7 +2495,7 @@ function renderDesktopNav(siteData = {}) {
   setHtml("#desktopNav", links);
 }
 
-/* v0.5.1.3 blueprint visual pass: homepage renderer overrides. */
+/* v0.5.1.4 blueprint visual pass: homepage renderer overrides. */
 function renderProfile(profile = {}) {
   const summary = data?.todaySummary || {};
   const name = profile.name || data?.profile?.name || "科科";
@@ -2452,4 +2731,309 @@ function renderTools(tools = []) {
     <button type="button">${escapeHtml(tools[0] || "匯出 JSON")}</button>
     <button type="button" class="profile-button">${escapeHtml(data?.profile?.name || "科科")}</button>
   `);
+}
+
+/* v0.5.1.4 final production prototype import. Keep this block last. */
+function renderDashboardView() {
+  renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
+  renderProfile(data.profile);
+  renderModules(data.modules);
+  renderTodaySummary(data.todaySummary);
+  renderNumerology(data.numerology);
+  renderSoulTree(data.soulTree);
+  renderAlmanac(data.almanac, data.almanacSupport);
+  renderDeityDay(data.deityDay);
+  renderTools(data.tools);
+  renderBottomInsightStrip();
+  renderDesktopNav(data);
+}
+
+function renderProfile(profile = {}) {
+  const summary = data?.todaySummary || {};
+  const name = profile.name || data?.profile?.name || "科科";
+  const birthday = profile.birthday || "1990/06/09";
+  const zodiac = profile.zodiac || "雙子座";
+  const birthTime = profile.birthTime || "午時 11:00-13:00";
+
+  setHtml("#profileCard", `
+    <div class="prototype-hero-profile">
+      <div class="cosmic-disc production-disc" aria-hidden="true"><span></span></div>
+      <div class="hero-copy production-hero-copy">
+        <p class="eyebrow">本命摘要</p>
+        <h2 id="profile-title">${escapeHtml(name)} <span class="version-pill">本命檔案</span></h2>
+        <div class="profile-meta blueprint-chip-row">
+          <span>生日：${escapeHtml(birthday)}</span>
+          <span>星座：${escapeHtml(zodiac)}</span>
+          <span>出生時辰：${escapeHtml(birthTime)}</span>
+        </div>
+        <p>${escapeHtml(profile.summary || "靈動好奇、思維敏捷，擅長連結與學習，生命課題在於專注與深化。")}</p>
+      </div>
+    </div>
+    ${renderHeroFocusStrip(summary)}
+  `);
+}
+
+function renderHeroFocusStrip(summary = {}) {
+  return `
+    <div class="hero-focus-strip production-focus-strip" aria-label="首頁快速洞察">
+      <article>
+        <span>本命主題</span>
+        <strong>學習 × 連結</strong>
+        <small>以知識連結世界，以清楚創造理解。</small>
+      </article>
+      <article>
+        <span>年度焦點</span>
+        <strong>深化專長</strong>
+        <small>專注主軸，累積深度與價值。</small>
+      </article>
+      <article>
+        <span>今日提醒</span>
+        <strong>${escapeHtml(summary.theme || "專注與收斂")}</strong>
+        <small>${escapeHtml(summary.quote || "先完成最重要的一件事，比什麼都強。")}</small>
+      </article>
+    </div>
+  `;
+}
+
+function renderModules(modules = []) {
+  const currentModuleId = getCurrentModuleId();
+  const primaryIds = ["ziwei", "bazi", "astrology", "numerology", "name"];
+  const secondaryIds = ["luck", "yijing", "database"];
+  const routeModules = modules.reduce((items, item) => {
+    const moduleId = window.KekeRouter && typeof window.KekeRouter.getRouteModuleId === "function"
+      ? window.KekeRouter.getRouteModuleId(item.href)
+      : null;
+
+    if (primaryIds.includes(moduleId) || secondaryIds.includes(moduleId)) {
+      items.push({ item, moduleId, isPrimary: primaryIds.includes(moduleId) });
+    }
+
+    return items;
+  }, []);
+
+  setHtml("#moduleCard", `
+    <div class="section-heading inline-heading core-dashboard-head production-core-head">
+      <div>
+        <p>命盤核心</p>
+        <h2 id="module-title">命盤總控台</h2>
+      </div>
+      <span class="soft-tag">核心入口</span>
+    </div>
+    <p class="module-intro blueprint-summary-line">先從五大本命系統看見自己；輔助提醒放到下方，讓首頁保持命盤總控台節奏。</p>
+    <div class="core-dashboard production-core-dashboard" id="moduleGrid">
+      <div class="core-dashboard-grid production-core-grid">
+        ${routeModules.map(({ item, moduleId, isPrimary }) => renderCoreModuleCard(item, moduleId, currentModuleId, isPrimary)).join("")}
+      </div>
+    </div>
+  `);
+}
+
+function renderCoreModuleCard(item = {}, moduleId, currentModuleId, isPrimary = true) {
+  const detailPage = getDetailPage(moduleId) || {};
+  const preview = detailPage.dashboardPreview || {};
+  const isActive = currentModuleId && moduleId === currentModuleId;
+  const status = detailPage.status || "planning";
+  const summary = preview.secondaryValue || preview.headline || item.note || "目前為 mock / planning 詳情頁。";
+
+  return `
+    <a class="core-module-card blueprint-core-card production-core-card ${isPrimary ? "is-primary-core" : "is-secondary-core"}${isActive ? " is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+      <span class="module-icon" aria-hidden="true">${escapeHtml(detailPage.icon || item.icon || "✦")}</span>
+      <span class="core-card-copy">
+        <small>${escapeHtml(preview.label || detailPage.category || (isPrimary ? "命盤主軸" : "延伸系統"))}</small>
+        <strong>${escapeHtml(item.title || detailPage.title)}</strong>
+        <em>${escapeHtml(summary)}</em>
+      </span>
+      <span class="preview-status is-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      <span class="module-enter">進入詳情頁</span>
+    </a>
+  `;
+}
+
+function renderTodaySummary(summary = {}) {
+  setHtml("#todayCard", `
+    <div class="section-heading compact-heading">
+      <p>${escapeHtml(summary.label || summary.displayLabel || "今日科科摘要")}</p>
+      <h2 id="today-title">${escapeHtml(summary.theme || "專注與收斂")}</h2>
+    </div>
+    <div class="today-short-lines">
+      <p><span>適合</span>${escapeHtml(summary.suitable || "整理資料、學習研究、寫筆記、靜心祈福")}</p>
+      <p><span>小心</span>${escapeHtml(summary.caution || "分心、晚睡、想很多但沒有落地")}</p>
+    </div>
+    <p class="blueprint-summary-line">${escapeHtml(summary.quote || "先完成最重要的一件事，比什麼都強。")}</p>
+  `);
+}
+
+function renderNumerology(numerology = {}) {
+  setHtml("#numerologyCard", `
+    <div class="section-heading compact-heading">
+      <p>小節奏</p>
+      <h2 id="life-number-title">生命靈數節奏</h2>
+    </div>
+    <div class="number-rhythm blueprint-number-focus production-number-focus">
+      <span>生命靈數</span>
+      <strong class="life-number is-small">${escapeHtml(numerology.lifeNumber || 7)}</strong>
+      <small>今日用來觀察行動節奏，不取代命盤核心。</small>
+    </div>
+    <div class="number-strip compact blueprint-chip-row" aria-label="生命靈數節奏">
+      <span><strong>${escapeHtml(numerology.personalYear || 7)}</strong>個人年</span>
+      <span><strong>${escapeHtml(numerology.personalMonth || 4)}</strong>個人月</span>
+      <span><strong>${escapeHtml(numerology.personalDay || 2)}</strong>個人日</span>
+    </div>
+  `);
+}
+
+function renderSoulTree(soulTree = {}) {
+  setHtml("#treeCard", `
+    <div class="soul-tree-card-shell">
+      ${renderSoulTreeVisual()}
+      <div class="soul-tree-copy">
+        <div class="section-heading">
+          <p>命樹</p>
+          <h2 id="tree-title">${escapeHtml(soulTree.title || "多系統整合")}</h2>
+        </div>
+        <p class="compact-note">${escapeHtml(soulTree.description || "多元命理系統整合成一棵屬於科科的命理之樹，看見全貌，找到方向。")}</p>
+        <div class="blueprint-chip-row">
+          <a href="#/module/ziwei">紫微</a>
+          <a href="#/module/astrology">星盤</a>
+          <a href="#/module/numerology">生命靈數</a>
+          <a href="#/module/soul-tree">命樹</a>
+        </div>
+      </div>
+    </div>
+  `);
+}
+
+function renderSoulTreeVisual() {
+  return `
+    <div class="soul-tree-visual production-tree-visual" aria-label="命樹整合視覺">
+      <span class="tree-orbit is-root">根：八字</span>
+      <span class="tree-orbit is-ziwei">紫微</span>
+      <span class="tree-orbit is-star">星盤</span>
+      <span class="tree-orbit is-number">靈數</span>
+      <strong>日主<br>本命</strong>
+    </div>
+  `;
+}
+
+function renderAlmanacSupportCard(almanac = {}, engineResult = {}, supportConfig = {}) {
+  const engineOk = engineResult.status === "ok";
+  const solarDate = engineOk ? engineResult.solarDate : almanac.solarDate;
+  const lunarText = engineOk ? engineResult.lunarText : almanac.lunarDate;
+  const yi = engineOk ? engineResult.yi : almanac.good;
+  const shortLine = yi && yi !== "本次未取得" ? `今日宜：${yi}` : "今日只作節奏參考。";
+
+  return `
+    <div class="compact-reminder almanac-support-card blueprint-short-card production-support-short">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(supportConfig.statusLabel || "experiment")}</span>
+        <p>輔助提醒</p>
+      </div>
+      <h2 id="almanac-title">農民曆小提醒</h2>
+      <p class="support-main">${escapeHtml(solarDate || "本次未取得")}｜${escapeHtml(lunarText || "本次未取得")}</p>
+      <p class="compact-note">${escapeHtml(shortLine)}</p>
+    </div>
+  `;
+}
+
+function renderDeityDay(deityDay = {}) {
+  const result = getDeityMatchesResult();
+  const summary = getDeitySummary(result);
+  const isTestMode = result.testMode === true || result.mode === "test";
+  const status = result.status || "error";
+  const title = status === "ok"
+    ? summary.title
+    : isTestMode
+      ? "測試日期未命中神明生日資料表"
+      : "今日未命中神明生日資料表";
+
+  setHtml("#deityCard", `
+    <div class="compact-reminder deity-compact-reminder blueprint-short-card production-support-short">
+      <div class="support-card-head">
+        <span class="source-tag">${escapeHtml(status)}</span>
+        <p>${escapeHtml(isTestMode ? "測試模式" : "今日模式")}</p>
+      </div>
+      <h2 id="deity-title">${escapeHtml(title)}</h2>
+      <p class="support-main">${summary.lunarDate}</p>
+      <p class="compact-note">${escapeHtml(summary.blessing || deityDay.blessing || "暫無命中，維持平常心。")}</p>
+    </div>
+  `);
+}
+
+function renderTools(tools = []) {
+  const siteMeta = getSiteMeta();
+  const buttons = tools.map((label) => `
+    <button type="button">${escapeHtml(label)}</button>
+  `).join("");
+
+  setHtml("#toolsCard", `
+    <div class="support-card-head">
+      <span>底部工具區</span>
+      <p>${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</p>
+    </div>
+    <h2 id="tool-title">資料工具</h2>
+    <div class="tool-row">${buttons}</div>
+    <p class="support-main">目前版本 ${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}｜資料層 ${escapeHtml(siteMeta.dataVersion || fallbackSiteMeta.dataVersion)}</p>
+    <p class="compact-note">${escapeHtml(siteMeta.status || fallbackSiteMeta.status)}</p>
+  `);
+
+  setHtml("#topbarActions", `
+    <button type="button">今日總覽</button>
+    <span class="version-badge">${escapeHtml(siteMeta.version || fallbackSiteMeta.version)}</span>
+    <button type="button">${escapeHtml(tools[0] || "匯出 JSON")}</button>
+    <button type="button" class="profile-button">${escapeHtml(data?.profile?.name || "科科")}</button>
+  `);
+}
+
+function renderBottomInsightStrip() {
+  setHtml("#bottomInsightStrip", `
+    <section class="bottom-insight-grid" aria-label="今日靈性儀表板">
+      <article id="blessingCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">鈴</span>
+        <div>
+          <strong>今日提醒</strong>
+          <p>少即是多，先完成最重要的一件事。</p>
+        </div>
+      </article>
+      <article id="weeklyThemeCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">星</span>
+        <div>
+          <strong>本週主題</strong>
+          <p>建立穩定作息，累積長期價值。</p>
+        </div>
+      </article>
+      <article id="prayerNoteCard" class="bottom-insight-card">
+        <span class="insight-icon" aria-hidden="true">筆</span>
+        <div>
+          <strong>祈福筆記</strong>
+          <p>記錄今天的願望與新的理解。</p>
+        </div>
+      </article>
+    </section>
+  `);
+}
+
+function renderDesktopNav(siteData = {}) {
+  const modules = Array.isArray(siteData.modules) ? siteData.modules : [];
+  const navItems = [
+    { title: "首頁總覽", icon: "首", href: getHomeRoute() },
+    { title: "個人資料", icon: "人", href: "#profile-title" },
+    ...modules.map((item) => ({
+      title: item.title === "資料庫 / 備份" ? "資料庫" : item.title,
+      icon: item.icon,
+      href: item.href
+    }))
+  ];
+
+  const links = navItems.map((item) => {
+    const isActive = isActiveHref(item.href);
+
+    return `
+      <a class="${isActive ? "is-active" : ""}" href="${escapeHtml(item.href)}"${isActive ? ' aria-current="page"' : ""}>
+        <span aria-hidden="true">${escapeHtml(item.icon)}</span>
+        <span>${escapeHtml(item.title)}</span>
+      </a>
+    `;
+  }).join("");
+
+  setHtml("#desktopNav", links);
 }

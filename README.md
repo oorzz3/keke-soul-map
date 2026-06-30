@@ -1,14 +1,22 @@
 # 科科命理宇宙站 / keke-soul-map
 
+## v0.5.1.4 首頁 production prototype 移植
+
+目前版本：v0.5.1.4。
+
+v0.5.1.4 依據首頁 production prototype v2 移植視覺骨架，重整 hero band、core grid、rhythm row、support strip 與 bottom insight strip。首頁保留五大核心命盤與既有 hash router，農民曆與神明生日維持 support 短卡，不新增 `#/module/almanac` 或 `#/module/deity`。
+
+本版仍是純 HTML / CSS / JS，未新增 npm、API、後端、資料庫或正式命理演算法。
+
 GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 
 科科命理宇宙站是一個手機優先的命盤總控台靜態網站，使用純 HTML / CSS / JavaScript，可直接部署於 GitHub Pages。
 
 目前版本：
 
-- 網站版本：v0.5.1.3
+- 網站版本：v0.5.1.4
 - 網站資料層版本：v0.2
-- 靜態資源快取版本：v0.5.1.3
+- 靜態資源快取版本：v0.5.1.4
 
 ## 專案定位
 
@@ -18,9 +26,9 @@ GitHub Pages: https://oorzz3.github.io/keke-soul-map/
 - 農民曆 / 神明生日 = 輔助提醒，不是主軸
 - 命樹 = 多命盤系統整合入口
 
-## v0.5.1.3 首頁 Blueprint 視覺二修
+## v0.5.1.4 首頁 Blueprint 視覺二修
 
-v0.5.1.3 依照首頁建構圖重排 dashboard 骨架，從「內容瘦身」推進到實際視覺結構調整。
+v0.5.1.4 依照首頁建構圖重排 dashboard 骨架，從「內容瘦身」推進到實際視覺結構調整。
 
 - 首頁改以 `dashboard-hero-band`、`dashboard-core-grid`、`dashboard-rhythm-row`、`dashboard-support-strip` 四段呈現。
 - 本命摘要改成橫向 hero band，五大命盤核心維持主視覺。
@@ -311,7 +319,7 @@ node scripts/check-site.js
 
 ## 快取提醒
 
-GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.3 已將主要靜態資源引用更新為 `v=0.5.1.3`，降低瀏覽器吃到舊檔的機率。
+GitHub Pages 更新後如果看到舊畫面，可以先使用 Ctrl + F5 強制重新整理。v0.5.1.4 已將主要靜態資源引用更新為 `v=0.5.1.4`，降低瀏覽器吃到舊檔的機率。
 
 ## 下一步建議
 

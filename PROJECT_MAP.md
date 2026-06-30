@@ -1,10 +1,17 @@
 # PROJECT_MAP
 
+## v0.5.1.4 production prototype 移植
+
+- `index.html`：保留 dashboardView / detailView，新增 `bottomInsightStrip` 容器，靜態資源版本同步 v0.5.1.4。
+- `app.js`：首頁 renderer 以 v0.5.1.4 production prototype override 收束，新增 `renderHeroFocusStrip`、`renderSoulTreeVisual`、`renderBottomInsightStrip`。
+- `style.css`：新增 production prototype import 樣式層，讓 hero band、core grid、rhythm row、support strip 與 bottom insight strip 更接近建構圖。
+- `scripts/check-site.js`：更新 v0.5.1.4 版本與首頁 production prototype 檢查，保留核心詳情頁與 support schema 檢查。
+
 ## 入口與畫面
 
-- `index.html`：GitHub Pages 靜態入口，包含 `dashboardView` 與 `detailView` 容器；v0.5.1.3 首頁以 `dashboard-hero-band`、`dashboard-core-grid`、`dashboard-rhythm-row`、`dashboard-support-strip` 四段骨架呈現。
-- `style.css`：深藍星夜視覺、手機優先響應式、主卡 / 輔助卡視覺層級、命盤核心預覽卡、`dashboard-blueprint-layout` 與 v0.5.1.3 blueprint 視覺二修樣式，以及詳情頁導覽、active 狀態與 route fallback 樣式。
-- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；v0.5.1.3 覆寫首頁 render，讓本命摘要、命盤核心、今日節奏、support 短卡更接近首頁建構圖。
+- `index.html`：GitHub Pages 靜態入口，包含 `dashboardView` 與 `detailView` 容器；v0.5.1.4 首頁以 `dashboard-hero-band`、`dashboard-core-grid`、`dashboard-rhythm-row`、`dashboard-support-strip` 四段骨架呈現。
+- `style.css`：深藍星夜視覺、手機優先響應式、主卡 / 輔助卡視覺層級、命盤核心預覽卡、`dashboard-blueprint-layout` 與 v0.5.1.4 blueprint 視覺二修樣式，以及詳情頁導覽、active 狀態與 route fallback 樣式。
+- `app.js`：讀取 `KekeSoulData` 與 `KekeDetailPages`，渲染首頁總控台與命盤詳情頁；v0.5.1.4 覆寫首頁 render，讓本命摘要、命盤核心、今日節奏、support 短卡更接近首頁建構圖。
 
 ## 路由與功能
 
@@ -15,7 +22,7 @@
 
 ## 資料層
 
-- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、`dashboardLayout`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.3 起記錄首頁 Blueprint 視覺二修與四段 dashboard 骨架。
+- `data/site-data.js`：首頁資料、`siteMeta`、`routeMeta`、`layoutMeta`、`dashboardLayout`、農民曆與神明生日實驗設定；v0.5.1 起包含 `almanacSupport` metadata，v0.5.1.4 起記錄首頁 Blueprint 視覺二修與四段 dashboard 骨架。
 - `data/detail-pages-data.js`：命盤詳情頁 mock / experiment / planning 資料，包含 `order`、`navLabel`、`icon`、`category`，前五個命盤核心另有 `dashboardPreview` 首頁預覽資料。
 - `data/deity-birthdays.js`：神明生日 seed 資料表，包含農曆月日、分類、祈福方向與資料等級。
 - `data/`：未來放 mock data、命理資料表與資料版本管理。
@@ -45,13 +52,13 @@
 - `features/date-test-mode.js`：日期測試模式。
 - 後半段模組目前包含 detail route 與 dashboard support card 兩種型態。
 
-## v0.5.1.3 首頁 Blueprint 視覺二修
+## v0.5.1.4 首頁 Blueprint 視覺二修
 
 - `index.html`：`dashboardView` 改成 hero band、core grid、rhythm row、support strip 四段骨架，保留所有原有卡片 id。
 - `app.js`：首頁 render 改為 blueprint 摘要輸出，農民曆 / 神明生日 / 資料工具短卡化，命樹改為視覺整合卡。
 - `style.css`：新增 `dashboard-hero-band`、`dashboard-core-grid`、`dashboard-rhythm-row`、`dashboard-support-strip`、`blueprint-hero-card`、`blueprint-core-card`、`blueprint-medium-card`、`blueprint-support-card` 等樣式。
 - `data/site-data.js`：`dashboardLayout` 更新為 `blueprint-visual-pass`，記錄本版 hero band / core grid / rhythm row / support strip 規則。
-- `scripts/check-site.js`：加入 v0.5.1.3 blueprint 視覺二修檢查。
+- `scripts/check-site.js`：加入 v0.5.1.4 blueprint 視覺二修檢查。
 
 ## v0.5.1.2 首頁架構圖對齊 × Dashboard 密度收束
 

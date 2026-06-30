@@ -1,36 +1,37 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1.3",
+    version: "v0.5.1.4",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1.3",
-    status: "首頁 Blueprint 視覺二修",
-    updatedNote: "v0.5.1.3 依照首頁建構圖重排 dashboard 骨架，將首頁從內容瘦身推進到 hero band、core grid、rhythm row 與 support strip 的視覺二修。"
+    cacheVersion: "v0.5.1.4",
+    status: "首頁 production prototype 移植",
+    updatedNote: "v0.5.1.4 依據首頁 production prototype v2 移植視覺骨架，重整 hero band、core grid、rhythm row、support strip 與 bottom insight strip，保留既有資料層、router 與檢查系統。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1.3",
-    cacheVersion: "v0.5.1.3",
+    productVersion: "v0.5.1.4",
+    cacheVersion: "v0.5.1.4",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1.3",
+    currentVersion: "v0.5.1.4",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1.3 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
+    note: "v0.5.1.4 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
   },
   dashboardLayout: {
-    mode: "blueprint-visual-pass",
-    version: "v0.5.1.3",
+    mode: "production-prototype-import",
+    version: "v0.5.1.4",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
     supportStrip: "dashboard-support-strip",
-    rule: "首頁只顯示濃縮摘要，詳情留給內頁。",
-    density: "最多三層資訊",
-    note: "首頁架構圖對齊，讓命盤核心優先，support card 維持短卡。"
+    bottomInsightStrip: "bottomInsightStrip",
+    rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
+    density: "production dashboard compact",
+    note: "v0.5.1.4 將首頁收束為 hero band、core grid、rhythm row、support strip 與 bottom insight strip。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

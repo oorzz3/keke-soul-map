@@ -1,6 +1,14 @@
 # CHANGELOG
 
-## v0.5.1.3｜首頁 Blueprint 視覺二修
+## v0.5.1.4｜首頁 production prototype 移植
+
+- 依據 production prototype v2 移植首頁視覺骨架。
+- 重整 hero band、core grid、rhythm row、support strip 與 bottom insight strip。
+- 神明生日首頁短卡不再顯示測試入口與固定 mock 範例。
+- 農民曆首頁短卡移除大段安全線與資料表感，只保留短摘要。
+- 保留五大核心詳情頁、流年 / 九運、hash router、lunar、deity matcher 與 date test mode。
+
+## v0.5.1.4｜首頁 Blueprint 視覺二修
 
 - 依照首頁建構圖重排 dashboard 骨架。
 - 首頁分成 hero band、core grid、rhythm row、support strip。
@@ -8,7 +16,7 @@
 - 今日摘要、生命靈數、命樹整理為中卡節奏區。
 - 農民曆、神明生日、資料工具短卡化，保留 support / anchor 定位。
 - 保留首頁三段式核心意義、hash router、lunar、神明生日與日期測試模式。
-- 小貓龍蝦檢查加入 v0.5.1.3 blueprint 視覺二修檢查。
+- 小貓龍蝦檢查加入 v0.5.1.4 blueprint 視覺二修檢查。
 
 ## v0.5.1.2｜首頁架構圖對齊 × Dashboard 密度收束
 
