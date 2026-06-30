@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.4";
-const expectedVersionLabel = "v0.5.1.4";
+const expectedVersion = "0.5.1.5";
+const expectedVersionLabel = "v0.5.1.5";
 const results = [];
 let activeGroup = "general";
 
@@ -140,29 +140,29 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.4 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.5.1.5 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "首頁 production prototype 移植" },
+    { label: "siteMeta.status", value: "首頁 render 重複區塊清理" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
     { label: "dashboardLayout", value: "dashboardLayout" },
-    { label: "production-prototype-import", value: "production-prototype-import" },
+    { label: "production-prototype-stable-cleanup", value: "production-prototype-stable-cleanup" },
     { label: "dashboard-hero-band", value: "dashboard-hero-band" },
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.5.1.4 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.5.1.5 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.4", value: expectedVersionLabel },
-    { label: "fallback status", value: "首頁 production prototype 移植" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.4。");
+    { label: "fallback v0.5.1.5", value: expectedVersionLabel },
+    { label: "fallback status", value: "首頁 render 重複區塊清理" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.5。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.4", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.5.1.5", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -520,7 +520,7 @@ function checkDetailData() {
     { label: "blueprint-short-card", value: "blueprint-short-card" },
     { label: "blueprint-summary-line", value: "blueprint-summary-line" },
     { label: "compact-note", value: "compact-note" }
-  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.4 blueprint 視覺二修樣式。");
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.5 blueprint 視覺二修樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -582,8 +582,6 @@ function checkAlmanacAndDeity() {
     { label: "首頁只顯示濃縮摘要", value: "首頁只顯示濃縮摘要" },
     { label: "experiment", value: "experiment" },
     { label: "lunar-javascript", value: "lunar-javascript" },
-    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
-    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
     { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "deityMatcher", value: "deityMatcher" },
     { label: "dateTestMode", value: "dateTestMode" },
@@ -600,15 +598,10 @@ function checkAlmanacAndDeity() {
     { label: "renderSoulTree", value: "renderSoulTree" },
     { label: "renderTools", value: "renderTools" },
     { label: "blueprint-short-card", value: "blueprint-short-card" },
-    { label: "compact-result", value: "compact-result" },
     { label: "compact-note", value: "compact-note" },
-    { label: "renderAlmanacSourceNotes", value: "renderAlmanacSourceNotes" },
-    { label: "renderAlmanacSafetyLines", value: "renderAlmanacSafetyLines" },
     { label: "農民曆短提醒", value: "今日只作節奏參考" },
     { label: "experiment", value: "experiment" },
-    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
-    { label: "不提供正式宜忌", value: "不提供正式宜忌" }
-  ], "app.js 需要保留農民曆 support card render 與安全線。");
+  ], "app.js 需要保留農民曆 support 短卡 renderer。");
 
   if (app !== null) {
     const ok = !app.includes("renderAlmanacSafetyLines(config.safetyLines)");
@@ -752,8 +745,6 @@ function checkDocs() {
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
     { label: "不新增 #/module/almanac", value: "不新增 `#/module/almanac`" },
-    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
-    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
     { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "mock detail", value: "mock detail" },
@@ -789,7 +780,6 @@ function checkDocs() {
     { label: "農民曆 support 區塊整理", value: "農民曆 support 區塊整理" },
     { label: "almanacSupport", value: "almanacSupport" },
     { label: "不新增農民曆 detail route", value: "不新增農民曆 detail route" },
-    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
     { label: "正式宜忌判定", value: "正式宜忌判定" },
     { label: "流年 / 九運 mock 詳情頁深化", value: "流年 / 九運 mock 詳情頁深化" },
     { label: "後半段模組 schema 文件化", value: "後半段模組 schema 文件化" },
@@ -883,8 +873,6 @@ function checkDocs() {
     { label: "support整理", value: "support整理" },
     { label: "renderAlmanacSupportCard", value: "renderAlmanacSupportCard" },
     { label: "lunar-javascript", value: "lunar-javascript" },
-    { label: "不提供正式農民曆吉凶斷言", value: "不提供正式農民曆吉凶斷言" },
-    { label: "不提供正式宜忌", value: "不提供正式宜忌" },
     { label: "暫不取代人工校對", value: "暫不取代人工校對" },
     { label: "mock detail", value: "mock detail" },
     { label: "renderLuckDetail", value: "renderLuckDetail" },
@@ -951,10 +939,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "首頁 production prototype 移植", value: "首頁 production prototype 移植" },
-    { label: "production-prototype-import", value: "production-prototype-import" },
+    { label: "首頁 render 重複區塊清理", value: "首頁 render 重複區塊清理" },
+    { label: "production-prototype-stable-cleanup", value: "production-prototype-stable-cleanup" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.5.1.4 production prototype 移植。");
+  ], "site-data.js 需要標記 v0.5.1.5 production prototype 移植。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -967,7 +955,7 @@ function checkProductionPrototypeImport() {
   ], "app.js 需要輸出 production prototype 首頁 render 與 support 短卡。");
 
   checkIncludes("style.css", style, [
-    { label: "v0.5.1.4 production prototype import", value: "v0.5.1.4 production prototype import" },
+    { label: "v0.5.1.5 production prototype stable cleanup", value: "v0.5.1.5 production prototype stable cleanup" },
     { label: "production-core-grid", value: "production-core-grid" },
     { label: "production-core-card", value: "production-core-card" },
     { label: "production-focus-strip", value: "production-focus-strip" },
@@ -992,6 +980,38 @@ function checkProductionPrototypeImport() {
       ? app.slice(finalAlmanacStart, finalAlmanacEnd)
       : "";
     addResult(!finalAlmanac.includes("almanac-safety-list") ? "pass" : "fail", "農民曆首頁短卡不輸出安全線列表", "最後生效的 renderAlmanacSupportCard 不應輸出 almanac-safety-list。");
+
+    const singletonRenderers = [
+      "renderDashboardView",
+      "renderProfile",
+      "renderTodaySummary",
+      "renderNumerology",
+      "renderModules",
+      "renderCoreModuleCard",
+      "renderAlmanacSupportCard",
+      "renderDeityDay",
+      "renderSoulTree",
+      "renderTools",
+      "renderBottomInsightStrip",
+      "renderDesktopNav"
+    ];
+
+    for (const rendererName of singletonRenderers) {
+      const count = (app.match(new RegExp("function\\s+" + rendererName + "\\s*\\(", "g")) || []).length;
+      addResult(count === 1 ? "pass" : "fail", "app.js 首頁 renderer 唯一宣告：" + rendererName, count === 1 ? "已收束為唯一一份。" : "目前宣告數：" + count + "，請清理重複 renderer。");
+    }
+
+    [
+      "renderTestLinks",
+      "renderDeityMatcherPanel",
+      "renderMockDeitySample",
+      "renderAlmanacSafetyLines",
+      "renderAlmanacSourceNotes",
+      "renderAlmanacEnginePanel"
+    ].forEach((helperName) => {
+      const ok = !app.includes("function " + helperName);
+      addResult(ok ? "pass" : "fail", "app.js 不保留首頁舊 helper：" + helperName, ok ? "已清理。" : "仍有舊 helper 殘留，可能造成首頁 support 區塊語意混淆。");
+    });
   }
 
   for (const target of [

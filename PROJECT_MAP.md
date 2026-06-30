@@ -1,3 +1,9 @@
+## v0.5.1.5 render cleanup
+
+- `app.js`：首頁 renderer 收束為唯一一組 production prototype render，避免 v0.5.1.4 移植後的重複函式陰影。
+- `scripts/check-site.js`：新增首頁 renderer function declaration count 檢查，避免同名首頁 renderer 再次堆疊。
+- `data/site-data.js`：dashboardLayout.mode 更新為 `production-prototype-stable-cleanup`。
+
 # PROJECT_MAP
 
 ## v0.5.1.4 production prototype 移植
@@ -122,7 +128,7 @@
 ## v0.5.1 農民曆 support 區塊整理
 
 - `data/site-data.js`：新增或整理 `almanacSupport` metadata。
-- `app.js`：整理農民曆 support card render，包含 `renderAlmanacSupportCard`、`renderAlmanacSourceNotes`、`renderAlmanacSafetyLines`。
+- `app.js`：整理農民曆 support card render；v0.5.1.5 後首頁只保留 `renderAlmanacSupportCard` 短卡輸出，舊的長版 notes / safety helper 已不再保留。
 - `style.css`：新增或整理農民曆 support card 樣式，包含 `almanac-support-card`、`almanac-date-grid`、`almanac-safety-list`。
 - `features/almanac-engine.js`：農民曆 experiment 引擎，原則不改正式演算法。
 - `vendor/lunar/lunar.js`：外部 lunar 程式庫，不修改 vendor。

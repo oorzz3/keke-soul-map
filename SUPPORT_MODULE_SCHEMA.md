@@ -1,3 +1,11 @@
+## v0.5.1.5 support renderer cleanup
+
+版本：v0.5.1.5
+
+- 首頁農民曆與神明生日仍維持 support 短卡。
+- `app.js` 已清理不再用於首頁的神明生日測試連結與固定 mock 範例 renderer helper。
+- 不新增 `#/module/almanac` 或 `#/module/deity`。
+
 # 科科命理宇宙站｜後半段模組 Schema 對照表
 
 ## v0.5.1.4 support 短卡規則
@@ -7,7 +15,7 @@
 - 首頁神明生日只保留今日 / 測試命中摘要與祈福方向，不顯示測試入口與固定 mock 範例。
 - 不新增 `#/module/almanac` 或 `#/module/deity`。
 
-版本：v0.5.1.4
+版本：v0.5.1.5
 狀態：mock detail / planning / experiment / seed 文件化
 定位：本文件只記錄後半段模組目前結構與頁面對照，不代表正式命理計算、正式占問或正式資料庫功能已完成。
 

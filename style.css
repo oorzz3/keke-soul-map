@@ -3665,7 +3665,7 @@ blockquote {
   }
 }
 
-/* v0.5.1.4 production prototype import */
+/* v0.5.1.5 production prototype stable cleanup */
 .site-shell {
   grid-template-columns: minmax(0, 1fr);
 }

@@ -1,3 +1,11 @@
+## v0.5.1.5｜首頁 render 重複區塊清理
+
+- 清理 app.js 內 v0.5.1.4 之後殘留的重複首頁 renderer。
+- 保留唯一生效的 production prototype 首頁 render 區塊。
+- 移除首頁不再使用的神明生日測試連結 / 固定 mock 範例 renderer helper。
+- 強化 check-site.js，加入首頁 renderer function declaration count 檢查。
+- 不改首頁視覺、不改 detail data schema、不新增 almanac / deity route。
+
 # CHANGELOG
 
 ## v0.5.1.4｜首頁 production prototype 移植
