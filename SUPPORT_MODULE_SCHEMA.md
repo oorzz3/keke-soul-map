@@ -1,4 +1,13 @@
-﻿## v0.6.2.1 support boundary unchanged
+﻿## v0.6.3 support boundary unchanged
+
+版本：v0.6.3
+
+- v0.6.3 新增五大核心模組施工模板，但農民曆與神明生日仍屬輔助模組。
+- 輔助模組維持 dashboard support card / anchor，不進入五大核心命盤模板。
+- 不新增 `#/module/almanac` 或 `#/module/deity`。
+- 不把農民曆升格成主功能，也不把神明生日升級成核心命盤。
+- `features/almanac-engine.js`、`vendor/lunar/lunar.js`、`features/deity-matcher.js` 與 `features/date-test-mode.js` 皆不改演算法。
+## v0.6.2.1 support boundary unchanged
 
 版本：v0.6.2.1
 

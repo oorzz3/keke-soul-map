@@ -1,4 +1,12 @@
-﻿## v0.6.2.1｜首頁生命靈數重複語意修正
+﻿## v0.6.3｜生命靈數主線封章與五大核心模板整理
+
+- 新增 `CORE_MODULE_TEMPLATE.md`。
+- 將生命靈數 v0.6.0 / v0.6.1 / v0.6.2 / v0.6.2.1 主線整理成五大核心模組施工模板。
+- `data/site-data.js` 新增 `coreModuleTemplate`，狀態為 `template-locked`。
+- 模板標準化 input layer、calculator layer、meaning layer、homepage layer、detail layer、safety layer、check layer。
+- `scripts/check-site.js` 新增 `core-module-template-checks`。
+- 保留生命靈數 calculator 與 meanings 主資料，不新增其他核心正式演算法。
+## v0.6.2.1｜首頁生命靈數重複語意修正
 
 - 全站版本更新為 v0.6.2.1。
 - 命盤核心矩陣保留「生命靈數」核心入口。

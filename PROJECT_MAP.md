@@ -1,4 +1,11 @@
-﻿## v0.6.2.1 homepage number rhythm copy
+﻿## v0.6.3 core module template lock
+
+- `CORE_MODULE_TEMPLATE.md`：五大核心模組施工模板，定義 input / calculator / meaning / homepage / detail / safety / check 七層標準。
+- `data/site-data.js`：新增 `coreModuleTemplate`，狀態為 `template-locked`，以生命靈數作為完成參考。
+- `app.js`：保留生命靈數 calculated panel、static interpretation panel、safety lines 與首頁今日數字節奏。
+- `scripts/check-site.js`：新增 `core-module-template-checks`，檢查模板文件、site data metadata 與文件對照。
+- 後續姓名學、八字、紫微與西洋星盤接入前，先依 `CORE_MODULE_TEMPLATE.md` 對齊資料來源、計算邊界、解讀資料層與安全線。
+## v0.6.2.1 homepage number rhythm copy
 
 - `index.html`：靜態資源版本參數更新為 v0.6.2.1。
 - `index.html`：`numerologyCard` 的 aria 語意改為今日數字節奏。

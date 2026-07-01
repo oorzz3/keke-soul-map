@@ -1,4 +1,15 @@
-﻿## v0.6.2.1 首頁生命靈數重複語意修正
+﻿## v0.6.3 生命靈數主線封章與五大核心模組施工模板
+
+目前版本：v0.6.3。
+
+v0.6.3 封章生命靈數主線，將 v0.6.0 正式計算、v0.6.1 靜態解讀資料層、v0.6.2 詳情頁產品化文案與 v0.6.2.1 首頁語意修正整理成五大核心模組施工模板。
+
+- 新增 `CORE_MODULE_TEMPLATE.md`：記錄 input / calculator / meaning / homepage / detail / safety / check 七層標準。
+- `data/site-data.js` 新增 `coreModuleTemplate`，狀態為 `template-locked`。
+- 生命靈數保留 calculated、static-interpretation 與 planning 三層範例。
+- 其他四大核心仍維持 partial / planning，不新增正式演算法。
+- 農民曆與神明生日仍是輔助提醒，不新增 `#/module/almanac` 或 `#/module/deity`。
+## v0.6.2.1 首頁生命靈數重複語意修正
 
 目前版本：v0.6.2.1。
 

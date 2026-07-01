@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --ink: #f6f0df;
   --muted: #b8c2d5;
   --dim: #77839b;
@@ -3880,7 +3880,7 @@ blockquote {
   }
 }
 
-/* v0.6.2.1 dashboard render flow. */
+/* v0.6.3 core module template lock. */
 .site-shell {
   grid-template-columns: minmax(0, 1fr);
 }

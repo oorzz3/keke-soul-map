@@ -1,4 +1,13 @@
-﻿## v0.6.2.1 生命靈數詳情頁狀態分層
+﻿## v0.6.3 五大核心模板分層
+
+版本：v0.6.3
+
+- 五大核心後續施工應依 `CORE_MODULE_TEMPLATE.md` 對齊 input layer、calculator layer、meaning layer、homepage layer、detail layer、safety layer 與 check layer。
+- 生命靈數是目前完成範例：calculated 結果、static-interpretation 解讀資料與 planning 延伸架構已分層。
+- 姓名學、八字、紫微與西洋星盤仍維持 partial / planning，不宣稱正式計算。
+- calculator layer 完成前不可把模組狀態升級成 calculated。
+- meaning layer 應獨立於 calculator，避免把解讀文案寫死在 renderer。
+## v0.6.2.1 生命靈數詳情頁狀態分層
 
 版本：v0.6.2.1
 
