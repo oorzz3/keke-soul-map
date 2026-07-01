@@ -1,6 +1,6 @@
 ﻿window.KekeNumerologyMeanings = {
   meta: {
-    version: "v0.7.0",
+    version: "v0.7.1",
     status: "static-interpretation",
     method: "digit-reduction-1-to-9",
     scope: "lifePathNumber / birthDayNumber / personalYear / personalMonth / personalDay",

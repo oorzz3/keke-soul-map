@@ -316,3 +316,12 @@
 ## v0.0
 
 - 建立 GitHub repo。
+## v0.7.1｜姓名學 metadata 前置 × 第二核心候選鎖定
+
+- 新增 `nameCalculationBoundary`，鎖定姓名學第二核心候選 metadata。
+- 記錄姓名學 requiredFields、optionalFields、blockedBy、ruleDecisionsNeeded、testCasePlan 與 safetyLines。
+- 更新 `CORE_ALGORITHM_BOUNDARY.md`，補充姓名學 metadata 前置與 not calculated 邊界。
+- `scripts/check-site.js` 新增 `name-metadata-boundary-checks`。
+- 本版不新增第二核心 calculator、不新增第二核心 meaning data、不改首頁 UI。
+- 姓名學仍維持 planning / partial / not calculated。
+- `index.html`、`data/site-data.js`、`app.js` 與靜態資源快取參數同步更新為 v0.7.1。

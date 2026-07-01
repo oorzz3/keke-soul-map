@@ -275,3 +275,10 @@
 - `app.js`：renderModules 收斂為命盤核心；renderSoulTree 透過 renderIntegrationSummary 顯示整合摘要。
 - `style.css`：新增 dashboard-layout、dashboard-zone 與 integration-summary 的總控台版面樣式。
 - `scripts/check-site.js`：加入 v0.3.3 dashboard zone 與整合摘要檢查。
+## v0.7.1 name metadata boundary
+
+- `data/site-data.js`：新增 `nameCalculationBoundary`，鎖定姓名學第二核心候選的 requiredFields、optionalFields、blockedBy、ruleDecisionsNeeded、testCasePlan 與 safetyLines。
+- `CORE_ALGORITHM_BOUNDARY.md`：補充 v0.7.1 姓名學 metadata 前置邊界，維持姓名學 not calculated。
+- `scripts/check-site.js`：新增 `name-metadata-boundary-checks`，並保留 `core-algorithm-boundary-checks`；檢查不可新增姓名學 calculator / meaning data。
+- `index.html`、`app.js`、`data/numerology-meanings.js`：僅同步 v0.7.1 版本與 fallback / meta，不新增首頁 UI 或新 renderer。
+- 不新增 `features/name-calculator.js`、不新增 `data/name-meanings.js`、不新增 `#/module/almanac` 或 `#/module/deity`。

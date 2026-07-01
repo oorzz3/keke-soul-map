@@ -1,29 +1,29 @@
 ﻿window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.7.0",
+    version: "v0.7.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.7.0",
-    status: "命理運算總架構文件版 × 第二核心前置憲法",
-    updatedNote: "v0.7.0 新增命理運算總架構文件，盤點姓名學、八字四柱、紫微斗數與西洋星盤的輸入欄位、演算法邊界、測試案例與安全線；本版不新增第二核心 calculator、不新增 meaning data、不改首頁 UI。"
+    cacheVersion: "v0.7.1",
+    status: "姓名學 metadata 前置 × 第二核心候選鎖定",
+    updatedNote: "v0.7.1 新增姓名學 metadata 前置，鎖定姓名學輸入欄位、筆畫資料表需求、規則決策、測試案例與安全線；本版不新增姓名學 calculator、不新增姓名學 meaning data、不改首頁 UI，也不將姓名學標示為 calculated。"
   },
   versionPolicy: {
-    productVersion: "v0.7.0",
-    cacheVersion: "v0.7.0",
+    productVersion: "v0.7.1",
+    cacheVersion: "v0.7.1",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.7.0",
+    currentVersion: "v0.7.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.7.0 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組；本版新增命理運算總架構文件，先鎖定第二核心接入前的資料來源、演算法邊界、測試案例與安全線。"
+    note: "v0.7.1 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組；本版只新增姓名學 metadata 前置，先鎖定第二核心候選的資料來源、規則決策、測試案例與安全線。"
   },
   dashboardLayout: {
     mode: "core-input-schema-lock",
-    version: "v0.7.0",
+    version: "v0.7.1",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,7 @@
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.7.0 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，不重排首頁；本版只新增命理運算總架構文件與檢查規則。"
+    note: "v0.7.1 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，不重排首頁；本版只新增姓名學 metadata 與檢查規則。"
   },
   coreInputProfile: {
     ownerLabel: "科科",
@@ -73,7 +73,7 @@
     }
   },
   coreInputSchema: {
-    version: "v0.7.0",
+    version: "v0.7.1",
     purpose: "五大核心命盤運算前置欄位鎖定",
     sharedFields: [
       "displayName",
@@ -114,9 +114,18 @@
       label: "姓名學",
       status: "partial",
       requiredFields: ["fullName"],
-      optionalFields: ["gender"],
-      nextStep: "需先決定筆畫資料來源、繁簡字規則與五格算法版本。",
-      blockedBy: ["strokeTable", "nameRuleVersion"]
+      optionalFields: ["familyName", "givenName", "gender"],
+      nextStep: "v0.7.1 已建立姓名學 metadata 前置；v0.7.2 可評估 placeholder 骨架，但仍不可宣稱正式計算。",
+      blockedBy: [
+        "strokeTable",
+        "strokeSourceLicense",
+        "strokeRuleVersion",
+        "traditionalSimplifiedPolicy",
+        "variantCharacterPolicy",
+        "missingCharacterFallback",
+        "fiveGridAlgorithmVersion",
+        "compoundSurnamePolicy"
+      ]
     },
     bazi: {
       label: "八字四柱",
@@ -143,9 +152,56 @@
       blockedBy: ["ephemeris", "geoCoordinates", "houseSystem"]
     }
   },
+  nameCalculationBoundary: {
+    version: "v0.7.1",
+    moduleId: "name",
+    label: "姓名學",
+    candidateOrder: 2,
+    status: "planning",
+    calculationStatus: "not-calculated",
+    source: "coreInputProfile.personal.fullName",
+    boundarySource: "CORE_ALGORITHM_BOUNDARY.md",
+    requiredFields: ["fullName"],
+    optionalFields: ["familyName", "givenName", "gender"],
+    blockedBy: [
+      "strokeTable",
+      "strokeSourceLicense",
+      "strokeRuleVersion",
+      "traditionalSimplifiedPolicy",
+      "variantCharacterPolicy",
+      "missingCharacterFallback",
+      "fiveGridAlgorithmVersion",
+      "compoundSurnamePolicy"
+    ],
+    ruleDecisionsNeeded: [
+      "筆畫資料表來源與授權",
+      "康熙筆畫或現代筆畫規則",
+      "繁體與簡體處理政策",
+      "異體字與缺字 fallback",
+      "五格算法版本",
+      "三才五行規則",
+      "複姓與單姓處理",
+      "姓名學結果不得直接作為改名建議"
+    ],
+    testCasePlan: [
+      "科科 seed 名稱",
+      "單姓單名",
+      "單姓雙名",
+      "複姓測試",
+      "異體字測試",
+      "缺字 fallback 測試"
+    ],
+    safetyLines: [
+      "本版不提供姓名學正式計算。",
+      "本版不提供改名建議。",
+      "本版不宣稱姓名學資料已完整。",
+      "本版不得作為重大人生、法律、財務、醫療或投資決策依據。"
+    ],
+    nextStep: "v0.7.2 可評估姓名學 placeholder 骨架，但仍不接正式計算、不新增正式解讀資料、不宣稱 calculated。"
+  },
   numerologyCalculation: {
     enabled: true,
-    version: "v0.7.0",
+    version: "v0.7.1",
     status: "calculated",
     source: "coreInputProfile.birth.solarDate",
     method: "digit-reduction-1-to-9",
@@ -154,7 +210,7 @@
   },
   numerologyInterpretation: {
     enabled: true,
-    version: "v0.7.0",
+    version: "v0.7.1",
     status: "static-interpretation",
     source: "data/numerology-meanings.js",
     dependsOn: "features/numerology-calculator.js",
@@ -165,10 +221,10 @@
       "personalMonth",
       "personalDay"
     ],
-    note: "v0.7.0 延續 v0.6.1 靜態解讀資料層；本版只補命理運算總架構文件，不改生命靈數計算與解讀主資料。"
+    note: "v0.7.1 延續 v0.6.1 靜態解讀資料層；本版只補姓名學 metadata 前置，不改生命靈數計算與解讀主資料。"
   },
   numberRhythmCard: {
-    version: "v0.7.0",
+    version: "v0.7.1",
     status: "homepage-copy-adjusted",
     displayName: "今日數字節奏",
     source: "KekeNumerologyCalculator",
@@ -176,7 +232,7 @@
     note: "首頁 rhythm row 改以今日數字節奏呈現，避免與命盤核心矩陣的生命靈數入口重複。"
   },
   coreModuleTemplate: {
-    version: "v0.7.0",
+    version: "v0.7.1",
     status: "template-locked",
     source: "CORE_MODULE_TEMPLATE.md",
     basedOn: "numerology",
@@ -211,7 +267,7 @@
       "ziwei",
       "astrology"
     ],
-    note: "v0.7.0 以 CORE_ALGORITHM_BOUNDARY.md 作為第二核心前置憲法，後續核心接入需先明確資料來源、計算邊界、測試案例、解讀資料層與安全線。"
+    note: "v0.7.1 以 nameCalculationBoundary 鎖定姓名學第二核心候選 metadata；後續核心接入需先明確資料來源、計算邊界、測試案例、解讀資料層與安全線。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

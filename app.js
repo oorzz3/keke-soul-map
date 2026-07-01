@@ -1,9 +1,9 @@
 ﻿const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.7.0",
+  version: "v0.7.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.7.0",
-  status: "命理運算總架構文件版 × 第二核心前置憲法"
+  cacheVersion: "v0.7.1",
+  status: "姓名學 metadata 前置 × 第二核心候選鎖定"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1727,7 +1727,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.7.0 dashboard render flow. */
+/* v0.7.1 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1804,7 +1804,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.7.0",
+      version: config.version || "v0.7.1",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1813,7 +1813,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.7.0",
+    version: config.version || "v0.7.1",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1907,7 +1907,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.0",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.1",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -2006,7 +2006,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.0"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.1"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }
