@@ -1,9 +1,9 @@
-const data = window.KekeSoulData || {};
+﻿const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.6.2",
+  version: "v0.6.2.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.6.2",
-  status: "生命靈數詳情頁文案與版本註記清理"
+  cacheVersion: "v0.6.2.1",
+  status: "首頁生命靈數重複語意修正"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1727,7 +1727,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.6.2 dashboard render flow. */
+/* v0.6.2.1 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1804,7 +1804,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.6.2",
+      version: config.version || "v0.6.2.1",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1813,7 +1813,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.6.2",
+    version: config.version || "v0.6.2.1",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1907,7 +1907,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.6.2",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.6.2.1",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -2006,7 +2006,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.2"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.2.1"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }
@@ -2243,23 +2243,23 @@ function renderTodaySummary(summary = {}) {
 
 function renderNumerology(numerology = {}) {
   const display = getNumerologyDisplayData();
-  const lifeNumber = display.lifePathNumber || display.lifeNumber || numerology.lifeNumber || 7;
+  const rhythmMeta = data?.numberRhythmCard || {};
   const personalYear = display.personalYear || numerology.personalYear || 7;
   const personalMonth = display.personalMonth || numerology.personalMonth || 4;
   const personalDay = display.personalDay || numerology.personalDay || 2;
 
   setHtml("#numerologyCard", `
     <div class="section-heading compact-heading">
-      <p>小節奏</p>
-      <h2 id="life-number-title">生命靈數節奏</h2>
+      <p>今日節奏</p>
+      <h2 id="number-rhythm-title">${escapeHtml(rhythmMeta.displayName || "今日數字節奏")}</h2>
       ${renderNumerologyCalculationBadge(display)}
     </div>
     <div class="number-rhythm blueprint-number-focus production-number-focus">
-      <span>生命靈數</span>
-      <strong class="life-number is-small">${escapeHtml(lifeNumber)}</strong>
-      <small>${escapeHtml(display.note || "今日用來觀察行動節奏，不取代命盤核心。")}</small>
+      <span>今日焦點</span>
+      <strong class="life-number is-small">${escapeHtml(personalDay)}</strong>
+      <small>個人日：今日行動節奏；個人年 ${escapeHtml(personalYear)} / 個人月 ${escapeHtml(personalMonth)}</small>
     </div>
-    <div class="number-strip compact blueprint-chip-row" aria-label="生命靈數節奏">
+    <div class="number-strip compact blueprint-chip-row" aria-label="今日數字節奏">
       <span><strong>${escapeHtml(personalYear)}</strong>個人年</span>
       <span><strong>${escapeHtml(personalMonth)}</strong>個人月</span>
       <span><strong>${escapeHtml(personalDay)}</strong>個人日</span>

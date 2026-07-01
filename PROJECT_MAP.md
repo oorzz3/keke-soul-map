@@ -1,11 +1,11 @@
-## v0.6.2 numerology wording cleanup
+﻿## v0.6.2.1 homepage number rhythm copy
 
-- `index.html`：靜態資源版本參數更新為 v0.6.2。
-- `data/site-data.js`：版本資料、routeMeta、dashboardLayout、numerologyCalculation 與 numerologyInterpretation 註記更新為 v0.6.2。
+- `index.html`：靜態資源版本參數更新為 v0.6.2.1。
+- `index.html`：`numerologyCard` 的 aria 語意改為今日數字節奏。
+- `data/site-data.js`：新增 `numberRhythmCard`，記錄首頁小節奏卡的 displayName、focus 與 source。
 - `data/numerology-meanings.js`：保留解讀主內容，更新 meta.version。
-- `app.js`：生命靈數詳情頁文案整理，保留 calculated panel 與 static interpretation panel。
-- `style.css`：清理舊版首頁視覺註解，不重排首頁。
-- `scripts/check-site.js`：新增 v0.6.2 版本與殘留註記檢查。
+- `app.js`：`renderNumerology` 改為今日數字節奏，主視覺顯示個人日。
+- `scripts/check-site.js`：新增首頁小節奏卡語意檢查，避免主標再回到生命靈數節奏。
 
 ## v0.6.1 numerology interpretation data
 

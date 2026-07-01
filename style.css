@@ -3880,7 +3880,7 @@ blockquote {
   }
 }
 
-/* v0.6.2 dashboard render flow. */
+/* v0.6.2.1 dashboard render flow. */
 .site-shell {
   grid-template-columns: minmax(0, 1fr);
 }

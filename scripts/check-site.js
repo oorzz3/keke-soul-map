@@ -1,9 +1,9 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.6.2";
-const expectedVersionLabel = "v0.6.2";
+const expectedVersion = "0.6.2.1";
+const expectedVersionLabel = "v0.6.2.1";
 const results = [];
 let activeGroup = "general";
 
@@ -142,11 +142,11 @@ function checkVersionSync() {
     { label: `features/numerology-calculator.js?v=${expectedVersion}`, value: `features/numerology-calculator.js?v=${expectedVersion}` },
     { label: `data/numerology-meanings.js?v=${expectedVersion}`, value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.6.2 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.6.2.1 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "生命靈數詳情頁文案與版本註記清理" },
+    { label: "siteMeta.status", value: "首頁生命靈數重複語意修正" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
@@ -156,15 +156,15 @@ function checkVersionSync() {
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.6.2 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.6.2.1 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.6.2", value: expectedVersionLabel },
-    { label: "fallback status", value: "生命靈數詳情頁文案與版本註記清理" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.6.2。");
+    { label: "fallback v0.6.2.1", value: expectedVersionLabel },
+    { label: "fallback status", value: "首頁生命靈數重複語意修正" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.6.2.1。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.6.2", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.6.2.1", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -944,10 +944,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "生命靈數詳情頁文案與版本註記清理", value: "生命靈數詳情頁文案與版本註記清理" },
+    { label: "首頁生命靈數重複語意修正", value: "首頁生命靈數重複語意修正" },
     { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.6.2 生命靈數詳情頁文案與版本註記清理。");
+  ], "site-data.js 需要標記 v0.6.2.1 首頁生命靈數重複語意修正。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -966,7 +966,7 @@ function checkProductionPrototypeImport() {
   ], "app.js 需要輸出 production prototype 首頁 render 與 support 短卡。");
 
   checkIncludes("style.css", style, [
-    { label: "v0.6.2 dashboard render flow", value: "v0.6.2 dashboard render flow" },
+    { label: "v0.6.2.1 dashboard render flow", value: "v0.6.2.1 dashboard render flow" },
     { label: "production-core-grid", value: "production-core-grid" },
     { label: "production-core-card", value: "production-core-card" },
     { label: "module-visual", value: "module-visual" },
@@ -1200,13 +1200,13 @@ function checkNumerologyInterpretation() {
   const meanings = readText("data/numerology-meanings.js");
 
   checkIncludes("index.html", html, [
-    { label: "data/numerology-meanings.js?v=0.6.2", value: `data/numerology-meanings.js?v=${expectedVersion}` },
+    { label: "data/numerology-meanings.js?v=0.6.2.1", value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: "calculator before meanings", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./data/numerology-meanings.js?v=${expectedVersion}` },
     { label: "meanings before app", value: `data/numerology-meanings.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
   ], "index.html 需要依序載入 numerology calculator、numerology meanings 與 app.js。");
 
   checkIncludes("data/numerology-meanings.js", meanings, [
-    { label: "version v0.6.2", value: `version: "${expectedVersionLabel}"` },
+    { label: "version v0.6.2.1", value: `version: "${expectedVersionLabel}"` },
     { label: "KekeNumerologyMeanings", value: "KekeNumerologyMeanings" },
     { label: "lifePathMeanings", value: "lifePathMeanings" },
     { label: "birthDayMeanings", value: "birthDayMeanings" },
@@ -1222,8 +1222,13 @@ function checkNumerologyInterpretation() {
   ], "data/numerology-meanings.js 需要包含生命靈數 1-9 與個人節奏靜態解讀資料。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "v0.6.2", value: expectedVersionLabel },
-    { label: "生命靈數詳情頁文案與版本註記清理", value: "生命靈數詳情頁文案與版本註記清理" },
+    { label: "v0.6.2.1", value: expectedVersionLabel },
+    { label: "首頁生命靈數重複語意修正", value: "首頁生命靈數重複語意修正" },
+    { label: "numberRhythmCard", value: "numberRhythmCard" },
+    { label: "今日數字節奏", value: "今日數字節奏" },
+    { label: "personalYear", value: "personalYear" },
+    { label: "personalMonth", value: "personalMonth" },
+    { label: "personalDay", value: "personalDay" },
     { label: "numerologyInterpretation", value: "numerologyInterpretation" },
     { label: "static-interpretation", value: "static-interpretation" },
     { label: "data/numerology-meanings.js", value: "data/numerology-meanings.js" },
@@ -1232,7 +1237,14 @@ function checkNumerologyInterpretation() {
   ], "site-data.js 需要記錄 numerologyInterpretation metadata 並保留 calculated 計算設定。");
 
   checkIncludes("app.js", app, [
-    { label: "v0.6.2 dashboard render flow", value: "v0.6.2 dashboard render flow" },
+    { label: "v0.6.2.1 dashboard render flow", value: "v0.6.2.1 dashboard render flow" },
+    { label: "number-rhythm-title", value: "number-rhythm-title" },
+    { label: "今日數字節奏", value: "今日數字節奏" },
+    { label: "今日焦點", value: "今日焦點" },
+    { label: "個人日", value: "個人日" },
+    { label: "personalYear", value: "personalYear" },
+    { label: "personalMonth", value: "personalMonth" },
+    { label: "personalDay", value: "personalDay" },
     { label: "getNumerologyMeanings", value: "getNumerologyMeanings" },
     { label: "getNumerologyMeaningFor", value: "getNumerologyMeaningFor" },
     { label: "getNumerologyInterpretationDisplay", value: "getNumerologyInterpretationDisplay" },
@@ -1263,9 +1275,50 @@ function checkNumerologyInterpretation() {
 
     ["package.json", "node_modules", "fetch(", "localStorage.setItem", "#/module/almanac", "#/module/deity"].forEach((forbidden) => {
       const ok = !target.content.includes(forbidden);
-      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.6.2 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.6.2.1 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
     });
   });
+}
+
+function checkNumberRhythmSemantics() {
+  const html = readText("index.html");
+  const app = readText("app.js");
+  const siteData = readText("data/site-data.js");
+
+  checkIncludes("index.html", html, [
+    { label: 'aria-label="今日數字節奏"', value: 'aria-label="今日數字節奏"' },
+    { label: 'aria-labelledby="number-rhythm-title"', value: 'aria-labelledby="number-rhythm-title"' }
+  ], "index.html 的 numerologyCard 需要改成今日數字節奏語意。");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: "numberRhythmCard", value: "numberRhythmCard" },
+    { label: "homepage-copy-adjusted", value: "homepage-copy-adjusted" },
+    { label: "KekeNumerologyCalculator", value: "KekeNumerologyCalculator" },
+    { label: "personalYear", value: "personalYear" },
+    { label: "personalMonth", value: "personalMonth" },
+    { label: "personalDay", value: "personalDay" }
+  ], "site-data.js 需要記錄首頁今日數字節奏卡 metadata。");
+
+  checkIncludes("app.js", app, [
+    { label: "number-rhythm-title", value: "number-rhythm-title" },
+    { label: "今日數字節奏", value: "今日數字節奏" },
+    { label: "今日焦點", value: "今日焦點" },
+    { label: "個人日", value: "個人日" },
+    { label: "personalYear", value: "personalYear" },
+    { label: "personalMonth", value: "personalMonth" },
+    { label: "personalDay", value: "personalDay" }
+  ], "app.js renderNumerology 需要改成今日數字節奏，主視覺聚焦個人日。");
+
+  if (app !== null) {
+    const forbiddenHeading = '<h2 id="life-number-title">生命靈數節奏</h2>';
+    const ok = !app.includes(forbiddenHeading);
+    addResult(ok ? "pass" : "fail", "app.js 不應保留生命靈數節奏主標", ok ? "未發現舊主標。" : "首頁 rhythm row 小卡不可再用生命靈數節奏作為主標。");
+  }
+
+  if (html !== null) {
+    const staleNumerologyAria = /id="numerologyCard"[^>]*aria-label="生命靈數"/.test(html);
+    addResult(!staleNumerologyAria ? "pass" : "fail", "index.html numerologyCard aria-label", !staleNumerologyAria ? "已改為今日數字節奏。" : "numerologyCard 不應再使用 aria-label=\"生命靈數\"。");
+  }
 }
 
 function checkVersionResidue() {
@@ -1381,6 +1434,7 @@ runGroup("production-prototype-checks", checkProductionPrototypeImport);
 runGroup("core-input-checks", checkCoreInputSchema);
 runGroup("numerology-calculation-checks", checkNumerologyCalculation);
 runGroup("numerology-interpretation-checks", checkNumerologyInterpretation);
+runGroup("number-rhythm-semantics", checkNumberRhythmSemantics);
 runGroup("version-residue-checks", checkVersionResidue);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();
