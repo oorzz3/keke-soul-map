@@ -2,8 +2,8 @@
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.7.2";
-const expectedVersionLabel = "v0.7.2";
+const expectedVersion = "0.7.3";
+const expectedVersionLabel = "v0.7.3";
 const results = [];
 let activeGroup = "general";
 
@@ -142,11 +142,11 @@ function checkVersionSync() {
     { label: `features/numerology-calculator.js?v=${expectedVersion}`, value: `features/numerology-calculator.js?v=${expectedVersion}` },
     { label: `data/numerology-meanings.js?v=${expectedVersion}`, value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.7.2 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.7.3 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "姓名學詳情頁 metadata 對齊 × 懶懶驗收清單" },
+    { label: "siteMeta.status", value: "姓名學 metadata 顯示整理 × 小丸本機 commit 測試" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
@@ -156,15 +156,15 @@ function checkVersionSync() {
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.7.2 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.7.3 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.7.2", value: expectedVersionLabel },
-    { label: "fallback status", value: "姓名學 metadata 前置 × 第二核心候選鎖定" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.7.2。");
+    { label: "fallback v0.7.3", value: expectedVersionLabel },
+    { label: "fallback status", value: "姓名學 metadata 顯示整理 × 小丸本機 commit 測試" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.7.3。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.7.2", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.7.3", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -950,7 +950,7 @@ function checkProductionPrototypeImport() {
     { label: "姓名學 metadata 前置", value: "姓名學 metadata 前置" },
     { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.7.2 姓名學 metadata 前置，並保留首頁骨架 metadata。");
+  ], "site-data.js 需要標記 v0.7.3 姓名學 metadata 前置，並保留首頁骨架 metadata。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -1240,7 +1240,7 @@ function checkNumerologyInterpretation() {
   ], "site-data.js 需要記錄 numerologyInterpretation metadata 並保留 calculated 計算設定。");
 
   checkIncludes("app.js", app, [
-    { label: "v0.7.2 dashboard render flow", value: "v0.7.2 dashboard render flow" },
+    { label: "v0.7.3 dashboard render flow", value: "v0.7.3 dashboard render flow" },
     { label: "number-rhythm-title", value: "number-rhythm-title" },
     { label: "今日數字節奏", value: "今日數字節奏" },
     { label: "今日焦點", value: "今日焦點" },
@@ -1278,7 +1278,7 @@ function checkNumerologyInterpretation() {
 
     ["package.json", "node_modules", "fetch(", "localStorage.setItem", "#/module/almanac", "#/module/deity"].forEach((forbidden) => {
       const ok = !target.content.includes(forbidden);
-      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.7.2 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.7.3 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
     });
   });
 }
@@ -1457,7 +1457,7 @@ function checkCoreAlgorithmBoundary() {
     { label: "bazi partial", value: "bazi: {" },
     { label: "ziwei partial", value: "ziwei: {" },
     { label: "astrology partial", value: "astrology: {" }
-  ], "data/site-data.js 需要記錄 v0.7.2 運算邊界文件與第二核心前置狀態。");
+  ], "data/site-data.js 需要記錄 v0.7.3 運算邊界文件與第二核心前置狀態。");
 
   if (siteData !== null) {
     [
@@ -1467,7 +1467,7 @@ function checkCoreAlgorithmBoundary() {
       { label: "西洋星盤不可 calculated", pattern: /astrologyCalculationBoundary:\s*{[\s\S]*?calculationStatus:\s*"calculated"/ }
     ].forEach((check) => {
       const ok = !check.pattern.test(siteData);
-      addResult(ok ? "pass" : "fail", check.label, ok ? "未發現第二核心誤升級。" : "v0.7.2 不可將第二核心標示為 calculated。");
+      addResult(ok ? "pass" : "fail", check.label, ok ? "未發現第二核心誤升級。" : "v0.7.3 不可將第二核心標示為 calculated。");
     });
   }
 
@@ -1482,22 +1482,22 @@ function checkCoreAlgorithmBoundary() {
     "data/astrology-meanings.js"
   ].forEach((forbiddenPath) => {
     const ok = !pathExists(forbiddenPath);
-    addResult(ok ? "pass" : "fail", `v0.7.2 不新增：${forbiddenPath}`, ok ? "未發現。" : "本版只做運算邊界文件，不可新增第二核心 calculator 或 meaning data。");
+    addResult(ok ? "pass" : "fail", `v0.7.3 不新增：${forbiddenPath}`, ok ? "未發現。" : "本版只做運算邊界文件，不可新增第二核心 calculator 或 meaning data。");
   });
 
   checkIncludes("README.md", readme, [
     { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "唯一 calculated core", value: "唯一 calculated core" },
-    { label: "v0.7.2", value: "v0.7.2" }
-  ], "README.md 需要記錄 v0.7.2 運算邊界文件與下一步方向。");
+    { label: "v0.7.3", value: "v0.7.3" }
+  ], "README.md 需要記錄 v0.7.3 運算邊界文件與下一步方向。");
 
   checkIncludes("CHANGELOG.md", changelog, [
     { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
     { label: expectedVersionLabel, value: expectedVersionLabel },
     { label: "不新增第二核心 calculator", value: "不新增第二核心 calculator" },
     { label: "not calculated", value: "not calculated" }
-  ], "CHANGELOG.md 需要記錄 v0.7.2 文件版。");
+  ], "CHANGELOG.md 需要記錄 v0.7.3 文件版。");
 
   checkIncludes("PROJECT_MAP.md", projectMap, [
     { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
@@ -1515,7 +1515,7 @@ function checkNameMetadataBoundary() {
   checkIncludes("data/site-data.js", siteData, [
     { label: "nameCalculationBoundary", value: "nameCalculationBoundary" },
     { label: 'moduleId: "name"', value: 'moduleId: "name"' },
-    { label: 'version: "v0.7.2"', value: 'version: "v0.7.2"' },
+    { label: 'version: "v0.7.3"', value: 'version: "v0.7.3"' },
     { label: "姓名學", value: "姓名學" },
     { label: "candidateOrder", value: "candidateOrder" },
     { label: 'status: "planning"', value: 'status: "planning"' },
@@ -1557,19 +1557,34 @@ function checkNameMetadataBoundary() {
     { label: "metadata 對齊", value: "metadata 對齊" },
     { label: "第二核心候選", value: "第二核心候選" },
     { label: "not-calculated", value: "not-calculated" },
+    { label: "短版狀態提醒", value: "目前狀態：規劃中" },
+    { label: "正式計算尚未開啟", value: "正式計算：尚未開啟" },
+    { label: "姓名 seed 來源", value: "資料來源：科科 seed 姓名" },
+    { label: "工程邊界預設收合", value: "查看工程邊界資料" },
     { label: "coreInputProfile.personal.fullName", value: "coreInputProfile.personal.fullName" },
     { label: "requiredFields", value: "requiredFields" },
     { label: "optionalFields", value: "optionalFields" },
     { label: "blockedBy", value: "blockedBy" },
+    { label: "ruleDecisionsNeeded", value: "ruleDecisionsNeeded" },
     { label: "safetyLines", value: "safetyLines" }
   ], "app.js 需要讓姓名學詳情頁讀取 nameCalculationBoundary 並顯示 metadata。");
+
+  checkIncludes("style.css", readText("style.css"), [
+    { label: "metadata-boundary-panel", value: "metadata-boundary-panel" },
+    { label: "metadata-summary-grid", value: "metadata-summary-grid" },
+    { label: "metadata-disclosure", value: "metadata-disclosure" },
+    { label: "metadata-chip-grid", value: "metadata-chip-grid" },
+    { label: "metadata-chip", value: "metadata-chip" },
+    { label: "boundary-list", value: "boundary-list" },
+    { label: "safety-list", value: "safety-list" }
+  ], "style.css 需要包含姓名學 metadata 顯示整理相關 class。");
 
   [
     "features/name-calculator.js",
     "data/name-meanings.js"
   ].forEach((forbiddenPath) => {
     const ok = !pathExists(forbiddenPath);
-    addResult(ok ? "pass" : "fail", `姓名學前置不可新增：${forbiddenPath}`, ok ? "未發現。" : "v0.7.2 只做 metadata，不可新增姓名學 calculator 或 meaning data。");
+    addResult(ok ? "pass" : "fail", `姓名學前置不可新增：${forbiddenPath}`, ok ? "未發現。" : "v0.7.3 只做 metadata，不可新增姓名學 calculator 或 meaning data。");
   });
 
   [
@@ -1584,7 +1599,7 @@ function checkNameMetadataBoundary() {
     }
 
     const ok = !check.content.includes(check.value);
-    addResult(ok ? "pass" : "fail", check.label, ok ? "未發現偷渡引用。" : "v0.7.2 不可接入姓名學 calculator / meaning data。");
+    addResult(ok ? "pass" : "fail", check.label, ok ? "未發現偷渡引用。" : "v0.7.3 不可接入姓名學 calculator / meaning data。");
   });
 }
 
@@ -1594,14 +1609,16 @@ function checkLazyQaChecklist() {
   addResult(pathExists("LAZY_QA_CHECKLIST.md") ? "pass" : "fail", "LAZY_QA_CHECKLIST.md 存在", pathExists("LAZY_QA_CHECKLIST.md") ? "檢查通過。" : "需要新增懶懶驗收清單。");
 
   checkIncludes("LAZY_QA_CHECKLIST.md", checklist, [
-    { label: "v0.7.2", value: "v0.7.2" },
+    { label: "v0.7.3", value: "v0.7.3" },
     { label: "30 秒驗收", value: "30 秒驗收" },
     { label: "not-calculated", value: "not-calculated" },
     { label: "features/name-calculator.js", value: "features/name-calculator.js" },
     { label: "data/name-meanings.js", value: "data/name-meanings.js" },
     { label: "0 fail", value: "0 fail" },
     { label: "0 high risk", value: "0 high risk" },
-    { label: "commit / push", value: "commit / push" }
+    { label: "小丸本機 commit", value: "小丸本機 commit" },
+    { label: "本版仍不 push", value: "本版仍不 push" },
+    { label: "Push origin", value: "Push origin" }
   ], "LAZY_QA_CHECKLIST.md 需要包含 30 秒驗收與不可上傳狀況。");
 }
 

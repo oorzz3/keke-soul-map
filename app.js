@@ -1,9 +1,9 @@
 ﻿const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.7.2",
+  version: "v0.7.3",
   dataVersion: "v0.2",
-  cacheVersion: "v0.7.2",
-  status: "姓名學 metadata 前置 × 第二核心候選鎖定"
+  cacheVersion: "v0.7.3",
+  status: "姓名學 metadata 顯示整理 × 小丸本機 commit 測試"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1080,48 +1080,60 @@ function renderNameCalculationBoundary(boundary = {}) {
     return "";
   }
 
-  const fieldList = (items = []) => items.map((item) => `<span class="detail-tag">${escapeHtml(item)}</span>`).join("");
+  const chipList = (items = []) => items.map((item) => `<span class="metadata-chip">${escapeHtml(item)}</span>`).join("");
+  const listItems = (items = []) => items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   const safetyLines = Array.isArray(boundary.safetyLines) ? boundary.safetyLines : [];
+  const ruleDecisions = Array.isArray(boundary.ruleDecisionsNeeded) ? boundary.ruleDecisionsNeeded : [];
+  const nextStep = "先確認筆畫表、五格規則與資料授權";
 
   return `
-    <section class="name-profile-card" aria-label="姓名學 metadata 對齊">
+    <section class="metadata-boundary-panel" aria-label="姓名學 metadata 對齊">
       <div class="section-heading compact-heading">
-        <p>metadata 對齊</p>
+        <p>狀態提醒</p>
         <h3>${escapeHtml(boundary.label || "姓名學")}｜第二核心候選</h3>
       </div>
-      <div class="name-profile-grid">
-        <div>
-          <span>目前狀態</span>
-          <strong>${escapeHtml(boundary.status || "planning")}</strong>
-        </div>
-        <div>
-          <span>計算狀態</span>
-          <strong>${escapeHtml(boundary.calculationStatus || "not-calculated")}</strong>
-        </div>
-        <div>
-          <span>資料來源</span>
-          <strong>${escapeHtml(boundary.source || "coreInputProfile.personal.fullName")}</strong>
-        </div>
-        <div>
-          <span>候選順位</span>
-          <strong>${escapeHtml(String(boundary.candidateOrder || 2))}</strong>
-        </div>
+      <div class="metadata-summary-grid">
+        <span class="metadata-chip">目前狀態：規劃中</span>
+        <span class="metadata-chip">正式計算：尚未開啟</span>
+        <span class="metadata-chip">資料來源：科科 seed 姓名</span>
+        <span class="metadata-chip">下一步：${escapeHtml(nextStep)}</span>
       </div>
-      <div class="detail-meta-row">
-        <span>requiredFields</span>
-        <div>${fieldList(boundary.requiredFields || ["fullName"])}</div>
-      </div>
-      <div class="detail-meta-row">
-        <span>optionalFields</span>
-        <div>${fieldList(boundary.optionalFields || ["familyName", "givenName", "gender"])}</div>
-      </div>
-      <div class="detail-meta-row">
-        <span>blockedBy</span>
-        <div>${fieldList(boundary.blockedBy || [])}</div>
-      </div>
-      <ul class="name-data-notes">
-        ${safetyLines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
-      </ul>
+      <p class="detail-note">目前仍是 mock / planning，尚未接入正式姓名學計算，也不提供改名建議。</p>
+      <details class="metadata-disclosure">
+        <summary>查看工程邊界資料</summary>
+        <div class="boundary-list">
+          <strong>source</strong>
+          <div class="metadata-chip-grid">
+            <span class="metadata-chip">${escapeHtml(boundary.source || "coreInputProfile.personal.fullName")}</span>
+          </div>
+        </div>
+        <div class="boundary-list">
+          <strong>calculationStatus</strong>
+          <div class="metadata-chip-grid">
+            <span class="metadata-chip">${escapeHtml(boundary.calculationStatus || "not-calculated")}</span>
+          </div>
+        </div>
+        <div class="boundary-list">
+          <strong>requiredFields</strong>
+          <div class="metadata-chip-grid">${chipList(boundary.requiredFields || ["fullName"])}</div>
+        </div>
+        <div class="boundary-list">
+          <strong>optionalFields</strong>
+          <div class="metadata-chip-grid">${chipList(boundary.optionalFields || ["familyName", "givenName", "gender"])}</div>
+        </div>
+        <div class="boundary-list">
+          <strong>blockedBy</strong>
+          <div class="metadata-chip-grid is-compact">${chipList(boundary.blockedBy || [])}</div>
+        </div>
+        <div class="boundary-list">
+          <strong>ruleDecisionsNeeded</strong>
+          <ul>${listItems(ruleDecisions)}</ul>
+        </div>
+        <ul class="safety-list">
+          ${listItems(safetyLines)}
+        </ul>
+        <p class="detail-note">${escapeHtml(boundary.nextStep || "後續仍需先確認資料表、規則版本與測試案例。")}</p>
+      </details>
     </section>
   `;
 }
@@ -1783,7 +1795,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.7.2 dashboard render flow. */
+/* v0.7.3 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1860,7 +1872,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.7.2",
+      version: config.version || "v0.7.3",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1869,7 +1881,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.7.2",
+    version: config.version || "v0.7.3",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1963,7 +1975,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.2",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.3",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -2062,7 +2074,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.2"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.3"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }

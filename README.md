@@ -430,3 +430,14 @@ v0.7.2 讓姓名學詳情頁讀取 `data/site-data.js` 的 `nameCalculationBound
 - 生命靈數仍是目前唯一 calculated core。
 - 姓名學仍維持 planning / not-calculated，不新增 `features/name-calculator.js`。
 - 不新增 `data/name-meanings.js`，不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
+## v0.7.3 姓名學 metadata 顯示整理 × 小丸本機 commit 測試
+
+目前版本：v0.7.3。
+
+v0.7.3 整理姓名學詳情頁的 metadata 顯示，讓 `requiredFields`、`optionalFields`、`blockedBy`、`ruleDecisionsNeeded`、`safetyLines` 與 `nextStep` 更容易驗收。生命靈數仍是唯一 calculated core，姓名學仍維持 planning / not-calculated。
+
+- 姓名學詳情頁加入清楚的 metadata boundary panel。
+- `LAZY_QA_CHECKLIST.md` 補充小丸本機 commit 測試流程：可本機 commit，但不 push。
+- 本版不新增 `features/name-calculator.js`。
+- 本版不新增 `data/name-meanings.js`。
+- 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。

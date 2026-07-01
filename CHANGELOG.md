@@ -335,3 +335,14 @@
 - 不新增 name meaning data。
 - 不改首頁 UI。
 - `scripts/check-site.js` 新增 v0.7.2 檢查。
+## v0.7.3｜姓名學 metadata 顯示整理 × 小丸本機 commit 測試
+
+- 更新全站版本到 v0.7.3。
+- 整理姓名學詳情頁 metadata 顯示。
+- requiredFields / optionalFields / blockedBy / safetyLines 改為更清楚的 chip / list。
+- 更新 `LAZY_QA_CHECKLIST.md`，補充小丸本機 commit 測試流程。
+- 姓名學仍為 planning / not-calculated。
+- 不新增 name calculator。
+- 不新增 name meaning data。
+- 不改首頁 UI。
+- `scripts/check-site.js` 新增 v0.7.3 檢查。

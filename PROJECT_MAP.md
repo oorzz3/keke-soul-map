@@ -289,3 +289,10 @@
 - `data/site-data.js`：`nameCalculationBoundary` 補足姓名學安全線，明確保留 planning / not-calculated。
 - `scripts/check-site.js`：新增懶懶驗收清單與姓名學詳情頁 metadata 對齊檢查。
 - 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。
+## v0.7.3 name metadata display pass
+
+- `app.js`：整理 `renderNameCalculationBoundary`，以 metadata boundary panel 顯示 planning、not-calculated、資料來源、欄位、阻塞項、規則決策、安全線與 nextStep。
+- `style.css`：新增 `metadata-boundary-panel`、`metadata-chip-grid`、`metadata-chip`、`boundary-list`、`safety-list`，只影響姓名學 metadata 顯示。
+- `LAZY_QA_CHECKLIST.md`：補充小丸本機 commit 測試流程；commit 後不 push，由科科確認 GitHub Desktop 的 Push origin。
+- `scripts/check-site.js`：補強 v0.7.3 姓名學 metadata 顯示、懶懶清單與禁止新增 calculator / meaning data 檢查。
+- 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。
