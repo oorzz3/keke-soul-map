@@ -1,3 +1,12 @@
+## v0.6.2 numerology wording cleanup
+
+- `index.html`：靜態資源版本參數更新為 v0.6.2。
+- `data/site-data.js`：版本資料、routeMeta、dashboardLayout、numerologyCalculation 與 numerologyInterpretation 註記更新為 v0.6.2。
+- `data/numerology-meanings.js`：保留解讀主內容，更新 meta.version。
+- `app.js`：生命靈數詳情頁文案整理，保留 calculated panel 與 static interpretation panel。
+- `style.css`：清理舊版首頁視覺註解，不重排首頁。
+- `scripts/check-site.js`：新增 v0.6.2 版本與殘留註記檢查。
+
 ## v0.6.1 numerology interpretation data
 
 - `data/numerology-meanings.js`：生命靈數 1～9、生日數、個人年、個人月、個人日與安全線的靜態解讀資料層。

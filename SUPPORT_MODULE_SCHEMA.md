@@ -1,3 +1,12 @@
+## v0.6.2 support boundary unchanged
+
+版本：v0.6.2
+
+- v0.6.2 只清理生命靈數詳情頁文案與版本註記。
+- 農民曆與神明生日仍維持首頁 support 短卡，不新增 `#/module/almanac` 或 `#/module/deity`。
+- `features/almanac-engine.js`、`vendor/lunar/lunar.js`、神明生日 matcher 與日期測試模式皆不改演算法。
+- support 模組仍不提供正式命理判斷、不儲存使用者個資、不接 API 或資料庫。
+
 ## v0.6.1 support boundary unchanged
 
 版本：v0.6.1

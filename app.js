@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.6.1",
+  version: "v0.6.2",
   dataVersion: "v0.2",
-  cacheVersion: "v0.6.1",
-  status: "生命靈數解讀資料層整理"
+  cacheVersion: "v0.6.2",
+  status: "生命靈數詳情頁文案與版本註記清理"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -844,7 +844,7 @@ function renderNumerologyDetail(page = {}) {
 
   return `
     <section class="numerology-detail" aria-label="生命靈數正式計算詳情">
-      <div class="detail-note numerology-mock-note">v0.6.1 已接入生命靈數靜態解讀資料層；本頁呈現 calculated + static interpretation，完整延伸解讀仍保留 mock / planning 架構。</div>
+      <div class="detail-note numerology-mock-note">生命靈數目前已完成正式數字計算與靜態解讀資料層。本頁將計算結果、解讀資料與未來延伸架構分層呈現。</div>
       ${renderNumerologyCalculationPanel(display)}
       ${renderNumerologyInterpretationPanel(display)}
       ${renderNumerologyProfile(page.numerologyProfile)}
@@ -1024,7 +1024,7 @@ function renderNumerologyInterpretation(blocks = []) {
     <section>
       <div class="section-heading compact-heading">
         <p>解讀重點</p>
-        <h3>目前階段的 mock / planning 解讀方向</h3>
+        <h3>後續解讀架構</h3>
       </div>
       <div class="numerology-interpretation-list">
         ${blocks.map((block) => `
@@ -1727,7 +1727,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.6.0 core input schema lock. */
+/* v0.6.2 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1804,7 +1804,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.6.1",
+      version: config.version || "v0.6.2",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1813,7 +1813,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.6.1",
+    version: config.version || "v0.6.2",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1907,7 +1907,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.6.1",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.6.2",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -1930,7 +1930,7 @@ function renderNumerologyInterpretationPanel(display = {}) {
           ${interpretation.cards.map((card) => renderNumerologyInterpretationCard(card)).join("")}
         </div>
       ` : `
-        <p class="detail-note">KekeNumerologyMeanings 本次未載入；頁面保留 calculated panel，不中斷詳情頁。</p>
+        <p class="detail-note">KekeNumerologyMeanings 本次未載入；頁面保留計算結果，不中斷詳情頁。</p>
       `}
     </section>
   `;
@@ -2006,7 +2006,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.1"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.2"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }

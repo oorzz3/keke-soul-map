@@ -1,29 +1,29 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.6.1",
+    version: "v0.6.2",
     dataVersion: "v0.2",
-    cacheVersion: "v0.6.1",
-    status: "生命靈數解讀資料層整理",
-    updatedNote: "v0.6.1 在 v0.6.0 生命靈數正式計算基礎上，新增生命靈數 1～9 與個人節奏的靜態解讀資料層，讓生命靈數詳情頁呈現 calculated + static interpretation，不改既有演算法與首頁骨架。"
+    cacheVersion: "v0.6.2",
+    status: "生命靈數詳情頁文案與版本註記清理",
+    updatedNote: "v0.6.2 延續 v0.6.0 生命靈數正式計算與 v0.6.1 靜態解讀資料層，清理生命靈數詳情頁文案、版本註記與狀態分層，讓 calculated、static-interpretation 與 planning 區塊更清楚。"
   },
   versionPolicy: {
-    productVersion: "v0.6.1",
-    cacheVersion: "v0.6.1",
+    productVersion: "v0.6.2",
+    cacheVersion: "v0.6.2",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.6.1",
+    currentVersion: "v0.6.2",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.6.0 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並接入生命靈數正式計算。"
+    note: "v0.6.2 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並完成生命靈數 calculated + static interpretation 顯示整理。"
   },
   dashboardLayout: {
     mode: "core-input-schema-lock",
-    version: "v0.6.1",
+    version: "v0.6.2",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,7 @@ window.KekeSoulData = {
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.6.0 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只新增生命靈數正式計算顯示。"
+    note: "v0.6.2 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只清理生命靈數詳情頁文案與版本註記。"
   },
   coreInputProfile: {
     ownerLabel: "科科",
@@ -73,7 +73,7 @@ window.KekeSoulData = {
     }
   },
   coreInputSchema: {
-    version: "v0.6.1",
+    version: "v0.6.2",
     purpose: "五大核心命盤運算前置欄位鎖定",
     sharedFields: [
       "displayName",
@@ -107,7 +107,7 @@ window.KekeSoulData = {
       calculationStatus: "calculated",
       requiredFields: ["solarDate"],
       optionalFields: ["displayName"],
-      nextStep: "v0.6.0 已接入 1～9 化簡規則，後續可評估 master number 模式。",
+      nextStep: "已完成生命靈數 1～9 化簡計算與靜態解讀資料層；後續可評估 master number 模式或更細緻的解讀資料。",
       blockedBy: []
     },
     name: {
@@ -145,7 +145,7 @@ window.KekeSoulData = {
   },
   numerologyCalculation: {
     enabled: true,
-    version: "v0.6.1",
+    version: "v0.6.2",
     status: "calculated",
     source: "coreInputProfile.birth.solarDate",
     method: "digit-reduction-1-to-9",
@@ -154,7 +154,7 @@ window.KekeSoulData = {
   },
   numerologyInterpretation: {
     enabled: true,
-    version: "v0.6.1",
+    version: "v0.6.2",
     status: "static-interpretation",
     source: "data/numerology-meanings.js",
     dependsOn: "features/numerology-calculator.js",
@@ -165,7 +165,7 @@ window.KekeSoulData = {
       "personalMonth",
       "personalDay"
     ],
-    note: "v0.6.1 新增生命靈數靜態解讀資料層，與 v0.6.0 計算結果對應。"
+    note: "v0.6.2 延續 v0.6.1 靜態解讀資料層，整理生命靈數詳情頁的 calculated、static-interpretation 與 planning 顯示文案。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

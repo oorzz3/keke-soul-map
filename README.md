@@ -1,3 +1,14 @@
+## v0.6.2 生命靈數詳情頁文案與版本註記清理
+
+目前版本：v0.6.2。
+
+v0.6.2 延續 v0.6.0 生命靈數正式計算與 v0.6.1 靜態解讀資料層，清理生命靈數詳情頁文案、版本註記與狀態分層，讓 calculated、static-interpretation 與 planning 區塊更清楚。
+
+- 生命靈數詳情頁更像正式產品頁，減少不必要的工程測試語。
+- `data/numerology-meanings.js` 保留既有 1～9、生日數與個人節奏解讀主內容，只更新版本資料。
+- `features/numerology-calculator.js` 演算法維持 v0.6.0 規則，v0.6.2 不改計算邏輯。
+- 首頁 layout、五大核心 mini visual、ready / partial chip、農民曆與神明生日短卡都維持原狀。
+
 ## v0.6.1 生命靈數解讀資料層整理
 
 目前版本：v0.6.1。

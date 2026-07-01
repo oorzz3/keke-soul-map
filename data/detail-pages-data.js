@@ -493,7 +493,7 @@ window.KekeDetailPages = {
       primaryValue: "生命靈數 7",
       secondaryValue: "個人年 / 月 / 日",
       tags: ["生命數", "節奏", "主題"],
-      note: "目前為 experiment 首頁預覽，數字仍作展示用途。"
+      note: "目前為 calculated 首頁預覽，數字來自 coreInputProfile.birth.solarDate。"
     },
     sections: [
       {
@@ -502,28 +502,28 @@ window.KekeDetailPages = {
       },
       {
         title: "科科目前資料狀態",
-        items: ["首頁已有 mock 數字展示", "詳情頁先整理欄位與解讀區塊"]
+        items: ["首頁已接入 calculated 數字展示", "詳情頁已分層呈現計算結果與靜態解讀"]
       },
       {
         title: "未來要補",
-        items: ["生日數字計算", "年度節奏說明", "行動建議文案", "資料校對標籤"]
+        items: ["master number 模式評估", "更細緻的年度節奏文案", "行動提醒資料擴充", "資料校對標籤"]
       }
     ],
     numerologyProfile: {
-      chartStatus: "mock",
-      chartType: "生命靈數命盤骨架",
+      chartStatus: "calculated + static-interpretation",
+      chartType: "生命靈數命盤摘要",
       coreNumber: "7",
       rhythmFocus: "個人年 / 個人月 / 個人日",
-      birthDateSource: "生日資料待正式校對",
-      summary: "目前為 mock 靈數骨架，用來規劃未來生命靈數詳情頁呈現方式。"
+      birthDateSource: "coreInputProfile.birth.solarDate",
+      summary: "目前已用生日資料計算核心數字，並以靜態解讀資料整理生命主題與每日節奏。"
     },
     coreNumberOverview: [
       {
         label: "生命靈數",
         value: "7",
         theme: "探索、分析、內在理解與獨處充電",
-        status: "mock",
-        note: "目前為展示用 mock 數字，不代表正式計算結果。"
+        status: "calculated",
+        note: "目前由生命靈數計算器依生日 1～9 化簡規則取得。"
       },
       {
         label: "生日數",
@@ -571,19 +571,19 @@ window.KekeDetailPages = {
         cycle: "個人年",
         value: "待計算",
         theme: "年度主題、外部節奏與大方向",
-        note: "目前為 mock，未接正式個人年計算。"
+        note: "目前由生命靈數計算器依目標日期取得。"
       },
       {
         cycle: "個人月",
         value: "待計算",
         theme: "當月任務、行動節奏與調整方向",
-        note: "目前為 mock。"
+        note: "目前由生命靈數計算器依目標日期取得。"
       },
       {
         cycle: "個人日",
         value: "待計算",
         theme: "今日提醒、互動方式與短節奏",
-        note: "目前為 mock。"
+        note: "目前由生命靈數計算器依目標日期取得。"
       }
     ],
     numberMeaningOverview: [
@@ -627,7 +627,7 @@ window.KekeDetailPages = {
         number: "7",
         keyword: "探索",
         theme: "分析、內省、研究",
-        status: "mock"
+        status: "calculated"
       },
       {
         number: "8",
@@ -645,8 +645,8 @@ window.KekeDetailPages = {
     actionNotes: [
       {
         title: "適合做什麼",
-        level: "mock",
-        content: "目前僅作為節奏區塊展示，未來可依個人日整理行動提醒。"
+        level: "static-interpretation",
+        content: "目前依靜態解讀資料整理節奏提醒，未來可再擴充更多情境文字。"
       },
       {
         title: "需要留意什麼",
@@ -662,8 +662,8 @@ window.KekeDetailPages = {
     interpretationBlocks: [
       {
         title: "核心數字觀察",
-        level: "mock",
-        content: "目前只作為生命靈數詳情頁展示用，未代表正式生命靈數結果。"
+        level: "static-interpretation",
+        content: "目前以 calculated 數字搭配靜態解讀資料，作為自我觀察與節奏提醒。"
       },
       {
         title: "個人節奏",
@@ -677,9 +677,9 @@ window.KekeDetailPages = {
       }
     ],
     dataNotes: [
-      "本頁目前為 mock / planning 架構。",
-      "尚未接入正式生命靈數計算。",
-      "未來需補生日資料校對、生日數字拆解、個人年 / 月 / 日規則。",
+      "本頁已接入生命靈數 1～9 化簡計算。",
+      "本頁已接入靜態解讀資料層。",
+      "未來可補 master number 模式、生日拆解細節與更完整的節奏文案。",
       "本頁內容不得視為正式命理判斷。"
     ]
   },

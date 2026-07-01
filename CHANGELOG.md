@@ -1,3 +1,11 @@
+## v0.6.2｜生命靈數詳情頁文案與版本註記清理
+
+- 全站版本更新為 v0.6.2。
+- 清理 `routeMeta.note`、`dashboardLayout.note`、`app.js` 與 `style.css` 的舊版施工註記。
+- 生命靈數詳情頁文案整理為 calculated / static-interpretation / planning 三層。
+- 保留 v0.6.0 生命靈數計算器演算法與 v0.6.1 靜態解讀資料主內容。
+- 小貓龍蝦檢查新增 v0.6.0 舊註記殘留提醒。
+
 ## v0.6.1｜生命靈數解讀資料層整理
 
 - 新增 `data/numerology-meanings.js`。

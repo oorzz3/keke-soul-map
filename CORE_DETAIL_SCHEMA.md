@@ -1,3 +1,13 @@
+## v0.6.2 生命靈數詳情頁狀態分層
+
+版本：v0.6.2
+
+- `renderNumerologyDetail` 將生命靈數詳情頁分成 calculated、static-interpretation 與 planning 三層。
+- calculated：沿用 v0.6.0 生命靈數正式 1～9 化簡計算。
+- static-interpretation：沿用 v0.6.1 `data/numerology-meanings.js` 靜態解讀資料層。
+- planning：保留未來延伸解讀架構，但減少首頁與詳情頁的工程測試語感。
+- v0.6.2 不改 `features/numerology-calculator.js` 計算邏輯。
+
 ## v0.6.0 生命靈數正式計算接入
 
 - `numerology` 仍沿用既有 detail data schema，不改 `data/detail-pages-data.js` schema。
