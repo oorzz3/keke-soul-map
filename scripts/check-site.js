@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.6.0";
-const expectedVersionLabel = "v0.6.0";
+const expectedVersion = "0.6.1";
+const expectedVersionLabel = "v0.6.1";
 const results = [];
 let activeGroup = "general";
 
@@ -140,12 +140,13 @@ function checkVersionSync() {
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
     { label: `features/numerology-calculator.js?v=${expectedVersion}`, value: `features/numerology-calculator.js?v=${expectedVersion}` },
+    { label: `data/numerology-meanings.js?v=${expectedVersion}`, value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.6.0 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.6.1 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "生命靈數正式計算接入" },
+    { label: "siteMeta.status", value: "生命靈數解讀資料層整理" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
@@ -155,15 +156,15 @@ function checkVersionSync() {
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.6.0 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.6.1 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.6.0", value: expectedVersionLabel },
-    { label: "fallback status", value: "生命靈數正式計算接入" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.6.0。");
+    { label: "fallback v0.6.1", value: expectedVersionLabel },
+    { label: "fallback status", value: "生命靈數解讀資料層整理" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.6.1。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.6.0", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.6.1", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -177,6 +178,7 @@ function checkRequiredFilesAndFolders() {
     "data/site-data.js",
     "data/detail-pages-data.js",
     "data/deity-birthdays.js",
+    "data/numerology-meanings.js",
     "features/router.js",
     "features/almanac-engine.js",
     "features/date-test-mode.js",
@@ -435,7 +437,7 @@ function checkDetailData() {
     { label: "紫微不是正式命盤", value: "不是正式命盤；尚未接入正式紫微斗數排盤演算法" },
     { label: "八字不是正式命盤", value: "不是正式命盤；尚未接入正式八字四柱排盤演算法" },
     { label: "星盤不是正式星盤", value: "不是正式星盤；尚未接入正式西洋星盤計算" },
-    { label: "靈數 calculated 提示", value: "v0.6.0 已接入生命靈數正式計算；其他解讀區塊仍保留 mock / planning 架構" },
+    { label: "靈數 calculated + static interpretation 提示", value: "v0.6.1 已接入生命靈數靜態解讀資料層；本頁呈現 calculated + static interpretation" },
     { label: "姓名學不是正式結果", value: "不是正式姓名學結果；尚未接入正式姓名學計算" },
     { label: "尚未接入正式姓名學計算", value: "尚未接入正式姓名學計算" },
     { label: "不提供改名建議", value: "不提供改名建議" },
@@ -942,10 +944,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "生命靈數正式計算接入", value: "生命靈數正式計算接入" },
+    { label: "生命靈數解讀資料層整理", value: "生命靈數解讀資料層整理" },
     { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.6.0 生命靈數正式計算接入。");
+  ], "site-data.js 需要標記 v0.6.1 生命靈數解讀資料層整理。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -1119,8 +1121,10 @@ function checkNumerologyCalculation() {
 
   checkIncludes("index.html", html, [
     { label: "features/numerology-calculator.js", value: `features/numerology-calculator.js?v=${expectedVersion}` },
+    { label: "data/numerology-meanings.js", value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: "site-data before numerology calculator", value: `data/site-data.js?v=${expectedVersion}" data-source="KekeSoulData"></script>\n  <script src="./features/numerology-calculator.js?v=${expectedVersion}` },
-    { label: "app.js after numerology calculator", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
+    { label: "meanings after numerology calculator", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./data/numerology-meanings.js?v=${expectedVersion}` },
+    { label: "app.js after numerology meanings", value: `data/numerology-meanings.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
   ], "index.html 需要在 site-data.js 後、app.js 前載入生命靈數計算器。");
 
   checkIncludes("features/numerology-calculator.js", calculator, [
@@ -1188,6 +1192,77 @@ function checkNumerologyCalculation() {
   });
 }
 
+function checkNumerologyInterpretation() {
+  const html = readText("index.html");
+  const siteData = readText("data/site-data.js");
+  const app = readText("app.js");
+  const style = readText("style.css");
+  const meanings = readText("data/numerology-meanings.js");
+
+  checkIncludes("index.html", html, [
+    { label: "data/numerology-meanings.js?v=0.6.1", value: `data/numerology-meanings.js?v=${expectedVersion}` },
+    { label: "calculator before meanings", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./data/numerology-meanings.js?v=${expectedVersion}` },
+    { label: "meanings before app", value: `data/numerology-meanings.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
+  ], "index.html 需要依序載入 numerology calculator、numerology meanings 與 app.js。");
+
+  checkIncludes("data/numerology-meanings.js", meanings, [
+    { label: "KekeNumerologyMeanings", value: "KekeNumerologyMeanings" },
+    { label: "lifePathMeanings", value: "lifePathMeanings" },
+    { label: "birthDayMeanings", value: "birthDayMeanings" },
+    { label: "personalYearMeanings", value: "personalYearMeanings" },
+    { label: "personalMonthMeanings", value: "personalMonthMeanings" },
+    { label: "personalDayMeanings", value: "personalDayMeanings" },
+    { label: "safetyLines", value: "safetyLines" },
+    { label: "static-interpretation", value: "static-interpretation" },
+    { label: "digit-reduction-1-to-9", value: "digit-reduction-1-to-9" },
+    { label: "1:", value: "1:" },
+    { label: "7:", value: "7:" },
+    { label: "9:", value: "9:" }
+  ], "data/numerology-meanings.js 需要包含生命靈數 1-9 與個人節奏靜態解讀資料。");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: "numerologyInterpretation", value: "numerologyInterpretation" },
+    { label: "static-interpretation", value: "static-interpretation" },
+    { label: "data/numerology-meanings.js", value: "data/numerology-meanings.js" },
+    { label: "numerologyCalculation", value: "numerologyCalculation" },
+    { label: "calculated", value: "calculated" }
+  ], "site-data.js 需要記錄 numerologyInterpretation metadata 並保留 calculated 計算設定。");
+
+  checkIncludes("app.js", app, [
+    { label: "getNumerologyMeanings", value: "getNumerologyMeanings" },
+    { label: "getNumerologyMeaningFor", value: "getNumerologyMeaningFor" },
+    { label: "getNumerologyInterpretationDisplay", value: "getNumerologyInterpretationDisplay" },
+    { label: "renderNumerologyInterpretationPanel", value: "renderNumerologyInterpretationPanel" },
+    { label: "renderNumerologySafetyLines", value: "renderNumerologySafetyLines" },
+    { label: "numerology-interpretation-panel", value: "numerology-interpretation-panel" },
+    { label: "static-interpretation", value: "static-interpretation" }
+  ], "app.js 需要將 calculated 數字對應到 static interpretation 解讀資料層。");
+
+  checkIncludes("style.css", style, [
+    { label: "numerology-interpretation-panel", value: "numerology-interpretation-panel" },
+    { label: "numerology-interpretation-grid", value: "numerology-interpretation-grid" },
+    { label: "numerology-interpretation-card", value: "numerology-interpretation-card" },
+    { label: "interpretation-chip", value: "interpretation-chip" },
+    { label: "is-static", value: "is-static" },
+    { label: "numerology-safety-lines", value: "numerology-safety-lines" }
+  ], "style.css 需要包含生命靈數 static interpretation panel 樣式。");
+
+  [
+    { label: "data/numerology-meanings.js", content: meanings },
+    { label: "data/site-data.js", content: siteData },
+    { label: "app.js", content: app }
+  ].forEach((target) => {
+    if (target.content === null) {
+      return;
+    }
+
+    ["package.json", "node_modules", "fetch(", "localStorage.setItem", "#/module/almanac", "#/module/deity"].forEach((forbidden) => {
+      const ok = !target.content.includes(forbidden);
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.6.1 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
+    });
+  });
+}
+
 function checkUtf8Readable() {
   [
     "index.html",
@@ -1196,6 +1271,7 @@ function checkUtf8Readable() {
     "data/site-data.js",
     "data/detail-pages-data.js",
     "data/deity-birthdays.js",
+    "data/numerology-meanings.js",
     "features/router.js",
     "features/almanac-engine.js",
     "features/date-test-mode.js",
@@ -1263,6 +1339,7 @@ runGroup("almanac-deity-checks", checkAlmanacAndDeity);
 runGroup("production-prototype-checks", checkProductionPrototypeImport);
 runGroup("core-input-checks", checkCoreInputSchema);
 runGroup("numerology-calculation-checks", checkNumerologyCalculation);
+runGroup("numerology-interpretation-checks", checkNumerologyInterpretation);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();
   checkNestedRepo();

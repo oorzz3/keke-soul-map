@@ -1,3 +1,15 @@
+## v0.6.1 support boundary unchanged
+
+版本：v0.6.1
+
+- 本版只整理生命靈數解讀資料層，不新增農民曆或神明生日詳情頁。
+- 農民曆仍維持 dashboard support card / anchor。
+- 神明生日仍維持 dashboard support card / anchor。
+- 不新增 `#/module/almanac` 或 `#/module/deity`。
+- 不修改 `features/almanac-engine.js` 演算法。
+- 不修改 `vendor/lunar/lunar.js`。
+- 不新增 API、fetch、後端、資料庫、登入、表單或 localStorage 個資寫入。
+
 ## v0.6.0 support boundary unchanged
 
 版本：v0.6.0

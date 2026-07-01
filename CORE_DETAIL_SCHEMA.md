@@ -187,3 +187,13 @@
 - app.js 未來可拆五大 renderer helper。
 - check-site.js 未來可拆 rules。
 - detail-pages-data.js 未來可拆核心資料檔。
+## v0.6.1 生命靈數解讀資料層
+
+版本：v0.6.1
+
+- `numerology` 不改 `data/detail-pages-data.js` schema。
+- 新增資料層：`data/numerology-meanings.js`。
+- `KekeNumerologyMeanings` 提供 `lifePathMeanings`、`birthDayMeanings`、`personalYearMeanings`、`personalMonthMeanings`、`personalDayMeanings` 與 `safetyLines`。
+- `renderNumerologyDetail` 會先顯示 calculated panel，再顯示 static interpretation panel，後方保留 mock / planning 架構。
+- `features/numerology-calculator.js` 沿用 v0.6.0 的 `digit-reduction-1-to-9` 規則。
+- 本版不新增紫微、八字、西洋星盤或姓名學正式演算法。

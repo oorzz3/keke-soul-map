@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.6.0",
+  version: "v0.6.1",
   dataVersion: "v0.2",
-  cacheVersion: "v0.6.0",
-  status: "生命靈數正式計算接入"
+  cacheVersion: "v0.6.1",
+  status: "生命靈數解讀資料層整理"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -844,8 +844,9 @@ function renderNumerologyDetail(page = {}) {
 
   return `
     <section class="numerology-detail" aria-label="生命靈數正式計算詳情">
-      <div class="detail-note numerology-mock-note">v0.6.0 已接入生命靈數正式計算；其他解讀區塊仍保留 mock / planning 架構。</div>
+      <div class="detail-note numerology-mock-note">v0.6.1 已接入生命靈數靜態解讀資料層；本頁呈現 calculated + static interpretation，完整延伸解讀仍保留 mock / planning 架構。</div>
       ${renderNumerologyCalculationPanel(display)}
+      ${renderNumerologyInterpretationPanel(display)}
       ${renderNumerologyProfile(page.numerologyProfile)}
       ${renderNumerologyCoreNumbers(coreNumbers)}
       ${renderNumerologyBirthBreakdown(page.birthBreakdownDraft)}
@@ -854,6 +855,7 @@ function renderNumerologyDetail(page = {}) {
       ${renderNumerologyActionNotes(page.actionNotes)}
       ${renderNumerologyInterpretation(page.interpretationBlocks)}
       ${renderNumerologyDataNotes(page.dataNotes)}
+      ${renderNumerologySafetyLines()}
     </section>
   `;
 }
@@ -1802,7 +1804,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.6.0",
+      version: config.version || "v0.6.1",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1811,7 +1813,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.6.0",
+    version: config.version || "v0.6.1",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1828,6 +1830,170 @@ function getNumerologyDisplayData() {
   };
 }
 
+function getNumerologyMeanings() {
+  const meanings = window.KekeNumerologyMeanings;
+
+  if (!meanings || typeof meanings !== "object") {
+    console.warn("KekeNumerologyMeanings missing; numerology interpretation falls back to a short note.");
+    return null;
+  }
+
+  return meanings;
+}
+
+function getNumerologyMeaningFor(type, number) {
+  const meanings = getNumerologyMeanings();
+  const key = Number(number);
+
+  if (!meanings || !Number.isInteger(key) || key < 1 || key > 9) {
+    return null;
+  }
+
+  const mapByType = {
+    lifePathNumber: meanings.lifePathMeanings,
+    birthDayNumber: meanings.birthDayMeanings,
+    personalYear: meanings.personalYearMeanings,
+    personalMonth: meanings.personalMonthMeanings,
+    personalDay: meanings.personalDayMeanings
+  };
+
+  return mapByType[type]?.[key] || null;
+}
+
+function getNumerologyInterpretationDisplay(display = {}) {
+  const meanings = getNumerologyMeanings();
+  const cards = [
+    {
+      type: "lifePathNumber",
+      className: "is-life-path",
+      label: "生命靈數",
+      number: display.lifePathNumber,
+      meaning: getNumerologyMeaningFor("lifePathNumber", display.lifePathNumber),
+      fields: ["keyword", "theme", "light", "shadow", "action"]
+    },
+    {
+      type: "birthDayNumber",
+      className: "is-birth-day",
+      label: "生日數",
+      number: display.birthDayNumber,
+      meaning: getNumerologyMeaningFor("birthDayNumber", display.birthDayNumber),
+      fields: ["focus", "gift", "reminder"]
+    },
+    {
+      type: "personalYear",
+      className: "is-personal-year",
+      label: "個人年",
+      number: display.personalYear,
+      meaning: getNumerologyMeaningFor("personalYear", display.personalYear),
+      fields: ["yearlyTheme", "goodFor", "watchOut", "action"]
+    },
+    {
+      type: "personalMonth",
+      className: "is-personal-month",
+      label: "個人月",
+      number: display.personalMonth,
+      meaning: getNumerologyMeaningFor("personalMonth", display.personalMonth),
+      fields: ["monthlyTone", "goodFor", "watchOut"]
+    },
+    {
+      type: "personalDay",
+      className: "is-personal-day",
+      label: "個人日",
+      number: display.personalDay,
+      meaning: getNumerologyMeaningFor("personalDay", display.personalDay),
+      fields: ["dailyHint", "goodFor", "watchOut"]
+    }
+  ];
+
+  return {
+    status: meanings?.meta?.status || "missing",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.6.1",
+    note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
+    cards
+  };
+}
+
+function renderNumerologyInterpretationPanel(display = {}) {
+  const interpretation = getNumerologyInterpretationDisplay(display);
+  const hasMeanings = interpretation.status === "static-interpretation";
+
+  return `
+    <section class="numerology-interpretation-panel" aria-label="生命靈數解讀資料">
+      <div class="section-heading compact-heading">
+        <p>static-interpretation</p>
+        <h3>生命靈數解讀資料</h3>
+        <span class="interpretation-chip is-static">${escapeHtml(interpretation.version)}</span>
+      </div>
+      <p class="compact-note">${escapeHtml(interpretation.note)}</p>
+      ${hasMeanings ? `
+        <div class="numerology-interpretation-grid">
+          ${interpretation.cards.map((card) => renderNumerologyInterpretationCard(card)).join("")}
+        </div>
+      ` : `
+        <p class="detail-note">KekeNumerologyMeanings 本次未載入；頁面保留 calculated panel，不中斷詳情頁。</p>
+      `}
+    </section>
+  `;
+}
+
+function renderNumerologyInterpretationCard(card = {}) {
+  const meaning = card.meaning || {};
+
+  return `
+    <article class="numerology-interpretation-card ${escapeHtml(card.className || "")}">
+      <div class="numerology-card-kicker">
+        <span>${escapeHtml(card.label || "")}</span>
+        <strong>${escapeHtml(card.number || "未取得")}</strong>
+      </div>
+      <dl>
+        ${card.fields.map((field) => meaning[field] ? `
+          <div>
+            <dt>${escapeHtml(getNumerologyFieldLabel(field))}</dt>
+            <dd>${escapeHtml(meaning[field])}</dd>
+          </div>
+        ` : "").join("")}
+      </dl>
+    </article>
+  `;
+}
+
+function getNumerologyFieldLabel(field) {
+  const labels = {
+    keyword: "關鍵字",
+    theme: "主題",
+    light: "順光",
+    shadow: "提醒",
+    action: "行動",
+    focus: "焦點",
+    gift: "天賦",
+    reminder: "提醒",
+    yearlyTheme: "年度主題",
+    goodFor: "適合",
+    watchOut: "留意",
+    monthlyTone: "月節奏",
+    dailyHint: "日提醒"
+  };
+
+  return labels[field] || field;
+}
+
+function renderNumerologySafetyLines() {
+  const meanings = getNumerologyMeanings();
+  const lines = Array.isArray(meanings?.safetyLines) ? meanings.safetyLines : [
+    "生命靈數資料只作自我觀察與節奏提醒。",
+    "本頁不作重大決策依據。"
+  ];
+
+  return `
+    <section class="numerology-safety-lines" aria-label="生命靈數安全提醒">
+      <h3>安全線</h3>
+      <ul>
+        ${lines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
 function getCoreDisplayValue(moduleId, fallbackValue) {
   if (moduleId !== "numerology") {
     return fallbackValue;
@@ -1840,7 +2006,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.0"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.1"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }

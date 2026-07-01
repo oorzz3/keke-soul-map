@@ -1071,6 +1071,133 @@ a {
   line-height: 1;
 }
 
+.numerology-interpretation-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(242, 193, 109, 0.24);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(242, 193, 109, 0.13), transparent 34%),
+    rgba(8, 22, 38, 0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.numerology-interpretation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 12px;
+}
+
+.numerology-interpretation-card.is-life-path,
+.numerology-interpretation-card.is-birth-day,
+.numerology-interpretation-card.is-personal-year,
+.numerology-interpretation-card.is-personal-month,
+.numerology-interpretation-card.is-personal-day {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  border-color: rgba(242, 193, 109, 0.22);
+  background:
+    linear-gradient(145deg, rgba(242, 193, 109, 0.08), rgba(4, 16, 28, 0.62));
+}
+
+.numerology-interpretation-card.is-life-path {
+  border-color: rgba(242, 193, 109, 0.42);
+}
+
+.numerology-card-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.numerology-card-kicker span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.numerology-card-kicker strong {
+  display: grid;
+  width: 34px;
+  aspect-ratio: 1;
+  place-items: center;
+  color: #06101d;
+  background: var(--gold);
+  border-radius: 999px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.numerology-interpretation-card dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.numerology-interpretation-card dl div {
+  display: grid;
+  gap: 3px;
+}
+
+.numerology-interpretation-card dt {
+  color: var(--cyan);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.numerology-interpretation-card dd {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.interpretation-chip {
+  display: inline-grid;
+  width: fit-content;
+  min-height: 20px;
+  place-items: center;
+  padding: 3px 8px;
+  border: 1px solid rgba(242, 193, 109, 0.24);
+  border-radius: 999px;
+  color: var(--gold);
+  background: rgba(242, 193, 109, 0.08);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.interpretation-chip.is-static {
+  color: #9fe8ff;
+  background: rgba(114, 215, 239, 0.08);
+  border-color: rgba(114, 215, 239, 0.22);
+}
+
+.numerology-safety-lines {
+  padding: 15px;
+  border: 1px solid rgba(114, 215, 239, 0.16);
+  border-radius: var(--radius);
+  background: rgba(4, 16, 28, 0.58);
+}
+
+.numerology-safety-lines h3 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.numerology-safety-lines ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .name-detail {
   display: grid;
   gap: 18px;

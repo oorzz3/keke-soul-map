@@ -1,29 +1,29 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.6.0",
+    version: "v0.6.1",
     dataVersion: "v0.2",
-    cacheVersion: "v0.6.0",
-    status: "生命靈數正式計算接入",
-    updatedNote: "v0.6.0 以 v0.5.1.7 鎖定的 coreInputProfile.birth.solarDate 為資料來源，接入生命靈數正式計算，輸出生命靈數、生日數、個人年、個人月與個人日，並同步首頁與生命靈數詳情頁。"
+    cacheVersion: "v0.6.1",
+    status: "生命靈數解讀資料層整理",
+    updatedNote: "v0.6.1 在 v0.6.0 生命靈數正式計算基礎上，新增生命靈數 1～9 與個人節奏的靜態解讀資料層，讓生命靈數詳情頁呈現 calculated + static interpretation，不改既有演算法與首頁骨架。"
   },
   versionPolicy: {
-    productVersion: "v0.6.0",
-    cacheVersion: "v0.6.0",
+    productVersion: "v0.6.1",
+    cacheVersion: "v0.6.1",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.6.0",
+    currentVersion: "v0.6.1",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
     note: "v0.6.0 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並接入生命靈數正式計算。"
   },
   dashboardLayout: {
     mode: "core-input-schema-lock",
-    version: "v0.6.0",
+    version: "v0.6.1",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -73,7 +73,7 @@ window.KekeSoulData = {
     }
   },
   coreInputSchema: {
-    version: "v0.6.0",
+    version: "v0.6.1",
     purpose: "五大核心命盤運算前置欄位鎖定",
     sharedFields: [
       "displayName",
@@ -145,12 +145,27 @@ window.KekeSoulData = {
   },
   numerologyCalculation: {
     enabled: true,
-    version: "v0.6.0",
+    version: "v0.6.1",
     status: "calculated",
     source: "coreInputProfile.birth.solarDate",
     method: "digit-reduction-1-to-9",
     masterNumberMode: "disabled",
-    note: "v0.6.0 生命靈數先採用 1～9 化簡規則，不保留 11 / 22 / 33 master number。"
+    note: "計算規則仍沿用 v0.6.0：生命靈數先採用 1～9 化簡規則，不保留 11 / 22 / 33 master number。"
+  },
+  numerologyInterpretation: {
+    enabled: true,
+    version: "v0.6.1",
+    status: "static-interpretation",
+    source: "data/numerology-meanings.js",
+    dependsOn: "features/numerology-calculator.js",
+    scope: [
+      "lifePathNumber",
+      "birthDayNumber",
+      "personalYear",
+      "personalMonth",
+      "personalDay"
+    ],
+    note: "v0.6.1 新增生命靈數靜態解讀資料層，與 v0.6.0 計算結果對應。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

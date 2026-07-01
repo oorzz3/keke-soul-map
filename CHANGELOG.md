@@ -1,3 +1,12 @@
+## v0.6.1｜生命靈數解讀資料層整理
+
+- 新增 `data/numerology-meanings.js`。
+- 新增 `KekeNumerologyMeanings` 靜態解讀資料層。
+- 生命靈數詳情頁新增 calculated + static interpretation 區塊。
+- 將生命靈數 7、生日數 9、個人年 7、個人月 5、個人日 6 對應到溫和解讀資料。
+- 保留 v0.6.0 `features/numerology-calculator.js` 計算規則，不改演算法。
+- 保留首頁、五大核心 mini visual、ready / partial chip、router、lunar、神明生日與日期測試模式。
+
 ## v0.6.0｜生命靈數正式計算接入
 
 - 新增 `features/numerology-calculator.js`。

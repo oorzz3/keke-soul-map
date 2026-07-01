@@ -1,3 +1,16 @@
+## v0.6.1 生命靈數解讀資料層整理
+
+目前版本：v0.6.1。
+
+v0.6.1 在 v0.6.0 生命靈數正式計算基礎上，新增 `data/numerology-meanings.js` 靜態解讀資料層，讓 `lifePathNumber`、`birthDayNumber`、`personalYear`、`personalMonth`、`personalDay` 可以對應到穩定文字資料。
+
+- 新增 `KekeNumerologyMeanings`。
+- 新增 `lifePathMeanings`、`birthDayMeanings`、`personalYearMeanings`、`personalMonthMeanings`、`personalDayMeanings`。
+- 新增 `safetyLines`，標明生命靈數只作自我觀察與節奏提醒。
+- `features/numerology-calculator.js` 演算法維持 v0.6.0 規則，不新增 master number 模式。
+- `#/module/numerology` 會顯示 calculated panel 與 static interpretation panel。
+- 本版不新增 API、fetch、後端、資料庫、登入、表單或 localStorage 個資寫入。
+
 ## v0.6.0 生命靈數正式計算接入
 
 目前版本：v0.6.0。

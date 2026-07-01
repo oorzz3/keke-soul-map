@@ -1,3 +1,11 @@
+## v0.6.1 numerology interpretation data
+
+- `data/numerology-meanings.js`：生命靈數 1～9、生日數、個人年、個人月、個人日與安全線的靜態解讀資料層。
+- `data/site-data.js`：新增 `numerologyInterpretation`，記錄 source、dependsOn、scope 與 static-interpretation 狀態。
+- `app.js`：新增 `getNumerologyMeanings`、`getNumerologyMeaningFor`、`getNumerologyInterpretationDisplay`、`renderNumerologyInterpretationPanel`、`renderNumerologySafetyLines`。
+- `style.css`：新增 `numerology-interpretation-panel`、`numerology-interpretation-grid`、`interpretation-chip`、`numerology-safety-lines`。
+- `scripts/check-site.js`：新增 `numerology-interpretation-checks`，檢查解讀資料檔、載入順序、helper、樣式與禁止項。
+
 ## v0.6.0 numerology calculation
 
 - `features/numerology-calculator.js`：生命靈數正式計算器，提供 `calculateFromProfile`、`calculateLifePathNumber`、`calculateBirthDayNumber`、個人年 / 月 / 日與 1～9 化簡工具。
