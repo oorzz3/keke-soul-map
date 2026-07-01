@@ -1004,6 +1004,73 @@ a {
   line-height: 1.6;
 }
 
+.calculation-chip {
+  display: inline-grid;
+  width: fit-content;
+  min-height: 20px;
+  place-items: center;
+  padding: 3px 8px;
+  color: #9fe8ff;
+  background: rgba(114, 215, 239, 0.08);
+  border: 1px solid rgba(114, 215, 239, 0.2);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.calculation-chip.is-calculated {
+  color: #9af0c8;
+  background: rgba(92, 230, 183, 0.1);
+  border-color: rgba(92, 230, 183, 0.26);
+}
+
+.numerology-calculation-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(92, 230, 183, 0.22);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(92, 230, 183, 0.13), transparent 34%),
+    rgba(8, 22, 38, 0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.numerology-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+  gap: 10px;
+}
+
+.numerology-result-card {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(114, 215, 239, 0.14);
+  border-radius: var(--radius);
+  background: rgba(4, 16, 28, 0.5);
+}
+
+.numerology-result-card.is-featured {
+  border-color: rgba(242, 193, 109, 0.36);
+  background: linear-gradient(145deg, rgba(242, 193, 109, 0.13), rgba(4, 16, 28, 0.58));
+}
+
+.numerology-result-card span,
+.numerology-result-card small {
+  color: var(--muted);
+}
+
+.numerology-result-card strong {
+  color: var(--gold);
+  font-size: clamp(1.45rem, 4vw, 2.4rem);
+  line-height: 1;
+}
+
 .name-detail {
   display: grid;
   gap: 18px;
@@ -3686,7 +3753,7 @@ blockquote {
   }
 }
 
-/* v0.5.1.7 core five card visual pass */
+/* v0.6.0 core five card visual pass */
 .site-shell {
   grid-template-columns: minmax(0, 1fr);
 }

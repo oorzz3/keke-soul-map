@@ -1,3 +1,12 @@
+## v0.6.0 numerology calculation
+
+- `features/numerology-calculator.js`：生命靈數正式計算器，提供 `calculateFromProfile`、`calculateLifePathNumber`、`calculateBirthDayNumber`、個人年 / 月 / 日與 1～9 化簡工具。
+- `data/site-data.js`：新增 `numerologyCalculation`，記錄 source、method、masterNumberMode 與 calculated 狀態。
+- `app.js`：新增 `getNumerologyCalculation`、`getNumerologyDisplayData`、`renderNumerologyCalculationBadge`，首頁生命靈數卡與 `renderNumerologyDetail` 皆讀取計算結果。
+- `style.css`：新增 `calculation-chip`、`numerology-calculation-panel`、`numerology-result-grid`、`numerology-result-card` 小型樣式。
+- `scripts/check-site.js`：新增 `numerology-calculation-checks`，確認計算器、資料來源、首頁載入順序與禁止路線。
+- 本版不新增表單、不新增 localStorage 個資寫入、不新增 API / fetch / 後端 / 資料庫，也不新增 `#/module/almanac` 或 `#/module/deity`。
+
 ## v0.5.1.7 core input schema lock
 
 - `data/site-data.js`：新增 `coreInputProfile`、`coreInputSchema`、`coreCalculationRequirements`，鎖定五大核心輸入欄位與 ready / partial 狀態。

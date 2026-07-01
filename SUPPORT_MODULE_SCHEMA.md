@@ -1,3 +1,14 @@
+## v0.6.0 support boundary unchanged
+
+版本：v0.6.0
+
+- 本版只接入生命靈數正式計算。
+- 農民曆與神明生日仍維持 dashboard support card / anchor。
+- 不新增 `#/module/almanac` 或 `#/module/deity`。
+- 不修改 `features/almanac-engine.js` 演算法。
+- 不修改 `vendor/lunar/lunar.js`。
+- 不新增 API、fetch、後端、資料庫、登入、表單或 localStorage 個資寫入。
+
 ## v0.5.1.7 core input schema lock
 
 版本：v0.5.1.7

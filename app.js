@@ -1,9 +1,9 @@
 const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.5.1.7",
+  version: "v0.6.0",
   dataVersion: "v0.2",
-  cacheVersion: "v0.5.1.7",
-  status: "五大核心輸入資料欄位鎖定"
+  cacheVersion: "v0.6.0",
+  status: "生命靈數正式計算接入"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -741,14 +741,115 @@ function renderAstrologyDataNotes(notes = []) {
   `;
 }
 
-function renderNumerologyDetail(page = {}) {
+function getCalculatedNumerologyCoreNumbers(coreNumbers = [], display = {}) {
+  if (!Array.isArray(coreNumbers)) {
+    return [];
+  }
+
+  return coreNumbers.map((item) => {
+    if (item.label === "生命靈數") {
+      return {
+        ...item,
+        value: display.lifePathNumber || item.value,
+        status: display.status === "calculated" ? "calculated" : item.status,
+        note: display.status === "calculated"
+          ? `來源：${display.source}；方法：${display.method}。`
+          : item.note
+      };
+    }
+
+    if (item.label === "生日數") {
+      return {
+        ...item,
+        value: display.birthDayNumber || item.value,
+        status: display.status === "calculated" ? "calculated" : item.status,
+        note: display.status === "calculated"
+          ? "已依生日日期化簡計算。"
+          : item.note
+      };
+    }
+
+    return item;
+  });
+}
+
+function getCalculatedNumerologyRhythm(rhythmOverview = [], display = {}) {
+  if (!Array.isArray(rhythmOverview)) {
+    return [];
+  }
+
+  const valueMap = {
+    個人年: display.personalYear,
+    個人月: display.personalMonth,
+    個人日: display.personalDay
+  };
+
+  return rhythmOverview.map((item) => ({
+    ...item,
+    value: valueMap[item.cycle] || item.value,
+    status: display.status === "calculated" ? "calculated" : item.status,
+    note: display.status === "calculated"
+      ? `targetDate：${display.targetDate || "本次未取得"}；本數字僅作節奏觀察，不作重大決策依據。`
+      : item.note
+  }));
+}
+
+function renderNumerologyCalculationPanel(display = {}) {
+  const ok = display.status === "calculated";
+
   return `
-    <section class="numerology-detail" aria-label="生命靈數 mock 詳情">
-      <div class="detail-note numerology-mock-note">目前是 mock 靈數骨架，不是正式計算結果；尚未接入正式生命靈數計算。</div>
+    <section class="numerology-calculation-panel" aria-label="生命靈數正式計算結果">
+      <div class="section-heading compact-heading">
+        <p>正式計算接入</p>
+        <h3>${ok ? "生命靈數計算結果" : "生命靈數本次未取得"}</h3>
+        ${renderNumerologyCalculationBadge(display)}
+      </div>
+      <div class="numerology-result-grid">
+        <article class="numerology-result-card is-featured">
+          <span>生命靈數</span>
+          <strong>${escapeHtml(display.lifePathNumber || "本次未取得")}</strong>
+          <small>${escapeHtml(display.summary?.lifePathLabel || "lifePathNumber")}</small>
+        </article>
+        <article class="numerology-result-card">
+          <span>生日數</span>
+          <strong>${escapeHtml(display.birthDayNumber || "本次未取得")}</strong>
+          <small>birthDayNumber</small>
+        </article>
+        <article class="numerology-result-card">
+          <span>個人年</span>
+          <strong>${escapeHtml(display.personalYear || "本次未取得")}</strong>
+          <small>personalYear</small>
+        </article>
+        <article class="numerology-result-card">
+          <span>個人月</span>
+          <strong>${escapeHtml(display.personalMonth || "本次未取得")}</strong>
+          <small>personalMonth</small>
+        </article>
+        <article class="numerology-result-card">
+          <span>個人日</span>
+          <strong>${escapeHtml(display.personalDay || "本次未取得")}</strong>
+          <small>personalDay</small>
+        </article>
+      </div>
+      <p class="compact-note">來源：${escapeHtml(display.source || "coreInputProfile.birth.solarDate")}；生日：${escapeHtml(display.solarDate || "本次未取得")}；目標日期：${escapeHtml(display.targetDate || "本次未取得")}；方法：${escapeHtml(display.method || "digit-reduction-1-to-9")}。</p>
+      <p class="detail-note">本頁生命靈數已接入正式 1～9 化簡規則，但仍只作自我觀察與節奏提醒，不作重大決策依據。</p>
+    </section>
+  `;
+}
+
+function renderNumerologyDetail(page = {}) {
+  const display = getNumerologyDisplayData();
+  const coreNumbers = getCalculatedNumerologyCoreNumbers(page.coreNumberOverview, display);
+  const rhythmOverview = getCalculatedNumerologyRhythm(page.rhythmOverview, display);
+
+  return `
+    <section class="numerology-detail" aria-label="生命靈數正式計算詳情">
+      <div class="detail-note numerology-mock-note">v0.6.0 已接入生命靈數正式計算；其他解讀區塊仍保留 mock / planning 架構。</div>
+      ${renderNumerologyCalculationPanel(display)}
       ${renderNumerologyProfile(page.numerologyProfile)}
-      ${renderNumerologyCoreNumbers(page.coreNumberOverview)}
+      ${renderNumerologyCoreNumbers(coreNumbers)}
       ${renderNumerologyBirthBreakdown(page.birthBreakdownDraft)}
-      ${renderNumerologyRhythmOverview(page.rhythmOverview)}
+      ${renderNumerologyRhythmOverview(rhythmOverview)}
       ${renderNumerologyNumberMeanings(page.numberMeaningOverview)}
       ${renderNumerologyActionNotes(page.actionNotes)}
       ${renderNumerologyInterpretation(page.interpretationBlocks)}
@@ -800,7 +901,7 @@ function renderNumerologyCoreNumbers(coreNumbers = []) {
       </div>
       <div class="numerology-core-grid">
         ${coreNumbers.map((item) => `
-          <article class="numerology-core-card ${item.value === "7" ? "is-featured" : ""}">
+          <article class="numerology-core-card ${String(item.value) === "7" ? "is-featured" : ""}">
             <span class="detail-status is-${escapeHtml(item.status || "planning")}">${escapeHtml(item.status || "planning")}</span>
             <div class="numerology-number-badge">${escapeHtml(item.value || "待建立")}</div>
             <strong>${escapeHtml(item.label)}</strong>
@@ -852,7 +953,7 @@ function renderNumerologyRhythmOverview(cycles = []) {
       <div class="numerology-cycle-grid">
         ${cycles.map((item) => `
           <article class="numerology-cycle-card">
-            <span class="detail-status is-mock">${escapeHtml(item.value || "待計算")}</span>
+            <span class="detail-status is-${escapeHtml(item.status || "mock")}">${escapeHtml(item.value || "待計算")}</span>
             <strong>${escapeHtml(item.cycle)}</strong>
             <p>${escapeHtml(item.theme)}</p>
             <small>${escapeHtml(item.note)}</small>
@@ -1624,7 +1725,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.5.1.7 core input schema lock. */
+/* v0.6.0 core input schema lock. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1673,6 +1774,75 @@ function renderCoreRequirementBadge(moduleId) {
   const label = getCoreReadinessLabel(status);
 
   return `<span class="readiness-chip is-${escapeHtml(label)}">${escapeHtml(label)}</span>`;
+}
+
+function getNumerologyCalculation() {
+  const calculator = window.KekeNumerologyCalculator;
+
+  if (!calculator || typeof calculator.calculateFromProfile !== "function") {
+    console.warn("KekeNumerologyCalculator missing; numerology falls back to seed data.");
+    return {
+      status: "missing",
+      source: "coreInputProfile.birth.solarDate",
+      method: "digit-reduction-1-to-9",
+      reason: "calculator missing",
+      lifePathNumber: null
+    };
+  }
+
+  return calculator.calculateFromProfile(getCoreInputProfile());
+}
+
+function getNumerologyDisplayData() {
+  const calculation = getNumerologyCalculation();
+  const fallback = data?.numerology || {};
+  const config = data?.numerologyCalculation || {};
+
+  if (calculation.status === "ok") {
+    return {
+      ...calculation,
+      status: "calculated",
+      version: config.version || "v0.6.0",
+      lifeNumber: calculation.lifePathNumber,
+      rhythmLabel: calculation.summary?.rhythmLabel || "",
+      note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
+    };
+  }
+
+  return {
+    status: calculation.status || "missing",
+    version: config.version || "v0.6.0",
+    source: calculation.source || "coreInputProfile.birth.solarDate",
+    method: calculation.method || config.method || "digit-reduction-1-to-9",
+    reason: calculation.reason || "本次未取得",
+    solarDate: calculation.solarDate || getCoreInputProfile()?.birth?.solarDate || "",
+    targetDate: calculation.targetDate || "",
+    lifePathNumber: fallback.lifeNumber || null,
+    lifeNumber: fallback.lifeNumber || "本次未取得",
+    birthDayNumber: null,
+    personalYear: fallback.personalYear || "本次未取得",
+    personalMonth: fallback.personalMonth || "本次未取得",
+    personalDay: fallback.personalDay || "本次未取得",
+    rhythmLabel: "本次未取得",
+    note: "生命靈數計算本次未取得，暫以 seed 顯示。"
+  };
+}
+
+function getCoreDisplayValue(moduleId, fallbackValue) {
+  if (moduleId !== "numerology") {
+    return fallbackValue;
+  }
+
+  const numerologyDisplay = getNumerologyDisplayData();
+  return numerologyDisplay.lifePathNumber || fallbackValue;
+}
+
+function renderNumerologyCalculationBadge(displayData) {
+  const calculation = displayData || getNumerologyDisplayData();
+  const status = calculation.status === "calculated" ? "calculated" : "missing";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.6.0"}` : "calculation fallback";
+
+  return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }
 
 function renderProfile(profile = {}) {
@@ -1845,9 +2015,15 @@ function renderCoreModuleVisual(moduleId, item = {}, detailPage = {}, preview = 
   }
 
   if (moduleId === "numerology") {
+    const numerologyDisplay = getNumerologyDisplayData();
+    const mainNumber = numerologyDisplay.lifePathNumber || preview.primaryValue || "7";
+    const rhythmCopy = numerologyDisplay.status === "calculated"
+      ? `年${numerologyDisplay.personalYear} / 月${numerologyDisplay.personalMonth} / 日${numerologyDisplay.personalDay}`
+      : "節奏與主題";
+
     return `
       <span class="module-visual numerology-visual" aria-label="生命靈數 mini 數字示意">
-        <span class="numerology-main-number" aria-hidden="true">${escapeHtml(preview.primaryValue || "7")}</span>
+        <span class="numerology-main-number" aria-hidden="true">${escapeHtml(mainNumber)}</span>
         <span class="numerology-mini-strip" aria-hidden="true">
           <i>年</i>
           <i>月</i>
@@ -1855,7 +2031,7 @@ function renderCoreModuleVisual(moduleId, item = {}, detailPage = {}, preview = 
         </span>
         <span class="module-visual-copy">
           <strong>${escapeHtml(preview.secondaryValue || item.title || "生命靈數")}</strong>
-          <small>節奏與主題</small>
+          <small>${escapeHtml(rhythmCopy)}</small>
         </span>
       </span>
     `;
@@ -1900,20 +2076,27 @@ function renderTodaySummary(summary = {}) {
 }
 
 function renderNumerology(numerology = {}) {
+  const display = getNumerologyDisplayData();
+  const lifeNumber = display.lifePathNumber || display.lifeNumber || numerology.lifeNumber || 7;
+  const personalYear = display.personalYear || numerology.personalYear || 7;
+  const personalMonth = display.personalMonth || numerology.personalMonth || 4;
+  const personalDay = display.personalDay || numerology.personalDay || 2;
+
   setHtml("#numerologyCard", `
     <div class="section-heading compact-heading">
       <p>小節奏</p>
       <h2 id="life-number-title">生命靈數節奏</h2>
+      ${renderNumerologyCalculationBadge(display)}
     </div>
     <div class="number-rhythm blueprint-number-focus production-number-focus">
       <span>生命靈數</span>
-      <strong class="life-number is-small">${escapeHtml(numerology.lifeNumber || 7)}</strong>
-      <small>今日用來觀察行動節奏，不取代命盤核心。</small>
+      <strong class="life-number is-small">${escapeHtml(lifeNumber)}</strong>
+      <small>${escapeHtml(display.note || "今日用來觀察行動節奏，不取代命盤核心。")}</small>
     </div>
     <div class="number-strip compact blueprint-chip-row" aria-label="生命靈數節奏">
-      <span><strong>${escapeHtml(numerology.personalYear || 7)}</strong>個人年</span>
-      <span><strong>${escapeHtml(numerology.personalMonth || 4)}</strong>個人月</span>
-      <span><strong>${escapeHtml(numerology.personalDay || 2)}</strong>個人日</span>
+      <span><strong>${escapeHtml(personalYear)}</strong>個人年</span>
+      <span><strong>${escapeHtml(personalMonth)}</strong>個人月</span>
+      <span><strong>${escapeHtml(personalDay)}</strong>個人日</span>
     </div>
   `);
 }

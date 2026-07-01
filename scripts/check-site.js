@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.5.1.7";
-const expectedVersionLabel = "v0.5.1.7";
+const expectedVersion = "0.6.0";
+const expectedVersionLabel = "v0.6.0";
 const results = [];
 let activeGroup = "general";
 
@@ -139,12 +139,13 @@ function checkVersionSync() {
     { label: `data/detail-pages-data.js?v=${expectedVersion}`, value: `data/detail-pages-data.js?v=${expectedVersion}` },
     { label: `features/router.js?v=${expectedVersion}`, value: `features/router.js?v=${expectedVersion}` },
     { label: `data/site-data.js?v=${expectedVersion}`, value: `data/site-data.js?v=${expectedVersion}` },
+    { label: `features/numerology-calculator.js?v=${expectedVersion}`, value: `features/numerology-calculator.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.5.1.7 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.6.0 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "五大核心輸入資料欄位鎖定" },
+    { label: "siteMeta.status", value: "生命靈數正式計算接入" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
@@ -154,15 +155,15 @@ function checkVersionSync() {
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.5.1.7 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.6.0 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.5.1.7", value: expectedVersionLabel },
-    { label: "fallback status", value: "五大核心輸入資料欄位鎖定" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.5.1.7。");
+    { label: "fallback v0.6.0", value: expectedVersionLabel },
+    { label: "fallback status", value: "生命靈數正式計算接入" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.6.0。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.5.1.7", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.6.0", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -180,6 +181,7 @@ function checkRequiredFilesAndFolders() {
     "features/almanac-engine.js",
     "features/date-test-mode.js",
     "features/deity-matcher.js",
+    "features/numerology-calculator.js",
     "vendor/lunar/lunar.js",
     "vendor/lunar/LICENSE",
     "vendor/lunar/README.md",
@@ -433,11 +435,11 @@ function checkDetailData() {
     { label: "紫微不是正式命盤", value: "不是正式命盤；尚未接入正式紫微斗數排盤演算法" },
     { label: "八字不是正式命盤", value: "不是正式命盤；尚未接入正式八字四柱排盤演算法" },
     { label: "星盤不是正式星盤", value: "不是正式星盤；尚未接入正式西洋星盤計算" },
-    { label: "靈數不是正式計算結果", value: "不是正式計算結果；尚未接入正式生命靈數計算" },
+    { label: "靈數 calculated 提示", value: "v0.6.0 已接入生命靈數正式計算；其他解讀區塊仍保留 mock / planning 架構" },
     { label: "姓名學不是正式結果", value: "不是正式姓名學結果；尚未接入正式姓名學計算" },
     { label: "尚未接入正式姓名學計算", value: "尚未接入正式姓名學計算" },
     { label: "不提供改名建議", value: "不提供改名建議" },
-    { label: "尚未接入正式生命靈數計算", value: "尚未接入正式生命靈數計算" },
+    { label: "生命靈數不作重大決策依據", value: "不作重大決策依據" },
     { label: "尚未接入正式西洋星盤計算", value: "尚未接入正式西洋星盤計算" },
     { label: "尚未接入正式流年 / 九運計算", value: "尚未接入正式流年 / 九運計算" },
     { label: "不提供吉凶分數", value: "不提供吉凶分數" }
@@ -520,7 +522,7 @@ function checkDetailData() {
     { label: "blueprint-short-card", value: "blueprint-short-card" },
     { label: "blueprint-summary-line", value: "blueprint-summary-line" },
     { label: "compact-note", value: "compact-note" }
-  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.5.1.7 blueprint 視覺二修樣式。");
+  ], "style.css 需要保留五大核心詳情頁樣式、通用詳情頁樣式與 v0.6.0 blueprint 視覺二修樣式。");
 
   if (detailData !== null) {
     for (const id of routeIds) {
@@ -940,10 +942,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "五大核心輸入資料欄位鎖定", value: "五大核心輸入資料欄位鎖定" },
+    { label: "生命靈數正式計算接入", value: "生命靈數正式計算接入" },
     { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.5.1.7 五大核心輸入資料欄位鎖定。");
+  ], "site-data.js 需要標記 v0.6.0 生命靈數正式計算接入。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -962,7 +964,7 @@ function checkProductionPrototypeImport() {
   ], "app.js 需要輸出 production prototype 首頁 render 與 support 短卡。");
 
   checkIncludes("style.css", style, [
-    { label: "v0.5.1.7 core five card visual pass", value: "v0.5.1.7 core five card visual pass" },
+    { label: "v0.6.0 core five card visual pass", value: "v0.6.0 core five card visual pass" },
     { label: "production-core-grid", value: "production-core-grid" },
     { label: "production-core-card", value: "production-core-card" },
     { label: "module-visual", value: "module-visual" },
@@ -1108,6 +1110,84 @@ function checkCoreInputSchema() {
   });
 }
 
+function checkNumerologyCalculation() {
+  const html = readText("index.html");
+  const siteData = readText("data/site-data.js");
+  const app = readText("app.js");
+  const style = readText("style.css");
+  const calculator = readText("features/numerology-calculator.js");
+
+  checkIncludes("index.html", html, [
+    { label: "features/numerology-calculator.js", value: `features/numerology-calculator.js?v=${expectedVersion}` },
+    { label: "site-data before numerology calculator", value: `data/site-data.js?v=${expectedVersion}" data-source="KekeSoulData"></script>\n  <script src="./features/numerology-calculator.js?v=${expectedVersion}` },
+    { label: "app.js after numerology calculator", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
+  ], "index.html 需要在 site-data.js 後、app.js 前載入生命靈數計算器。");
+
+  checkIncludes("features/numerology-calculator.js", calculator, [
+    { label: "KekeNumerologyCalculator", value: "KekeNumerologyCalculator" },
+    { label: "calculateFromProfile", value: "calculateFromProfile" },
+    { label: "calculateLifePathNumber", value: "calculateLifePathNumber" },
+    { label: "calculateBirthDayNumber", value: "calculateBirthDayNumber" },
+    { label: "calculatePersonalYear", value: "calculatePersonalYear" },
+    { label: "calculatePersonalMonth", value: "calculatePersonalMonth" },
+    { label: "calculatePersonalDay", value: "calculatePersonalDay" },
+    { label: "reduceNumber", value: "reduceNumber" },
+    { label: "parseSolarDate", value: "parseSolarDate" },
+    { label: "getTodayIsoDate", value: "getTodayIsoDate" },
+    { label: "digit-reduction-1-to-9", value: "digit-reduction-1-to-9" },
+    { label: "solarDate missing", value: "solarDate missing" },
+    { label: "invalid solarDate", value: "invalid solarDate" }
+  ], "numerology-calculator.js 需要提供 v0.6.0 生命靈數計算 API 與安全 fallback。");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: "numerologyCalculation", value: "numerologyCalculation" },
+    { label: "calculated", value: "calculated" },
+    { label: "coreInputProfile", value: "coreInputProfile" },
+    { label: "solarDate", value: "solarDate" },
+    { label: "masterNumberMode", value: "masterNumberMode" },
+    { label: "disabled", value: "disabled" },
+    { label: "digit-reduction-1-to-9", value: "digit-reduction-1-to-9" },
+    { label: "calculationStatus", value: "calculationStatus" }
+  ], "site-data.js 需要記錄生命靈數計算設定與資料來源。");
+
+  checkIncludes("app.js", app, [
+    { label: "getNumerologyCalculation", value: "getNumerologyCalculation" },
+    { label: "getNumerologyDisplayData", value: "getNumerologyDisplayData" },
+    { label: "renderNumerologyCalculationBadge", value: "renderNumerologyCalculationBadge" },
+    { label: "KekeNumerologyCalculator", value: "KekeNumerologyCalculator" },
+    { label: "lifePathNumber", value: "lifePathNumber" },
+    { label: "birthDayNumber", value: "birthDayNumber" },
+    { label: "personalYear", value: "personalYear" },
+    { label: "personalMonth", value: "personalMonth" },
+    { label: "personalDay", value: "personalDay" },
+    { label: "numerology-calculation-panel", value: "numerology-calculation-panel" },
+    { label: "calculation-chip", value: "calculation-chip" }
+  ], "app.js 需要將生命靈數計算結果同步到首頁與詳情頁。");
+
+  checkIncludes("style.css", style, [
+    { label: "calculation-chip", value: "calculation-chip" },
+    { label: "calculation-chip.is-calculated", value: "calculation-chip.is-calculated" },
+    { label: "numerology-calculation-panel", value: "numerology-calculation-panel" },
+    { label: "numerology-result-grid", value: "numerology-result-grid" },
+    { label: "numerology-result-card", value: "numerology-result-card" }
+  ], "style.css 需要包含生命靈數計算結果的小型樣式。");
+
+  [
+    { label: "data/site-data.js", content: siteData },
+    { label: "data/detail-pages-data.js", content: readText("data/detail-pages-data.js") },
+    { label: "app.js", content: app }
+  ].forEach((target) => {
+    if (target.content === null) {
+      return;
+    }
+
+    ["#/module/almanac", "#/module/deity", 'id: "almanac"', 'id: "deity"', "localStorage.setItem", "fetch("].forEach((forbidden) => {
+      const ok = !target.content.includes(forbidden);
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.6.0 不應新增農民曆 / 神明生日 detail route、fetch 或 localStorage 個資寫入。");
+    });
+  });
+}
+
 function checkUtf8Readable() {
   [
     "index.html",
@@ -1120,6 +1200,7 @@ function checkUtf8Readable() {
     "features/almanac-engine.js",
     "features/date-test-mode.js",
     "features/deity-matcher.js",
+    "features/numerology-calculator.js",
     "scripts/check-site.js",
     "vendor/lunar/lunar.js",
     "vendor/lunar/README.md",
@@ -1181,6 +1262,7 @@ runGroup("detail-data-checks", checkDetailData);
 runGroup("almanac-deity-checks", checkAlmanacAndDeity);
 runGroup("production-prototype-checks", checkProductionPrototypeImport);
 runGroup("core-input-checks", checkCoreInputSchema);
+runGroup("numerology-calculation-checks", checkNumerologyCalculation);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();
   checkNestedRepo();

@@ -1,3 +1,14 @@
+## v0.6.0 生命靈數正式計算接入
+
+目前版本：v0.6.0。
+
+v0.6.0 以 `data/site-data.js` 的 `coreInputProfile.birth.solarDate` 作為資料來源，新增 `features/numerology-calculator.js`，接入生命靈數正式 1～9 化簡規則，並同步首頁生命靈數卡與 `#/module/numerology` 詳情頁。
+
+- 已計算：生命靈數、生日數、個人年、個人月、個人日。
+- 計算方法：`digit-reduction-1-to-9`，本版不保留 11 / 22 / 33 master number。
+- 資料來源：靜態 seed `coreInputProfile.birth.solarDate`，目前不新增表單、不儲存個資、不接 API / 後端 / 資料庫。
+- 紫微、八字、西洋星盤、姓名學仍維持 mock / planning 或 partial 狀態，本版不接入正式演算法。
+
 ## v0.5.1.7 五大核心輸入資料欄位鎖定
 
 目前版本：v0.5.1.7。

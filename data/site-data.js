@@ -1,29 +1,29 @@
 window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.5.1.7",
+    version: "v0.6.0",
     dataVersion: "v0.2",
-    cacheVersion: "v0.5.1.7",
-    status: "五大核心輸入資料欄位鎖定",
-    updatedNote: "v0.5.1.7 鎖定五大核心命盤未來正式運算所需的共用輸入欄位、各核心欄位需求與資料完整度狀態，作為 v0.6.x 生命靈數與後續命盤運算接入前置基底。"
+    cacheVersion: "v0.6.0",
+    status: "生命靈數正式計算接入",
+    updatedNote: "v0.6.0 以 v0.5.1.7 鎖定的 coreInputProfile.birth.solarDate 為資料來源，接入生命靈數正式計算，輸出生命靈數、生日數、個人年、個人月與個人日，並同步首頁與生命靈數詳情頁。"
   },
   versionPolicy: {
-    productVersion: "v0.5.1.7",
-    cacheVersion: "v0.5.1.7",
+    productVersion: "v0.6.0",
+    cacheVersion: "v0.6.0",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.5.1.7",
+    currentVersion: "v0.6.0",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.5.1.7 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並依首頁 Blueprint 重排 dashboard 視覺骨架。"
+    note: "v0.6.0 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組，並接入生命靈數正式計算。"
   },
   dashboardLayout: {
     mode: "core-input-schema-lock",
-    version: "v0.5.1.7",
+    version: "v0.6.0",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,7 @@ window.KekeSoulData = {
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.5.1.7 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只新增五大核心輸入資料狀態。"
+    note: "v0.6.0 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，只新增生命靈數正式計算顯示。"
   },
   coreInputProfile: {
     ownerLabel: "科科",
@@ -73,7 +73,7 @@ window.KekeSoulData = {
     }
   },
   coreInputSchema: {
-    version: "v0.5.1.7",
+    version: "v0.6.0",
     purpose: "五大核心命盤運算前置欄位鎖定",
     sharedFields: [
       "displayName",
@@ -104,9 +104,10 @@ window.KekeSoulData = {
     numerology: {
       label: "生命靈數",
       status: "ready",
+      calculationStatus: "calculated",
       requiredFields: ["solarDate"],
       optionalFields: ["displayName"],
-      nextStep: "v0.6.0 可優先接入正式生日數字計算。",
+      nextStep: "v0.6.0 已接入 1～9 化簡規則，後續可評估 master number 模式。",
       blockedBy: []
     },
     name: {
@@ -141,6 +142,15 @@ window.KekeSoulData = {
       nextStep: "需確認星曆資料、經緯度與宮位制。",
       blockedBy: ["ephemeris", "geoCoordinates", "houseSystem"]
     }
+  },
+  numerologyCalculation: {
+    enabled: true,
+    version: "v0.6.0",
+    status: "calculated",
+    source: "coreInputProfile.birth.solarDate",
+    method: "digit-reduction-1-to-9",
+    masterNumberMode: "disabled",
+    note: "v0.6.0 生命靈數先採用 1～9 化簡規則，不保留 11 / 22 / 33 master number。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

@@ -1,3 +1,13 @@
+## v0.6.0｜生命靈數正式計算接入
+
+- 新增 `features/numerology-calculator.js`。
+- 以 `coreInputProfile.birth.solarDate` 計算生命靈數、生日數、個人年、個人月、個人日。
+- 首頁生命靈數卡與生命靈數詳情頁改用 calculated 結果顯示。
+- `data/site-data.js` 新增 `numerologyCalculation` 計算設定。
+- `scripts/check-site.js` 新增生命靈數計算器、資料來源與樣式檢查。
+- 保留首頁骨架、五大核心 mini visual、hash router、lunar、神明生日與日期測試模式。
+- 不新增 API、fetch、後端、資料庫、登入、表單或 localStorage 個資寫入。
+
 ## v0.5.1.7｜五大核心輸入資料欄位鎖定
 
 - 新增 `coreInputProfile`，作為五大核心命盤未來運算共用輸入 seed。

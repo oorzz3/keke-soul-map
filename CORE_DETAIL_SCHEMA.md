@@ -1,3 +1,13 @@
+## v0.6.0 生命靈數正式計算接入
+
+- `numerology` 仍沿用既有 detail data schema，不改 `data/detail-pages-data.js` schema。
+- 新增計算來源：`data/site-data.js` 的 `coreInputProfile.birth.solarDate`。
+- 新增計算器：`features/numerology-calculator.js`。
+- `renderNumerologyDetail` 會在既有 mock / planning 內容上方顯示 calculated 結果。
+- 計算欄位：`lifePathNumber`、`birthDayNumber`、`personalYear`、`personalMonth`、`personalDay`。
+- 計算方法：`digit-reduction-1-to-9`；本版不保留 11 / 22 / 33 master number。
+- 紫微、八字、西洋星盤、姓名學 schema 與正式演算法狀態不變。
+
 # 科科命理宇宙站｜五大核心詳情頁 Schema 對照表
 
 版本：v0.4.1
