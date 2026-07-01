@@ -296,3 +296,11 @@
 - `LAZY_QA_CHECKLIST.md`：補充小丸本機 commit 測試流程；commit 後不 push，由科科確認 GitHub Desktop 的 Push origin。
 - `scripts/check-site.js`：補強 v0.7.3 姓名學 metadata 顯示、懶懶清單與禁止新增 calculator / meaning data 檢查。
 - 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。
+
+## v0.7.4 name stroke rules spec pass
+
+- `NAME_STROKE_RULES_SPEC.md`：姓名學筆畫規則與資料表規格文件，記錄康熙筆畫 / 現代筆畫、資料表欄位、sourceLicense、缺字 fallback、異體字、複姓與 test cases。
+- `data/site-data.js`：`nameCalculationBoundary` 補充 `ruleSpecSource`、`strokeTableStatus`、`strokeRuleStatus`、`algorithmReadiness` 與 futureVersionPlan。
+- `CORE_ALGORITHM_BOUNDARY.md`：補充 v0.7.4 姓名學規則邊界，姓名學仍維持 planning / not-calculated。
+- `scripts/check-site.js`：新增 `NAME_STROKE_RULES_SPEC.md` 文件存在、內容與禁止偷渡檢查。
+- 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。

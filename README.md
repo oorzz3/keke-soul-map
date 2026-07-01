@@ -430,14 +430,15 @@ v0.7.2 讓姓名學詳情頁讀取 `data/site-data.js` 的 `nameCalculationBound
 - 生命靈數仍是目前唯一 calculated core。
 - 姓名學仍維持 planning / not-calculated，不新增 `features/name-calculator.js`。
 - 不新增 `data/name-meanings.js`，不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
-## v0.7.3 姓名學 metadata 顯示整理 × 小丸本機 commit 測試
+## v0.7.4 姓名學筆畫規則邊界 × 資料表規格文件
 
-目前版本：v0.7.3。
+目前版本：v0.7.4。
 
-v0.7.3 整理姓名學詳情頁的 metadata 顯示，讓 `requiredFields`、`optionalFields`、`blockedBy`、`ruleDecisionsNeeded`、`safetyLines` 與 `nextStep` 更容易驗收。生命靈數仍是唯一 calculated core，姓名學仍維持 planning / not-calculated。
+v0.7.4 新增 `NAME_STROKE_RULES_SPEC.md`，先盤點姓名學正式計算前必須決定的筆畫規則、資料表欄位、來源授權、缺字 fallback、測試案例與安全線。生命靈數仍是唯一 calculated core，姓名學仍維持 planning / not-calculated。
 
-- 姓名學詳情頁加入清楚的 metadata boundary panel。
-- `LAZY_QA_CHECKLIST.md` 補充小丸本機 commit 測試流程：可本機 commit，但不 push。
+- `data/site-data.js` 的 `nameCalculationBoundary` 補充 `ruleSpecSource`、`strokeTableStatus`、`strokeRuleStatus` 與 `algorithmReadiness`。
+- 姓名學仍不提供正式姓名學計算，不提供改名建議。
+- 筆畫資料表、康熙筆畫 / 現代筆畫、繁簡政策、異體字與 fallback 都仍待決定。
 - 本版不新增 `features/name-calculator.js`。
 - 本版不新增 `data/name-meanings.js`。
 - 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
