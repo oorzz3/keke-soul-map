@@ -1,4 +1,12 @@
-﻿## v0.6.3 support boundary unchanged
+﻿## v0.7.0 support boundary unchanged
+
+版本：v0.7.0
+
+- v0.7.0 新增 `CORE_ALGORITHM_BOUNDARY.md`，但農民曆與神明生日仍屬輔助模組。
+- 本版不新增 `#/module/almanac` 或 `#/module/deity`。
+- 農民曆、神明生日、易經占問、命樹、資料庫仍依既有 support / detail 邊界維持，不升格為五大核心命盤。
+
+## v0.6.3 support boundary unchanged
 
 版本：v0.6.3
 

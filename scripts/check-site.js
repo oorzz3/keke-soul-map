@@ -2,8 +2,8 @@
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const expectedVersion = "0.6.3";
-const expectedVersionLabel = "v0.6.3";
+const expectedVersion = "0.7.0";
+const expectedVersionLabel = "v0.7.0";
 const results = [];
 let activeGroup = "general";
 
@@ -142,11 +142,11 @@ function checkVersionSync() {
     { label: `features/numerology-calculator.js?v=${expectedVersion}`, value: `features/numerology-calculator.js?v=${expectedVersion}` },
     { label: `data/numerology-meanings.js?v=${expectedVersion}`, value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: `app.js?v=${expectedVersion}`, value: `app.js?v=${expectedVersion}` }
-  ], "index.html 需要同步 v0.6.3 靜態資源快取參數。");
+  ], "index.html 需要同步 v0.7.0 靜態資源快取參數。");
 
   checkIncludes("data/site-data.js", siteData, [
     { label: expectedVersionLabel, value: expectedVersionLabel },
-    { label: "siteMeta.status", value: "生命靈數主線封章與五大核心模板整理" },
+    { label: "siteMeta.status", value: "命理運算總架構文件版 × 第二核心前置憲法" },
     { label: "versionPolicy", value: "versionPolicy" },
     { label: "productVersion", value: `productVersion: "${expectedVersionLabel}"` },
     { label: "cacheVersion", value: `cacheVersion: "${expectedVersionLabel}"` },
@@ -156,15 +156,15 @@ function checkVersionSync() {
     { label: "dashboard-core-grid", value: "dashboard-core-grid" },
     { label: "dashboard-rhythm-row", value: "dashboard-rhythm-row" },
     { label: "dashboard-support-strip", value: "dashboard-support-strip" }
-  ], "site-data.js 需要同步 v0.6.3 版本資料、版本策略與 dashboardLayout。");
+  ], "site-data.js 需要同步 v0.7.0 版本資料、版本策略與 dashboardLayout。");
 
   checkIncludes("app.js", app, [
-    { label: "fallback v0.6.3", value: expectedVersionLabel },
-    { label: "fallback status", value: "生命靈數主線封章與五大核心模板整理" }
-  ], "app.js fallbackSiteMeta 需要更新到 v0.6.3。");
+    { label: "fallback v0.7.0", value: expectedVersionLabel },
+    { label: "fallback status", value: "命理運算總架構文件版 × 第二核心前置憲法" }
+  ], "app.js fallbackSiteMeta 需要更新到 v0.7.0。");
 
   checkIncludes("scripts/check-site.js", checkSite, [
-    { label: "expectedVersion 0.6.3", value: `expectedVersion = "${expectedVersion}"` },
+    { label: "expectedVersion 0.7.0", value: `expectedVersion = "${expectedVersion}"` },
     { label: "expectedVersionLabel", value: "expectedVersionLabel" },
     { label: "檢查標題", value: "小貓龍蝦檢查" }
   ], "check-site.js 自身標題與 expectedVersion 需要同步。");
@@ -190,6 +190,7 @@ function checkRequiredFilesAndFolders() {
     "CORE_DETAIL_SCHEMA.md",
     "SUPPORT_MODULE_SCHEMA.md",
     "CORE_MODULE_TEMPLATE.md",
+    "CORE_ALGORITHM_BOUNDARY.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"
@@ -945,10 +946,10 @@ function checkProductionPrototypeImport() {
   ], "index.html 需要保留 production prototype 首頁五段骨架。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "生命靈數主線封章與五大核心模板整理", value: "生命靈數主線封章與五大核心模板整理" },
+    { label: "命理運算總架構文件版", value: "命理運算總架構文件版" },
     { label: "core-input-schema-lock", value: "core-input-schema-lock" },
     { label: "bottomInsightStrip", value: "bottomInsightStrip" }
-  ], "site-data.js 需要標記 v0.6.3 生命靈數主線封章與模板整理。");
+  ], "site-data.js 需要標記 v0.7.0 命理運算總架構文件版，並保留首頁骨架 metadata。");
 
   checkIncludes("app.js", app, [
     { label: "renderHeroFocusStrip", value: "renderHeroFocusStrip" },
@@ -1201,13 +1202,13 @@ function checkNumerologyInterpretation() {
   const meanings = readText("data/numerology-meanings.js");
 
   checkIncludes("index.html", html, [
-    { label: "data/numerology-meanings.js?v=0.6.3", value: `data/numerology-meanings.js?v=${expectedVersion}` },
+    { label: `data/numerology-meanings.js?v=${expectedVersion}`, value: `data/numerology-meanings.js?v=${expectedVersion}` },
     { label: "calculator before meanings", value: `features/numerology-calculator.js?v=${expectedVersion}"></script>\n  <script src="./data/numerology-meanings.js?v=${expectedVersion}` },
     { label: "meanings before app", value: `data/numerology-meanings.js?v=${expectedVersion}"></script>\n  <script src="./app.js?v=${expectedVersion}` }
   ], "index.html 需要依序載入 numerology calculator、numerology meanings 與 app.js。");
 
   checkIncludes("data/numerology-meanings.js", meanings, [
-    { label: "version v0.6.3", value: `version: "${expectedVersionLabel}"` },
+    { label: `version ${expectedVersionLabel}`, value: `version: "${expectedVersionLabel}"` },
     { label: "KekeNumerologyMeanings", value: "KekeNumerologyMeanings" },
     { label: "lifePathMeanings", value: "lifePathMeanings" },
     { label: "birthDayMeanings", value: "birthDayMeanings" },
@@ -1223,8 +1224,8 @@ function checkNumerologyInterpretation() {
   ], "data/numerology-meanings.js 需要包含生命靈數 1-9 與個人節奏靜態解讀資料。");
 
   checkIncludes("data/site-data.js", siteData, [
-    { label: "v0.6.3", value: expectedVersionLabel },
-    { label: "生命靈數主線封章與五大核心模板整理", value: "生命靈數主線封章與五大核心模板整理" },
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "命理運算總架構文件版", value: "命理運算總架構文件版" },
     { label: "numberRhythmCard", value: "numberRhythmCard" },
     { label: "今日數字節奏", value: "今日數字節奏" },
     { label: "personalYear", value: "personalYear" },
@@ -1238,7 +1239,7 @@ function checkNumerologyInterpretation() {
   ], "site-data.js 需要記錄 numerologyInterpretation metadata 並保留 calculated 計算設定。");
 
   checkIncludes("app.js", app, [
-    { label: "v0.6.3 core module template lock", value: "v0.6.3 core module template lock" },
+    { label: "v0.7.0 dashboard render flow", value: "v0.7.0 dashboard render flow" },
     { label: "number-rhythm-title", value: "number-rhythm-title" },
     { label: "今日數字節奏", value: "今日數字節奏" },
     { label: "今日焦點", value: "今日焦點" },
@@ -1276,7 +1277,7 @@ function checkNumerologyInterpretation() {
 
     ["package.json", "node_modules", "fetch(", "localStorage.setItem", "#/module/almanac", "#/module/deity"].forEach((forbidden) => {
       const ok = !target.content.includes(forbidden);
-      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.6.3 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
+      addResult(ok ? "pass" : "fail", `${target.label} 不應包含 ${forbidden}`, ok ? "未發現。" : "v0.7.0 不應新增套件、fetch、localStorage 個資寫入或農民曆 / 神明生日 detail route。");
     });
   });
 }
@@ -1406,6 +1407,104 @@ function checkCoreModuleTemplate() {
   ], "SUPPORT_MODULE_SCHEMA.md 需要保留核心 / 輔助模組邊界，不可把農民曆或神明生日升級成核心命盤。");
 }
 
+function checkCoreAlgorithmBoundary() {
+  const boundary = readText("CORE_ALGORITHM_BOUNDARY.md");
+  const siteData = readText("data/site-data.js");
+  const readme = readText("README.md");
+  const changelog = readText("CHANGELOG.md");
+  const projectMap = readText("PROJECT_MAP.md");
+
+  addResult(pathExists("CORE_ALGORITHM_BOUNDARY.md") ? "pass" : "fail", "CORE_ALGORITHM_BOUNDARY.md 存在", pathExists("CORE_ALGORITHM_BOUNDARY.md") ? "檢查通過。" : "需要新增命理運算總架構文件。");
+
+  checkIncludes("CORE_ALGORITHM_BOUNDARY.md", boundary, [
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "生命靈數", value: "生命靈數" },
+    { label: "姓名學", value: "姓名學" },
+    { label: "八字四柱", value: "八字四柱" },
+    { label: "紫微斗數", value: "紫微斗數" },
+    { label: "西洋星盤", value: "西洋星盤" },
+    { label: "input layer", value: "input layer" },
+    { label: "calculator layer", value: "calculator layer" },
+    { label: "meaning layer", value: "meaning layer" },
+    { label: "homepage layer", value: "homepage layer" },
+    { label: "detail layer", value: "detail layer" },
+    { label: "safety layer", value: "safety layer" },
+    { label: "check layer", value: "check layer" },
+    { label: "requiredFields", value: "requiredFields" },
+    { label: "optionalFields", value: "optionalFields" },
+    { label: "blockedBy", value: "blockedBy" },
+    { label: "test cases", value: "test cases" },
+    { label: "planning", value: "planning" },
+    { label: "partial", value: "partial" },
+    { label: "calculated", value: "calculated" },
+    { label: "not calculated", value: "not calculated" },
+    { label: "features/numerology-calculator.js", value: "features/numerology-calculator.js" },
+    { label: "data/numerology-meanings.js", value: "data/numerology-meanings.js" },
+    { label: "strokeTable", value: "strokeTable" },
+    { label: "solarTermEngine", value: "solarTermEngine" },
+    { label: "lunarConversion", value: "lunarConversion" },
+    { label: "ephemerisSource", value: "ephemerisSource" }
+  ], "CORE_ALGORITHM_BOUNDARY.md 需要包含五大核心、七層標準、狀態定義、阻塞點與測試案例。");
+
+  checkIncludes("data/site-data.js", siteData, [
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
+    { label: "命理運算總架構文件版", value: "命理運算總架構文件版" },
+    { label: "第二核心前置憲法", value: "第二核心前置憲法" },
+    { label: "生命靈數 calculated", value: 'calculationStatus: "calculated"' },
+    { label: "name partial", value: "name: {" },
+    { label: "bazi partial", value: "bazi: {" },
+    { label: "ziwei partial", value: "ziwei: {" },
+    { label: "astrology partial", value: "astrology: {" }
+  ], "data/site-data.js 需要記錄 v0.7.0 運算邊界文件與第二核心前置狀態。");
+
+  if (siteData !== null) {
+    [
+      { label: "姓名學不可 calculated", pattern: /name:\s*{[\s\S]*?calculationStatus:\s*"calculated"/ },
+      { label: "八字四柱不可 calculated", pattern: /bazi:\s*{[\s\S]*?calculationStatus:\s*"calculated"/ },
+      { label: "紫微斗數不可 calculated", pattern: /ziwei:\s*{[\s\S]*?calculationStatus:\s*"calculated"/ },
+      { label: "西洋星盤不可 calculated", pattern: /astrology:\s*{[\s\S]*?calculationStatus:\s*"calculated"/ }
+    ].forEach((check) => {
+      const ok = !check.pattern.test(siteData);
+      addResult(ok ? "pass" : "fail", check.label, ok ? "未發現第二核心誤升級。" : "v0.7.0 不可將第二核心標示為 calculated。");
+    });
+  }
+
+  [
+    "features/name-calculator.js",
+    "features/bazi-calculator.js",
+    "features/ziwei-calculator.js",
+    "features/astrology-calculator.js",
+    "data/name-meanings.js",
+    "data/bazi-meanings.js",
+    "data/ziwei-meanings.js",
+    "data/astrology-meanings.js"
+  ].forEach((forbiddenPath) => {
+    const ok = !pathExists(forbiddenPath);
+    addResult(ok ? "pass" : "fail", `v0.7.0 不新增：${forbiddenPath}`, ok ? "未發現。" : "本版只做運算邊界文件，不可新增第二核心 calculator 或 meaning data。");
+  });
+
+  checkIncludes("README.md", readme, [
+    { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "唯一 calculated core", value: "唯一 calculated core" },
+    { label: "v0.7.1", value: "v0.7.1" }
+  ], "README.md 需要記錄 v0.7.0 運算邊界文件與下一步方向。");
+
+  checkIncludes("CHANGELOG.md", changelog, [
+    { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
+    { label: expectedVersionLabel, value: expectedVersionLabel },
+    { label: "不新增第二核心 calculator", value: "不新增第二核心 calculator" },
+    { label: "not calculated", value: "not calculated" }
+  ], "CHANGELOG.md 需要記錄 v0.7.0 文件版。");
+
+  checkIncludes("PROJECT_MAP.md", projectMap, [
+    { label: "CORE_ALGORITHM_BOUNDARY.md", value: "CORE_ALGORITHM_BOUNDARY.md" },
+    { label: "core-algorithm-boundary-checks", value: "core-algorithm-boundary-checks" },
+    { label: "姓名學 metadata", value: "姓名學 metadata" }
+  ], "PROJECT_MAP.md 需要記錄運算邊界文件與 check-site 檢查。");
+}
+
 function checkVersionResidue() {
   const app = readText("app.js");
   const style = readText("style.css");
@@ -1463,6 +1562,7 @@ function checkUtf8Readable() {
     "CORE_DETAIL_SCHEMA.md",
     "SUPPORT_MODULE_SCHEMA.md",
     "CORE_MODULE_TEMPLATE.md",
+    "CORE_ALGORITHM_BOUNDARY.md",
     "README.md",
     "CHANGELOG.md",
     "PROJECT_MAP.md"
@@ -1522,6 +1622,7 @@ runGroup("numerology-calculation-checks", checkNumerologyCalculation);
 runGroup("numerology-interpretation-checks", checkNumerologyInterpretation);
 runGroup("number-rhythm-semantics", checkNumberRhythmSemantics);
 runGroup("core-module-template-checks", checkCoreModuleTemplate);
+runGroup("core-algorithm-boundary-checks", checkCoreAlgorithmBoundary);
 runGroup("version-residue-checks", checkVersionResidue);
 runGroup("risk-checks", () => {
   checkStaticCompatibility();

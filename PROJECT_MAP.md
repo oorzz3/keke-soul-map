@@ -1,4 +1,12 @@
-﻿## v0.6.3 core module template lock
+﻿## v0.7.0 algorithm boundary constitution
+
+- `CORE_ALGORITHM_BOUNDARY.md`：命理運算總架構文件，盤點五大核心的資料來源、演算法邊界、測試案例與安全線。
+- `data/site-data.js`：版本更新為 v0.7.0，保留生命靈數 calculated；姓名學、八字、紫微與西洋星盤仍維持 partial。
+- `scripts/check-site.js`：新增 `core-algorithm-boundary-checks`，檢查邊界文件、禁止第二核心 calculator / meaning data 偷渡，並確認 v0.7.0 不新增 `#/module/almanac` 或 `#/module/deity`。
+- `app.js`：只更新 fallback site meta，不新增首頁 renderer、不新增第二核心 detail renderer。
+- 後續建議先做姓名學 metadata 前置，再評估 calculator placeholder。
+
+## v0.6.3 core module template lock
 
 - `CORE_MODULE_TEMPLATE.md`：五大核心模組施工模板，定義 input / calculator / meaning / homepage / detail / safety / check 七層標準。
 - `data/site-data.js`：新增 `coreModuleTemplate`，狀態為 `template-locked`，以生命靈數作為完成參考。

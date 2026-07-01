@@ -1,29 +1,29 @@
 ﻿window.KekeSoulData = {
   siteMeta: {
     appName: "科科命理宇宙站",
-    version: "v0.6.3",
+    version: "v0.7.0",
     dataVersion: "v0.2",
-    cacheVersion: "v0.6.3",
-    status: "生命靈數主線封章與五大核心模板整理",
-    updatedNote: "v0.6.3 封章生命靈數主線，將 v0.6.0 計算、v0.6.1 解讀資料層、v0.6.2 詳情頁產品化與 v0.6.2.1 首頁語意修正整理成五大核心模組施工模板，作為後續姓名學、八字、紫微與西洋星盤接入前的標準範本。"
+    cacheVersion: "v0.7.0",
+    status: "命理運算總架構文件版 × 第二核心前置憲法",
+    updatedNote: "v0.7.0 新增命理運算總架構文件，盤點姓名學、八字四柱、紫微斗數與西洋星盤的輸入欄位、演算法邊界、測試案例與安全線；本版不新增第二核心 calculator、不新增 meaning data、不改首頁 UI。"
   },
   versionPolicy: {
-    productVersion: "v0.6.3",
-    cacheVersion: "v0.6.3",
+    productVersion: "v0.7.0",
+    cacheVersion: "v0.7.0",
     dataVersion: "v0.2",
     note: "productVersion 對應網站功能封章，cacheVersion 用於 GitHub Pages 靜態資源快取，dataVersion 對應資料層結構。"
   },
   routeMeta: {
     enabled: true,
     mode: "hash",
-    currentVersion: "v0.6.3",
+    currentVersion: "v0.7.0",
     homeRoutes: ["#/", "#/dashboard"],
     detailPrefix: "#/module/",
-    note: "v0.6.3 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組；本版封章生命靈數主線，整理五大核心模組施工模板。"
+    note: "v0.7.0 保留 hash router、dashboard zone、五大核心詳情頁、流年 / 九運詳情頁與後半段模組；本版新增命理運算總架構文件，先鎖定第二核心接入前的資料來源、演算法邊界、測試案例與安全線。"
   },
   dashboardLayout: {
     mode: "core-input-schema-lock",
-    version: "v0.6.3",
+    version: "v0.7.0",
     heroBand: "dashboard-hero-band",
     coreGrid: "dashboard-core-grid",
     rhythmRow: "dashboard-rhythm-row",
@@ -31,7 +31,7 @@
     bottomInsightStrip: "bottomInsightStrip",
     rule: "首頁只顯示濃縮摘要；首頁以命盤核心為主，農民曆與神明生日只保留短摘要。",
     density: "production dashboard compact",
-    note: "v0.6.3 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，不重排首頁，只補五大核心模組施工模板 metadata。"
+    note: "v0.7.0 保留 hero band、core grid、rhythm row、support strip 與 bottom insight strip，不重排首頁；本版只新增命理運算總架構文件與檢查規則。"
   },
   coreInputProfile: {
     ownerLabel: "科科",
@@ -73,7 +73,7 @@
     }
   },
   coreInputSchema: {
-    version: "v0.6.3",
+    version: "v0.7.0",
     purpose: "五大核心命盤運算前置欄位鎖定",
     sharedFields: [
       "displayName",
@@ -145,7 +145,7 @@
   },
   numerologyCalculation: {
     enabled: true,
-    version: "v0.6.3",
+    version: "v0.7.0",
     status: "calculated",
     source: "coreInputProfile.birth.solarDate",
     method: "digit-reduction-1-to-9",
@@ -154,7 +154,7 @@
   },
   numerologyInterpretation: {
     enabled: true,
-    version: "v0.6.3",
+    version: "v0.7.0",
     status: "static-interpretation",
     source: "data/numerology-meanings.js",
     dependsOn: "features/numerology-calculator.js",
@@ -165,10 +165,10 @@
       "personalMonth",
       "personalDay"
     ],
-    note: "v0.6.3 延續 v0.6.1 靜態解讀資料層，並保留生命靈數詳情頁的 calculated、static-interpretation 與 planning 顯示文案。"
+    note: "v0.7.0 延續 v0.6.1 靜態解讀資料層；本版只補命理運算總架構文件，不改生命靈數計算與解讀主資料。"
   },
   numberRhythmCard: {
-    version: "v0.6.3",
+    version: "v0.7.0",
     status: "homepage-copy-adjusted",
     displayName: "今日數字節奏",
     source: "KekeNumerologyCalculator",
@@ -176,7 +176,7 @@
     note: "首頁 rhythm row 改以今日數字節奏呈現，避免與命盤核心矩陣的生命靈數入口重複。"
   },
   coreModuleTemplate: {
-    version: "v0.6.3",
+    version: "v0.7.0",
     status: "template-locked",
     source: "CORE_MODULE_TEMPLATE.md",
     basedOn: "numerology",
@@ -211,7 +211,7 @@
       "ziwei",
       "astrology"
     ],
-    note: "v0.6.3 將生命靈數主線整理為五大核心模組施工模板，後續核心接入需先明確資料來源、計算邊界、解讀資料層與安全線。"
+    note: "v0.7.0 以 CORE_ALGORITHM_BOUNDARY.md 作為第二核心前置憲法，後續核心接入需先明確資料來源、計算邊界、測試案例、解讀資料層與安全線。"
   },
   layoutMeta: {
     primaryFocus: "命盤核心",

@@ -1,4 +1,16 @@
-﻿## v0.6.3 生命靈數主線封章與五大核心模組施工模板
+﻿## v0.7.0 命理運算總架構文件版 × 第二核心前置憲法
+
+目前版本：v0.7.0。
+
+v0.7.0 新增 `CORE_ALGORITHM_BOUNDARY.md`，作為姓名學、八字四柱、紫微斗數與西洋星盤正式接入前的運算邊界文件。本版只整理文件與檢查規則，不新增第二核心 calculator、不新增 meaning data、不改首頁 UI、不新增 API、fetch、後端、資料庫、登入、表單或個資儲存。
+
+- `CORE_ALGORITHM_BOUNDARY.md`：盤點五大核心的 input layer、calculator layer、meaning layer、homepage layer、detail layer、safety layer 與 check layer。
+- 生命靈數仍是目前唯一 calculated core。
+- 姓名學、八字四柱、紫微斗數與西洋星盤維持 planning / partial / not calculated。
+- 姓名學暫定為第二核心候選，但 v0.7.0 不啟動計算器。
+- 下一步建議：v0.7.1 可做姓名學 metadata 前置，先鎖定筆畫表來源、規則版本與缺字 fallback。
+
+## v0.6.3 生命靈數主線封章與五大核心模組施工模板
 
 目前版本：v0.6.3。
 
