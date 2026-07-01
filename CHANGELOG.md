@@ -325,3 +325,13 @@
 - 本版不新增第二核心 calculator、不新增第二核心 meaning data、不改首頁 UI。
 - 姓名學仍維持 planning / partial / not calculated。
 - `index.html`、`data/site-data.js`、`app.js` 與靜態資源快取參數同步更新為 v0.7.1。
+## v0.7.2｜姓名學詳情頁 metadata 對齊 × 懶懶驗收清單
+
+- 更新全站版本到 v0.7.2。
+- 姓名學詳情頁對齊 `nameCalculationBoundary`。
+- 新增 `LAZY_QA_CHECKLIST.md`。
+- 姓名學仍為 planning / not-calculated。
+- 不新增 name calculator。
+- 不新增 name meaning data。
+- 不改首頁 UI。
+- `scripts/check-site.js` 新增 v0.7.2 檢查。

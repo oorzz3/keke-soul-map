@@ -1,8 +1,8 @@
 ﻿const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.7.1",
+  version: "v0.7.2",
   dataVersion: "v0.2",
-  cacheVersion: "v0.7.1",
+  cacheVersion: "v0.7.2",
   status: "姓名學 metadata 前置 × 第二核心候選鎖定"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
@@ -1058,6 +1058,7 @@ function renderNameDetail(page = {}) {
   return `
     <section class="name-detail" aria-label="姓名學 mock 詳情">
       <div class="detail-note name-mock-note">目前是 mock / planning 姓名學骨架，不是正式姓名學結果；尚未接入正式姓名學計算，也不提供改名建議。</div>
+      ${renderNameCalculationBoundary(getNameCalculationBoundary())}
       ${renderNameProfile(page.nameProfile)}
       ${renderNameStructureOverview(page.nameStructureOverview)}
       ${renderNameCharacterOverview(page.characterOverview)}
@@ -1066,6 +1067,61 @@ function renderNameDetail(page = {}) {
       ${renderNameUsageScenarioOverview(page.usageScenarioOverview)}
       ${renderNameInterpretation(page.interpretationBlocks)}
       ${renderNameDataNotes(page.dataNotes)}
+    </section>
+  `;
+}
+
+function getNameCalculationBoundary() {
+  return data?.nameCalculationBoundary || {};
+}
+
+function renderNameCalculationBoundary(boundary = {}) {
+  if (!boundary || Object.keys(boundary).length === 0) {
+    return "";
+  }
+
+  const fieldList = (items = []) => items.map((item) => `<span class="detail-tag">${escapeHtml(item)}</span>`).join("");
+  const safetyLines = Array.isArray(boundary.safetyLines) ? boundary.safetyLines : [];
+
+  return `
+    <section class="name-profile-card" aria-label="姓名學 metadata 對齊">
+      <div class="section-heading compact-heading">
+        <p>metadata 對齊</p>
+        <h3>${escapeHtml(boundary.label || "姓名學")}｜第二核心候選</h3>
+      </div>
+      <div class="name-profile-grid">
+        <div>
+          <span>目前狀態</span>
+          <strong>${escapeHtml(boundary.status || "planning")}</strong>
+        </div>
+        <div>
+          <span>計算狀態</span>
+          <strong>${escapeHtml(boundary.calculationStatus || "not-calculated")}</strong>
+        </div>
+        <div>
+          <span>資料來源</span>
+          <strong>${escapeHtml(boundary.source || "coreInputProfile.personal.fullName")}</strong>
+        </div>
+        <div>
+          <span>候選順位</span>
+          <strong>${escapeHtml(String(boundary.candidateOrder || 2))}</strong>
+        </div>
+      </div>
+      <div class="detail-meta-row">
+        <span>requiredFields</span>
+        <div>${fieldList(boundary.requiredFields || ["fullName"])}</div>
+      </div>
+      <div class="detail-meta-row">
+        <span>optionalFields</span>
+        <div>${fieldList(boundary.optionalFields || ["familyName", "givenName", "gender"])}</div>
+      </div>
+      <div class="detail-meta-row">
+        <span>blockedBy</span>
+        <div>${fieldList(boundary.blockedBy || [])}</div>
+      </div>
+      <ul class="name-data-notes">
+        ${safetyLines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
+      </ul>
     </section>
   `;
 }
@@ -1727,7 +1783,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.7.1 dashboard render flow. */
+/* v0.7.2 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1804,7 +1860,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.7.1",
+      version: config.version || "v0.7.2",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1813,7 +1869,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.7.1",
+    version: config.version || "v0.7.2",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1907,7 +1963,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.1",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.2",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -2006,7 +2062,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.1"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.2"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }

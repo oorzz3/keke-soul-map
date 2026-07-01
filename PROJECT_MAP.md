@@ -282,3 +282,10 @@
 - `scripts/check-site.js`：新增 `name-metadata-boundary-checks`，並保留 `core-algorithm-boundary-checks`；檢查不可新增姓名學 calculator / meaning data。
 - `index.html`、`app.js`、`data/numerology-meanings.js`：僅同步 v0.7.1 版本與 fallback / meta，不新增首頁 UI 或新 renderer。
 - 不新增 `features/name-calculator.js`、不新增 `data/name-meanings.js`、不新增 `#/module/almanac` 或 `#/module/deity`。
+## v0.7.2 name detail metadata alignment
+
+- `LAZY_QA_CHECKLIST.md`：科科 30 秒懶懶驗收清單，確認版本、首頁不爆版、姓名學不 calculated、沒有 name calculator / meaning data。
+- `app.js`：`renderNameDetail` 補 `renderNameCalculationBoundary`，從 `KekeSoulData.nameCalculationBoundary` 顯示姓名學 metadata。
+- `data/site-data.js`：`nameCalculationBoundary` 補足姓名學安全線，明確保留 planning / not-calculated。
+- `scripts/check-site.js`：新增懶懶驗收清單與姓名學詳情頁 metadata 對齊檢查。
+- 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。

@@ -419,3 +419,14 @@ v0.7.1 鎖定姓名學為第二核心候選，但本版只做 metadata 前置與
 - 姓名學、八字四柱、紫微斗數與西洋星盤仍不得宣稱正式計算完成。
 - `scripts/check-site.js` 新增 `name-metadata-boundary-checks`，避免偷渡 `features/name-calculator.js` 或 `data/name-meanings.js`。
 - 下一步建議：v0.7.2 可評估姓名學 placeholder 骨架，但仍不可宣稱正式計算。
+## v0.7.2 姓名學詳情頁 metadata 對齊 × 懶懶驗收清單
+
+目前版本：v0.7.2。
+
+v0.7.2 讓姓名學詳情頁讀取 `data/site-data.js` 的 `nameCalculationBoundary`，直接呈現 planning / not-calculated、資料來源、requiredFields、optionalFields、blockedBy 與 safetyLines。本版仍不是姓名學正式計算版。
+
+- 新增 `LAZY_QA_CHECKLIST.md`，提供科科 30 秒驗收清單。
+- 姓名學詳情頁與 `nameCalculationBoundary` metadata 對齊。
+- 生命靈數仍是目前唯一 calculated core。
+- 姓名學仍維持 planning / not-calculated，不新增 `features/name-calculator.js`。
+- 不新增 `data/name-meanings.js`，不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
