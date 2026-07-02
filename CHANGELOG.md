@@ -1,4 +1,16 @@
-﻿## v0.7.0｜命理運算總架構文件版 × 第二核心前置憲法
+﻿## v0.7.5｜姓名學字庫 seed 規劃 × 筆畫資料表草案文件
+
+- 更新全站版本到 v0.7.5。
+- 新增 `NAME_STROKE_SEED_PLAN.md`。
+- 規劃姓名學筆畫資料表 seed 欄位、第一批 seed 字元、fallback 與測試分組。
+- 補強 `nameCalculationBoundary` 的 `seedPlanSource`、`strokeSeedStatus`、`strokeDataTableStatus` 與 `seedDataReadiness`。
+- 姓名學仍為 planning / not-calculated。
+- 不新增 name calculator。
+- 不新增 name meaning data。
+- 不新增正式筆畫資料表 JS。
+- 不改首頁 UI。
+- `scripts/check-site.js` 新增 v0.7.5 檢查。
+## v0.7.0｜命理運算總架構文件版 × 第二核心前置憲法
 
 - 新增 `CORE_ALGORITHM_BOUNDARY.md`。
 - 盤點姓名學、八字四柱、紫微斗數與西洋星盤的 requiredFields、optionalFields、blockedBy、test cases 與安全線。

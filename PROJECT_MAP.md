@@ -304,3 +304,11 @@
 - `CORE_ALGORITHM_BOUNDARY.md`：補充 v0.7.4 姓名學規則邊界，姓名學仍維持 planning / not-calculated。
 - `scripts/check-site.js`：新增 `NAME_STROKE_RULES_SPEC.md` 文件存在、內容與禁止偷渡檢查。
 - 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。
+
+## v0.7.5 name stroke seed planning pass
+
+- `NAME_STROKE_SEED_PLAN.md`：姓名學字庫 seed 規劃文件，記錄 seed 欄位、第一批字元、strokeStatus、sourceLicense、fallbackPolicy、testCategory 與測試分組。
+- `data/site-data.js`：`nameCalculationBoundary` 補充 `seedPlanSource`、`strokeSeedStatus`、`strokeDataTableStatus`、`seedDataReadiness` 與新版 futureVersionPlan。
+- `CORE_ALGORITHM_BOUNDARY.md` / `NAME_STROKE_RULES_SPEC.md`：補充 v0.7.5 交叉引用，說明 seed 規劃是規則文件後的資料表前置文件。
+- `scripts/check-site.js`：新增 `NAME_STROKE_SEED_PLAN.md` 存在、內容與禁止新增 `data/name-stroke-seed.js` 檢查。
+- 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有新增正式筆畫資料表 JS、沒有改首頁 UI。

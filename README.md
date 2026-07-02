@@ -442,3 +442,16 @@ v0.7.4 新增 `NAME_STROKE_RULES_SPEC.md`，先盤點姓名學正式計算前必
 - 本版不新增 `features/name-calculator.js`。
 - 本版不新增 `data/name-meanings.js`。
 - 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
+
+## v0.7.5 姓名學字庫 seed 規劃 × 筆畫資料表草案文件
+
+目前版本：v0.7.5。
+
+v0.7.5 新增 `NAME_STROKE_SEED_PLAN.md`，規劃未來姓名學筆畫資料表的 seed 格式、欄位狀態、第一批測試字元、fallback 與測試分組。生命靈數仍是唯一 calculated core，姓名學仍維持 planning / not-calculated。
+
+- `NAME_STROKE_SEED_PLAN.md` 只做字庫 seed planning，不是正式筆畫資料表。
+- `data/site-data.js` 的 `nameCalculationBoundary` 補充 `seedPlanSource`、`strokeSeedStatus`、`strokeDataTableStatus` 與 `seedDataReadiness`。
+- 本版不新增 `data/name-stroke-seed.js`。
+- 本版不新增 `features/name-calculator.js`。
+- 本版不新增 `data/name-meanings.js`。
+- 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。

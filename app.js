@@ -1,9 +1,9 @@
 ﻿const data = window.KekeSoulData || {};
 const fallbackSiteMeta = {
-  version: "v0.7.4",
+  version: "v0.7.5",
   dataVersion: "v0.2",
-  cacheVersion: "v0.7.4",
-  status: "姓名學筆畫規則邊界 × 資料表規格文件"
+  cacheVersion: "v0.7.5",
+  status: "姓名學字庫 seed 規劃 × 筆畫資料表草案文件"
 };
 const dashboardTitle = "科科命理宇宙站｜Soul Map 命盤總控台";
 
@@ -1084,7 +1084,7 @@ function renderNameCalculationBoundary(boundary = {}) {
   const listItems = (items = []) => items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   const safetyLines = Array.isArray(boundary.safetyLines) ? boundary.safetyLines : [];
   const ruleDecisions = Array.isArray(boundary.ruleDecisionsNeeded) ? boundary.ruleDecisionsNeeded : [];
-  const nextStep = "先確認筆畫表、五格規則與資料授權";
+  const nextStep = "先完成姓名學字庫 seed 規劃，再決定是否建立筆畫資料表";
 
   return `
     <section class="metadata-boundary-panel" aria-label="姓名學 metadata 對齊">
@@ -1795,7 +1795,7 @@ function getDeitySummary(result = {}) {
   };
 }
 
-/* v0.7.4 dashboard render flow. */
+/* v0.7.5 dashboard render flow. */
 function renderDashboardView() {
   renderSiteMeta(data.siteMeta || data.metadata || fallbackSiteMeta);
   renderProfile(data.profile);
@@ -1872,7 +1872,7 @@ function getNumerologyDisplayData() {
     return {
       ...calculation,
       status: "calculated",
-      version: config.version || "v0.7.4",
+      version: config.version || "v0.7.5",
       lifeNumber: calculation.lifePathNumber,
       rhythmLabel: calculation.summary?.rhythmLabel || "",
       note: calculation.summary?.note || "本版依生日數字化簡規則計算。"
@@ -1881,7 +1881,7 @@ function getNumerologyDisplayData() {
 
   return {
     status: calculation.status || "missing",
-    version: config.version || "v0.7.4",
+    version: config.version || "v0.7.5",
     source: calculation.source || "coreInputProfile.birth.solarDate",
     method: calculation.method || config.method || "digit-reduction-1-to-9",
     reason: calculation.reason || "本次未取得",
@@ -1975,7 +1975,7 @@ function getNumerologyInterpretationDisplay(display = {}) {
 
   return {
     status: meanings?.meta?.status || "missing",
-    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.4",
+    version: meanings?.meta?.version || data?.numerologyInterpretation?.version || "v0.7.5",
     note: meanings?.meta?.note || "生命靈數解讀資料本次未載入，先保留計算結果。",
     cards
   };
@@ -2074,7 +2074,7 @@ function getCoreDisplayValue(moduleId, fallbackValue) {
 function renderNumerologyCalculationBadge(displayData) {
   const calculation = displayData || getNumerologyDisplayData();
   const status = calculation.status === "calculated" ? "calculated" : "missing";
-  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.4"}` : "calculation fallback";
+  const label = status === "calculated" ? `calculated ${calculation.version || "v0.7.5"}` : "calculation fallback";
 
   return `<span class="calculation-chip is-${escapeHtml(status)}">${escapeHtml(label)}</span>`;
 }
