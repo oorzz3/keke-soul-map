@@ -2,7 +2,7 @@
 
 本文件是第二核心前置憲法，用來約束姓名學、八字四柱、紫微斗數與西洋星盤正式接入前的資料來源、演算法邊界、測試案例與安全線。
 
-v0.7.0 建立總架構文件；v0.7.1 鎖定姓名學為第二核心候選；v0.7.3 整理姓名學 metadata 顯示；v0.7.4 新增 `NAME_STROKE_RULES_SPEC.md`；v0.7.5 新增 `NAME_STROKE_SEED_PLAN.md`，用文件先規劃姓名學字庫 seed、資料表欄位、第一批測試字元、fallback 與測試案例。本版不新增姓名學 calculator，不新增姓名學 meaning data，不新增正式筆畫資料表 JS，不改首頁 UI，也不將姓名學標示為 calculated。
+v0.7.0 建立總架構文件；v0.7.1 鎖定姓名學為第二核心候選；v0.7.3 整理姓名學 metadata 顯示；v0.7.4 新增 `NAME_STROKE_RULES_SPEC.md`；v0.7.5 新增 `NAME_STROKE_SEED_PLAN.md`；v0.7.6 新增 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`，用文件先規劃未來 `data/name-stroke-seed.js` 的 JS 結構、欄位型別、允許值、第一批 seed 字元與 fallback。本版不新增姓名學 calculator，不新增姓名學 meaning data，不新增 `data/name-stroke-seed.js`，不改首頁 UI，也不將姓名學標示為 calculated。
 
 ## 1. 文件目的
 
@@ -76,6 +76,18 @@ seed planning 目的：
 - 規劃 `strokeStatus`、`sourceLicense`、`fallbackPolicy`、`testCategory` 等欄位狀態。
 - 規劃缺字 fallback、異體字 normalize、繁簡字差異與 sourceLicense 未確認案例。
 - 保持姓名學 planning / not-calculated，不提供正式姓名學計算，也不提供改名建議。
+
+## 5.2 v0.7.6 姓名學 seed 資料表草案規格
+
+v0.7.6 新增 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`。姓名學正式計算前，必須先完成 `NAME_STROKE_RULES_SPEC.md`、`NAME_STROKE_SEED_PLAN.md` 與 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md` 的邊界規劃。
+
+table draft schema 目的：
+
+- 規劃未來 `data/name-stroke-seed.js` 的 `KekeNameStrokeSeed` JS 結構，但 v0.7.6 不新增此檔。
+- 規劃單筆字元欄位型別與允許值，例如 `char`、`normalizedChar`、`kangxiStroke`、`modernStroke`、`strokeStatus`、`sourceLicense`、`fallbackPolicy`、`testCategory`。
+- 規劃第一批 seed 草案：科、王、林、陳、李、張、子、宇、芯、怡、祐、萱、歐、陽、司、馬、峰、峯、台、臺。
+- 規劃 fallback、人工複核與 check-site 未來檢查方向。
+- 保持姓名學 planning / not-calculated，不填正式筆畫數值，不提供正式姓名學計算，也不提供改名建議。
 
 ## 6. 姓名學輸入與邊界
 
@@ -250,10 +262,13 @@ v0.7.4 的 check layer 應檢查：
 - `nameCalculationBoundary` 存在。
 - `NAME_STROKE_RULES_SPEC.md` 存在。
 - `NAME_STROKE_SEED_PLAN.md` 存在。
+- `NAME_STROKE_TABLE_DRAFT_SCHEMA.md` 存在。
 - `ruleSpecSource: "NAME_STROKE_RULES_SPEC.md"` 存在。
 - `seedPlanSource: "NAME_STROKE_SEED_PLAN.md"` 存在。
+- `tableDraftSchemaSource: "NAME_STROKE_TABLE_DRAFT_SCHEMA.md"` 存在。
 - `strokeTableStatus: "not-selected"`、`strokeRuleStatus: "undecided"`、`algorithmReadiness: "blocked"` 存在。
 - `strokeSeedStatus: "planned-only"`、`strokeDataTableStatus: "not-created"`、`seedDataReadiness: "planning"` 存在。
+- `strokeTableDraftStatus: "schema-only"`、`strokeTableFileStatus: "not-created"`、`strokeValueStatus: "not-filled"`、`sourceLicenseStatus: "unverified"` 存在。
 - `moduleId: "name"`、`calculationStatus: "not-calculated"`、`requiredFields`、`optionalFields`、`blockedBy`、`ruleDecisionsNeeded`、`testCasePlan`、`safetyLines` 存在。
 - 生命靈數仍為唯一 calculated core。
 - 姓名學、八字四柱、紫微斗數、西洋星盤沒有被標示為 calculated。
@@ -271,12 +286,12 @@ v0.7.4 的 check layer 應檢查：
   - `data/name-stroke-seed.js`
 - 不新增 fetch、API、後端、資料庫、登入、會員、表單或個資儲存。
 
-## 12. v0.7.4 結論
+## 12. v0.7.6 結論
 
-v0.7.4 是姓名學筆畫規則與資料表規格文件版，不是姓名學計算啟動版。
+v0.7.6 是姓名學 seed 資料表草案規格版，不是姓名學計算啟動版，也不是正式筆畫資料表建立版。
 
 建議下一步：
 
-1. v0.7.5：姓名學筆畫 seed 資料表評估。
-2. v0.7.6：姓名學 calculator placeholder 評估。
+1. v0.7.7：可評估 `data/name-stroke-seed.js` draft-only 資料檔，但仍不得正式計算。
+2. v0.7.8：可規劃姓名學 calculator placeholder 骨架。
 3. v0.8.0：若筆畫表、授權與規則版本確認，再評估姓名學正式計算。

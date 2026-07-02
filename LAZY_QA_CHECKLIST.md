@@ -1,8 +1,8 @@
-﻿# 科科命理宇宙站｜懶懶驗收清單 v0.7.5
+﻿# 科科命理宇宙站｜懶懶驗收清單 v0.7.6
 
 ## 30 秒驗收
 
-1. 首頁版本 badge 是否顯示 v0.7.5。
+1. 首頁版本 badge 是否顯示 v0.7.6。
 2. 首頁 UI 是否沒有爆版。
 3. 生命靈數是否仍是唯一 calculated core。
 4. 姓名學是否仍顯示 planning / not-calculated。
@@ -10,19 +10,18 @@
 6. 姓名學頁是否沒有改名建議。
 7. `NAME_STROKE_RULES_SPEC.md` 是否存在。
 8. `NAME_STROKE_SEED_PLAN.md` 是否存在。
-9. 是否沒有新增 `data/name-stroke-seed.js`。
-10. 小丸回報 run-check-site 是否 0 fail / 0 high risk。
-11. 本版施工後小丸只能回報，不能自行 commit。
+9. `NAME_STROKE_TABLE_DRAFT_SCHEMA.md` 是否存在。
+10. 是否沒有新增 `data/name-stroke-seed.js`。
+11. 小丸回報 run-check-site 是否 0 fail / 0 high risk。
 
 ## 小丸本機 commit 流程
 
-1. 小丸施工完成後會先回報 git status。
-2. 小丸只會列出預計 stage 的本版預期修改檔，不使用 `git add .`。
-3. 小丸本輪不得自行 commit。
-4. 只有科科明確回覆「小丸，本機 commit，不 push」後，小丸才可以執行本機 commit。
-5. 小丸不 push。
-6. commit 後 GitHub Desktop 應該只顯示 Push origin。
-7. 科科確認後再自行按 Push origin。
+1. 小丸施工完成後會先跑 run-check-site、node --check、git diff --check 與 git status。
+2. 小丸只會列出並 stage 本版預期修改檔，不使用 `git add .`。
+3. v0.7.6 起啟用懶懶科科流程：若 run-check-site 0 fail / 0 high risk、node --check 通過、git diff --check 通過，且 git status 只有本版預期檔案，小丸可以本機 commit。
+4. 小丸不得 push。
+5. commit 後 GitHub Desktop 應該只顯示 Push origin。
+6. 科科確認後再自行按 Push origin。
 
 ## 不可上傳狀況
 
@@ -31,9 +30,10 @@
 - 出現 data/name-stroke-seed.js。
 - 找不到 NAME_STROKE_RULES_SPEC.md。
 - 找不到 NAME_STROKE_SEED_PLAN.md。
+- 找不到 NAME_STROKE_TABLE_DRAFT_SCHEMA.md。
 - 出現 fetch / API / 後端 / 資料庫 / 登入 / 表單 / npm。
 - 姓名學被標成 calculated。
 - 首頁爆版。
 - check-site 有失敗或高風險。
-- 小丸未經科科明確同意就 commit。
+- 小丸使用 `git add .`。
 - 小丸直接 push。

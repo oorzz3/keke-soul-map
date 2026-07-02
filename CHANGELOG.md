@@ -1,4 +1,16 @@
-﻿## v0.7.5｜姓名學字庫 seed 規劃 × 筆畫資料表草案文件
+﻿## v0.7.6｜姓名學 seed 資料表草案規格 × 不建立 JS 資料表
+
+- 更新全站版本到 v0.7.6。
+- 新增 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`。
+- 規劃未來 `data/name-stroke-seed.js` 的 JS 結構、欄位型別、允許值、第一批 seed 字元與 fallback。
+- 補強 `nameCalculationBoundary` 的 `tableDraftSchemaSource`、`strokeTableDraftStatus`、`strokeTableFileStatus`、`strokeValueStatus` 與 `sourceLicenseStatus`。
+- 姓名學仍為 planning / not-calculated。
+- 不新增 name calculator。
+- 不新增 name meaning data。
+- 不新增 `data/name-stroke-seed.js`。
+- 不改首頁 UI。
+- `scripts/check-site.js` 新增 v0.7.6 檢查。
+## v0.7.5｜姓名學字庫 seed 規劃 × 筆畫資料表草案文件
 
 - 更新全站版本到 v0.7.5。
 - 新增 `NAME_STROKE_SEED_PLAN.md`。

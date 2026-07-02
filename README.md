@@ -1,4 +1,18 @@
-﻿## v0.7.0 命理運算總架構文件版 × 第二核心前置憲法
+﻿## v0.7.6 姓名學 seed 資料表草案規格 × 不建立 JS 資料表
+
+目前版本：v0.7.6。
+
+v0.7.6 新增 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`，把 v0.7.5 的姓名學字庫 seed 規劃推進成未來 `data/name-stroke-seed.js` 的資料表草案規格。本版只規劃 JS 結構、欄位型別、允許值、第一批 seed 字元與 fallback，不新增正式 JS 資料表，也不做正式姓名學計算。
+
+- `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`：未來姓名學 seed 資料表的草案規格文件。
+- `data/site-data.js` 的 `nameCalculationBoundary` 補充 `tableDraftSchemaSource`、`strokeTableDraftStatus`、`strokeTableFileStatus`、`strokeValueStatus` 與 `sourceLicenseStatus`。
+- 姓名學仍為 planning / not-calculated。
+- 本版不新增 `data/name-stroke-seed.js`。
+- 本版不新增 `features/name-calculator.js`。
+- 本版不新增 `data/name-meanings.js`。
+- 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
+- 生命靈數仍是唯一 calculated core。
+## v0.7.0 命理運算總架構文件版 × 第二核心前置憲法
 
 目前版本：v0.7.0。
 
@@ -442,7 +456,6 @@ v0.7.4 新增 `NAME_STROKE_RULES_SPEC.md`，先盤點姓名學正式計算前必
 - 本版不新增 `features/name-calculator.js`。
 - 本版不新增 `data/name-meanings.js`。
 - 本版不改首頁 UI，不新增 API / fetch / 後端 / 資料庫 / 表單 / npm。
-
 ## v0.7.5 姓名學字庫 seed 規劃 × 筆畫資料表草案文件
 
 目前版本：v0.7.5。

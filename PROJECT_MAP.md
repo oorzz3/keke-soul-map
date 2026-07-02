@@ -305,6 +305,14 @@
 - `scripts/check-site.js`：新增 `NAME_STROKE_RULES_SPEC.md` 文件存在、內容與禁止偷渡檢查。
 - 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有改首頁 UI。
 
+## v0.7.6 name stroke table draft schema pass
+
+- `NAME_STROKE_TABLE_DRAFT_SCHEMA.md`：姓名學 seed 資料表草案規格文件，規劃未來 `data/name-stroke-seed.js` 的 JS 結構、欄位型別、允許值、第一批 seed 字元、fallback 與 check-site 方向。
+- `data/site-data.js`：`nameCalculationBoundary` 補充 `tableDraftSchemaSource`、`strokeTableDraftStatus`、`strokeTableFileStatus`、`strokeValueStatus`、`sourceLicenseStatus` 與新版 futureVersionPlan。
+- `CORE_ALGORITHM_BOUNDARY.md` / `NAME_STROKE_RULES_SPEC.md` / `NAME_STROKE_SEED_PLAN.md`：補充 v0.7.6 交叉引用，說明 table draft schema 是 seed plan 之後的資料表結構草案。
+- `scripts/check-site.js`：新增 `NAME_STROKE_TABLE_DRAFT_SCHEMA.md` 存在、內容與禁止新增 `data/name-stroke-seed.js` 檢查。
+- 本版沒有新增 `features/name-calculator.js`、沒有新增 `data/name-meanings.js`、沒有新增 `data/name-stroke-seed.js`、沒有改首頁 UI。
+
 ## v0.7.5 name stroke seed planning pass
 
 - `NAME_STROKE_SEED_PLAN.md`：姓名學字庫 seed 規劃文件，記錄 seed 欄位、第一批字元、strokeStatus、sourceLicense、fallbackPolicy、testCategory 與測試分組。
